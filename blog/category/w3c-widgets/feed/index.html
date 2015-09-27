@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>uxebu &#187; w3c widgets</title>
+	<atom:link href="http://www.uxebu.com/blog/category/w3c-widgets/feed/" rel="self" type="application/rss+xml" />
+	<link>http://www.uxebu.com</link>
+	<description>The first JavaScript-only development and consulting company</description>
+	<lastBuildDate>Thu, 30 Jul 2015 09:10:24 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=4.1.8</generator>
+	<item>
+		<title>What is WAC and how it could help us</title>
+		<link>http://www.uxebu.com/blog/2011/02/what-is-wac-and-how-it-could-help-us/</link>
+		<comments>http://www.uxebu.com/blog/2011/02/what-is-wac-and-how-it-could-help-us/#comments</comments>
+		<pubDate>Thu, 24 Feb 2011 16:53:08 +0000</pubDate>
+		<dc:creator><![CDATA[Stephan]]></dc:creator>
+				<category><![CDATA[business]]></category>
+		<category><![CDATA[development tools]]></category>
+		<category><![CDATA[Events]]></category>
+		<category><![CDATA[frontend engineering]]></category>
+		<category><![CDATA[html5apps]]></category>
+		<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[mobile]]></category>
+		<category><![CDATA[w3c widgets]]></category>
+		<category><![CDATA[HTML5]]></category>
+		<category><![CDATA[w3c]]></category>
+		<category><![CDATA[wac]]></category>
+
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=1402</guid>
+		<description><![CDATA[<p>At Mobile World Congress 2011 in Barcelona, @uxebu attended the WAC event to catch up with the future of WAC. WAC, short for Wholesale Applications Community, is a group of global mobile operators. They provide, among other things, a spec for their correspondent web application runtime &#8220;WAC&#8221;. Recently the new WAC 2.0 Spec got out [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2011/02/what-is-wac-and-how-it-could-help-us/">What is WAC and how it could help us</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>
+At Mobile World Congress 2011 in Barcelona, @uxebu attended the WAC event to catch up with the future of WAC.<br />
+WAC, short for Wholesale Applications Community, is a group of global mobile operators.<br />
+They provide, among other things, a spec for their correspondent web application runtime &#8220;WAC&#8221;.
+</p>
+<p>
+Recently the new WAC 2.0 Spec got out and it&#8217;s looking good.<br />
+Compared to WAC 1.0, the WAC 2.0 Spec is a shift into the right direction:<br />
+Instead of inventing new APIs, WAC 2.0 adheres to web standards like HTML5 and W3C Widget Packaging.
+</p>
+<p><span id="more-1402"></span></p>
+<p>
+Let&#8217;s compare the two major spec revisions in that repsect:
+</p>
+<p>
+As said before, the WAC 1.0 Spec described distinct APIs, e.g., for audio, messaging (SMS &#038; email), camera and geo-location.
+</p>
+<p>
+Taking photos, for example, involved assigning a callback to a global value inside the Camera object and invoking Camera&#8217;s captureImage method.
+</p>
+<p>
+There&#8217;s a problem with that: What if two pieces of code both assign their own callback to that shared value?<br />
+The one which assigned its callback last will be executed. The first callback is &#8220;dead code&#8221;.<br />
+Of course this can be remedied by the app developer, but I believe it&#8217;s the library&#8217;s job to get something as essential as deferred execution right.<br />
+All WAC 1.0 APIs use this global callback model and inherit the problem.<br />
+There are better, more elegant ways to defer execution (e.g. dojo&#8217;s Deferred or node&#8217;s callback passing &#038; EventEmitter).<br />
+And fortunately, WAC 2.0 replaced the old model with a callback passing approach.
+</p>
+<p>
+If everything goes well, what could WAC provide developers with?
+</p>
+<ol>
+<li>An easy way to package web apps &#8220;for home screens &#038; app stores&#8221; by wrapping web apps in native container apps.</li>
+<li>An extension of browsers&#8217; capabilities to enable richer web apps. This includes APIs for camera and file access.</li>
+<li>In contrast to alternatives WAC has a strong focus on carrier network APIs. This could enable purchase through carrier billing.</li>
+<li>A security model to effectively protect user&#8217;s privacy and security.</li>
+</ol>
+<p>
+So go ahead and look at what the new WAC 2.0 has to offer.<br />
+I&#8217;m excited to build apps with it once it&#8217;s running on some major platforms!
+</p>
+<p>
+To conclude I&#8217;d like to end this post with my personal opinion on what I believe WAC needs to focus on to succeed:
+</p>
+<ol>
+<li>WAC runtimes have to run at least on iOS, Android and a few other major-marketshare platforms. There&#8217;s no point in developing cross-platform web apps if you ignore major platforms.</li>
+<li>WAC&#8217;s marketing &#038; identity need to be more developer-centric. Different top-notch WAC runtimes need to be advertised by WAC. Ideally there would be an official runtime for each platform.</li>
+<li>Apps built on top of WAC runtimes have to be compatible to major app stores. For example, imagine a developer is targeting Android and iOS. What if Apple rejected WAC-based apps because of, e.g., a bundled custom WebKit build? I&#8217;m pretty sure no sane developer would consider WAC if that effectively banned their app from ever going into the most profitable app store. And while there will be carrier-operated stores I am not overly confident in that. Human beings simply prefer one familiar store/market on their phone.</li>
+<li>Web app developers want their code base functioning consistently across multiple platforms with little or no effort. This implies that different WAC runtimes should strictly respect the specification. If there are implementation differences it&#8217;ll result in multiple code branches in the app code to repair broken implementations. Well, if WAC wants to succeed this must not become an issue for the app developer! Most apps are going to need custom code to support physical device differences. So hey, it will be incredibly helpful if the basic APIs were consistently implemented! Please don&#8217;t screw this up, because I somehow doubt someone would develop a cross-WAC-platform JavaScript framework.</li>
+<li>WAC 2.0 runtimes with the above properties should appear very soon. They also need to be advertised in an easy to understand manner.</li>
+<li>WAC should stick to W3C specs &#038; drafts for APIs. If an API becomes part of a given platform it should be removed from that platform&#8217;s WAC runtime. Think back to when Google removed Gears support from their own browser to make way for standardized APIs.</li>
+</ol>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2011/02/what-is-wac-and-how-it-could-help-us/">What is WAC and how it could help us</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2011/02/what-is-wac-and-how-it-could-help-us/feed/</wfw:commentRss>
+		<slash:comments>1</slash:comments>
+		</item>
+		<item>
+		<title>BlackBerry6, WebKit, WebWorks, DevCon10, etc.</title>
+		<link>http://www.uxebu.com/blog/2010/10/blackberry6-webkit-webworks-devcon10-etc/</link>
+		<comments>http://www.uxebu.com/blog/2010/10/blackberry6-webkit-webworks-devcon10-etc/#comments</comments>
+		<pubDate>Mon, 25 Oct 2010 08:59:59 +0000</pubDate>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+				<category><![CDATA[development tools]]></category>
+		<category><![CDATA[frontend engineering]]></category>
+		<category><![CDATA[html5apps]]></category>
+		<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[mobile]]></category>
+		<category><![CDATA[w3c widgets]]></category>
+		<category><![CDATA[blackberry6]]></category>
+		<category><![CDATA[embedjs]]></category>
+		<category><![CDATA[torch]]></category>
+
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=1311</guid>
+		<description><![CDATA[<p>The BlackBerry DevCon 2010 closed it&#8217;s doors a couple of days ago and to put the conclusion first, I have become a new evangelist for the BlackBerry6 platform. It supports W3C widgets, well &#8230; in a way ;). The core message I took away: web technologies have become first class citizens on the new BlackBerry [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2010/10/blackberry6-webkit-webworks-devcon10-etc/">BlackBerry6, WebKit, WebWorks, DevCon10, etc.</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>The BlackBerry DevCon 2010 closed it&#8217;s doors a couple of days ago and to put the conclusion first, I have become a new evangelist for the BlackBerry6 platform. It supports W3C widgets, well &#8230; in a way ;). The core message I took away: web technologies have become first class citizens on the new BlackBerry platform. And we from uxebu really love this, as you can imagine.<br />
+<span id="more-1311"></span></p>
+<p><a href="http://hub.uxebu.com:33550/wp-content/uploads/2010/10/embedTests-Torch.jpg" style="float:right; margin:1em;"><img class="size-thumbnail wp-image-1320" title="embedTests-Torch" src="http://hub.uxebu.com:33550/wp-content/uploads/2010/10/embedTests-Torch-150x150.jpg" alt="" width="150" height="150" /></a>First I want to thank RIM for sending us two Torch devices. Right away I navigated to <a href="http://bit.ly/embed-tests">the embedJS tests</a> and I didn&#8217;t expect it differently, the tests passed without any problem, 100% passed tests. Actually I expected the tests to pass lightning fast, the time it took was ok, but not lightning fast, unfortunately. The test suite executed in about 14 seconds, on the iPhone4 it took about 10. To be fair the processor power and the system architectures are completely different and not really comparable, but the user experience counts in the end. We have heard that the RIM guys are hard working on improvements and speeding up the device, there is some cool stuff to come.</p>
+<h2>WebKit and WebWorks</h2>
+<p>The most impressive and revolutionary thing was definitely that BlackBerry brings an 100 points ACID compliant WebKit and runs W3C widgets using it. So there are by default two ways that are even fun to get content onto this platform. You can write mobile websites expecting an a-grade browser and you can write apps, for the so called WebWorks platform (which are W3C widgets inside). All we want. The browser supports CSS transitions and transforms, not 3D though, since there is no GPU in those devices, but you never know what might come next. There is SVG on it, WebSockets, Canvas and a lot more niceties, I just browsed the objects using <a href="http://bit.ly/object-browser">Object Browser</a>, go try it yourself, on your device.<br />
+RIM renamed their widgets that existed already on BlackBerry5 to &#8220;WebWorks&#8221; and they got completely overhauled. The approach RIM went is pretty close to how PhoneGap works. WebWorks basically is a wrapper written in Java (the native language of BlackBerry) which internally instanciates a WebKit view and provides a bridge into JavaScript where the underlying native functionality is written in Java, of course. The cool thing about it is that this code is completely <a href="http://github.com/blackberry/WebWorks">open  source and on github</a>. Unfortunately the build scripts are still not on github, so you would still have to figure out yourself how to use the source from github to package your apps. RIM please push them soon! Currently <a href="http://na.blackberry.com/eng/developers/browserdev/widgetsdk.jsp">the executables</a> are the most comfortable way to build your widget.<br />
+Back to the API, since the implementation is open source you can easily extend it and make functionality available into JavaScript which currently is not there. So <a href="http://jsconf.eu/2010/speaker/livingroombindmotion_function.html">Nikolai&#8217;s robotic JavaScript</a> will really become fun and reality on BlackBerry too. Why RIM went this way becomes very obvious when you understand the security concept on BlackBerry. Since all APIs are, in the end, provided by a Java implementation and only &#8220;piped&#8221; into JavaScript all security restrictions apply to the widget just as if it was a native app. That means if you access GPS in your widget (using JavaScript) the Java function will be called and will be secured the same way as if it would have been called from within a pure Java app. Of course this doesn&#8217;t make your widget secure by default, since you are using web technologies you have to take care of writing apps which are not vulnerable by XSS attacs or alike. But it offers really comfortable extendability for this platform and is no workaround to get web technologies onto BlackBerries, I think it&#8217;s a very clever approach, good job RIM.</p>
+<h2>Security</h2>
+<p><a href="http://hub.uxebu.com:33550/wp-content/uploads/2010/10/PermissionsBlackBerry.jpg" style="float:right; margin:1em;"><img src="http://hub.uxebu.com:33550/wp-content/uploads/2010/10/PermissionsBlackBerry-150x150.jpg" alt="" title="PermissionsBlackBerry" width="150" height="150" class="size-thumbnail wp-image-1321" /></a>Everybody knows the ridiculous installation dialogs on Android which show you the APIs the app wants to access and the final question if you want to allow the app to access this functionality or not. If you say &#8220;no&#8221;, the app won&#8217;t install. That doesn&#8217;t really make me feel that the security concept is very flexible. It&#8217;s not giving the user a lot of control. Working with Opera&#8217;s widget runtimes already for a while I thought of a concept that would allow a lot kore control for the user and make apps hopefully more successful.<br />
+I will use a short example to explain it. Imagine a twitter app that you want to install and that has a lot of functionality but on the first install you only want it to be able to go online to read and send tweets. Functionality like GPS, searching my addressbook or taking pictures with the camera are built in into the app. But as long as i don&#8217;t trust the app i don&#8217;t want this functionality enabled. So I turn of access to certain APIs upon installation and enable them just when I feel secure and gained trust in the app or had been told by experts that the app is secure. But this is currently not possible on platforms like Android or iPhone. I talked about this idea and told <a href="http://supportforums.blackberry.com/t5/user/viewprofilepage/user-id/28983">RIM&#8217;s Tim Neil</a> about it, in the hope to meet open ears and confirm that this is a good idea. The answer I got surprised me big time: BlackBerry already has this for a while. We got out our Torch devices to look it up, and yes in the menu under &#8220;Device / Application Management&#8221; you can edit the permissions per app (see picture). Awesome and just right, I love this.<br />
+So Opera this was my idea to improve your widget runtime and maybe to jump ahead of the crowd again, I would like it.</p>
+<p>Overall the BlackBerry6 platform is very exciting and a lot of thought seem to have gone into it, especially with focus on the web, which is a really good thing. So, I will just step away and try to build the Object Browser as a WebWorks App.</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2010/10/blackberry6-webkit-webworks-devcon10-etc/">BlackBerry6, WebKit, WebWorks, DevCon10, etc.</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2010/10/blackberry6-webkit-webworks-devcon10-etc/feed/</wfw:commentRss>
+		<slash:comments>2</slash:comments>
+		</item>
+		<item>
+		<title>BarCamp Munich 2010 &#8211; seen through JavaScript and mobile eyes</title>
+		<link>http://www.uxebu.com/blog/2010/10/barcamp-munich-2010-seen-through-javascript-and-mobile-eyes/</link>
+		<comments>http://www.uxebu.com/blog/2010/10/barcamp-munich-2010-seen-through-javascript-and-mobile-eyes/#comments</comments>
+		<pubDate>Sat, 16 Oct 2010 15:47:05 +0000</pubDate>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+				<category><![CDATA[business]]></category>
+		<category><![CDATA[Events]]></category>
+		<category><![CDATA[html5apps]]></category>
+		<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[mobile]]></category>
+		<category><![CDATA[uxebu]]></category>
+		<category><![CDATA[w3c widgets]]></category>
+		<category><![CDATA[barcamp]]></category>
+		<category><![CDATA[conference]]></category>
+
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=1281</guid>
+		<description><![CDATA[<p>First and foremost big thanks to the organizers and sponsors of this awesome BarCamp. It almost seems as if BarCamps have already passed their tipping point, but still every time I discover new and interesting things, I meet people who attend for the first time and are excited about it, which makes it really awesome [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2010/10/barcamp-munich-2010-seen-through-javascript-and-mobile-eyes/">BarCamp Munich 2010 &#8211; seen through JavaScript and mobile eyes</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>First and foremost big thanks to the organizers and sponsors of this awesome <a href="http://barcampmunich.mixxt.de/">BarCamp</a>. It almost seems as if BarCamps have already passed their tipping point, but still every time I discover new and interesting things, I meet people who attend for the first time and are excited about it, which makes it really awesome and fun. Maybe the tipping point had been reached but I guess the BarCamp is just on it&#8217;s way to become an integral part of the web culture and establishes itself as a standard event type besides the normal (mostly commercial) conferences. And as I always like to point out the people at BarCamps are those that want to go there, not those that have to be there (because their company had sent them or alike). We enjoyed it and have hopefully also brought value to it &#8211; that is what a BarCamp is all about: participate.<br />
+Thank you!<br />
+And let&#8217;s move on, which I do right this moment, sitting on the train going to the next (commercial) event the <a href="http://webtechcon.de">WebTechCon in Mainz</a> to bring the cross platform mobile web to it :).<br />
+<span id="more-1281"></span></p>
+<h2>&#8220;Modern Company&#8221; session &#8211; uxebu as the example</h2>
+<p>But before I dive into the tech sessions I would like to mention that I really felt the need to hold a session which I had called &#8220;Modern Company&#8221; where I tried to show our philosophy at uxebu, how we work together, how we use the modern media, how it all came about and why we do it this way. First I didn&#8217;t know where to start. Then I started to talk about when and how the idea for uxebu came about, that we <a href="">decided online to found it</a> and really met some months later. Thanks to our open source background and our history we wanted to continue the same spirit inside the company, I tried to show how and based on what facts we grow our team (the word &#8220;hiring&#8221; seems such a one-sided process). I realize now that I forgot a lot of the good stuff, but maybe this is the chance to make this become a separate talk to hold at other events.<br />
+I really loved the discussion and the questions that it had started, <a href="http://titanpad.com/izRqsSTAoT">notes had been taken</a>, a lot of critical questions came up and had been answered by <a href="http://twitter.com/tobeytailor">Tobias</a> and me. One interesting mentioning came up about <a href="http://www.faz.net/s/Rub8EC3C0841F934F3ABA0703761B67E9FA/Doc~E80113EC3EB3F48A5A14211D237BF109D~ATpl~Ecommon~Scontent.html">an article which mentioned a company that pays the same salary to all employees</a>. Thank you for all this input, I really enjoyed it and will definitely talk about this more and will prepare some more info next time.</p>
+<h2>JavaScript &#8211; a topic of big interest</h2>
+<p>We had founded uxebu purely for doing JavaScript consulting and pushing the limits and it is just really exciting to see how much interest this language is gaining in the last years. Not only <a href="http://jsconf.com">jsconf</a> the mother of all JavaScript events underlines this but also a lot of other conferences and events like <a href="http://2010.full-frontal.org/">fullfrontal</a>, <a href="http://fronteers.nl/">fronteers</a>, <a href="http://js1k.com/home">js1k</a>, <a href="http://10k.aneventapart.com/">10k Apart</a>, <a href="http://events.jquery.org/2010/boston/">jQueryConf</a> and so on which <a href="http://twitter.com/netzzwerg">Béla Varga</a> listed in his &#8220;<a href="http://www.slideshare.net/netzzwerg/javascript-rock-and-roll">JavaScript Rock&#8217;n Roll</a>&#8221; session.<br />
+The &#8220;<a href="http://nodejs.org/">node.js</a>&#8221; session and &#8220;JavaScript Rock&#8217;n Roll&#8221; (by <a href="http://twitter.com/netzzwerg">Béla (@netzzwerg)</a> and <a href="http://twitter.com/tobeytailor">Tobias Schneider (@tobeytailor)</a>) made it very obvious that JavaScript is a hot topic, the BarCamp was not necessarily overcrowded with programmers, but still those two sessions had been very well filled and the discussions had been really fun. The conclusion of the &#8220;node.js&#8221; session that Tobias drew and evangelized was &#8220;node.js is currently very hyped and just not yet ready for production, so use at your own risk, it&#8217;s not even alpha yet&#8221;. Everybody also agreed that node.js is not the new saviour and a replacement for Apache, it&#8217;s another tool you should add to your tool belt, use it when it comes in handy and be sure to know how and when to use it. Final conclusion was, as usual, if you should use it depends on what you want to do :).<br />
+Béla opened up the &#8220;JavaScript Rock&#8217;n Roll&#8221; session by giving a very good overview of what toolkits exist out there, who created them and what they are good for. He very well layed out some of the advantages and disadvantages, the rough corners and what is hard and what easy to learn. Shortly the discussion about the right JavaScript IDE came up but as usual there is no one-fits-all solution, choose yourself! Everybody was very carefully listening when <a href="http://twitter.com/tobeytailor">@tobeytailor</a> dove deep into the details of <a href="http://www.ecma-international.org/publications/standards/Ecma-262.htm">ECMAScript</a>, JavaScript, the differences, the latest specification, the changes, prototypes, <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object/proto">__proto__</a> and so on. Other interesting topics in those sessions had been <a href="http://promotejs.com/">promotejs</a>, <a href="http://github.com/madrobby/vapor.js">vapor.js</a>, <a href="http://www.slideshare.net/jensarps/the-hitchhikers-guide-to-client-side-persistent-storage">details about storage mechanisms</a>, <a href="http://jquerymobile.com/">jQueryMobile</a>, <a href="http://embedjs.org/">embedJS</a>, <a href="http://apparat.io">apparat.io</a><br />
+That was real &#8220;JavaScript Rock&#8217;n Roll&#8221;!</p>
+<h2>Native vs. Web</h2>
+<p>On Saturday, the first day of the BarCamp, I had offered a session &#8220;Mobile: Native vs. Web&#8221; but didn&#8217;t see too many hands raised, so I just didn&#8217;t put it in the schedule, later some people asked me when this session would take place and that I should hold it on Sunday, which I fortunately then did together with <a href="http://twitter.com/flowdi">Florian Detig</a>. And I have to say I am very glad we did so, because 1) we (at uxebu) have a lot of awesome stuff to talk about and 2) it was really fun interacting with the audience and passing on all this information. It is always amazing again how much there is to say about how to create an app which can also be submitted into any of the various app stores by just using web technologies (the <a href="http://www.yourappshop.com">adult industry proved that again</a>). HTML, CSS and JavaScript are just way to underestimated for being of good use in the mobile world. Florian first showed his <a href="http://prezi.com/otqop-_wynvl/">awesome slides</a> (I think they are really cool!). I continued the talk and dove a bit deeper into the mobile web topic, after my try of explaining the different movements in the native API space with players like W3C&#8217;s DAP, BONDI, JIL, WAC we deeply went into answering and discussing web technologies on mobile devices, I talked about our experiences, showed some projects we realized and answered a couple questions.<br />
+Not really a surprise but still impressing was the positive feedback we got when I showed of <a href="http://apparat.io">apparat.io</a>, our soon to be launched service that will be able to convert a web app into a native app (You want to know about it first &#8211; follow <a href="http://twitter.com/apparatio">@apparatio</a>). The release date for the private beta will be the 25th October 2010, people who follow @apparatio will get accounts first. I also showed our project <a href="http://embedjs.org">embedJS</a> a toolkit (based on dojo) optimized for mobile usage.</p>
+<p>All in all the BarCamp just made it obvious again that we are playing in an very interesting field and that we at uxebu are pushing the limits, that is fun, as much as the BarCamp was big fun, we will be back next time, for sure!<br />
+Thanks again and keep up the good work!</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2010/10/barcamp-munich-2010-seen-through-javascript-and-mobile-eyes/">BarCamp Munich 2010 &#8211; seen through JavaScript and mobile eyes</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2010/10/barcamp-munich-2010-seen-through-javascript-and-mobile-eyes/feed/</wfw:commentRss>
+		<slash:comments>2</slash:comments>
+		</item>
+		<item>
+		<title>SWDC 2010 Stockholm</title>
+		<link>http://www.uxebu.com/blog/2010/06/swdc-2010-stockholm/</link>
+		<comments>http://www.uxebu.com/blog/2010/06/swdc-2010-stockholm/#comments</comments>
+		<pubDate>Sun, 06 Jun 2010 22:12:28 +0000</pubDate>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+				<category><![CDATA[dojo]]></category>
+		<category><![CDATA[Events]]></category>
+		<category><![CDATA[html5apps]]></category>
+		<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[mobile]]></category>
+		<category><![CDATA[uxebu]]></category>
+		<category><![CDATA[w3c widgets]]></category>
+		<category><![CDATA[swdc]]></category>
+
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=1217</guid>
+		<description><![CDATA[<p>Thanks to Peter Peter Svensson for organizing and making SWDC 2010 in Stockholm happen and especially thanks for inviting us to speak there. We had a blast. A crowd of about 100 people saw some very interesting talks, ranging from Node.js, YQL, Chrome extensions, HTML5 to PhoneGap, I guess everybody heard something new and interesting. [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2010/06/swdc-2010-stockholm/">SWDC 2010 Stockholm</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>Thanks to Peter Peter Svensson for organizing and making <a href="http://www.swdc-central.com/">SWDC 2010</a> in Stockholm happen and especially thanks for inviting us to speak there. We had a blast. A crowd of about 100 people saw some very interesting talks, ranging from Node.js, YQL, Chrome extensions, HTML5 to PhoneGap, I guess everybody heard something new and interesting.<br />
+<span id="more-1217"></span></p>
+<p><a href="http://twitter.com/cramforce/statuses/15327628835" target="_blank" style="float:right;"><img src="http://hub.uxebu.com:33550/wp-content/uploads/2010/06/Twitter-_-Malte-Ubl.jpg" alt="mobile rulez" title="Twitter _ Malte Ubl" width="305" height="154" class="aligncenter size-full wp-image-1221" /></a>The second day was mainly focused around mobile topics. Nikolai showed us how to think out of the box (which is your phone in this case) by talking about <a href="http://www.slideshare.net/nonken/human-apis" target="_blank">&#8220;Human APIs &#8211; expanding the mobile web&#8221;</a>. I tried to give an overview about how to use web technologies for mobile apps by talking about <a href="">&#8220;App vs. Widget &#8211; HTML5 Apps&#8221;</a>. And as it seems we had hit a sweet spot there as the tweet proves. It seems we had found our slots there. It was fun to see that.<br />
+Find our slides below.</p>
+<p><a href="http://picasaweb.google.com/psvensson/SWDC2010?feat=content_notification#5479008498447913298" target="_blank" style="float:left"><img src="http://hub.uxebu.com:33550/wp-content/uploads/2010/06/whatuxebudoes.jpg" alt="what uxebu does" title="whatuxebudoes" width="265" height="210" align="center" style="padding:0 5px 5px 0" /></a>It was great to see Sony Ericcson show their PhoneGap based strategy. Since that is also part of our direction it is very encouraging to see that there is company on going this route. They showed a webbased build tool, which allows for a simple creation of runnable apps based on PhoneGap and also interesting ideas around native APIs and the security concept. A lot of triggers that made a lot of people think. Great input.<br />
+<a href="http://twitter.com/creationix">@creationix</a> showed a cool demo using node.js, where we could all interact with his app. <a href="http://twitter.com/divineprog">@divineprog</a> showed DroidScript, which basically was a Smalltalk inspired realtime Rhino-based JavaScript runtime, that allows using native Android resources. We learned a lot around geo data, their handling and optimization in use from <a href="http://twitter.com/tablackmore">@tablackmore</a>. Those are just some of the talks, they all were of high quality, so be sure to see them live next time.</p>
+<p>At the mobile day we also heard talks about </p>
+<ul>
+<li>The New Mobile Web &#8211; A Web of Scripted Applications by <a href="http://twitter.com/divineprog">@divineprog</a></li>
+<li>How to avoid the latency trap by <a href="http://twitter.com/sh1mmer">@sh1mmer</a></li>
+<li>Handling spatial data on the web by <a href="http://twitter.com/tablackmore">@tablackmore</a></li>
+<li>HTML5 gives you wings by <a href="http://twitter.com/mahemoff">@mahemoff</a></li>
+<li>The phone in the cloud by Claes Nilsson and Thomas Bailey</li>
+<li>node.JS powered mobile apps by <a href="http://twitter.com/creationix">@creationix</a></li>
+</ul>
+<p>All in all it was a great conference, I will look forward to be coming back next year.</p>
+<div style="width:425px;" class="max" id="__ss_4401063"><strong style="display:block;margin:12px 0 4px"><a href="http://www.slideshare.net/nonken/human-apis" title="Human APIs, the future of mobile">Nikolai Onken: Human APIs &#8211; expanding the mobile web</a></strong><object id="__sse4401063" width="425" height="355"><param name="movie" value="http://static.slidesharecdn.com/swf/ssplayer2.swf?doc=humanapis-100603080239-phpapp01&#038;stripped_title=human-apis" /><param name="allowFullScreen" value="true"/><param name="allowScriptAccess" value="always"/><embed name="__sse4401063" src="http://static.slidesharecdn.com/swf/ssplayer2.swf?doc=humanapis-100603080239-phpapp01&#038;stripped_title=human-apis" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="355"></embed></object>
+<div style="padding:5px 0 12px">View more <a href="http://www.slideshare.net/">presentations</a> from <a href="http://www.slideshare.net/nonken">Nikolai Onken</a>.</div>
+</div>
+<div style="width:425px;" class="max" id="__ss_4405271"><strong style="display:block;margin:12px 0 4px"><a href="http://www.slideshare.net/wolframkriesing/html5-apps-cross-platform-swdc2010" title="Html5 apps   cross platform - SWDC2010">Wolfram Kriesing: HTML5 apps   cross platform &#8211; SWDC2010</a></strong><object id="__sse4405271" width="425" height="355"><param name="movie" value="http://static.slidesharecdn.com/swf/ssplayer2.swf?doc=html5apps-crossplatform-swdc2010-100603192006-phpapp02&#038;stripped_title=html5-apps-cross-platform-swdc2010" /><param name="allowFullScreen" value="true"/><param name="allowScriptAccess" value="always"/><embed name="__sse4405271" src="http://static.slidesharecdn.com/swf/ssplayer2.swf?doc=html5apps-crossplatform-swdc2010-100603192006-phpapp02&#038;stripped_title=html5-apps-cross-platform-swdc2010" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="355"></embed></object>
+<div style="padding:5px 0 12px">View more <a href="http://www.slideshare.net/">presentations</a> from <a href="http://www.slideshare.net/wolframkriesing">wolframkriesing</a>.</div>
+</div>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2010/06/swdc-2010-stockholm/">SWDC 2010 Stockholm</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2010/06/swdc-2010-stockholm/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Developing Widgets for Bada Devices</title>
+		<link>http://www.uxebu.com/blog/2010/03/developing-widgets-for-bada-devices/</link>
+		<comments>http://www.uxebu.com/blog/2010/03/developing-widgets-for-bada-devices/#comments</comments>
+		<pubDate>Thu, 25 Mar 2010 11:06:36 +0000</pubDate>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+				<category><![CDATA[CSS]]></category>
+		<category><![CDATA[development tools]]></category>
+		<category><![CDATA[frontend engineering]]></category>
+		<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[mobile]]></category>
+		<category><![CDATA[Tumbles]]></category>
+		<category><![CDATA[w3c widgets]]></category>
+		<category><![CDATA[bada]]></category>
+		<category><![CDATA[widgets]]></category>
+
+		<guid isPermaLink="false">http://uxebu.com/blog/2010/03/25/developing-widgets-for-bada-devices/</guid>
+		<description><![CDATA[<p>Developing Widgets for Bada Devices</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2010/03/developing-widgets-for-bada-devices/">Developing Widgets for Bada Devices</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><a href="http://www.badadev.com/developing-widgets-for-bada-devices/">Developing Widgets for Bada Devices</a></p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2010/03/developing-widgets-for-bada-devices/">Developing Widgets for Bada Devices</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2010/03/developing-widgets-for-bada-devices/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Mobile Web – does the adult industry point the way (again)?</title>
+		<link>http://www.uxebu.com/blog/2010/02/mobile-web-does-the-adult-industry-point-the-way-again/</link>
+		<comments>http://www.uxebu.com/blog/2010/02/mobile-web-does-the-adult-industry-point-the-way-again/#comments</comments>
+		<pubDate>Fri, 26 Feb 2010 12:35:31 +0000</pubDate>
+		<dc:creator><![CDATA[Nikolai Onken]]></dc:creator>
+				<category><![CDATA[business]]></category>
+		<category><![CDATA[frontend engineering]]></category>
+		<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[mobile]]></category>
+		<category><![CDATA[uxebu]]></category>
+		<category><![CDATA[w3c widgets]]></category>
+		<category><![CDATA[app stores]]></category>
+		<category><![CDATA[cross-platform]]></category>
+
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=1054</guid>
+		<description><![CDATA[<p>During a very intense week at the Mobile World Congress in Barcelona and a lot of very interesting meetings, discussions and talks, one incident surprisingly stuck out. At one of the evening events, I randomly met the folks behind http://www.yourappshop.com, a platform which allows you to distribute iPhone applications through other means than the official [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2010/02/mobile-web-does-the-adult-industry-point-the-way-again/">Mobile Web – does the adult industry point the way (again)?</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>During a very intense week at the Mobile World Congress in Barcelona and a lot of very interesting meetings, discussions and talks, one incident surprisingly stuck out. At one of the evening events, I randomly met the folks behind <a href="http://www.yourappshop.com">http://www.yourappshop.com</a>, a platform which allows you to distribute iPhone applications through other means than the official Apple app store – you don’t need a jailbroken iPhone as you need when using alternative app stores such as <a href="http://cydia.saurik.com/">Cydia</a>. But before I explain in more detail what they are doing lets have a look at the current app store hype.<br />
+<span id="more-1054"></span></p>
+<h2>Is the app store concept flawed?</h2>
+<p>Lately I have been reading <a href="http://www.spiegel.de/netzwelt/web/0,1518,679750,00.html">more</a> and <a href="http://www.spiegel.de/netzwelt/netzpolitik/0,1518,679959,00.html">more</a> articles, <a href="http://twitter.com/tomiahonen/status/9580847661">tweets</a> and <a href="http://www.quirksmode.org/blog/archives/2010/02/the_iphone_obse.html">blogposts</a> stating their concerns about the fact that Apple almost randomly removes applications and that people for some reason have distorted views of the mobile application and app store reality.</p>
+<p>I am not in favor of allowing any kind of application into an app store by default, there is no reason why you should have to do that (a bakery also selects which producs it wants to sell). The problem really is though, that Apple is running the only official app store for the iPhone. One app store controlling the entire market for a device is plainly wrong!</p>
+<p>Not only does it cripple innovation but it also shows one major flaw of Apples strategy – the factor of competence. How on earth does Apple, a hardware and software manufacturer think it has the competence to judge whether an application should be admitted or not? Maybe in these days when mobile applications don’t go further than simple games or information display/exchange – but what if applications are starting to come with real security implications?</p>
+<p><strong>An example:</strong><br />
+Imagine you are writing an application reading your heartrate and writing an ECG (This is not too far fetched, <a href="http://uxebu.com/blog/2010/01/25/humanapi-the-browser-in-the-real-world/">look at our research project HumanApi</a>). Is Apple seriously trying to tell that they can judge whether such an app should make it into the app store or not? They by far don’t have the competence of the medical industry, no way!</p>
+<p>A much more interesting app store concept would be to have certified stores by companies I trust (or community driven in other application use-cases). Looking at the medical example, wouldn’t it make much more sense if companies like Siemens, Phillips, and other medical device manufacturers start an alliance and run their own store, so I can trust the apps I am using, so that as a developer, I know that qualified people are judging my application? Not only would this guarantee much higher quality but it also would foster competition which we are lacking here.</p>
+<h2>Companies == lemmings?</h2>
+<p>Where does this &#8220;I need an app as well&#8221; come from? Why do people care so much when their application gets rejected by the Apple app store?</p>
+<p><strong>An example:</strong><br />
+On february 23rd, large German online publisher <a href="http://www.spiegel.de/netzwelt/web/0,1518,679750,00.html">Spiegel Online</a> wrote an article about the fact that Apple might disapprove an application of the famous yellow press publisher &#8220;<a href="http://bild.de">Bild</a>&#8220;. On february 24th they <a href="http://www.spiegel.de/netzwelt/netzpolitik/0,1518,679959,00.html">posted another front-page article</a> questioning whether legal means would be the only way to go?!?</p>
+<p>Now that is insane, not only will it cost those folks a lot of money to run law suits against Apple, on top of that they are forcing their way into technology without future – already today, the Apple app store is not the only way to legally distribute your applications to the iPhone! Apple is a new player in the mobile industry and albeit its amazing achievements, <a href="http://communities-dominate.blogs.com/brands/2010/02/phone-market-shares-for-year-of-2009-and-last-quarter-2009.html">never forget looking at marketshares</a>.</p>
+<p>To summarize: For whatever kind of reason, one of the biggest German online newspaper sees Apple rejecting applications as being threatening enough to write an article – how more blatantly can the reality be distorted?</p>
+<h2>What can and should we do?</h2>
+<p>Back to the surprising incident I was mentioning earlier: When the folks behind <a href="http://www.yourappshop.com/">http://www.yourappshop.com</a> showed me their application store – for the iPhone! – one thought came to my mind &#8220;Does the Adult Industry point the way (again)?&#8221;  (whether you and I approve adult content or not is a different discussion, what we need to take out of this is the fact that they are showing a very viable way to go).</p>
+<p>YourAppShop developed an app store entirely based on web technologies (lots of HTML5 which is supported by the iPhone browser and many many more devices) – which allows you to download web based applications to your homescreen, watch image slideshows, even videos. Everything works off- and online. To the well traveled mobile web developer all of this is nothing new, it is all part of HTML5. The folks of YourAppStore though were creative enough to build it so that the end-user does not feel the difference between a real native app (from the Apple store) and an application based on web technologies, payment for the service included! </p>
+<p>Why don’t people (especially the folks in decision making positions) see that you can write amazing applications for the iPhone based on technology which also will work on other phones and which does not have to pass the QA of Apple? </p>
+<p>If you are not too bothered about adult content (NSFW) take a look at <a href="http://www.yourappshop.com">http://www.yourappshop.com</a> from within your iPhone browser and visit one of their stores – the way they have set up a viable ecosystem using web technologies will give you a new impression of what we actually are able to do today.</p>
+<p>As much as people might have concerns with the adult industry, they are showing us how we can get out of the app store restrictions – technology of today can be used to write successful applications and you can be monetizing the potential (more than 8.000.000 downloads for YourAppShop should say enough), Now that sounds great doesn’t it <a href="http://twitter.com/bild_aktuell">@Bild.de</a> and <a href="http://twitter.com/spiegel_alles">@Spiegel.de</a>?</p>
+<p>And as if its not enough, Apple itself is showing a great example of the potential of web applications running on the iPhone with their online help: <a href="http://help.apple.com/iphone">http://help.apple.com/iphone</a> &#8211; go visit their site, and add the application to your homescreen by clicking on the &#8220;+&#8221; button in the bottom toolbar (Not to mention the fact that iPhone applications where meant to be build using the web stack in the first place). </p>
+<p>As an application developer/creator, your goal should not be to only run on one platform, unless you don’t care about having sustainable and solid business case or unless your target-group is only the group of iPhone users (which I can’t believe is ever true).</p>
+<p><a href="http://uxebu.com/blog/2010/02/15/eventninja-a-mobile-cross-platform-app/">We showed that there is technology which allows you to write applications for more than one platform</a>, technology which works whether there is an app store in between or not, technology which has a future, technology the web is built with – HTML/JavaScript/CSS or better, HTML5 apps. Use it and stop wasting time being afraid that Apple will ruin your business because they are rejecting an application – you shouldn’t have to care less!!</p>
+<h2>Conclusion</h2>
+<p>Jumping into the &#8220;We need to have an iPhone app&#8221; mantra without any second thought is very dangerous, its not good for your business. Analyze your requirements and check carefully if you can’t cover your needs with an application based on web technologies (which <a href="http://uxebu.com/blog/2010/02/15/eventninja-a-mobile-cross-platform-app/">as we proved still can make it into the Apple store</a> if they approve of your content). The advantage of applications based on web technology is overwhelming:</p>
+<ul>
+<li>Standardized technology stack (HTML5)</li>
+<li>HTML5 apps work in mobile browsers, can be distributed over app stores or even can be integrated into traditional websites.</li>
+<li>Much lower development costs.</li>
+<li>Huge amount of target platforms</li>
+</ul>
+<p>Of course there are application cases where you need to access the devices hardware in ways the browser doesn&#8217;t yet allow you to (games or applications with extreme performance requirements for example) &#8211; but especially publishers and content driven apps should think twice.</p>
+<p>If you are looking into building a mobile application and are not sure whether you should go for the native iPhone, native Android or any other native platform (and spend tons of money on it) or whether you should build on top of the much more open technology stack of the web, <a href="/contact">feel free to contact us and we can take a closer look at your requirements</a>.</p>
+<p>Back to the <a href="http://www.vdz.de">folks who are planning to sue Apple (VDZ)</a> – start putting your apples into the right basket, build a web based application store as you can see with YourAppShop and you will have complete freedom over what you want to sell and what not. Your customers won’t feel the difference, they might even like it more because you can offer better prices (no profit sharing with Apple). Sueing Apple won’t help a thing, don’t waste your money and time.</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2010/02/mobile-web-does-the-adult-industry-point-the-way-again/">Mobile Web – does the adult industry point the way (again)?</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2010/02/mobile-web-does-the-adult-industry-point-the-way-again/feed/</wfw:commentRss>
+		<slash:comments>5</slash:comments>
+		</item>
+		<item>
+		<title>EventNinja &#8211; A Mobile Cross Platform App</title>
+		<link>http://www.uxebu.com/blog/2010/02/eventninja-a-mobile-cross-platform-app/</link>
+		<comments>http://www.uxebu.com/blog/2010/02/eventninja-a-mobile-cross-platform-app/#comments</comments>
+		<pubDate>Mon, 15 Feb 2010 12:40:35 +0000</pubDate>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+				<category><![CDATA[business]]></category>
+		<category><![CDATA[Events]]></category>
+		<category><![CDATA[frontend engineering]]></category>
+		<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[mobile]]></category>
+		<category><![CDATA[uxebu]]></category>
+		<category><![CDATA[w3c widgets]]></category>
+
+		<guid isPermaLink="false">http://blog.uxebu.com/?p=934</guid>
+		<description><![CDATA[<p>Lately we have been quite active around a mobile app, which you can find in multiple app stores for multiple platforms. The app runs on iPhone, Android, Palm&#8217;s WebOS, Blackberry, Windows Mobile, Nokia S60, Vodafone 360 phones and we are still adding to the list. But the most interesting fact is: it&#8217;s all the same [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2010/02/eventninja-a-mobile-cross-platform-app/">EventNinja &#8211; A Mobile Cross Platform App</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>Lately we have been quite active around a <strong>mobile app</strong>, which you can find in <strong>multiple app stores for multiple platforms</strong>. The app runs on iPhone, Android, Palm&#8217;s WebOS, Blackberry, Windows Mobile, Nokia S60, Vodafone 360 phones and we are still adding to the list. But the most interesting fact is: <strong>it&#8217;s all the same code, just one and the same app</strong>. For making it work on all the platforms we just had to wrap, build, deploy and package it using the right combination of tools for the right platform. By adding a bit of UI sugar (mostly CSS) the app looks native and can reach a much wider audience for a much lower cost than ever possible before.</p>
+<div  style="align: center;" class="mhx">
+<a href="http://hub.uxebu.com:33550/wp-content/uploads/2010/02/allphones.jpg"><img src="http://hub.uxebu.com:33550/wp-content/uploads/2010/02/allphones-1024x255.jpg" alt="" title="allphones" width="512" height="128" class="alignnone size-large wp-image-1006" style="border: 1px solid #333" /></a></div>
+<p><span id="more-934"></span></p>
+<h2>What is EventNinja?</h2>
+<p>EventNinja is our little ninja that goes out and collects events :-). Seriously: we had started uxebu with the high goal of playing with the best and knew from the beginning that we can reach out to the interested and passionate crowd just by meeting up with them personally, at the various real-life events. So we just needed to show up at the WebMondays and BarCamps around us. We started keeping track of them in a Google Calendar, which is publicly shared (you can find it here <a href="http://bit.ly/webdev-events">http://bit.ly/webdev-events</a>), because we know that we are not the only ones interested in upcoming developer events. During a very busy phase during the summer of 2009, where a lot of dojo.beers took place around the world, the calendar already was of big use. We started to write a small web site widget to embed the calendar in our site. We had a very focused and content-oriented use case and after coming across W3C Widgets, we quickly decided to port the web site widget over to a W3C widget &#8211; the same night we had it also running on an iPhone. This got the ball rolling and we realized that we should start porting this widget to even more platforms. From thereon we felt confident that we are on the right track. And we shall be proofen to be right.</p>
+<h2>The base of it all: HTML (and W3C Widgets)</h2>
+<p>The web stack is the widest spread and most widely used technology stack. The <a href="http://bit.ly/webdev-jobtrends">number of developers</a> using the web stack is just unbeaten. Now that the mobile phones are coming around the corner, we see that the diversity (others call it fragmentation) is just huge. The iPhone proved, that even a good browser on mobile phones done right, can be fun. So the web stack is coming to our phones. Browsers are a standard on the phone. And the potential is gigantic. &#8220;The mobile industry has now 4.6 Billion active subscriptions.&#8221; and &#8220;71% of all phones have a modern xTML web browser.&#8221; says Tomi Ahonen in <a href="http://communities-dominate.blogs.com/brands/2010/02/the-big-picture-stats-view-to-mobile-industry-2010-edition.html">The Big Picture &#8220;All the Stats&#8221; Total View to Mobile Industry, 2010 Edition</a>. Enough to justify HTML as the future standard for mobile apps!</p>
+<p><a href="http://hub.uxebu.com:33550/wp-content/uploads/2010/02/BlackBerry-Device.png" class="floatLeft imgFloatLeft"><img class="alignleft size-medium wp-image-943" title="BlackBerry-Device" src="http://hub.uxebu.com:33550/wp-content/uploads/2010/02/BlackBerry-Device-178x300.png" alt="" width="88" height="150" /></a>So we can surf the web. But what about app development? The iPhone requires you to learn Objective C, Android wants Java, Nokia S60 a flavour of C++, and so on. This sounds no fun. So just sum up one and one. Let&#8217;s use the web stack (HTML, CSS, JavaScript) that all the platforms bring along &#8211; since they all have a browser &#8211; and reuse this stack to build your native apps. It&#8217;s not as much magic as it sounds. There is even a specification for it, <a href="http://www.w3.org/2008/webapps/wiki/WidgetSpecs">the family of W3C Widgets</a>. W3C Widgets are self-contained mini-apps, consisting of HTML, CSS and JavaScript. Just as we know it from websites. If the widget requires no resources from the web it can even run offline. You have all the power at hand: JavaScript, AJAX, Canvas and depending on the platform you even get SVG.<br />
+But how many platforms do support W3C Widgets? In plain numbers: 4. But the number is growing. <strong>Vodafone360</strong>, <strong>Vodafone&#8217;s Nokia S60</strong>, the latest <strong>Blackberry</strong> and <strong>Windows Mobile</strong>. But that&#8217;s not all as I will explain later.<br />
+The biggest hype is made by Vodafone, definitely. They are also expressing strongly that they are supporting the open W3C Widgets standard. And it is true, take a real W3C Widget throw it on any of the newer Nokia S60 (Series 5) phones or the Vodafone360 phones and it just works. The next closest is Windows Mobile. For getting it onto a Blackberry you need to additionally sign the widget.</p>
+<h2>More devices: PhoneGap</h2>
+<p>Supporting just those four platforms would be a bit boring. But here comes the great open source project <a href="http://phonegap.com">PhoneGap</a> onto the stage. PhoneGap opens up all the other platforms. Among them, probably the one most people look for, is the iPhone. PhoneGap provides a web runtime which we just wrap around our widget and package it and we have a native app. PhoneGap even allows to access the native functionalities like Camera, Contacts, Acceleromter, GPS, etc. If there is something missing in the list, you are free to write the according adaptor. And the big advantage, since you are deploying the runtime with your app, you can even hook onto any kind of native interface available on the phone. This is very nicely shown in the <a href="http://?????????">ECG app</a> <a href="http://twitter.com/nonken">@nonken</a> has written in our uxebu labs. This app connects a heart rate monitoring device to your iPhone, all done through PhoneGap.</p>
+<h2>Porting EventNinja</h2>
+<p><a href="http://hub.uxebu.com:33550/wp-content/uploads/2010/02/iPhone-Device.png" class="floatLeft imgFloatLeft"><img class="alignleft size-medium wp-image-944" title="iPhone-Device" src="http://hub.uxebu.com:33550/wp-content/uploads/2010/02/iPhone-Device-172x300.png" alt="" width="86" height="150" /></a>So we ported EventNinja to the <strong>iPhone</strong> using PhoneGap. It was a pleasure to use all the features one of the most modern browsers support, stuff like CSS transitions and alike. And since a lot of people asked, I will answer the question before it comes up: &#8220;Yes, you need the iPhone SDK and therefore a Mac OS X machine&#8221;. But we will see what the future brings.</p>
+<div class="floatRight imgFloatRight mhx"><a href="http://hub.uxebu.com:33550/wp-content/uploads/2010/02/PalmPre.png"><img class="alignright size-medium wp-image-950" title="PalmPre" src="http://hub.uxebu.com:33550/wp-content/uploads/2010/02/PalmPre-200x300.png" alt="" width="100" height="150" style="border: 1px solid #333; margin-right: 5px;" /></a><a href="http://hub.uxebu.com:33550/wp-content/uploads/2010/02/Android-Device.png"><img class="alignright size-medium wp-image-942" title="Android-Device" src="http://hub.uxebu.com:33550/wp-content/uploads/2010/02/Android-Device-175x300.png" alt="" width="87" height="150" style="border: 1px solid #333" /></a></div>
+<p>With EventNinja, we have also proven that such an app can be ported to the <strong>Android</strong> platform. We have tested it on Android version 1.6 through 2.1, among them HTC Magic, Motorola Droid, Nexus One. Android was the easiest platform to port it to, we &#8220;threw&#8221; the iPhone version onto an Android phone and it just worked, first as a simple website. Later, thanks to <a href="http://dschini.org">Manfred Weber</a> as a native app and finally, as you can find it now in the Android Market, as a PhoneGap-based app.<br />
+For the <strong>Palm Pre</strong> we adjusted the style to look as native as possible. To our surprise Palm&#8217;s operating system WebOS, which itself is web technology based, has some very strange, proprietary touches which made it less fun than expected (read more in <a href="http://blog.uxebu.com/2009/12/02/mobile-cross-platform-development-palm-pre/">Mobile Cross-Platform Development: Palm Pre</a>). From a bird eyes&#8217; view it looks like porting to WebOS would not require anything, no PhoneGap, just wrapping the widget properly. Unfortunately it was more work than that. The proprietary concept of stages and scenes requires some workarounds to finally get the app running.</p>
+<h2>Cross Platform Advantages</h2>
+<p>Besides the simple obvious reasons, like easy porting, lower development costs, and that the web stack technologies are our core business at uxebu, there are other reasons that make cross platform attractive. Let me scratch the surface by mentioning some of them.</p>
+<p><strong>Easy prototyping</strong>. Using HTML, JavaScript and CSS a prototype can be created in no time, iterations, reconsidering various issues is way cheaper and quicker than doing it with other technologies. We can use the browser window, just size it down to match a phone&#8217;s screen size. We can debug and fix things without costly redeployment cycles and this entire process can happen remotely, it all works over the web. Not to mention that this is the easiest way to distribute your app, but that is a topic of it&#8217;s own.</p>
+<p><strong>Largest Reach, synchronously</strong>. We can reach multiple types of mobile handsets virtually at the same time. By reducing the need to redevelop the app for multiple devices, we can roll out to multiple stores and devices at the same time. We are basically limitted by the time that it takes the stores to run the app through their internal QA.<br />
+As the numbers in the <a href="http://metrics.admob.com/2010/01/december-2009-mobile-metrics-report/">December 2009 Mobile Metrics Report</a> show we are covering the biggest smartphone platforms well. The iPhone is definitely the leading one (on admob) but we all know that Android is picking up speed, as shown in the <a href="http://metrics.admob.com/2010/01/metrics-update-android/">Metrics Update: Android</a>.</p>
+<p><strong>Multi Channel Distribution</strong>. A very interesting though still underestimated channel of distribution is what taptu called <a href="http://blog.taptu.com/2010/02/03/touchfriendlywebreport/">the mobile touch web</a>. The app works natively in the browser, so there is no need to even install it locally (if no access to native phone ressources is required). This opens up the opportunity for other apps or (mobile) web sites to directly link to and still allow for a (close to) native experience for the user. If you have an iPhone, Android or just a WebKit-based browser (even on your desktop) you can try out the EventNinja web app at <a href="http://eventninja.net/webkit">http://eventninja.net/webkit</a>.</p>
+<h2>The App Store Experience</h2>
+<p>Above I listed some cross platform advantages. And I would like to pick yet another one and focus a bit on it. The various App Stores. They do not only bring the burden to have separate upload and QA processes for each (which to solve could imho serve as a business model itself) but they also allow the user on the various device to find the app. What do I mean by that? Well, simple: The app store is a very prominent way to find very focused, use-case-centered information, services, in short: apps, for your phone. It could also be seen as the pre-installed search engine and payment gateway on your phone. All the handset manufacturers, operators and a lot of service providers are setting up or already running their own App Store, their portal into the world of apps. And deploying your app to many of them, allows to create multiple ways to retreive your app, across multiple networks, stores and devices.</p>
+<p>Sounds crazy? Yes, it is. I am not a fan of all the App Stores, but that is the current trend. Let&#8217;s ride the wave, and be prepared for the next one, which will hopefully be the pure web apps, running in the browser without the App Stores inbetween. We are prepared. And a little band aid, to make it easier to put up with the multiple stores: there are services that will leverage this problem and aggregate the statistics from the various stores.</p>
+<div style="text-align:center; margin-bottom: 20px;" class="mhx">
+<img src="http://blog.uxebu.com/wp-content/uploads/2010/02/matrix.png" alt="App Stores and tested devices" style="width: 100%"/>
+</div>
+<h2>Conclusion</h2>
+<p>With this article we are showing very important aspects of the mobile web and that all this is no dream but reality. Go to your store and download EventNinja to see it yourself! </p>
+<p>If you want to bring your product or website to several mobile platforms to gain most possible reach, <a href="/contact">feel free to contact</a> us to discuss your specific needs.</p>
+<p>Disclaimer: We are working for Vodafone in their Widgets Department.</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2010/02/eventninja-a-mobile-cross-platform-app/">EventNinja &#8211; A Mobile Cross Platform App</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2010/02/eventninja-a-mobile-cross-platform-app/feed/</wfw:commentRss>
+		<slash:comments>14</slash:comments>
+		</item>
+		<item>
+		<title>Dojo.workshop(&#8220;Haifa&#8221;) &#8211; the summary</title>
+		<link>http://www.uxebu.com/blog/2009/08/dojoworkshophaifa-the-summary/</link>
+		<comments>http://www.uxebu.com/blog/2009/08/dojoworkshophaifa-the-summary/#comments</comments>
+		<pubDate>Wed, 12 Aug 2009 11:11:18 +0000</pubDate>
+		<dc:creator><![CDATA[Nikolai Onken]]></dc:creator>
+				<category><![CDATA[dojo]]></category>
+		<category><![CDATA[Events]]></category>
+		<category><![CDATA[frontend engineering]]></category>
+		<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[mobile]]></category>
+		<category><![CDATA[uxebu]]></category>
+		<category><![CDATA[w3c widgets]]></category>
+		<category><![CDATA[dojo.beer()]]></category>
+
+		<guid isPermaLink="false">http://blog.uxebu.com/?p=624</guid>
+		<description><![CDATA[<p>August 9th was the day for the first Dojo event in Israel and thanks to Yoav Rubin from IBM Research Labs in Haifa, we were able to hold the event in the great Auditorium of the amazingly located IBM building in Haifa. To give you a little impression of what kind of working environment the [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2009/08/dojoworkshophaifa-the-summary/">Dojo.workshop(&#8220;Haifa&#8221;) &#8211; the summary</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>August 9th was the day for the first Dojo event in Israel and thanks to <a href="http://yoavrubin.blogspot.com">Yoav Rubin</a> from IBM Research Labs in Haifa, we were able to hold the event in the great Auditorium of the amazingly located IBM building in Haifa.<br />
+To give you a little impression of what kind of working environment the folks at IBM have, I uploaded a panorama image from Yoav&#8217;s office.</p>
+<p><center><a href="http://hub.uxebu.com:33550/wp-content/uploads/2009/08/1411050085_9690da53f7_o.jpg"><img src="http://hub.uxebu.com:33550/wp-content/uploads/2009/08/1411050085_9690da53f7_o-1024x142.jpg" alt="IBM Haifa" title="IBM Haifa" width="50%" class="alignnone size-large wp-image-625" /></a></center><br />
+<span id="more-624"></span></p>
+<p>The day started as planned with coffee and snacks and a <a href="http://www.slideshare.net/nonken/dojo-introduction-1844594">Dojo introduction</a> giving everybody who wasn&#8217;t really familiar with the Dojo Toolkit a better idea of what it actually is. A few demos such as <a href="http://code.google.com/p/xray-project">xRay</a> where shown to show some of the advanced features of Dojo such as live charting, custom themeing and much more.<br />
+After a short break we continued with a talk on how to <a href="http://www.slideshare.net/nonken/event-list">design mobile architectures with the Dojo Toolkit</a> for platforms such as <a href="http://www.phonegap.com">PhoneGap</a>, W3C widgets and other mobile platforms supporting JavaScript/HTML and CSS. This is a very interesting topic and it was great to share the experience we made at uxebu on finding viable solutions for the challenges we face.  The third talk was a quick overview of the current documentation efforts for Dojo and different ways of finding the information you need when you are stuck or simply looking for API docs or similar.<br />
+Before the break, Tomer Mahlin from IBM in Jerusalem, who is working on the BIDI implementation in Dojo, gave a very interesting talk on the challenges, developers face when writing applications supporting BIDI. Not having to deal with the issues you get confronted with when having to develop BIDI applications, this talk was eye opening and very interesting.<br />
+After a great lunch we jumped into a hands on session building a very simple mobile app running on both PhoneGap and devices with a widget runtime supporting W3C widgets installed. This gave the audience a glimpse into mobile development and the challenges but also really exciting features.</p>
+<p>In total there were about 45 people attending the event which is an amazing amount of people for such a first time event, thanks again to everyone attending and especially to Yoav Rubin and the folks at IBM to make this happen.</p>
+<p>I am already looking forward to the next Dojo event in Israel and hope that we can be part of it again.</p>
+
+<p>Following are the slides to give you a little impression of the events content. </p>
+<div style="width:425px;text-align:left" class="mhx" id="__ss_1844597"><a style="font:14px Helvetica,Arial,Sans-serif;display:block;margin:12px 0 3px 0;text-decoration:underline;" href="http://www.slideshare.net/nonken/event-list" title="EventNinja, Dojo and mobile">EventNinja, Dojo and mobile</a><object style="margin:0px" width="425" height="355"><param name="movie" value="http://static.slidesharecdn.com/swf/ssplayer2.swf?doc=eventlist-090811111712-phpapp01&#038;stripped_title=event-list" /><param name="allowFullScreen" value="true"/><param name="allowScriptAccess" value="always"/><embed src="http://static.slidesharecdn.com/swf/ssplayer2.swf?doc=eventlist-090811111712-phpapp01&#038;stripped_title=event-list" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="355"></embed></object>
+<div style="font-size:11px;font-family:tahoma,arial;height:26px;padding-top:2px;">View more <a style="text-decoration:underline;" href="http://www.slideshare.net/">documents</a> from <a style="text-decoration:underline;" href="http://www.slideshare.net/nonken">nonken</a>.</div>
+</div>
+<div style="width:425px;text-align:left" class="mhx" id="__ss_1844594"><a style="font:14px Helvetica,Arial,Sans-serif;display:block;margin:12px 0 3px 0;text-decoration:underline;" href="http://www.slideshare.net/nonken/dojo-introduction-1844594" title="Dojo Introduction">Dojo Introduction</a><object style="margin:0px" width="425" height="355"><param name="movie" value="http://static.slidesharecdn.com/swf/ssplayer2.swf?doc=dojointroduction-090811111614-phpapp02&#038;stripped_title=dojo-introduction-1844594" /><param name="allowFullScreen" value="true"/><param name="allowScriptAccess" value="always"/><embed src="http://static.slidesharecdn.com/swf/ssplayer2.swf?doc=dojointroduction-090811111614-phpapp02&#038;stripped_title=dojo-introduction-1844594" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="355"></embed></object>
+<div style="font-size:11px;font-family:tahoma,arial;height:26px;padding-top:2px;">View more <a style="text-decoration:underline;" href="http://www.slideshare.net/">documents</a> from <a style="text-decoration:underline;" href="http://www.slideshare.net/nonken">nonken</a>.</div>
+</div>
+<div style="width:425px;text-align:left" class="mhx" id="__ss_1848277"><a style="font:14px Helvetica,Arial,Sans-serif;display:block;margin:12px 0 3px 0;text-decoration:underline;" href="http://www.slideshare.net/guest0176bf4/bidi-support-in-dojo14" title="Bidi Support In Dojo1.4">Bidi Support In Dojo1.4</a><object style="margin:0px" width="425" height="355"><param name="movie" value="http://static.slidesharecdn.com/swf/ssplayer2.swf?doc=bidisupportindojo1-406august2009-090812072918-phpapp02&#038;stripped_title=bidi-support-in-dojo14" /><param name="allowFullScreen" value="true"/><param name="allowScriptAccess" value="always"/><embed src="http://static.slidesharecdn.com/swf/ssplayer2.swf?doc=bidisupportindojo1-406august2009-090812072918-phpapp02&#038;stripped_title=bidi-support-in-dojo14" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="355"></embed></object>
+<div style="font-size:11px;font-family:tahoma,arial;height:26px;padding-top:2px;">View more <a style="text-decoration:underline;" href="http://www.slideshare.net/">presentations</a> from <a style="text-decoration:underline;" href="http://www.slideshare.net/guest0176bf4">guest0176bf4</a>.</div>
+</div>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2009/08/dojoworkshophaifa-the-summary/">Dojo.workshop(&#8220;Haifa&#8221;) &#8211; the summary</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2009/08/dojoworkshophaifa-the-summary/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Over the Air 2009</title>
+		<link>http://www.uxebu.com/blog/2009/07/over-the-air-2009/</link>
+		<comments>http://www.uxebu.com/blog/2009/07/over-the-air-2009/#comments</comments>
+		<pubDate>Mon, 27 Jul 2009 06:10:40 +0000</pubDate>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+				<category><![CDATA[Events]]></category>
+		<category><![CDATA[mobile]]></category>
+		<category><![CDATA[Tumbles]]></category>
+		<category><![CDATA[w3c widgets]]></category>
+
+		<guid isPermaLink="false">http://blog.uxebu.com/?p=594</guid>
+		<description><![CDATA[<p>Over the Air 2009</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2009/07/over-the-air-2009/">Over the Air 2009</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><a href="http://overtheair.org/blog/2009/07/11/overtheair2009/">Over the Air 2009</a></p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2009/07/over-the-air-2009/">Over the Air 2009</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2009/07/over-the-air-2009/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Internet World Day 1, W3C Widgets and some other impressions</title>
+		<link>http://www.uxebu.com/blog/2009/06/internet-world-day-1-w3c-widgets-and-some-other-impressions/</link>
+		<comments>http://www.uxebu.com/blog/2009/06/internet-world-day-1-w3c-widgets-and-some-other-impressions/#comments</comments>
+		<pubDate>Tue, 23 Jun 2009 21:59:50 +0000</pubDate>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+				<category><![CDATA[business]]></category>
+		<category><![CDATA[dojo]]></category>
+		<category><![CDATA[Events]]></category>
+		<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[mobile]]></category>
+		<category><![CDATA[uxebu]]></category>
+		<category><![CDATA[w3c widgets]]></category>
+		<category><![CDATA[internet world]]></category>
+		<category><![CDATA[mobile vision]]></category>
+		<category><![CDATA[ria world]]></category>
+
+		<guid isPermaLink="false">http://blog.uxebu.com/?p=571</guid>
+		<description><![CDATA[<p>Today was the first day of the Internet World here in Munich. It is accompanied by RIA World and Mobile Vision, so you get three conferences at once. Unfortunately their schedules are not synchronized, pretty uncomfortable. This event is a mix of conference and fair. You can find and talk to a lot of (mostly) [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2009/06/internet-world-day-1-w3c-widgets-and-some-other-impressions/">Internet World Day 1, W3C Widgets and some other impressions</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>Today was the first day of the <a href="http://www.internetworld-messe.de/">Internet World</a> here in Munich. It is accompanied by <a href="http://www.riaworld.de/">RIA World</a> and <a href="http://mobile-vision.de/">Mobile Vision</a>, so you get three conferences at once. Unfortunately their schedules are not synchronized, pretty uncomfortable. This event is a mix of conference and fair. You can find and talk to a lot of (mostly) german companies and get all the infos you need. And on the other hand you can get some information about those three topics in the talks at the conference. And as usual the beer at the after-party is for free, even for those who are only there to see the fair and don&#8217;t have to pay, as I understood it. So come for a free beer :-).<br />
+<span id="more-571"></span><br />
+Just a major flaw in the organization of this event is this big booklet that you need to look up the schedule, it&#8217;s not really handy and I wished a lot of times I had a phone that runs <a href="http://eventninja.net">EventNinja</a> ;-). Yes, this is our app. Unfortunately my SonyEriccson has no <a href="http://www.w3.org/2008/webapps/wiki/PubStatus#Widgets_Specifications">W3C widget</a> runtime available, but hopefully their Symbian-powered phone that will come out (as I heard today) will have one, though I will probably switch to Android or the Palm Pre anyway.</p>
+<p>The topics covered at those three conferences are not as bleeding-edge as we like them to be :-). But this is ok, since it is a more business-oriented conference. Though there are quite some old facts around and the mobile world just moves much faster than some of the talks at this conference do. It was also funny that relatively old facts e.g. about the features and some of the fun apps that exist for the iPhone still seemed to amuse the people.<br />
+But probably the worst fact about this conference is that there is no free WLAN, you have to pay 24€ for 8h, and that is the <em>Internet World Congress</em>? Hallo? Sorry, but this is really not state of the art, I hope the <a href="http://discuss-discover.com/">discuss&#038;discover</a> will do better there.</p>
+<h2>Rely on Cloud Service?</h2>
+<p>I just heard that google analytics was guilty for bringing down pages like bild.de for a day. Because the page relied on google analytics to be loaded fully, but due to the down time of this google service the page never loaded in the user&#8217;s browser. Sorry, but in this case the solution is not the SLA or kicking out the JavaScript, just look at the <a href="http://ajaxian.com/archives/speeding-up-urchin-with-dojo-part-2">Dojo module dojox.analytics</a>, which Pete Higgins wrote and which does what should be done in this case, load the script after the relevant content was loaded, asynchronously. So please make the developers responsible, not the service provider. If you are relying on this service, make sure that failure is a case you planned for. Don&#8217;t use the cloud if you don&#8217;t know what the implications are!</p>
+<h2>W3C widgets</h2>
+<p>Since <a href="http://mobilevision.de">Mobile Vision</a> is one of the conferences and we are also active in the mobile space, I need to state that the W3C widgets, as e.g. Vodafone is already pushing them, had been very much ignored here. How much (mobile) vision do you get here?<br />
+Read the <a href="http://www.quirksmode.org/blog/archives/2009/04/introduction_to.html">Introduction to W3C Widgets</a> by PPK to get an overview of what these things are. So let me just summarize the advantages and differences of W3C widgets compared to the usual native apps.</p>
+<ul>
+<li>Allows deployment to <strong>multiple mobile platforms</strong> (and the browser of course too)</li>
+<li>Rapid prototyping is much faster and cheaper</li>
+<li>Uses the standard technologies HTML, CSS and JavaScript</li>
+<li>Therefore a much larger potential developer base</li>
+</ul>
+<p>Of course there are new things to consider. You need to learn about the distribution ways (AppStores, etc.), how to deploy and you mostly have to sign your apps. But all those things easily outweigh the pains you need to go through when learning all the native technologies.</p>
+<p>Well, maybe we are too spoiled from conferences like Ajax Experience, Ajax in Action and Mobile2.0.<br />
+<!--And scnr: all the slides here are so Web1.0 :-).--></p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2009/06/internet-world-day-1-w3c-widgets-and-some-other-impressions/">Internet World Day 1, W3C Widgets and some other impressions</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2009/06/internet-world-day-1-w3c-widgets-and-some-other-impressions/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+	</channel>
+</rss>

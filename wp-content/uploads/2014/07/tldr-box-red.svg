@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="281px" height="360px" viewBox="0 0 281 360" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.0.3 (7891) - http://www.bohemiancoding.com/sketch -->
+    <title>Slice 1</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <rect id="Rectangle-1" stroke="#EEEEEE" fill="#FCFCFC" sketch:type="MSShapeGroup" x="0" y="38" width="281" height="322"></rect>
+        <g id="Oval-1-+-tl;dr" sketch:type="MSLayerGroup" transform="translate(140.000002, 37.719721) rotate(-10.000000) translate(-140.000002, -37.719721) translate(112.500002, 10.219721)">
+            <circle id="Oval-1" fill="#E10707" sketch:type="MSShapeGroup" cx="27.5" cy="27.5" r="27.5"></circle>
+            <text id="tl;dr" fill="#FFFFFF" sketch:type="MSTextLayer" font-family="Arial" font-size="20" font-weight="bold" sketch:alignment="middle">
+                <tspan x="8.06152344" y="34">tl;dr</tspan>
+            </text>
+        </g>
+        <g id="Group" sketch:type="MSLayerGroup" transform="translate(12.000000, 78.000000)" font-size="14" font-family="Helvetica">
+            <text id="makes-refactoring-ha" sketch:type="MSTextLayer" font-weight="normal" fill="#4A4A4A">
+                <tspan x="17" y="39">makes refactoring hard</tspan>
+            </text>
+            <text id="•" sketch:type="MSTextLayer" font-weight="bold" fill="#000000">
+                <tspan x="4" y="42">•</tspan>
+            </text>
+            <text id="increases-the-cost-o" sketch:type="MSTextLayer" font-weight="normal" fill="#4A4A4A">
+                <tspan x="17" y="62">increases the cost of test maintenance</tspan>
+            </text>
+            <text id="•-2" sketch:type="MSTextLayer" font-weight="bold" fill="#000000">
+                <tspan x="4" y="65">•</tspan>
+            </text>
+            <text id="doesn't-improve-the-" sketch:type="MSTextLayer" font-weight="normal" fill="#4A4A4A">
+                <tspan x="17" y="82">doesn't improve the API</tspan>
+            </text>
+            <text id="•-3" sketch:type="MSTextLayer" font-weight="bold" fill="#000000">
+                <tspan x="4" y="85">•</tspan>
+            </text>
+            <text id="slows-down-developme" sketch:type="MSTextLayer" font-weight="normal" fill="#4A4A4A">
+                <tspan x="17" y="103">slows down development process</tspan>
+            </text>
+            <text id="•-4" sketch:type="MSTextLayer" font-weight="bold" fill="#000000">
+                <tspan x="4" y="106">•</tspan>
+            </text>
+            <text id="a-waste-of-time" sketch:type="MSTextLayer" font-weight="normal" fill="#4A4A4A">
+                <tspan x="17" y="124">a waste of time</tspan>
+            </text>
+            <text id="•-5" sketch:type="MSTextLayer" font-weight="bold" fill="#000000">
+                <tspan x="4" y="127">•</tspan>
+            </text>
+            <text id="Testing-implementati" sketch:type="MSTextLayer" font-weight="bold" fill="#4A4A4A">
+                <tspan x="0" y="14">Testing implementation details</tspan>
+            </text>
+        </g>
+        <g id="Group" sketch:type="MSLayerGroup" transform="translate(12.000000, 218.000000)" font-size="14" font-family="Helvetica">
+            <text id="Testing-public-API" sketch:type="MSTextLayer" font-weight="bold" fill="#4A4A4A">
+                <tspan x="0" y="14">Testing public API</tspan>
+            </text>
+            <text id="improves-readability" sketch:type="MSTextLayer" font-weight="normal" fill="#4A4A4A">
+                <tspan x="14" y="39">improves readability of your tests</tspan>
+            </text>
+            <text id="•-10" sketch:type="MSTextLayer" font-weight="normal" fill="#000000">
+                <tspan x="1" y="42">•</tspan>
+            </text>
+            <text id="your-tests-are-the-s" sketch:type="MSTextLayer" font-weight="normal" fill="#4A4A4A">
+                <tspan x="14" y="62">your tests are the spec</tspan>
+            </text>
+            <text id="•-9" sketch:type="MSTextLayer" font-weight="normal" fill="#000000">
+                <tspan x="1" y="65">•</tspan>
+            </text>
+            <text id="less-but-better-test" sketch:type="MSTextLayer" font-weight="normal" fill="#4A4A4A">
+                <tspan x="14" y="82">less but better tests</tspan>
+            </text>
+            <text id="•-8" sketch:type="MSTextLayer" font-weight="normal" fill="#000000">
+                <tspan x="1" y="85">•</tspan>
+            </text>
+            <text id="refactor-fast-withou" sketch:type="MSTextLayer" font-weight="normal" fill="#4A4A4A">
+                <tspan x="14" y="103">refactor fast without touching tests</tspan>
+            </text>
+            <text id="•-7" sketch:type="MSTextLayer" font-weight="normal" fill="#000000">
+                <tspan x="1" y="106">•</tspan>
+            </text>
+            <text id="faster-code-reviews" sketch:type="MSTextLayer" font-weight="normal" fill="#4A4A4A">
+                <tspan x="14" y="124">faster code-reviews</tspan>
+            </text>
+            <text id="•-6" sketch:type="MSTextLayer" font-weight="normal" fill="#000000">
+                <tspan x="1" y="127">•</tspan>
+            </text>
+        </g>
+    </g>
+</svg>

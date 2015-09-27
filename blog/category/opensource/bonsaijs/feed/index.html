@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>uxebu &#187; BonsaiJS</title>
+	<atom:link href="http://www.uxebu.com/blog/category/opensource/bonsaijs/feed/" rel="self" type="application/rss+xml" />
+	<link>http://www.uxebu.com</link>
+	<description>The first JavaScript-only development and consulting company</description>
+	<lastBuildDate>Thu, 30 Jul 2015 09:10:24 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=4.1.8</generator>
+	<item>
+		<title>Happy Holidays</title>
+		<link>http://www.uxebu.com/blog/2012/12/happy-holidays/</link>
+		<comments>http://www.uxebu.com/blog/2012/12/happy-holidays/#comments</comments>
+		<pubDate>Fri, 21 Dec 2012 15:31:26 +0000</pubDate>
+		<dc:creator><![CDATA[Nikolai Onken]]></dc:creator>
+				<category><![CDATA[BonsaiJS]]></category>
+
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=2696</guid>
+		<description><![CDATA[<p>We want to wish you all a very happy christmas and a good start into 2013. This year has been very special for us with the launch of http://pixelplant.com, the Flash to HTML5 conversion service including human support and with open sourcing BonsaiJS, after spending almost one year on building something we think would also [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2012/12/happy-holidays/">Happy Holidays</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>We want to wish you all a very happy christmas and a good start into 2013. This year has been very special for us with the launch of <a href="http://pixelplant.com">http://pixelplant.com</a>, the Flash to HTML5 conversion service including human support <img src="http://www.uxebu.com/wp-includes/images/smilies/icon_wink.gif" alt=";)" class="wp-smiley" /> and with open sourcing <a href="http://bonsaijs.org">BonsaiJS</a>, after spending almost one year on building something we think would also be useful for others.</p>
+<p>We are really looking forward to the next year as we continue improving the Flash conversion and have some very exciting releases coming up &#8211; but we won&#8217;t mention too much yet, so stay tuned <img src="http://www.uxebu.com/wp-includes/images/smilies/icon_wink.gif" alt=";)" class="wp-smiley" /></p>
+<p><em>David, Fabio, Tobias, Tobi, Peter, Wolfram and Nikolai</em></p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2012/12/happy-holidays/">Happy Holidays</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2012/12/happy-holidays/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Bonsai &amp; Bounding Boxes</title>
+		<link>http://www.uxebu.com/blog/2012/10/bonsai-and-bounding-boxes/</link>
+		<comments>http://www.uxebu.com/blog/2012/10/bonsai-and-bounding-boxes/#comments</comments>
+		<pubDate>Wed, 31 Oct 2012 13:56:36 +0000</pubDate>
+		<dc:creator><![CDATA[jpadolsey]]></dc:creator>
+				<category><![CDATA[BonsaiJS]]></category>
+
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=2644</guid>
+		<description><![CDATA[<p>In Bonsai’s latest release (0.4.1) we added support for a new ‘getBoundingBox’ method on all DisplayObjects. We can now accurately calculate the bounding box of paths, and groups containing paths. To demonstrate we’ve created a demo with a constantly morphing star and a constantly re-calculated bounding-box: We calculate the bounding box of any given path [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2012/10/bonsai-and-bounding-boxes/">Bonsai &#038; Bounding Boxes</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>In <a href="https://github.com/uxebu/bonsai">Bonsai’s latest release (0.4.1)</a> we added support for a new ‘getBoundingBox’ method on all DisplayObjects. We can now accurately calculate the bounding box of paths, and groups containing paths.</p>
+<p>To demonstrate we’ve created a demo with a constantly morphing star and a constantly re-calculated bounding-box:</p>
+<p style="margin: 0;"><iframe style="width: 100%; height: 600px;" src="http://jsfiddle.net/CMsSs/embedded/result" width="300" height="150" frameborder="0" allowfullscreen="allowfullscreen"></iframe></p>
+<p>We calculate the bounding box of any given path by converting all of its segments to cubic bezier curves and then calculating the extrema of each curve individually. It’s then a simple case of finding the smallest and biggest values on each axis to determine the bounding box.</p>
+<h3>Why?</h3>
+<p>Bonsai has always had a split architecture. The renderer has always been seperate to the runner. There are very good reasons for this but unfortunately it meant we could never query the renderer-side for information about drawn objects. So SVG’s getBBox was off the table. This is a good thing though. It’s very slow. Without our runner-side implementation something like the morphing-star demo above would not be possible. There are also many other applications.</p>
+<h3>The API</h3>
+<p>All DisplayObject’s now have a ‘getBoundingBox’ method. It returns an object like this:</p>
+<div class="codecolorer-container text twitlight" style="overflow: auto;">
+<table cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td class="line-numbers">
+<div>1<br />
+2<br />
+3<br />
+4<br />
+5<br />
+6<br />
+7<br />
+8</div>
+</td>
+<td>
+<div class="text codecolorer">{<br />
+left: 22,<br />
+top: 44,<br />
+width: 100,<br />
+height: 100,<br />
+bottom: 144,<br />
+right: 122<br />
+}</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Calling ‘getBoundingBox’ with no arguments will give you the bounding box of the object in local coordinate space. For example:</p>
+<div class="codecolorer-container text twitlight" style="overflow: auto;">
+<table cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td class="line-numbers">
+<div>1<br />
+2</div>
+</td>
+<td>
+<div class="text codecolorer">var rect = new Rect(50, 50, 100, 100);<br />
+rect.getBoundingBox(); // 0,0,100,100</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>To get the real position of the object in its parent coordinate space, you would simply pass a matrix transform so that the calculated extrema are transformed:</p>
+<div class="codecolorer-container text twitlight" style="overflow: auto;">
+<table cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td class="line-numbers">
+<div>1<br />
+2</div>
+</td>
+<td>
+<div class="text codecolorer">var rect = new Rect(50, 50, 100, 100);<br />
+rect.getBoundingBox( rect.attr(&#8216;matrix&#8217;) ); // 50,50,100,100</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3>Coordinate spaces</h3>
+<p>In Bonsai, and in most other drawing frameworks, local coordinate space is differentiated from the parent or global coordinate space. Take this simple example:</p>
+<div class="codecolorer-container text twitlight" style="overflow: auto;">
+<table cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td class="line-numbers">
+<div>1</div>
+</td>
+<td>
+<div class="text codecolorer">new Path().moveTo(0,0).lineTo(20,20);</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>That path would have a local bounding box of ’0,0,20,20′. Compare that with:</p>
+<div class="codecolorer-container text twitlight" style="overflow: auto;">
+<table cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td class="line-numbers">
+<div>1</div>
+</td>
+<td>
+<div class="text codecolorer">new Path().moveTo(10,10).lineTo(20,20);</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>That path would have a local bounding box of ’10,10,20,20′.</p>
+<p>When we place a DisplayObject, such as one of these paths, onto the stage it is positioned according to:</p>
+<ol>
+<li>Its own x and y coordinates (its own transform) — this is <strong>not</strong> the same as the initial ‘moveTo(x, y)’ points.</li>
+<li>All of its ancestors’ collective transforms</li>
+</ol>
+<p>We can get the bounding box relative to the path’s position within its own parent by grabbing the path’s transform (a 2D matrix in the form ‘scaleX, skewX, skewY, scaleY, translateX, translateY’) and passing it to the ‘getBoundingBox’ method:</p>
+<div class="codecolorer-container text twitlight" style="overflow: auto;">
+<table cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td class="line-numbers">
+<div>1</div>
+</td>
+<td>
+<div class="text codecolorer">var bbox = myPath.getBoundingBox( myPath.attr(&#8216;matrix&#8217;) );</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>It follows that we can get the global bounding box of ‘myPath’ by collecting an concat’ing all transform matrices between and including the path and the global stage:</p>
+<div class="codecolorer-container text twitlight" style="overflow: auto;">
+<table cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td class="line-numbers">
+<div>1<br />
+2<br />
+3<br />
+4<br />
+5<br />
+6<br />
+7<br />
+8<br />
+9<br />
+10<br />
+11<br />
+12<br />
+13</div>
+</td>
+<td>
+<div class="text codecolorer">DisplayObject.prototype.getAbsoluteBoundingBox = function() {var matrix = this.attr(‘matrix’).clone();<br />
+var p = this;</p>
+<p>while ((p = p.parent) &amp;&amp; p.id !== 0) {<br />
+// Get parent’s transform and concat<br />
+// it with what we have so far:<br />
+matrix.concat(p.attr(‘matrix’));<br />
+}</p>
+<p>return this.getBoundingBox( matrix );<br />
+};</p>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>And now we can directly call:</p>
+<div class="codecolorer-container text twitlight" style="overflow: auto;">
+<table cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td class="line-numbers">
+<div>1</div>
+</td>
+<td>
+<div class="text codecolorer">var bbox = myPath.getAbsoluteBoundingBox(); // gives global bounding box</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Note:</strong> We are hoping to add something like this to the API very soon. <a href="https://github.com/uxebu/bonsai/pull/141">Please follow progress here</a>.</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2012/10/bonsai-and-bounding-boxes/">Bonsai &#038; Bounding Boxes</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2012/10/bonsai-and-bounding-boxes/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Say hi to &#8220;Orbit&#8221; / creating Bonsai content in the browser</title>
+		<link>http://www.uxebu.com/blog/2012/10/say-hi-to-orbit-creating-bonsai-content-in-the-browser/</link>
+		<comments>http://www.uxebu.com/blog/2012/10/say-hi-to-orbit-creating-bonsai-content-in-the-browser/#comments</comments>
+		<pubDate>Wed, 10 Oct 2012 13:48:51 +0000</pubDate>
+		<dc:creator><![CDATA[Nikolai Onken]]></dc:creator>
+				<category><![CDATA[BonsaiJS]]></category>
+		<category><![CDATA[development tools]]></category>
+
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=2574</guid>
+		<description><![CDATA[<p>We&#8217;re really excited to announce the first public release of our editor &#8220;Orbit&#8221; which allows you to play with Bonsai and create content without having to do any setup. Before I dive a little more into the details, go ahead and take it for a testdrive at http://orbit.bonsaijs.org Why? We strongly believe that we need [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2012/10/say-hi-to-orbit-creating-bonsai-content-in-the-browser/">Say hi to &#8220;Orbit&#8221; / creating Bonsai content in the browser</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>We&#8217;re really excited to announce the first public release of our editor &#8220;Orbit&#8221; which allows you<br />
+to play with Bonsai and create content without having to do any setup.</p>
+<p>Before I dive a little more into the details, go ahead and take it for<br />
+a testdrive at <a href="http://orbit.bonsaijs.org">http://orbit.bonsaijs.org</a></p>
+<p><a href="http://orbit.bonsaijs.org"><img class="alignleft size-full wp-image-2575" title="orbit" src="/wp-content/uploads/2012/10/orbit.png" alt="" width="906" height="570" /></a></p>
+<p><span id="more-2574"></span></p>
+<p><strong>Why?</strong></p>
+<p>We strongly believe that we need better tools for creating visual content for the web. In a mobile and touch based world the current tooling paradigms just don&#8217;t cut it anymore. With <a href="http://pixelplant.com">http://pixelplant.com</a>, the online Flash to HTML5 conversion, we help the Flash community to move to HTML5 without loosing all their assets and work. With Orbit, we now are taking the first step towards providing the tools needed to create beautiful content straight in the browser.</p>
+<p><strong>Orbit tour</strong></p>
+<p>Orbit provides you with a coding and preview panel so that you can see what you create without having to go through<br />
+the hustle of reloading your browser.</p>
+<p><a href="http://orbit.bonsaijs.org"><img class="alignleft size-full wp-image-2586" title="orbit3" src="/wp-content/uploads/2012/10/orbit3.png" alt="" width="1012" height="534" /></a></p>
+<p>Once you start writing code you will see how the url bar gets updated so that<br />
+you can easily share your ideas with other people.</p>
+<p><a href="http://orbit.bonsaijs.org"><img class="alignleft size-full wp-image-2580" title="orbit1" src="/wp-content/uploads/2012/10/orbit1.png" alt="" width="382" height="333" /></a></p>
+<p>To help you getting started we have integrated the Bonsai Cheatsheet as well and added context sensitive search.<br />
+So when you start typing the word Circle, the help will jump to the part explaining how to create circles.</p>
+<p><a href="http://orbit.bonsaijs.org"><img class="alignleft size-full wp-image-2581" title="orbit2" src="/wp-content/uploads/2012/10/orbit2.png" alt="" width="1418" height="613" /></a></p>
+<p>We hope that this will make it easier for you to get started with Bonsai and give you a jumpstart into creating beautiful content for the web. We are looking forward to the upcoming features and as always, feel free to contact us if we can help converting your Flash content to HTML5.</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2012/10/say-hi-to-orbit-creating-bonsai-content-in-the-browser/">Say hi to &#8220;Orbit&#8221; / creating Bonsai content in the browser</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2012/10/say-hi-to-orbit-creating-bonsai-content-in-the-browser/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Ping, Pong, BonsaiJS plays sound!</title>
+		<link>http://www.uxebu.com/blog/2012/10/ping-pong-bonsaijs-plays-sound/</link>
+		<comments>http://www.uxebu.com/blog/2012/10/ping-pong-bonsaijs-plays-sound/#comments</comments>
+		<pubDate>Thu, 04 Oct 2012 11:08:54 +0000</pubDate>
+		<dc:creator><![CDATA[Tobias Reiss]]></dc:creator>
+				<category><![CDATA[BonsaiJS]]></category>
+
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=2506</guid>
+		<description><![CDATA[<p>Bonsai grows with the demand of its users and our flagship project pixelplant.com. The next big thing on our ever growing list of upcoming features was for Audio support. It’s taken us a little over a week to implement the first version and we&#8217;re pleased with the results. This version includes an API, a new [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2012/10/ping-pong-bonsaijs-plays-sound/">Ping, Pong, BonsaiJS plays sound!</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>Bonsai grows with the demand of its users and our flagship project <a href="https://www.pixelplant.com/">pixelplant.com</a>. The next big thing on our ever growing list of upcoming features was for Audio support. It’s taken us a little over a week to implement the first version and we&#8217;re pleased with the results. This version includes an <a href="https://github.com/uxebu/bonsai/blob/master/src/runner/audio.js">API</a>, a new <a href="https://github.com/uxebu/bonsai/blob/master/src/asset/audio_handler.js">AssetHandler</a>, tests and a lot of example movies of course. It&#8217;s been great fun to replace the normal use of `console.log` with a sound-snippet. Suddenly we&#8217;re able to *hear* ticks, events, collisions and even bugs. Of course at some point we hit the boundaries of what is possible in the current web, especially on mobile devices but all in all we&#8217;re happy with what we’ve developed. The new Audio API enables a whole new media format and is a great way to express your creativity.</p>
+<p>This is how the new API looks:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="text codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">new Audio('myfile.mp3').addTo(stage).play();</div></div>
+<p>So what happens here. We pass a URL to the Audio constructor and thereby create a new instance which also triggers the partial loading of the file. We add the instance to the stage and finally call `play()` what plays the audio as soon as enough data is available.</p>
+<p>Press the play button and start the music.</p>
+<p><iframe style="width: 100%; height: 255px;" src="http://jsfiddle.net/ahhMe/11/embedded/result" width="300" height="150" frameborder="0" allowfullscreen="allowfullscreen"></iframe></p>
+<p>Audio is our fifth supported asset type. We&#8217;re already able to handle Bitmaps, Fonts, Submovies and Videos. As with the other asset types, you’ll need to ensure that the file is loaded before it can be used. To do this you should listen for the &#8220;load&#8221; event and only then start to play.</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="text codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">new Audio('myfile.mp3').on('load', function() {<br />
+this.addTo(stage).play();<br />
+});</div></div>
+<p>We know you&#8217;re a good web citizen and want to use more file-formats than just `audio/mp3` but also `audio/ogg` and probably more. The way to do that is to pass an Array of Objects (we call them AssetResourceObjects) to the Audio Constructor.</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="text codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">var assetRequest = [<br />
+{ src: 'myfile.mp3' },<br />
+{ src: 'myfile.ogg' },<br />
+{ src: 'myfile.eff', type: 'audio/exoticFileFormat' }<br />
+];<br />
+new Audio(assetRequest).on('load', function() {<br />
+this.addTo(stage).play();<br />
+});</div></div>
+<p>To see the new Audio API in action we extended the <a href="http://demos.bonsaijs.org/demos/pong/">existing Pong Game</a> and equiped some collisions with sound. We hope you&#8217;ll experience the same difference as we did. Have fun!</p>
+<p>We are looking forward to your feedback and seeing some amazing new Bonsai Movies from you.</p>
+<p>Your Bonsai-Team</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2012/10/ping-pong-bonsaijs-plays-sound/">Ping, Pong, BonsaiJS plays sound!</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2012/10/ping-pong-bonsaijs-plays-sound/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+	</channel>
+</rss>

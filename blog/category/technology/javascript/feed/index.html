@@ -1,0 +1,621 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>uxebu &#187; JavaScript</title>
+	<atom:link href="http://www.uxebu.com/blog/category/technology/javascript/feed/" rel="self" type="application/rss+xml" />
+	<link>http://www.uxebu.com</link>
+	<description>The first JavaScript-only development and consulting company</description>
+	<lastBuildDate>Thu, 30 Jul 2015 09:10:24 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=4.1.8</generator>
+	<item>
+		<title>The ES6 arrow function &#8211; a usage story</title>
+		<link>http://www.uxebu.com/blog/2015/05/the-es6-arrow-function-a-usage-story/</link>
+		<comments>http://www.uxebu.com/blog/2015/05/the-es6-arrow-function-a-usage-story/#comments</comments>
+		<pubDate>Wed, 13 May 2015 09:19:42 +0000</pubDate>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+				<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[Technology]]></category>
+		<category><![CDATA[es6]]></category>
+
+		<guid isPermaLink="false">http://www.uxebu.com/?p=6784</guid>
+		<description><![CDATA[<p>One of the most famous features of ECMAScript6 is the arrow function. The arrow function is a shortcut for `function() {}` which can now be written like so `() => {}`. And it embeds a second feature: lexical `this` binding. I have struggled with it and enjoyed it. Read about why it sucked and where [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2015/05/the-es6-arrow-function-a-usage-story/">The ES6 arrow function &#8211; a usage story</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><img src="http://www.uxebu.com/wp-content/uploads/2015/05/arrow-function4-150px-150x134.jpg" alt="arrow-function4-150px" width="150" height="134" class="alignright size-thumbnail wp-image-6824" />One of the most famous features of ECMAScript6 is the arrow function.<br />
+The arrow function is a shortcut for `function() {}` which can now be written like so `() => {}`. And it embeds a second feature: lexical `this` binding.<br />
+I have struggled with it and enjoyed it. Read about why it sucked and where it added value.<br />
+<span id="more-6784"></span></p>
+<h2>The obvious advantages</h2>
+<p>It was around end of 2014 when I felt I had to pick up on the move forward of JavaScript, I started to <a href="http://www.uxebu.com/blog/2014/11/get-real-es6-webpack/">dive into ES6</a>. The arrow function was one of the first things I adapted in a lot of places. It is beautiful to write </p>
+<p><script src="https://gist.github.com/wolframkriesing/6e92a718d86b46ae885a.js"></script></p>
+<p>instead of </p>
+<p><script src="https://gist.github.com/wolframkriesing/1c104a83b2053daa2367.js"></script></p>
+<p>way less boilerplate, much nicer to read and more expressive.<br />
+As soon as my brain got used to mapping `x => x` or `(x, y) => x + y` to function declarations (with implicit returns) those constructs became meaningful to me. You know how it is, you need to use it a couple of times until it feels familiar and doesn&#8217;t require real effort anymore to be useful. It&#8217;s <a href="http://tddbin.com/#?kata=es6/language/arrow-functions/basics" title="Practice arrow-function basics" target="_blank">just practice</a>.</p>
+<h2>Replacing all `self` and most `bind()`</h2>
+<p>You also remember the `self = this` and `this.method.bind(this)` uses that polluted the code? Or the `bind()` at the end of a big anonymous function, which makes it easy to overlook and hard to find out the actual scope of that anonymous function. Yes, you remember too!? Or do you still have this in your code? Now is your chance to get rid of it. Start using ES6! And the time is right, look at <a href="https://babeljs.io/users/" title="babeljs users">the list of babeljs users</a> (babeljs, the quasi-standard ES6 transpiler).</p>
+<p>One purpose of the arrow function is to allow us to be more expressive in our code like so:</p>
+<p><script src="https://gist.github.com/wolframkriesing/a19e5af78dbbb534e6a2.js"></script></p>
+<p>And those are the cases where the new arrow syntax really shines. The code becomes less cluttered and maintaining (lexical) this-scope is much cleaner and more obvious. </p>
+<h2>Don&#8217;t stop learning here!</h2>
+<p>Be careful though, having bound a method&#8217;s `this` via the arrow function does not allow you to re-bind it. The `=>` is a lexical binding! Take the following mocha/jasmine test suite:</p>
+<p><script src="https://gist.github.com/wolframkriesing/690394e345bd1ede60ca.js"></script></p>
+<p>`this.testMe` is `undefined` inside the test case and the test will fail. Using the old-style function, this test will pass.</p>
+<p><script src="https://gist.github.com/wolframkriesing/6fde78bce9f225498253.js"></script></p>
+<p>This test run is green now. The test libraries (mocha here) wants to pass the scope (the `this`) into each `it()` by using `apply` or `call`. Which won&#8217;t work in the first case, since the arrow function does bind `this` fix to the lexical scope it is in and that can&#8217;t be changed!</p>
+<h2>Expressivness</h2>
+<p>After I got over the initial excitement of using ES6, especially the arrow function I realized that I very often use the short syntax `let f = () => {}` instead of `function f() {}`.<br />
+It was the hipster syndrom that made me use that all over the place. And it was not a good idea, everywhere. Why? If there is no `this` to bind it&#8217;s useless and blurs my intention. Actually the latter is even much more explicit and readable when really defining a normal function. &#8220;I define a function.&#8221; That&#8217;s all I do. And that&#8217;s what `function() {}` perfectly states, I think. The assignment (using `let`) and the definition of the function (using `() => {}`) don&#8217;t need to be separately spelled out, it&#8217;s inherent in the `function` syntax, so let it do it&#8217;s job.</p>
+<h2>Adding some `const`</h2>
+<p>Still in the early days, but some more ES6 experience later, functional feelings and immutability popping up all around I started to use `const f = () => {}`. This has additional value, but I would still argue the syntax is less expressive than the old style. Ok, there is a positive side-effect using `const`. I can not reassign the variable name `f`. In case of using babel it will already complain that I am trying to change the value of a constant by saying `&#8221;f&#8221; is read-only`.<br />
+In my opinion the `const` syntax is also useless here. It may communicate a purpose: &#8220;this is immutable&#8221;. Is there really value in this more verbose and less readable syntax? Was overriding a function really ever the problem, so that it becomes necessary to make it immutable? I doubt it. (Maybe it also just needs time for me to oversee this new syntax and see the explicitness in it too.)<br />
+Though I would agree there is the functional use case where I would also tend towards using that const style syntax using the arrow functions.</p>
+<p><script src="https://gist.github.com/wolframkriesing/face2c99cde73dab009c.js"></script></p>
+<p>Small one-liner functions that are used in a functional style make nicer reads using the `const` and the arrow function syntax. </p>
+<h2>Conclusion</h2>
+<p>Back in the years before 2010, when <a href="https://twitter.com/slightlylate" title="Alex Russell">Alex Russell</a> was still the lead of dojo I remember him stating very often that a short-hand for the `function(){}` syntax would be something he likes to see coming to JS. Finally it is there and it does make things handy and more compact.<br />
+But doesn&#8217;t it come with a side-effect? A side-effect you have to know and understand to avoid falling into it&#8217;s trap. As there are many others in JavaScript, like type-coersion, scope-binding, etc. Now there is one more. Make sure to <a href="http://es6katas.org">try it out, play with it and get familiar with it</a>.</p>
+<p>So I would like to remind you (and me), stay explicit and (try to) evaluate the new things objectively.</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2015/05/the-es6-arrow-function-a-usage-story/">The ES6 arrow function &#8211; a usage story</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2015/05/the-es6-arrow-function-a-usage-story/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Explicitness over Language Sugar &#8211; array vs. object</title>
+		<link>http://www.uxebu.com/blog/2015/04/explicitness-over-language-sugar-array-vs-object/</link>
+		<comments>http://www.uxebu.com/blog/2015/04/explicitness-over-language-sugar-array-vs-object/#comments</comments>
+		<pubDate>Thu, 16 Apr 2015 13:03:03 +0000</pubDate>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+				<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[refactoring]]></category>
+
+		<guid isPermaLink="false">http://www.uxebu.com/?p=6734</guid>
+		<description><![CDATA[<p>Tuesday the monthly Agile Tuesday took place, my first one. Thanks to Mario Gadet who invited me a long time ago and made sure I didn&#8217;t forget about it. Already this put the bar quite high for me and I was quite nervous about it because I didn&#8217;t expect the typical tech audience. And it [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2015/04/explicitness-over-language-sugar-array-vs-object/">Explicitness over Language Sugar &#8211; array vs. object</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><img src="http://www.uxebu.com/wp-content/uploads/2015/04/2760280871_03ec095d02_q-150x150.jpg" alt="Sugar cubes" width="150" height="150" class="alignright size-thumbnail wp-image-6769" />Tuesday the monthly <a href="http://agiletuesday.org/" title="Agile Tuesday">Agile Tuesday</a> took place, my first one. Thanks to Mario Gadet who invited me a long time ago and made sure I didn&#8217;t forget about it. Already this put the bar quite high for me and I was quite nervous about it because I didn&#8217;t expect the typical tech audience. And it all turned out different than expected :).</p>
+<h2>Refactoring hands-on</h2>
+<p>I talked a bit <a href="http://de.slideshare.net/wolframkriesing/refactoring-out-of-the-mess" title="Refactoring out of the mess">about refactoring</a>. I tried to summarize the hows and whys for it in order to get to the doing, right after the talk. And I picked the beautiful <a href="https://github.com/emilybache/Tennis-Refactoring-Kata/blob/master/javascript/TennisGame1.js" title="Emily Bache's Tennis kata">Tennis</a> <a href="tddbin.com/#?kata=es5/tennis-refactoring/1" title="Tennis refactoring kata #1 in TDDBin">kata</a> to refactor some stuff where some interesting things evolved.<br />
+We did it mob-style. The mob, the entire audience, told me what to do. The only thing I did, was asking questions or trying to deal out who is next, when the amount of input came too fast. So I typed using WebStorm, which made some people be astonished about what is already possible with this IDE in combination with JavaScript. The tests ran automatically so we never left the green state for too long. Thanks to the crowd I got reminded a couple of times to do, what I had suggested in the talk before, use Ctrl+Z to undo changes.<br />
+And while at it we made a couple of interesting discoveries, let me share some with you.</p>
+<h2>The Evil of Native Constructs</h2>
+<p>A very interesting discussion spun off when we refactored the following switch</p>
+<p><script src="https://gist.github.com/wolframkriesing/0a1c5dc2ceac5074902d.js"></script> </p>
+<p>into this array </p>
+<p><script src="https://gist.github.com/wolframkriesing/c6cf31e709282cb57ab2.js"></script></p>
+<p>The valid arguments raised were that the explicitness of the `switch` gets lost in an implicit use of arrays, they are zero-indexed and therefore implicitly do the same as the switch, but it&#8217;s not &#8220;visible&#8221; as well as in the code before. From there we started discussing how much the source code shall rely on language specific constructs. Shall a piece of domain knowledge, here the mapping of 0 points to &#8216;Love&#8217; and 1 to &#8216;Fifteen&#8217; and so on, be hidden behind an implicit construct that actually does the same and allows for less code, but also reveals the intention less good?</p>
+<p>Which raises a new question: what is the minimum level of language-specific knowledge required for the code to be maintainable, also by non-seniors? It’s just a fact that there is a gap in knowledge between the original author, the team and/or the future maintainers of this code. Should therefore the code be written by using less &#8220;difficult&#8221; constructs? Maybe even prevent certain language constructs that might cause traps?<br />
+I doubt that this helps. Depending on the domain the code is written for the code has to adapt. If the mapping of 0 to &#8216;Love&#8217; and 1 to &#8216;Fifteen&#8217; are core concepts of the business domain we are in, make those concepts clear to the (future) maintainers by writing more explicit code.<br />
+Artificially reducing a programming language&#8217;s feature set which sometimes just prevents that others have to learn new things, feels also very counter-productive and almost like trying to slow down evolution. A programmer just has to learn, constantly.</p>
+<p>This led to an alternative construct we used, which makes the domain-level view more explicit. We write the relation between the numbers 0,1,2,3 and the according strings explicitly into the source code. We are not using a switch-case though.</p>
+<p><script src="https://gist.github.com/wolframkriesing/4ceb80ba6375a44c5676.js"></script></p>
+<p>The object-notation will be accessed just in the same way as the array above via `pointsMap[points]`. All participants have been really happy with this solution. So we all agreed to keep on moving forward from here.<br />
+Since JavaScript is an interpreted language the obligatory speed discussion came up. Is object creation and access not much slower compared to array creation and access? But that discussion stalled quickly, due to irrelevance. And I was happy about that, because if this is our hot path then we will find that out, but for now the better code has way more value.</p>
+<h2>Tie Scores</h2>
+<p>A little bit later we touched code that looked something like this:</p>
+<p><script src="https://gist.github.com/wolframkriesing/3853882d00481084257b.js"></script></p>
+<p>The mapping is very much like the one we handled above, but has a little twist to it, which is the case for all values from 3 upwards. First thing the crowd decided to do is move the map out of the function.</p>
+<p><script src="https://gist.github.com/wolframkriesing/388ad401dfd42af687b0.js"></script></p>
+<p>Then we tried to reduce the actual function down to this. </p>
+<p><script src="https://gist.github.com/wolframkriesing/f2780b471bf8c6664095.js"></script></p>
+<p>The decision to remove the `if (points < 3)` was actually pretty easy. We said that this can be done implicitly by looking up if there is a value defined for the given number of points.
+Some people liked it some not. It is a very JavaScripty solution, but actually very common in JS land. Those are the kinds of discussion I love at non-JavaScript events, they always provide me with different views. It went a bit forth and back. 
+The disadvantage of the latter solution is that you have to look up in two places to completely understand what the function does. You have to know what is defined in the `pointsMap` or you won’t understand when the ‚Deuce‘ is returned. Another critique was that the string ‚Deuce‘ is in the function, but all other strings are in the map.
+Finally we tried something a bit unusual, we moved the `Deuce` string also into the map and changed the function to look like this:
+
+<script src="https://gist.github.com/wolframkriesing/d3a4200ddb7523fbb6c1.js"></script></p>
+<p>And the crowd was happy, I mean really happy, it seemed.</p>
+<h2>Conclusion</h2>
+<p>The discussion about explicitness led us to use an object instead of an array. If this hadn’t taken place we would never have seen the solution with the elegant `default` key in the object.<br />
+Doing all that in a mob-style fashion, which means discussing in the group and having one person execute the solution that had been agreed upon, is always again a fun experience and makes people engage and steer towards a good solution together, learning to accept opinions and find one (of the) best solutions.</p>
+<h2>Can we help your project?</h2>
+<p>We love to discuss <a href="http://www.uxebu.com/blog/2014/03/defactoring-in-action/" title="Defactoring">code</a> and <a href="http://www.uxebu.com/blog/2015/01/value-manual-testing/" title="Value of manual testing">tests</a>, build <a href="http://www.uxebu.com/blog/2014/07/test-public-api-implementation-details/" title="Test public API">strategies</a> and <a href="http://jscoderetreat.com" title="JSCR">help improving</a> things. If you think this is something that should be done in your project/company/department <a href="mailto:contact+blog-explicitness@uxebu.com" title="EMail us" style="text-decoration: underline; font-weight: bold; font-size: larger;">please contact us</a>! We are happily offering support and love to share our knowledge.<br />
+You can also <a href="http://www.uxebu.com/about-us/events/" title="Meet us...">find us at various events</a>, we are always curious about learning new things and helping out if we can.</p>
+<p>Sugar cubes <a href="https://www.flickr.com/photos/digitalcolony/" title="Sugar cubes">image source</a></p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2015/04/explicitness-over-language-sugar-array-vs-object/">Explicitness over Language Sugar &#8211; array vs. object</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2015/04/explicitness-over-language-sugar-array-vs-object/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Get real with ES6 (and webpack)</title>
+		<link>http://www.uxebu.com/blog/2014/11/get-real-es6-webpack/</link>
+		<comments>http://www.uxebu.com/blog/2014/11/get-real-es6-webpack/#comments</comments>
+		<pubDate>Mon, 24 Nov 2014 07:51:57 +0000</pubDate>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+				<category><![CDATA[development tools]]></category>
+		<category><![CDATA[frontend engineering]]></category>
+		<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[tdd]]></category>
+
+		<guid isPermaLink="false">http://www.uxebu.com/?p=6615</guid>
+		<description><![CDATA[<p>After the last post, where I briefly described how to setup mocha with ES6 (using traceur, a transpiler to working JavaScript) I couldn&#8217;t stop and had to prove, that getting it to run with on a real site was doable. It had it&#8217;s hurdles but voila it does work. See the github repo if you [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/11/get-real-es6-webpack/">Get real with ES6 (and webpack)</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>After the <a href="http://www.uxebu.com/blog/2014/11/es6-tdd-work-traceur-mocha-sinon/">last post</a>, where I briefly described how to setup <a href="http://mochajs.org">mocha</a> with <a href="http://wiki.ecmascript.org/doku.php?id=harmony:specification_drafts">ES6</a> (using <a href="https://github.com/google/traceur-compiler">traceur</a>, a transpiler to working JavaScript) I couldn&#8217;t stop and had to prove, that getting it to run with on a real site was doable. It had it&#8217;s hurdles but voila it does work. See <a href="https://github.com/uxebu/mocha-sinon-traceur-example">the github repo</a> if you want to dive right into code.<br />
+<span id="more-6615"></span></p>
+<h2>Using Webpack needs an ES6 compiler</h2>
+<p>The latest I happily used to build CommonJS (node.js) style code and run it on the web is <a href="http://webpack.github.io">webpack</a>. Since it comes with all possible loaders that one needs (<a href="https://facebook.github.io/react/docs/jsx-in-depth.html">JSX</a>, ES6, etc.) there was not much thought I spent in what to use.</p>
+<p>To get ES6 running in all (modern) browsers a transpilation step is required, which translates <a href="https://github.com/google/traceur-compiler/wiki/LanguageFeatures">ES6 syntax</a> into ES5 syntax that runs in all the browsers. For that I use traceur, which by features seems to be the most interesting one, more about this in a bit. Besides the translation of the code it does also need a runtime which brings all the boilerplate like class creation. I would like to have this all handled on the fly, I prefer not to have much to do with it. Please do just work.</p>
+<p>As described in my last post I thought of using <a href="https://github.com/shama/es6-loader">es6-loader</a> for it. Quickly I realized I needed to hunt for something else. Why? Because I already started to use ES6 module syntax and wanted to keep going with it, just getting closer to the future sooner :). Have a look at it:<br />
+<script src="https://gist.github.com/wolframkriesing/b7de988d9f16aae25831.js"></script><br />
+es6-loader uses <a href="https://github.com/termi/es6-transpiler#not-supported">the es6-transpiler, which states module syntax is not supported</a> yet. Alright. That actually made the case for me to not use this project since I don&#8217;t want to run the tests with mocha but the production code with es6-transpiler, this does feel like pain coming up. So I went looking for a webpack-module that can do traceur. Even though I think it&#8217;s worth keeping an eye on es6-transpiler since <a href="https://github.com/termi/es6-transpiler#goal">the goals</a> are just a bit different than those of traceur.</p>
+<p>The hunt quickly revealed that there are two projects, after some stumbling I saw that actually one was just a pull request that got merged already. And in the end I saw that <a href="https://github.com/ndhoule/webpack-traceur-loader">webpack-traceur-loader</a> is what I need. One thing that worried me a little was that the current version of traceur it uses was 0.5x and traceur is already at 0.7x. But later I realized that all features work, so let&#8217;s go ahead. Here it is worth mentioning that the approach of mocha-traceur is quite cool, where <a href="https://github.com/domenic/mocha-traceur#mocha-traceur">it&#8217;s README says</a> </p>
+<blockquote><p>Traceur is intentionally not included in this package so you can install your preferred version alongside Mocha Traceur.</p></blockquote>
+<p>which makes lots of sense as long as the API is compatible. If that&#8217;s not the case the user will have the failure and might be pissed.<br />
+And by this you can see that I already do run two different traceur versions. For the tests I am using the one I `npm install`ed and for production I am using the one wepback-traceur-loader brings along. I have to align the two to prevent bugs of the &#8220;works with the tests but not in production&#8221; kind &#8211; writing this on my virtual to do list.</p>
+<h2>Make an index.html and use ES6 for real</h2>
+<p>All the config is set up. Now I gotta try it in real life. So I added an &#8216;empty&#8217; index.html to the <a href="https://github.com/uxebu/mocha-sinon-traceur-example/tree/add-webpack/src">example project</a>. I just want to throw &#8220;works&#8221; into the body&#8217;s innerText. That serves as a good enough integration test for now.</p>
+<p>Now I `npm install`ed the above discussed webpack-traceur-loader and enabled it. My `webpack.config.js` looks like this now (copied <a href="https://github.com/uxebu/mocha-sinon-traceur-example/blob/299581015364142e569e321bce168294d933ed9a/webpack.config.js">from the repo</a>):<br />
+<script src="https://gist.github.com/wolframkriesing/e1ee1196661659df221f.js"></script><br />
+Now also the ES6 loader stuff works fine. And believe it or not, after `npm start` (which starts the webpack-dev-server) the site shows &#8220;works&#8221;. Find the revision <a href="https://github.com/uxebu/mocha-sinon-traceur-example/commit/96eb526d022e0c825e82fd2b23e9634ef1ac2f68">online in the example project repo</a>.</p>
+<h2>Include an external library, jQuery</h2>
+<p>Actually I am doing this because I want to convert the <a href="https://github.com/uxebu/compass-to-map-app">compass-map-app-kata</a> to ES6 since I am tired of `var self = this;` and binding scopes, which imho is just blurring code and code&#8217;s intention with something that is missing in the language. But the app does also use jQuery to connect to all the simple DOM stuff. So next step here is to get jQuery into the game.</p>
+<p>I want to see that the ES6 setup does not only work for my local files, but does also work when I integrate with external libraries. Of course I could go the easy way and include jQuery in the index.html, no-brainer. But I want to require jQuery on the server side too, so it gets bundled with the app.<br />
+I did `npm install jquery` and now inside my code I can use the nice `import jQuery from &#8216;jquery';`. Beautiful. Webpack doesn&#8217;t complain and it builds, it also shows me that it includes jQuery, as you can see below in line 22.<br />
+<script src="https://gist.github.com/wolframkriesing/10e761faf174c5556c97.js"></script></p>
+<p>That was easy. Now let&#8217;s use jQuery in the code. So I add `jQuery(document.body).text(&#8230;)` so it prints &#8216;works&#8217; on my site. But there is no &#8216;works&#8217; showing up in the browser. Opening the console I see a &#8216;Uncaught TypeError: object is not a function&#8217;. What??? After a bit of debugging I find out that jQuery is an empty object. Ok, this must be the building part. What else can it be? So I start trying all possible things, going back to `var jQuery = require(&#8216;jquery&#8217;)`. I also renamed all ES6 files to use `.es6.js` and configure webpack accordingly. I don&#8217;t like that, even though it very well shows what is ES6 and what not, but it is also there only because I just don&#8217;t know any better.<br />
+No solution really works.</p>
+<p>Long story short. I saw that the `jquery.js` got modified after run through traceur and it then only exports `{}`. Well, that&#8217;s not what I want. So I have to exclude jQuery from traceur running over it. After fiddeling around, debugging into the webpack loader, learning lot&#8217;s from it and demistifying another piece of magic, I found the `exclude` parameter I have to pass to traceur in the `webpack.config.js`, as you can see below in line 9:<br />
+<script src="https://gist.github.com/wolframkriesing/c16ce2f47dec1de7c782.js"></script><br />
+See in the last line that I also turned on `debug`, this outputs all the files that traceur handles, as you can see a bit further up in the webpack console output. Make sure NOT to see libs like jquery in there prefixed with `[traceur-loader]`, only the code you really want to be compiled.</p>
+<h2>Use it in real, compass-map-app-kata</h2>
+<p>The <a href="https://github.com/uxebu/mocha-sinon-traceur-example">example project</a> was born out of &#8220;I want to get it to work without any noise around it&#8221;. But of course the actual reason I investigated all that was another &#8220;bigger&#8221; app. The <a href="https://github.com/uxebu/compass-to-map-app">compass-map-app-kata</a>, which is still called a kata, since it is that for me. And I am thinking of how to make this into a nice <a href="http://www.uxebu.com/workshops/">workshop <img src="http://www.uxebu.com/wp-includes/images/smilies/icon_smile.gif" alt=":)" class="wp-smiley" /></a> since I see lots of potential in showing a real app using the DOM, doing it test-driven and sharpening the skills around TDD in a real ES6 web app environment.<br />
+The conversion from ES5 to ES6 of the compass app is a complete post on it&#8217;s own, which I might follow up on later. If you are interested, you can dive in by investigating the commits on <a href="https://github.com/uxebu/compass-to-map-app/tree/switch-to-es6">the switch-to-es6 branch</a>.<br />
+The short summary is: It does work. I am happy I did the baby steps in the example repo to focus on the small problems and really just worry about the actual problems, so I kinda applied the <a href="http://mikadomethod.wordpress.com">mikado method</a> here, trying to find out the next missing piece in the chain, fixing it and switching back to the bigger scope.</p>
+<h2>Other/External services</h2>
+<p>The next step of getting this into production is to hook up with several external services for monitoring the health of the app. You can see that I added all kinds of badges in the <a href="https://github.com/uxebu/compass-to-map-app/blob/master/README.md">README</a> in order to test out those health-services. Let me quickly list what worked well with ES6 and where there are still bumps. </p>
+<h3>Travis CI</h3>
+<p>Integrating it <a href="https://travis-ci.org/uxebu/compass-to-map-app">with travis</a> was no different than you do it with every project, of course it just does an `npm test` which requires a <a href="https://github.com/uxebu/compass-to-map-app/blob/master/.travis.yml">`.travis.yml`</a>, so make sure they are there.<br />
+I also added <a href="https://codeship.com">codeship</a> though I didn&#8217;t see how to make the project overview public. But it&#8217;s all green too (at least as of this writing) as you can see in the README badge. </p>
+<h3>Code coverage</h3>
+<p>I didn&#8217;t get a local <a href="https://github.com/gotwarlost/istanbul">istanbul</a> for the coverage to work yet, there seems to be <a href="https://github.com/meoguru/istanbul-traceur">istanbul-traceur</a> which seems to require gulp, I didn&#8217;t try that yet. I hooked up <a href="https://coveralls.io/r/uxebu/compass-to-map-app">coveralls.io</a> but seem to get no result from it yet. Not sure what I missed there. Hints welcome. It says that as soon as it passes in travis it will give me results, but didn&#8217;t yet.</p>
+<h3>Code quality services</h3>
+<p>I <a href="https://www.codacy.com/public/wk_2448/compass-to-map-app/files?bid=1981561">integrated codacy</a> which is currently not doing much more than some simple code analysis, in this project it seems not to give any value, since it does not seem to understand ES6 syntax yet. You can see that by `LoC` and some other fields being empty.<br />
+<a href="http://bithound.io">bithound.io</a> seems to do a real good job in detecting the ES6 files and understanding them, see <a href="https://app.bithound.io/uxebu/compass-to-map-app/files">the project files here</a>. And it reports the files are in good health. I am glad for them :). Though the real value I get from it is still quite low. Actually I want to know more about my code, maybe this project is just way too small to really do too much wrong that can be found with static code analysis.</p>
+<h2>Conclusion!</h2>
+<p>Overall I have to say the ES6 tool chain is already quite useable. And it is fun to move on with the language. Though I am still a little struggling with myself what will be the metrics for me for what to use when. After all I could write up the same for converting a project to <a href="http://livescript.net">LiveScript</a>, <a href="http://coffeescript.org">CoffeeScript</a> or <a href="http://www.typescriptlang.org">TypeScript</a>. They all get compiled to JavaScript, the big hurdle will be to see how well or bad either of those supports your workflow. There are multiple considerations that impact at least my workflow. It&#8217;s the following that come to my mind, and those I will have to keep an eye on when working with a language that is not &#8220;native&#8221;:</p>
+<ul>
+<li>Does this new language really give me benefits or just satisfies my need to be up to date with the latest tech?</li>
+<li>IDE support. First I need to have my IDE understand and highlight the syntax properly but very soon also refactorings and other tooling around it I need.</li>
+<li>Setup work. Adding `&#8211;coffee` or `mocha-traceur` for running the tests bare a certain overhead to be considered.</li>
+<li>Flow overhead when developing. Is there any disturbing compile time, longer test run time and/or more to setup with various options and addons needed?</li>
+<li>Test report noise. How unreadable will my stack traces become, how much will this slow me down in my daily work? (Even though stack traces are always a thing one has to learn to read.)</li>
+<li>External library/tool integrations. Is there any danger in integrating external tools and libraries, as talked about above with jQuery and the health-services.</li>
+</ul>
+<p>Compiler, transpiler, whatever &#8230; you can replace each of the terms with whatever fits your preference.</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/11/get-real-es6-webpack/">Get real with ES6 (and webpack)</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2014/11/get-real-es6-webpack/feed/</wfw:commentRss>
+		<slash:comments>1</slash:comments>
+		</item>
+		<item>
+		<title>ES6 and TDD at work, with traceur, mocha and sinon</title>
+		<link>http://www.uxebu.com/blog/2014/11/es6-tdd-work-traceur-mocha-sinon/</link>
+		<comments>http://www.uxebu.com/blog/2014/11/es6-tdd-work-traceur-mocha-sinon/#comments</comments>
+		<pubDate>Wed, 19 Nov 2014 17:33:38 +0000</pubDate>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+				<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[tdd]]></category>
+		<category><![CDATA[TDD]]></category>
+
+		<guid isPermaLink="false">http://www.uxebu.com/?p=6602</guid>
+		<description><![CDATA[<p>It was this little itch, that I had for quite a while, but you know how it is, you never get around to scratch it. Now was the time to do so. I had ES6 working already a couple of times using webpack but did always switch back, due to not having taken the time [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/11/es6-tdd-work-traceur-mocha-sinon/">ES6 and TDD at work, with traceur, mocha and sinon</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>It was this little itch, that I had for quite a while, but you know how it is, you never get around to scratch it.<br />
+Now was the time to do so. I had ES6 working already a couple of times using webpack but did always switch back, due to not having taken the time to get all the test setup run with it too. Which was mainly the fault of jasmine(-node) not really supporting it.<br />
+So I just have to replace it. I did with mocha. And here is how it went. Keep on reading or <a href="https://github.com/uxebu/mocha-sinon-traceur-example" title="read it up in the project's README">read it up in the project&#8217;s README</a>.</p>
+<h2>TDD with ES6</h2>
+<p>The initial pain I had was to get up to speed with ES6 (using traceur) to be compatible with all browsers. So I tried out jasmine-node with it, but failed misserably. Of course I saw mocha-traceur which seemed to make it all a breeze. But who believes documentation, right? So I had to try it. And it worked out of the box, just the way I wanted it.</p>
+<p>I used a bit of ES6 in the initial test, just the following:</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #003366; font-weight: bold;">import</span> <span style="color: #009900;">&#123;</span>Some<span style="color: #009900;">&#125;</span> from <span style="color: #3366CC;">'./test'</span> <span style="color: #006600; font-style: italic;">// importing a module</span><br />
+<br />
+describe<span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'something'</span><span style="color: #339933;">,</span> <span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #339933;">=&gt;</span> <span style="color: #009900;">&#123;</span> <span style="color: #006600; font-style: italic;">// using the arrow function</span><br />
+&nbsp; it<span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'that should work'</span><span style="color: #339933;">,</span> <span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #339933;">=&gt;</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; <span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></div>
+<p><a href="https://github.com/google/traceur-compiler/wiki/LanguageFeatures">traceur</a> does support all that. Of course a traceur transpiler (setup) was needed, so I used the above mentioned mocha-traceur which just required me to run `mocha &#8211;compilers js:mocha-traceur src/*.js` as you find it in the <a href="https://github.com/uxebu/mocha-sinon-traceur-example/blob/fb354685b590390f8695f5ecee890c4f9072f944/package.json#L7">package.json</a>. This takes away the pain to manually transpile it, it always does that when the tests are run.</p>
+<p>Of course I also made the `npm test` run, using just this snippet. Done.</p>
+<h2>Spying, mocking and stubbing</h2>
+<p>Next up, I wanted a solution that makes spying etc. easy. Easy for me means that it cleans up after itself. When I create a spy in a test I want it to be gone after the test, except of course I declare it in a `beforeEach()` (which isn&#8217;t covered by this project yet).</p>
+<p>I found <a href="https://github.com/elliotf/mocha-sinon">mocha-sinon</a> that claims to do it. And it does. Looking through the code and reading some docs the author <a href="https://github.com/elliotf/mocha-sinon#if-you-dont-like-this-module">states that it is also very easy to do by yourself</a>, like so:</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #003366; font-weight: bold;">var</span> sinon <span style="color: #339933;">=</span> require<span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'sinon'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<br />
+beforeEach<span style="color: #009900;">&#40;</span><span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; <span style="color: #000066; font-weight: bold;">this</span>.<span style="color: #660066;">sinon</span> <span style="color: #339933;">=</span> sinon.<span style="color: #660066;">sandbox</span>.<span style="color: #660066;">create</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<br />
+afterEach<span style="color: #009900;">&#40;</span><span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span><br />
+&nbsp; <span style="color: #000066; font-weight: bold;">this</span>.<span style="color: #660066;">sinon</span>.<span style="color: #660066;">restore</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></div>
+<p>Awesome, so I can reduce the overhead of another project in the setup. I put this snippet in <a href="https://github.com/uxebu/mocha-sinon-traceur-example/blob/fb354685b590390f8695f5ecee890c4f9072f944/src/sinon-cleanup.js">sinon-cleanup.js</a> and require this instead of the project itself. Thanks <a href="https://github.com/elliotf">Elliot Foster</a>.</p>
+<h2>Webpack and ES6</h2>
+<p>What is missing yet, is to show how to make this work in the browser. That is actually fairly easy using <a href="http://webpack.github.io/">webpack</a> and the <a href="https://github.com/shama/es6-loader">es6-loader module</a> for it.</p>
+<h2>Nice to haves</h2>
+<p>Now one could add things like:</p>
+<ul>
+<li>running it in karma and multiple browsers</li>
+<li>running it on some browser farm, like saucelabs</li>
+<li>creating a site that actually says &#8220;Hello world&#8221; to prove this setup does really work</li>
+<li>integrating with travis, code quality tools, etc.</li>
+</ul>
+<p>Have fun testing away with ES6. I am curious now how problematic the transpilation will make my life, let&#8217;s see.<br />
+You find the <a href="https://github.com/uxebu/mocha-sinon-traceur-example">working project on github</a>.</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/11/es6-tdd-work-traceur-mocha-sinon/">ES6 and TDD at work, with traceur, mocha and sinon</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2014/11/es6-tdd-work-traceur-mocha-sinon/feed/</wfw:commentRss>
+		<slash:comments>2</slash:comments>
+		</item>
+		<item>
+		<title>JS CodeRetreat #3 Highlights</title>
+		<link>http://www.uxebu.com/blog/2014/09/coderetreat-3-highlights/</link>
+		<comments>http://www.uxebu.com/blog/2014/09/coderetreat-3-highlights/#comments</comments>
+		<pubDate>Tue, 09 Sep 2014 09:56:12 +0000</pubDate>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+				<category><![CDATA[Events]]></category>
+		<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[JS Code Retreat]]></category>
+		<category><![CDATA[tdd]]></category>
+		<category><![CDATA[TDDbin]]></category>
+		<category><![CDATA[uxebu]]></category>
+
+		<guid isPermaLink="false">http://www.uxebu.com/?p=5427</guid>
+		<description><![CDATA[<p>First and foremost I would love to thank all the attendees that made the #jscr #4 such a cool event, which obviously made it worth spending another Saturday on working on our coding skills. And of course I would love to thank Martin Ruprecht who facilitated the event with me and Irene who has put [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/09/coderetreat-3-highlights/">JS CodeRetreat #3 Highlights</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><a href="http://www.uxebu.com/wp-content/uploads/2014/09/jscr3people.jpg"><img src="http://www.uxebu.com/wp-content/uploads/2014/09/jscr3people-150x150.jpg" alt="jscr3people" width="150" height="150" class="alignright size-thumbnail wp-image-5593" /></a>First and foremost I would love to thank all the attendees that made the <a href="https://twitter.com/search?f=realtime&#038;q=%23jscr" title="#jscr search on twitter">#jscr</a> #4 such a cool event, which obviously made it worth spending another Saturday on working on our coding skills. And of course I would love to thank <a href="https://twitter.com/mrupilo" title="Martin Ruprecht">Martin Ruprecht</a> who facilitated the event with me and <a href="https://twitter.com/irenelladn89" title="Irene">Irene</a> who has put in lots of the work behind the scenes. E.g. the good on-site made <a href="http://www.pizza-innovazione.de" title="Pizza Innovazione">pizza</a> was just one of her ideas and that was a great lunch, just like last time.</p>
+<h2>Five times 45 minutes</h2>
+<p>For those who don&#8217;t know the event here comes a short summary of what we did.<br />
+Upon arrival everyone could have a coffee, brez&#8217;n, Club Mate or whatever other refreshment/breakfast (s)he needed to get over the early start, 9:30 on a Saturday morning.</p>
+<blockquote class="twitter-tweet" width="550"><p><a href="https://twitter.com/wolframkriesing">@wolframkriesing</a> does the introduction. Much more people here than i expected&#8230; <a href="https://twitter.com/hashtag/jscr?src=hash">#jscr</a> <a href="http://t.co/0hB2eyyfw4">pic.twitter.com/0hB2eyyfw4</a></p>
+<p>&mdash; Marco Emrich (@marcoemrich) <a href="https://twitter.com/marcoemrich/status/508164275131916288">September 6, 2014</a></p></blockquote>
+<p><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
+<p>After a quick introduction of how the day will be structured we started right away with the first session. All the sessions every attendee chose a new partner to work in pairs all the time. Of those sessions we had five, each lasted 45 minutes, which I think was enough to get everyone exhausted. In all sessions we tried to solve one problem <a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life" title="GoL">Conway&#8217;s Game Of Life</a> (GoL). GoL is perfect for such events, it is not too simple to get bored and not that hard that the solution is impossible.</p>
+<p>Session 1: Everyone started out by solving the problem in a test-driven manner. It was meant to get familiar with the problem, everyone to wake up and get into gear. The mix of groups seemed to have been perfect. Everyone had understood the rules of Game of Life and the problem of the day needed no more explanation. (Was is the Club Mate?)<br />
+Session 2: We increased the difficulty level a bit, we did a ping-pong session. Ping-pong here means to pass the keyboard forth and back between the pairs. You write a test that fails, pass on the keyboard. Your pair writes the according production code and a new failing test that has the intention to move your production code forward. And you pass the keyboard back. If you wanted to increase difficulty you could set a timer and not allow more than three minutes to pass until the production code makes the failing test pass. If you didn&#8217;t succeed remove the written code, since it seems to be too complex and a simpler test should be chosen, refactoring be applied first or another solution be found that allows you to get it done in three minutes.<br />
+Session 3: was the one I was really looking forward to, we called it &#8220;<a href="http://jscoderetreat.com/3/schedule.html#session4" title="Create Legacy Session">Create legacy</a>&#8221; the idea is by Marc Bless who <a href="http://agilecoach.de/2013-12-14/creating-legacy-behavior-in-15-minutes/">described it here</a>. Fortunately nobody had done it before and that made it most fun I guess. The task was GoL again but quick+dirty this time. After 15min we took one person out of every team, told them to put on the Clean Code hat and go back to another team and push for clean code, tests, etc. You can&#8217;t get much closer to real life I guess :).</p>
+<p>Then we had a great lunch, from the <a href="https://twitter.com/PizzaTruckMUC">pizza truck</a> (really worth it!).</p>
+<blockquote class="twitter-tweet" width="550"><p>Pizza truck at <a href="https://twitter.com/hashtag/jscr?src=hash">#jscr</a> #3 Munich <a href="http://t.co/Z2mLOzkB2b">pic.twitter.com/Z2mLOzkB2b</a></p>
+<p>&mdash; Nils Bernert (@NilsBernert) <a href="https://twitter.com/NilsBernert/status/508222205923434496">September 6, 2014</a></p></blockquote>
+<p><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
+<p>Session 4: Probably the most extravagant one. Everyone had to implement GoL in Google Spreadsheets. I showed the basics on how to do <a href="http://www.uxebu.com/blog/2014/03/how-to-use-google-spreadsheets-for-tdd/">TDD and JS in a spreadsheet</a>. Lots of awesome ideas and for the first time visuals came out of this session. More about that later.<br />
+<a href="http://www.uxebu.com/wp-content/uploads/2014/09/TDDbin-in-action.png"><img src="http://www.uxebu.com/wp-content/uploads/2014/09/TDDbin-in-action-150x150.png" alt="TDDbin in action" width="150" height="150" class="alignright size-thumbnail wp-image-5582" /></a>Session 5: The restriction was not to use a mouse. Since most people used <a href="http://TDDbin.com" title="TDDbin.com">TDDbin.com</a> we enhanced it a bit and people could also choose another no-restriction, we offered: No IFs and no more than four lines per function. Some people even combined them.</p>
+<p>After each session we had a (sometimes) short retrospective to share our experiences and also to laugh a lot about the crazy things that one might comes up with when applying those restrictions. All the way at the end we had some beers and some of us even stayed and chatted until almost midnight. All in all a beautiful day, thanks a lot! We will repeat it, for sure. Or feel free to join us and do the same thing in your city. Or invite us to do it in your city.</p>
+<h2>Creating legacy session</h2>
+<p>Just a couple days before this event I was surfing through <a href="http://coderetreat.org">coderetreat.org</a> in order to see if there are some interesting restrictions that we could copy for this event. And out came the &#8220;Create legacy&#8221; restriction by Marc Bless. Already when running the session we realized that we need to improve our execution of it. But first things first. The introduction for this session was quite short. We said &#8220;build the GoL as fast as you can, in a quick and dirty manner, no TDD, no clean code, etc.&#8221;. I think everyone was a little surprised by that. But everyone started straight away. We tried to stress everyone a little bit by making manager-style comments to push the code size and the number of features. I don&#8217;t know if it worked. At 15 minutes in we told everyone to quickly pay attention. We told them that one of each pair will have to leave the team and please come to the back of the room. There we told them that they are now the seniors that only accept clean code, tests and quality, no bullshit and no hacks. We sent them back to a different pair, so they don&#8217;t work on their own code anymore but on someone else&#8217;s code.</p>
+<p>In the end some teams really removed most of the old code and rewrote things. Some didn&#8217;t know how to test the legacy that had been created before. Others reported that all those 45 minutes were basically wasted because the old code didn&#8217;t work and only in the end they found out that it all needs a rewrite. Some people also reported that this very much feels like the real day-to-day work. I just couldn&#8217;t resist to mention that everyone only had 15 minutes to create legacy and already that was hard to work with. Just imagine legacy code of two years of age.</p>
+<h2>Our learnings from the &#8220;Create legacy&#8221; session</h2>
+<p>We realized quickly that we can improve the execution of this session. We did it for the first time, so Martin and me quickly agreed that this is a really cool session but we know the edges that it has, or at least that we added to it.</p>
+<ol>
+<li>Stricter instructions &#8211; Already when all the teams had started we realized that our instructions could have been better. Something like &#8220;you have 15 minutes to create GoL, get at least all the rules done in 15 minutes.&#8221; Would have been better. Since we didn&#8217;t explicitly mention that there will be an interruption at any time I think people didn&#8217;t feel the pressure soon enough. We kept the coming interruption a secret. I think this makes no sense.</li>
+<li>Just have one coder &#8211; Another option that maybe makes this even harder could be to tell the teams that only one person shall be writing the code. And when we interrupt the teams we take this person out of the team. This will add the additional effort which might cause &#8220;all the knowledge to be removed&#8221; from the team. In the best case the team has really paired well and both understood the code well, then the coming cleaning part will be easier. But in case that the passive pair also has problems understanding some of the code the discussion and maybe even confusion would be much more fun.</li>
+<li>Only let the clean-coder code &#8211; When the clean coder joins the team she should take over the keyboard. This will ensure that the old code gets touched and the &#8220;legacy owner&#8221; will have to explain and reason about the current code. This might trigger more discussion and hopefully also engages both parties even deeper. And it prevents the situation that the legacy owner doesn&#8217;t give up control.</li>
+</ol>
+<p>Lot&#8217;s of room to improve. Anyway this was one of my favorite sessions this day and I will make sure that it improves.</p>
+<h2>GoL in Google Spreadsheets</h2>
+<p>Why Google Spreadsheets? All got started by the <a href="http://www.uxebu.com/blog/2014/03/how-to-use-google-spreadsheets-for-tdd/">past experience</a> with it. And spreadsheets offer a couple of nice features. One is the input can be created in a very simple way. Just two numbers, each number in a cell. Or even just one number. If you want to make it more complicated you can. A second feature that I was really looking forward to seeing was that a google spreadsheet is nothing less but a grid, which is also part of the GoL. Maybe someone will come up with a solution really rendering it in the cells. And there have been solutions like that. The other feature of a spreadsheet is that you don&#8217;t need no test framework that is in your way sometimes. The specification can be easily readable and maybe even manager-compatible. But we didn&#8217;t get that far.</p>
+<p>I had made some good experiences using Google Spreadsheets for introducing TDD to students. The simple red-green visualization was also one of the features people brought up during the retrospective at this retreat.</p>
+<p>Others realized that input can and maybe should be simplified in order to make it useable in such a minimal environment that spreadsheets just are. This approach also made it very tempting to not focus on one test at a time, since it was able to just create many tests at once. </p>
+<p>The simplicity of test creation was another learning that came out of this session. Which means in spreadsheet duplicating and adding more rows is pretty simple, once everything is set up. Using this you get more time to focus on the coding part and the building of tests actually boils down to an initial discussion and agreement among pairs and in an ideal case it is no topic later on, which means you get a maximum of time to make your code better. Which also bears the danger of not discussing tests too.</p>
+<blockquote class="twitter-tweet" width="550"><p>Google spreadsheet TDD at the <a href="https://twitter.com/jsCodeRetreat">@jsCodeRetreat</a> &#8211; amazing! <a href="http://t.co/jxIEfNLztZ">pic.twitter.com/jxIEfNLztZ</a></p>
+<p>&mdash; Ruben Straube (@derstrauber) <a href="https://twitter.com/derstrauber/status/508249704837447680">September 6, 2014</a></p></blockquote>
+<p><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
+<blockquote class="twitter-tweet" width="550"><p><a href="https://twitter.com/hashtag/TDD?src=hash">#TDD</a> with <a href="https://twitter.com/hashtag/javascript?src=hash">#javascript</a> and <a href="https://twitter.com/hashtag/GoogleSpreadsheets?src=hash">#GoogleSpreadsheets</a> <a href="https://twitter.com/hashtag/jscr?src=hash">#jscr</a> jscoderetreat <a href="http://t.co/vgiMZOwz9z">pic.twitter.com/vgiMZOwz9z</a></p>
+<p>&mdash; Hernan Maguina (@hernanvicente) <a href="https://twitter.com/hernanvicente/status/508328343926620160">September 6, 2014</a></p></blockquote>
+<p><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
+<blockquote class="twitter-tweet" width="550"><p>Game of Life google docs style! <a href="https://twitter.com/hashtag/jscr?src=hash">#jscr</a> <a href="http://t.co/4DvfCznbc8">pic.twitter.com/4DvfCznbc8</a></p>
+<p>&mdash; Jonathan Prince (@greatsage) <a href="https://twitter.com/greatsage/status/508250181452984320">September 6, 2014</a></p></blockquote>
+<p><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
+<blockquote class="twitter-tweet" width="550"><p>Nice spreadsheet js hacking at <a href="https://twitter.com/hashtag/jscr?src=hash">#jscr</a> <a href="http://t.co/CMrEnxHqaS">pic.twitter.com/CMrEnxHqaS</a></p>
+<p>&mdash; Emanuel Steger (@em4nue1) <a href="https://twitter.com/em4nue1/status/508267825417715712">September 6, 2014</a></p></blockquote>
+<p><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
+<h2>The community</h2>
+<p>Again I have to say it was really great to see the people engaging a lot during the event. And all that on a Saturday. When you hear the people talk about small tests, units, restrictions and GoL internals during lunch you know they are hooked.</p>
+<p>Let&#8217;s do it again! And we will, just watch out for #jscr #4 in December. </p>
+<p>Happy hacking&#8230;</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/09/coderetreat-3-highlights/">JS CodeRetreat #3 Highlights</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2014/09/coderetreat-3-highlights/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>JS CodeRetreat before JSConf EU, Berlin</title>
+		<link>http://www.uxebu.com/blog/2014/08/js-coderetreat-jsconf-eu-berlin/</link>
+		<comments>http://www.uxebu.com/blog/2014/08/js-coderetreat-jsconf-eu-berlin/#comments</comments>
+		<pubDate>Thu, 14 Aug 2014 07:10:16 +0000</pubDate>
+		<dc:creator><![CDATA[Irene De Nicolo]]></dc:creator>
+				<category><![CDATA[Events]]></category>
+		<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[JS Code Retreat]]></category>
+		<category><![CDATA[TDD]]></category>
+		<category><![CDATA[uxebu]]></category>
+
+		<guid isPermaLink="false">http://www.uxebu.com/?p=5305</guid>
+		<description><![CDATA[<p>I know the JS CodeRetreat from its birth, and I’m really happy and proud to see how fast it is evolving. This time there are several news, too many not to list them in a blogpost. The Global JS CodeRetreat, that regularly takes place every 3 months, is planned for the 6th of September, in [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/08/js-coderetreat-jsconf-eu-berlin/">JS CodeRetreat before JSConf EU, Berlin</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>I know the JS CodeRetreat from its birth, and I’m really happy and proud to see how fast it is evolving. This time there are several news, too many not to list them in a blogpost. <a title="JSCR" href="http://www.meetup.com/JavaScript-CodeRetreat/events/193697002/" target="_blank">The Global JS CodeRetreat</a>, that regularly takes place every 3 months, is planned for the 6th of September, in Munich (as usual you can add your own city too, check the <a title="JSCR website" href="http://jscoderetreat.com/" target="_blank">official jscr website</a>). Besides that, uxebu is proud to organise a one-time <a title="JSCR Berlin" href="http://www.meetup.com/JavaScript-CodeRetreat/events/188846942/" target="_blank">special event</a>, that will take place in Berlin, just before the <a title="JSConf EU" href="http://2014.jsconf.eu/" target="_blank">JSConf EU</a>. Which is so awesome!<br />
+But, ok, this isn’t actually completely new to the most of you.<br />
+Here comes the big news.</p>
+<h2>Facilitators</h2>
+<p>We’re happy to announce that <a title="Martin Klose on Twitter" href="https://twitter.com/martinklose" target="_blank">Martin Klose</a>, <a title="Peter Aitken on Twitter" href="https://twitter.com/jiggy_pete" target="_blank">Peter Aitken</a> and <a title="Wolfram Kriesing on Twitter" href="https://twitter.com/wolframkriesing" target="_blank">Wolfram Kriesing</a> will be facilitating the JS CodeRetreat! Not bad, uh? <img src="http://www.uxebu.com/wp-includes/images/smilies/icon_wink.gif" alt=";)" class="wp-smiley" /> Better coding requires the best facilitators!<br />
+And….ready for the next news?</p>
+<h2>Location</h2>
+<p>We have an outstanding location! Thanks to <a title="ThoughtWorks on Twitter" href="https://twitter.com/thoughtworks" target="_blank">ThoughtWorks</a> the event will take place at <a title="ThoughtWorks Werkstatt Berlin" href="http://www.thoughtworks.com/locations/berlin" target="_blank">ThoughtWorks Werkstatt Berlin</a>. Check the location <img src="http://www.uxebu.com/wp-includes/images/smilies/icon_smile.gif" alt=":)" class="wp-smiley" /></p>
+<p><iframe style="border: 0;" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2427.0344982120805!2d13.419639999999998!3d52.53281!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47a84e037a344cfb%3A0xa3eaeb5395414e69!2sM%C3%BClhauser+Stra%C3%9Fe+6%2C+10405+Berlin%2C+Germania!5e0!3m2!1sit!2sit!4v1407936473904" width="427" height="356" frameborder="0"></iframe><br />
+More news? Here you are. And this is actually very important, so FOCUS</p>
+<h2>Limited RSVPs</h2>
+<p>This time we locked the RSVPs up to 44 people. Please, we all need to collaborate, if you know you can’t make it update your RSVP to “no”. It takes about 3 seconds <img src="http://www.uxebu.com/wp-includes/images/smilies/icon_smile.gif" alt=":)" class="wp-smiley" /> If you’d like to <a title="JSCR Berlin" href="http://www.meetup.com/JavaScript-CodeRetreat/events/188846942/" target="_blank">join</a> hurry up, only few spots left!<br />
+We’re not done with the news yet <img src="http://www.uxebu.com/wp-includes/images/smilies/icon_wink.gif" alt=";)" class="wp-smiley" /> ready steady and let’s go with another one</p>
+<h2>Website restyling</h2>
+<p>We are re-designing the <a title="JSCR Website" href="http://jscoderetreat.com" target="_blank">official JS CodeRetreat website</a>! Work in progress, but a big part of it is online already <img src="http://www.uxebu.com/wp-includes/images/smilies/icon_smile.gif" alt=":)" class="wp-smiley" /> check it out!<br />
+Even more? This is a good one:</p>
+<h2>JSCR sponsoring</h2>
+<p>We’re still looking for sponsors (food/drinks). Below you’ll find the JSCR sponsorship plan, feel free to go through it, and if you’d like to join us on board <a title="email uxebu" href="mailto:contact@uxebu.com" target="_blank">get in touch</a>!</p>
+<p><iframe style="border: 1px solid #CCC; border-width: 1px; margin-bottom: 5px; max-width: 100%;" src="//www.slideshare.net/slideshow/embed_code/37867952" width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" allowfullscreen="allowfullscreen"> </iframe></p>
+<div style="margin-bottom: 5px;"><strong> <a title="Sponsorships JavaScript CodeRetreat" href="https://www.slideshare.net/irenella89/sponsorships-javascript-coderetreat" target="_blank">Sponsorships JavaScript CodeRetreat</a> </strong> from <strong><a href="http://www.slideshare.net/irenella89" target="_blank">irenella89</a></strong></div>
+<p>And&#8230;</p>
+<h2>JSConf sponsoring</h2>
+<p>Last but not least, uxebu is really proud to be a JSConf sponsor! We’ll provide all the lanyards for the event, which is so much exciting. Really looking forward!</p>
+<div id="attachment_5317" style="width: 437px" class="wp-caption alignnone"><img class="size-medium wp-image-5317" src="http://www.uxebu.com/wp-content/uploads/2014/08/Lanyards-450x230.png" alt="I'll spoil this... but just a tiny image, not to reveal too much ;)" width="427" height="230" /><p class="wp-caption-text">I&#8217;ll spoil this&#8230; but just a tiny image, not to reveal too much ;)</p></div>
+<h2>Get involved!!</h2>
+<p><b>Want to join? Something not clear? Need more info? Willing to sponsor? Get in touch, don&#8217;t hesitate! <a title="uxebu email" href="mailto:contact@uxebu.com" target="_blank">contact@uxebu.com</a></b></p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/08/js-coderetreat-jsconf-eu-berlin/">JS CodeRetreat before JSConf EU, Berlin</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2014/08/js-coderetreat-jsconf-eu-berlin/feed/</wfw:commentRss>
+		<slash:comments>1</slash:comments>
+		</item>
+		<item>
+		<title>Integrating jasmine and mocha for TDDbin.com &#8211; two tragedies</title>
+		<link>http://www.uxebu.com/blog/2014/08/integrating-jasmine-mocha-tddbin-com-two-tragedies/</link>
+		<comments>http://www.uxebu.com/blog/2014/08/integrating-jasmine-mocha-tddbin-com-two-tragedies/#comments</comments>
+		<pubDate>Mon, 04 Aug 2014 15:16:37 +0000</pubDate>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+				<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[JS Code Retreat]]></category>
+		<category><![CDATA[Open Source]]></category>
+		<category><![CDATA[tdd]]></category>
+		<category><![CDATA[TDDbin]]></category>
+		<category><![CDATA[uxebu]]></category>
+
+		<guid isPermaLink="false">http://www.uxebu.com/?p=5270</guid>
+		<description><![CDATA[<p>It was up in the air for a long time and finally I got around it to start open sourcing the code behind tddbin.com. After fiddling around with the existing code base I quickly arrived to the conclusion there is some major clean up, actually simplification and modularization very necessary. So I started to extract [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/08/integrating-jasmine-mocha-tddbin-com-two-tragedies/">Integrating jasmine and mocha for TDDbin.com &#8211; two tragedies</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>It was up in the air for a long time and finally I got around it to start open sourcing the code behind <a title="tddbin.com" href="http://tddbin.com">tddbin.com</a>. After fiddling around with the existing code base I quickly arrived to the conclusion there is some major clean up, actually simplification and modularization very necessary. So I started to extract and change the frontend, which is the plan to be working standalone. It can be found on <a title="github/uxebu/tddbin-frontend" href="http://github/uxebu/tddbin-frontend">github.com/uxebu/tddbin-frontend</a>.</p>
+<h2>The Master Plan</h2>
+<p>Actually I only wanted to finish the keyboard shortcuts that only worked on Mac OS X for now and they are actually very convenient when using TDDbin. Of course I wanted to test-drive the implementation and I did. It was more than a month ago, that I last touched the source code and I had to set it up on my new computer. This took me way too long and it was so tied up with the backend code, that I felt very quickly that this is not right.</p>
+<p>So I separated out the frontend. And the plan is to have the frontend run separately since it is all just JavaScript, HTML and CSS. I want it all in a separate repo so it will be able for contributors to just clone the repo, do an `npm install` and off you can go. And using TDDbin without requiring a github account should come for free then.</p>
+<p>The features this thing shall have:</p>
+<ul>
+<li>test-runner: The test-runner is the &#8220;view&#8221; that shows the test execution. It should be a standalone component, which can get source code pushed to it, that it then executes and shows the test results. By de-coupling this from the rest it will also be possible (for a contributor) to build a new test-runner for some other test framework.</li>
+<li>editor: This is the code editor, that is based on ACE and shall just have some small add-ons, such as the shortcut menu and provide hooks for retrieving, inserting, modifying the code, decoupled from ACE. This will also allow to replace the editor but which I think is way more important: implement features such as auto-completion, refactoring, etc. right into this component, instead of &#8220;somewhere in the project&#8221;. Again, focus is on maintainability and modularization.</li>
+</ul>
+<p>I am sure there are more features that will come on the frontend side but for now this should be a good start.</p>
+<h2>Integrating Jasmine</h2>
+<p>The current online version of TDDbin has a jasmine runner, which I fought with some time in order to adapt and modify it so it does what I need it for the use case of TDDbin to do. Which is:</p>
+<ul>
+<li>allow to execute tests in a single page application and reinstanciate the runner with new source code</li>
+<li>provide statistics about the test run</li>
+</ul>
+<p>It seems that jasmine is not really meant for those use cases. I had to hack into the boot.js to get out the statistics and I accepted that. But reloading the source code on the site was not so simple. The old version of TDDbin which is still online as of this writing uses <a title="lsjs" href="https://github.com/uxebu/lsjs">lsjs</a> which basically is a replacement for requirejs which stores all the files once loaded into localStorage. That made it relatively easy to update the test file and run it again. When I rewrote it as it is now in tddbin-frontend I felt that lsjs was quite some overhead, so I removed it and went without it. And that was a bit simpler. Though now I am passing the source code to the test-runner and eval it there pfui. I think this is not only ugly but also security-wise not so clever, since any code you write gets executed in the page context. I opened <a title="eval() issue" href="https://github.com/uxebu/tddbin-frontend/issues/1">a ticket for it</a>, if someone has a smarter idea I would be happy to accept a pull request for it or a hint.</p>
+<p>Now that I had jasmine running without lsjs it always added the new test cases to the existing test suite and the number of tests did always increase. Digging into jasmine again &#8230; and I had done lots of it already. Man, if I could just get rid of this feeling that jasmine needs a rewrite :(. After half a wasted day I found out that I can simply get the top test suite and empty it&#8217;s children array, how ugly. I even <a title="Question on the jasmine list" href="https://groups.google.com/forum/?pli=1#!topic/jasmine-js/HIIBJnWPNZg">asked on the jasmine list</a>, see it also for the source code of how I did it.</p>
+<p>Done. I thought. But as usual: the last bug fixed means that it wasn&#8217;t the last bug. Now I saw that the jasmine reporter, the HTML reporter in this case, that paints all the stuff into the site would also need it&#8217;s ass kicked and empty all the renderings it had done, so the results from a new test run would not show up mixed with the previous results. I searched for that for a bit but then I decided I don&#8217;t want a project full of hacks. So I dropped this approach. The jasmine test-runner is in the repo but it&#8217;s only half working :(. I give up.</p>
+<h2>Integrating Mocha</h2>
+<p>Now it was the right time to switch to something professional. I read a little bit on the web and also found in some blog post that &#8220;mocha can be configured to have jasmine-style expects&#8221;. And that is something I definitely want. I could not find it though. I think this post was wrong.</p>
+<p>I would like the TDDbin users to write tests as fast as possible, no new assertion API, just use jasmine-style. And since mocha is assertion-style agnostic I thought this is a good use case to prove that. The TDDbin users should get the simplest assertion API possible and the quasi-standard is jasmine. So I want to have that. Fortunately I remembered that some uxebus have experience with that and <a title="David Aurelio" href="https://twitter.com/void_0">David</a> even uses it in many projects. He uses <a title="Referee mocha plugin" href="https://github.com/busterjs/referee">referee</a> for that. As the <a title="referee's jasmine-style assertion API" href="http://docs.busterjs.org/en/latest/modules/referee/#expectations">referee docs say there is a jasmine-style assertion API</a>. So I hooked that into the <a title="spec-runner.html" href="https://github.com/uxebu/tddbin-frontend/blob/d769ec26dd5bb74a9e13f442b03812553ce43f55/examples/test-runner/mocha.html">spec-runner.html</a> which is the file that gets loaded into the iframe and fed with the test source code. No need to talk about the missing docs on how to use it with requirejs. (Gosh, I hate the package system mess in JavaScript. &lt;/rant&gt;)<br />
+Alright, the assertion API is like jasmine. That is great.</p>
+<p>Let&#8217;s try loading new test cases into the mocha environment. By default every doc says to use `mocha.run()` in order to run the tests. Of course the describe()s and it()s of our test source code have be run before and &#8220;registered&#8221; their tests with mocha. And as I expected too mocha would add every new test I try to run.<br />
+No problem I thought, mocha provides a class `Mocha` which I just instanciate and call run() on the new mocha instance. And of course this doesn&#8217;t work right from the start. In the end I searched in the mocha source code and found that the global mocha instance provided by the build is not a pure `new Mocha()` but <a title="modified mocha global" href="https://github.com/visionmedia/mocha/blob/6e8058f54de2c1b23eb81a4f5c3a55b5adcaedab/mocha.js#L5951">a modified instance</a>, which blew my entire hope of &#8220;switching to professional&#8221;. So I ended up with an alike <a title="hack for mocha env" href="https://github.com/uxebu/tddbin-frontend/blob/d769ec26dd5bb74a9e13f442b03812553ce43f55/src/test-runner/mocha/spec-runner.html#L35">hack for mocha test-runner</a> as I had to do for jasmine. Though fixing the reporter was maybe simpler, since I knew which div mocha writes to, so I just emptied it&#8217;s innerHTML.</p>
+<p>Fortunately getting the stats was a bit simpler, though not documented anywhere and I could only find out by diving into the source code. If you want to know how to <a title="mocha test results" href="https://github.com/uxebu/tddbin-frontend/blob/d769ec26dd5bb74a9e13f442b03812553ce43f55/src/test-runner/mocha/spec-runner.html#L46">get the results from a test run from mocha look into the source code here</a>.</p>
+<h2>Finally</h2>
+<p>The mocha test-runner is working nicely, I am using that as default now. But integrating any of the test runners into a single page app didn&#8217;t make me happy at all. I guess that&#8217;s when one should take the time and contribute to a successful open source project. At least I started writing it down, who knows what else I will do.</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/08/integrating-jasmine-mocha-tddbin-com-two-tragedies/">Integrating jasmine and mocha for TDDbin.com &#8211; two tragedies</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2014/08/integrating-jasmine-mocha-tddbin-com-two-tragedies/feed/</wfw:commentRss>
+		<slash:comments>2</slash:comments>
+		</item>
+		<item>
+		<title>Test public API, not implementation details</title>
+		<link>http://www.uxebu.com/blog/2014/07/test-public-api-implementation-details/</link>
+		<comments>http://www.uxebu.com/blog/2014/07/test-public-api-implementation-details/#comments</comments>
+		<pubDate>Mon, 14 Jul 2014 10:15:30 +0000</pubDate>
+		<dc:creator><![CDATA[Tobias Reiss]]></dc:creator>
+				<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[TDD]]></category>
+		<category><![CDATA[testing]]></category>
+
+		<guid isPermaLink="false">http://www.uxebu.com/?p=5165</guid>
+		<description><![CDATA[<p>There are good reasons why programmers perform tests themselves in contrast to letting an external testing department (QA) perform the tests. The programmer is able to discover errors in code and in general design decisions much faster and can react immediately, as one might say, the feedback loop is very short. On the other hand, [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/07/test-public-api-implementation-details/">Test public API, not implementation details</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><img style="float: right; margin: 0 0 20px 20px;" src="/wp-content/uploads/2014/07/tldr-box-red.svg" alt="" /><br />
+There are good reasons why programmers perform tests themselves in contrast to letting an external testing department (QA) perform the tests. The programmer is able to discover errors in code and in general design decisions much faster and can react immediately, as one might say, the feedback loop is very short. On the other hand, when programmers have both, the test and the implementation in mind, they&#8217;re tempted to test code that an external wouldn&#8217;t test, simply because the external only know about the spec but not the implementation. That way I once wrote way more tests than needed and at the time of writing the tests felt confident with that approach because more tests are better than less tests and JavaScripts lacking of private members literally encouraged me to do this anyway. Well, I paid the price some weeks later, when a minor change took me way to long to implement because of some dozens of failing tests that shouldn&#8217;t be affected by my change. But what exactly is bad about testing other things than public API?</p>
+<p>Consider the following little code snippet:</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #003366; font-weight: bold;">function</span> Auth<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><span style="color: #009900;">&#125;</span><br />
+<br />
+Auth.<span style="color: #660066;">prototype</span>._isEmpty <span style="color: #339933;">=</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span>str<span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; <span style="color: #000066; font-weight: bold;">return</span> <span style="color: #CC0000;">0</span> <span style="color: #339933;">===</span> str.<span style="color: #660066;">length</span><span style="color: #339933;">;</span><br />
+<span style="color: #009900;">&#125;</span><br />
+<br />
+Auth.<span style="color: #660066;">prototype</span>.<span style="color: #660066;">login</span> <span style="color: #339933;">=</span> <span style="color: #003366; font-weight: bold;">function</span> <span style="color: #009900;">&#40;</span>username <span style="color: #339933;">,</span> password<span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; <span style="color: #000066; font-weight: bold;">if</span> <span style="color: #009900;">&#40;</span><span style="color: #000066; font-weight: bold;">this</span>._isEmpty<span style="color: #009900;">&#40;</span>username<span style="color: #009900;">&#41;</span> <span style="color: #339933;">||</span> <span style="color: #000066; font-weight: bold;">this</span>._isEmpty<span style="color: #009900;">&#40;</span>password<span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; <span style="color: #000066; font-weight: bold;">return</span> <span style="color: #003366; font-weight: bold;">false</span><span style="color: #339933;">;</span><br />
+&nbsp; <span style="color: #009900;">&#125;</span> <span style="color: #000066; font-weight: bold;">else</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; <span style="color: #000066; font-weight: bold;">return</span> <span style="color: #003366; font-weight: bold;">true</span><span style="color: #339933;">;</span><br />
+&nbsp; <span style="color: #009900;">&#125;</span><br />
+<span style="color: #009900;">&#125;</span></div></div>
+<h2>What is public API?</h2>
+<p>First of all, make yourself aware of what methods of your Auth class are meant to be accessible and visible to the user of the class. That&#8217;s the public API. In this case the only method that is supposed to be visible is:</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">boolean <span style="color: #003366; font-weight: bold;">function</span> login<span style="color: #009900;">&#40;</span>username<span style="color: #339933;">:</span>String<span style="color: #339933;">,</span> password<span style="color: #339933;">:</span>String<span style="color: #009900;">&#41;</span></div></div>
+<h2>What are implementation details?</h2>
+<p>Now that you have settled the public API, everything else can be considered as implementation detail, including the _isEmpty method. I use a single underscore prefix to make the distinction more visible. But that&#8217;s only a coding convention and not a JavaScript feature and therefore doesn&#8217;t prevent a tester from using it per se. It can help code-reviewers with detecting private members though.</p>
+<p><em><span class="highlight1" style="background-color:#FFFFC7;"><strong>Tip:</strong> A user of your class Auth only cares about public API because that&#8217;s the only API that is well documented and maintained. So let&#8217;s make sure that this API works as expected and only test login. Applying this approach keeps the amount of tests as small as possible but effective as necessary.</span></em></p>
+<h2>A bad test</h2>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">describe<span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'Login'</span><span style="color: #339933;">,</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; describe<span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'Login'</span><span style="color: #339933;">,</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; it<span style="color: #009900;">&#40;</span><span style="color: #3366CC;">&quot;calls _isEmpty&quot;</span><span style="color: #339933;">,</span> <span style="color: #003366; font-weight: bold;">function</span> <span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; &nbsp; <span style="color: #003366; font-weight: bold;">var</span> auth <span style="color: #339933;">=</span> <span style="color: #003366; font-weight: bold;">new</span> Auth<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+&nbsp; &nbsp; &nbsp; spyOn<span style="color: #009900;">&#40;</span>auth<span style="color: #339933;">,</span> <span style="color: #3366CC;">'_isEmpty'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+&nbsp; &nbsp; &nbsp; auth.<span style="color: #660066;">login</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'abc'</span><span style="color: #339933;">,</span> <span style="color: #3366CC;">'abc'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+&nbsp; &nbsp; &nbsp; expect<span style="color: #009900;">&#40;</span>auth._isEmpty<span style="color: #009900;">&#41;</span>.<span style="color: #660066;">toHaveBeenCalledWith</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'abc'</span><span style="color: #339933;">,</span> <span style="color: #3366CC;">'abc'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+&nbsp; &nbsp; <span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+&nbsp; <span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></div>
+<p>So what makes this test bad? The test expects a method, that is private and not visible to the outerworld, to be available and callable. Which means as soon as we gonna refactor _isEmpty for internal, performance or whatever reasons the test fails. This slows down your productivity and makes refactoring hard because you&#8217;re forced to align the test every time when you&#8217;re touching _isEmpty. Does this test give you any confidence that your public API is working as expected? No. Calling _isEmpty doesn&#8217;t give any infos about whether login returns true or false. Does it improve your public API? No, not at all. The user of this class doesn&#8217;t even care about whether _isEmpty exists or not as long as login works. As a result changing internal code will let this test fail unexpectedly.</p>
+<p><em><span class="highlight1" style="background-color:#FFFFC7;"><strong>Testing Terminology:</strong> A test that fails, although the code changes shouldn&#8217;t have affected the test are often called: Fragile Test</span></em></p>
+<h2>Good tests</h2>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">describe<span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'Login'</span><span style="color: #339933;">,</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; it<span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'returns `true` when username and password are not empty'</span><span style="color: #339933;">,</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; expect<span style="color: #009900;">&#40;</span><span style="color: #003366; font-weight: bold;">new</span> Auth<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span>.<span style="color: #660066;">login</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'non-empty'</span><span style="color: #339933;">,</span> <span style="color: #3366CC;">'non-empty'</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span>.<span style="color: #660066;">toBe</span><span style="color: #009900;">&#40;</span><span style="color: #003366; font-weight: bold;">true</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+&nbsp; <span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<br />
+&nbsp; it<span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'returns `false` when username is empty'</span><span style="color: #339933;">,</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; expect<span style="color: #009900;">&#40;</span><span style="color: #003366; font-weight: bold;">new</span> Auth<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span>.<span style="color: #660066;">login</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">''</span><span style="color: #339933;">,</span> <span style="color: #3366CC;">'non-empty'</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span>.<span style="color: #660066;">toBe</span><span style="color: #009900;">&#40;</span><span style="color: #003366; font-weight: bold;">false</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+&nbsp; <span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<br />
+&nbsp; it<span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'returns `false` when password is empty'</span><span style="color: #339933;">,</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; expect<span style="color: #009900;">&#40;</span><span style="color: #003366; font-weight: bold;">new</span> Auth<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span>.<span style="color: #660066;">login</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'non-empty'</span><span style="color: #339933;">,</span> <span style="color: #3366CC;">''</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span>.<span style="color: #660066;">toBe</span><span style="color: #009900;">&#40;</span><span style="color: #003366; font-weight: bold;">false</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+&nbsp; <span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></div>
+<p>Focus on simplicity, correctness and shortness of tests. You and your co-workers will enjoy the readability. Internal documentation meant for developers can be replaced by your tests. From now on your tests are the spec. What about refactoring? Super easy. Let&#8217;s say you replace _isEmpty for internal reasons by underscrore.isEmpty() and some days later by lodash.isEmpty(). No problem, you don&#8217;t even need to touch the tests. Just execute them and give yourself the confidence that login still works as expected. This process doesn&#8217;t only make refactoring easy, it encourages you to make your code continually better and let you react fast on internal design decisions. Code-reviews of refactoring steps can happen faster because one thing is sure, whatever your code does, it doesn&#8217;t break the public API because you didn&#8217;t touch the tests.</p>
+<h2>Summary</h2>
+<p>KISS! Testing less but the right things improves your development process and makes you and your co-workers happy. Implementation details are never mentioned within the spec, so they never appear within your tests.</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/07/test-public-api-implementation-details/">Test public API, not implementation details</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2014/07/test-public-api-implementation-details/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>How to remove AMD artifacts for deployment</title>
+		<link>http://www.uxebu.com/blog/2014/07/remove-amd-artifacts-deployment/</link>
+		<comments>http://www.uxebu.com/blog/2014/07/remove-amd-artifacts-deployment/#comments</comments>
+		<pubDate>Wed, 02 Jul 2014 14:38:14 +0000</pubDate>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+				<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[Technology]]></category>
+
+		<guid isPermaLink="false">http://www.uxebu.com/?p=5078</guid>
+		<description><![CDATA[<p>You are working with require.js (AMD modules)? And you want to have a very simple way to build your project into one file? And later apply the minifier of your choice? Here is the easiest it gets. But a bit of history first. David Aurelio has built undef already over a year ago, which we [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/07/remove-amd-artifacts-deployment/">How to remove AMD artifacts for deployment</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<div id="attachment_5102" style="width: 160px" class="wp-caption alignleft"><a href="https://www.flickr.com/photos/emilyrides/5188889548"><img src="http://www.uxebu.com//wp-content/uploads/2014/07/5188889548_810dac4a3d_z-e1404314323457.jpg" alt="Pic by Michael Dolan" width="150" height="150" class="size-thumbnail wp-image-5102" /></a><p class="wp-caption-text">Pic by Michael Dolan</p></div>
+<p>You are working with require.js (AMD modules)? And you want to have a very simple way to build your project into one file? And later apply the minifier of your choice? Here is the easiest it gets.<br />
+But a bit of history first. <a href="http://twitter.com/void_0" title="David">David Aurelio</a> has built <a href="https://github.com/davidaurelio/undef">undef</a> already over a year ago, which we had in production for a while and it eased lots of our build pains. It simply speaking converts AMD modules which are mostly spread across multiple files into one JavaScript file and makes it ready for production. Run your favourite minifier over it and you are ready to roll.</p>
+<h2>The setup</h2>
+<p>The <a href="https://github.com/uxebu/undef-example" title="undef example">undef-example app</a> provides a simple setup of three JS files, that depend on each other and use require.js to load in dependencies.</p>
+<p><em>app.js</em> configures the app so require.js knows how to resolve modules</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">requirejs.<span style="color: #660066;">config</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; baseUrl<span style="color: #339933;">:</span> <span style="color: #3366CC;">'./js'</span><span style="color: #339933;">,</span><br />
+&nbsp; &nbsp; paths<span style="color: #339933;">:</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; app<span style="color: #339933;">:</span> <span style="color: #3366CC;">'app'</span><br />
+&nbsp; &nbsp; <span style="color: #009900;">&#125;</span><br />
+<span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<br />
+requirejs<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#91;</span><span style="color: #3366CC;">'app/main'</span><span style="color: #009900;">&#93;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></div>
+<p><em>app/main.js</em> is the file which is the app&#8217;s starting point, which just requires the print module and executes it like so:</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">define<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#91;</span><br />
+&nbsp; <span style="color: #3366CC;">'app/print'</span><br />
+<span style="color: #009900;">&#93;</span><span style="color: #339933;">,</span> <span style="color: #003366; font-weight: bold;">function</span> <span style="color: #009900;">&#40;</span><span style="color: #000066;">print</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; <span style="color: #000066;">print</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></div>
+<p><em>app/print.js</em> implements the actual (dumb) logic that does all the (hard) work</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">define<span style="color: #009900;">&#40;</span><span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; <span style="color: #003366; font-weight: bold;">function</span> <span style="color: #000066;">print</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; document.<span style="color: #660066;">body</span>.<span style="color: #660066;">innerHTML</span> <span style="color: #339933;">=</span> <span style="color: #3366CC;">'It DOES work :)'</span><span style="color: #339933;">;</span><br />
+&nbsp; <span style="color: #009900;">&#125;</span><br />
+&nbsp; <span style="color: #000066; font-weight: bold;">return</span> <span style="color: #000066;">print</span><span style="color: #339933;">;</span><br />
+<span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></div>
+<p>I guess you get the idea. Simple and straight forward.</p>
+<h2>Development</h2>
+<p>AMD modules (or require.js modules, which is the library used to do the file organizing and loading at runtime) are a standardized way of encapsulating functionality into modules, that reside in separate files and can depend on each other, by requiring them. During development, this is very helpful in order to create a well-structured project layout.<br />
+In the browser require.js is used to load the modules on demand and it does all the path resolving at runtime, taking a config given to it into account.<br />
+While this works fine for development it is pure overhead in production and has only been introduced due to the lack of a proper package management system in JavaScript (ES6 ftw).</p>
+<h2>Deployment</h2>
+<p>Now, that it&#8217;s time to deploy our app. We want all the requires and defines to disappear from our code. That is where undef comes into play. I just give it the base directory (basedir), the output directory and the app&#8217;s starting point.</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="bash codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">undef <span style="color: #660033;">--basedir</span> src<span style="color: #000000; font-weight: bold;">/</span>js <span style="color: #660033;">--output</span> dist<span style="color: #000000; font-weight: bold;">/</span>app.js app<span style="color: #000000; font-weight: bold;">/</span>main</div></div>
+<p>and out I get one file where all the requires and defines are stripped out and including this file works just as the code used with require.js before.<br />
+Here is what the output looks like:</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #009900;">&#40;</span><span style="color: #003366; font-weight: bold;">function</span> <span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; <span style="color: #003366; font-weight: bold;">var</span> _0<span style="color: #339933;">,</span> _1<span style="color: #339933;">;</span><br />
+&nbsp; &nbsp; _0 <span style="color: #339933;">=</span> <span style="color: #003366; font-weight: bold;">function</span> <span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #003366; font-weight: bold;">function</span> <span style="color: #000066;">print</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; document.<span style="color: #660066;">body</span>.<span style="color: #660066;">innerHTML</span> <span style="color: #339933;">=</span> <span style="color: #3366CC;">'It DOES work :)'</span><span style="color: #339933;">;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #009900;">&#125;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #000066; font-weight: bold;">return</span> <span style="color: #000066;">print</span><span style="color: #339933;">;</span><br />
+&nbsp; &nbsp; <span style="color: #009900;">&#125;</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+&nbsp; &nbsp; _1 <span style="color: #339933;">=</span> <span style="color: #003366; font-weight: bold;">function</span> <span style="color: #009900;">&#40;</span><span style="color: #000066;">print</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #000066;">print</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+&nbsp; &nbsp; <span style="color: #009900;">&#125;</span><span style="color: #009900;">&#40;</span>_0<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<span style="color: #009900;">&#125;</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></div>
+<p>Normally you pipe this output into a google closure or uglify in order to minify it and you have the final production ready code, which you can deploy now.</p>
+<h2>Conclusion</h2>
+<p>It has no support for any AMD plugins which e.g. allow you to import files other than JavaScript files and pre-process them.<br />
+As linked above, if you want an example project where the setup is already done use <a href="https://github.com/uxebu/undef-example" title="undef example">undef-example app</a>, run `npm install` and you are set (<a href="https://github.com/uxebu/undef-example/blob/master/README.md" title="README">more info</a>).<br />
+Have fun reducing your deploy file size.</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/07/remove-amd-artifacts-deployment/">How to remove AMD artifacts for deployment</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2014/07/remove-amd-artifacts-deployment/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>How to use Google Spreadsheets for TDD</title>
+		<link>http://www.uxebu.com/blog/2014/03/how-to-use-google-spreadsheets-for-tdd/</link>
+		<comments>http://www.uxebu.com/blog/2014/03/how-to-use-google-spreadsheets-for-tdd/#comments</comments>
+		<pubDate>Mon, 24 Mar 2014 22:28:24 +0000</pubDate>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+				<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[tdd]]></category>
+
+		<guid isPermaLink="false">http://uxebu.com/?p=4240</guid>
+		<description><![CDATA[<p>The idea is from 2008 by Dave Nicolette and Karl Scotland and they first presented it in their talk &#8220;Manager&#8217;s Introduction to Test-Driven Development&#8221; where they are showing managers how to do TDD with Excel and VBA. Inspired by this talk see how to do it with Google Spreadsheet and JavaScript as I tweeted last night. In the following I am just [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/03/how-to-use-google-spreadsheets-for-tdd/">How to use Google Spreadsheets for TDD</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>The idea is from 2008 by <a title="Dave Nicolette" href="https://twitter.com/davenicolette">Dave Nicolette</a> and <a title="Karl Scotland" href="https://twitter.com/kjscotland">Karl Scotland</a> and they first presented it in their talk &#8220;<a title="Manager's Introduction to Test-Driven Development" href="http://www.infoq.com/presentations/TDD-Managers-Nicolette-Scotland">Manager&#8217;s Introduction to Test-Driven Development</a>&#8221; where they are showing managers how to do TDD with Excel and VBA. Inspired by this talk see how to do it with Google Spreadsheet and JavaScript <a title="Tweeted" href="https://twitter.com/wolframkriesing/status/447833126493229057">as I tweeted</a> last night.</p>
+<p><span id="more-4240"></span></p>
+<p>In the following I am just showing how to do it. It&#8217;s not a Kata I am going to cover here. Though I use Roman Numerals, which makes it very easy here. You can <a title="TDD in GSPreadsheet" href="https://docs.google.com/spreadsheets/d/1uj8asD-m5IbK42qulowg7WUfV_u64P113pmtLRGx5o0/pubhtml" target="_blank">find the spreadsheet here</a> (and clone it).</p>
+<h2>Defining the requirements</h2>
+<p><a title="" href="http://www.uxebu.com/wp-content/uploads/2014/03/TDD_with_GSpreadhseet__uxebu_blog__-_Google_Drive.png" rel="prettyPhoto"><img class="alignright" src="http://www.uxebu.com/wp-content/uploads/2014/03/TDD_with_GSpreadhseet__uxebu_blog__-_Google_Drive-300x144.png" alt="Requirements" /></a>The first step as it should be in TDD is that we define the requirements for our task. No special knowhow needed yet, just create a simple spreadsheet, with a nice headline (makes it more readable) and one column with the arabic and one more with the roman numerals. We get out requirements that we start with from <a title="Roman Numerals on wikipedia" href="http://en.wikipedia.org/wiki/Roman_numerals">wikipedia&#8217;s page about roman numerals</a>.</p>
+<h2></h2>
+<h2></h2>
+<h2>Use the JavaScript function</h2>
+<p><a title="" href="http://www.uxebu.com/wp-content/uploads/2014/03/TDD_with_GSpreadhseet__uxebu_blog__-_Google_Drive4.png" rel="prettyPhoto"><img class="alignleft" src="http://www.uxebu.com/wp-content/uploads/2014/03/TDD_with_GSpreadhseet__uxebu_blog__-_Google_Drive4-300x109.png" alt="Use the JavaScript function" /></a>The language we do TDD here, is JavaScript, logically if the spreadsheet runs in the browser (maybe Dart will be available some day too :)).<a title="" href="http://www.uxebu.com/wp-content/uploads/2014/03/TDD_with_GSpreadhseet__uxebu_blog__-_Google_Drive5.png" rel="prettyPhoto"><img class="alignright" src="http://www.uxebu.com/wp-content/uploads/2014/03/TDD_with_GSpreadhseet__uxebu_blog__-_Google_Drive5-300x91.png" alt="Missing function" /></a><br />
+It is as simple as using a built in spreadsheet function, just write &#8220;=arabicToRoman(A3)&#8221; where &#8220;A3&#8243; is the cell referred to. As long as the function is not defined it will result in an error, when executed.<a href="http://uxebu.com/wp-content/uploads/2014/03/TDD_with_GSpreadhseet__uxebu_blog__-_Google_Drive2.png"><br />
+</a></p>
+<h2></h2>
+<h2>Implement the function</h2>
+<p><a title="" href="http://www.uxebu.com/wp-content/uploads/2014/03/TDD_with_GSpreadhseet__uxebu_blog__-_Google_Drive6.png" rel="prettyPhoto"><img class="alignleft" src="http://www.uxebu.com/wp-content/uploads/2014/03/TDD_with_GSpreadhseet__uxebu_blog__-_Google_Drive6-300x78.png" alt="Error message, which tells us what to do" /></a>Let&#8217;s get rid of the &#8220;#NAME?&#8221; so we can continue. Actually hovering over the ce<br />
+ll will tell us that the function &#8220;arabicToRoman&#8221; doesn&#8217;t exist. This is our first thing the test tells us to do. So let&#8217;s implement this function.</p>
+<p>&nbsp;</p>
+<p>The function we need is written in pure JavaScript. Click in the menu &#8220;Tools / Script editor&#8230;&#8221;, a new <a title="" href="http://www.uxebu.com/wp-content/uploads/2014/03/TDD_in_GSpreadsheet__uxebu_blog_.png" rel="prettyPhoto"><img class="alignright" src="http://www.uxebu.com/wp-content/uploads/2014/03/TDD_in_GSpreadsheet__uxebu_blog_-300x121.png" alt="" /></a>browser tab will open up. Click in the left column (&#8220;Create script for&#8221;) on &#8220;Spreadsheet&#8221;. It opens with two functions pre-implemented.<br />
+We don&#8217;t need them now, so let&#8217;s just remove them. And implement the JavaScript function &#8220;arabicToRoman&#8221;, see the screenshot.</p>
+<h2></h2>
+<h2>Show the test result</h2>
+<p><a title="" href="http://www.uxebu.com/wp-content/uploads/2014/03/TDD_with_GSpreadhseet__uxebu_blog__-_Google_Drive7.png" rel="prettyPhoto"><img class="alignleft" src="http://www.uxebu.com/wp-content/uploads/2014/03/TDD_with_GSpreadhseet__uxebu_blog__-_Google_Drive7-300x66.png" alt="Show PASS or FAIL" /></a>In order to have red/green which is an essential part of TDD, we are going to use the simple spreadsheet functionality (IF) to show the test result (&#8220;PASS&#8221; and &#8220;FAIL&#8221;) in the fourth column. Once this content is written into the cell we use simple &#8220;conditional formatting&#8221; in order to change the background color red or green (you can reach &#8220;Conditional formatting&#8230;&#8221; via the column&#8217;s drop down menu).</p>
+<p><a title="" href="http://www.uxebu.com/wp-content/uploads/2014/03/TDD_with_GSpreadhseet__uxebu_blog__-_Google_Drive8.png" rel="prettyPhoto"><img class="alignright" src="http://www.uxebu.com/wp-content/uploads/2014/03/TDD_with_GSpreadhseet__uxebu_blog__-_Google_Drive8-300x83.png" alt="" /></a>Now we get a red cell. The awesome thing about the spreadsheet solution here, is that we can simply copy the two cells of column C and D onto the next row that we want to implement next. This allows us to write the requirements without the need to test them right away. It&#8217;s pretty comfortable, try it out. You see your to dos and as soon as you work on them you fill in column C and D.</p>
+<h2>Let&#8217;s make it pass</h2>
+<p><a title="" href="http://www.uxebu.com/wp-content/uploads/2014/03/TDD_in_GSpreadsheet__uxebu_blog__und_TDD_with_GSpreadhseet__uxebu_blog__-_Google_Drive.png" rel="prettyPhoto"><img class="alignleft" src="http://www.uxebu.com/wp-content/uploads/2014/03/TDD_in_GSpreadsheet__uxebu_blog__und_TDD_with_GSpreadhseet__uxebu_blog__-_Google_Drive-300x78.png" alt="" /></a>Now we can simply switch back to the other tab, edit the function and just wait until the spreadsheet picks it up and renders the table again. For doing that I found it quite practical to put the two windows beside one another. Then you don&#8217;t have to reload manually. Just wait a second or so and the spreadsheet updates automatically as soon as you have saved the source code.</p>
+<p>&nbsp;</p>
+<p>If you thought TDD was hard to setup, now there is no argument that backs this up :). Have fun.</p>
+<p>PS: I made the spreadsheet public <a title="TDD GSpreadsheet" href="https://docs.google.com/spreadsheets/d/1uj8asD-m5IbK42qulowg7WUfV_u64P113pmtLRGx5o0/pubhtml" target="_blank">here</a>, though this might not be very useful since I wasn&#8217;t able to publish the macro / JavaScript function.</p>
+<p><strong>Update:</strong> J.B. Rainsberger also has a <a title="JB Rainsberger's video" href="http://blog.thecodewhisperer.com/2014/03/25/google-spreadsheet-as-a-test-first-demo-environment/" target="_blank">nice video on it</a>.</p>
+<p>&nbsp;</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/03/how-to-use-google-spreadsheets-for-tdd/">How to use Google Spreadsheets for TDD</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2014/03/how-to-use-google-spreadsheets-for-tdd/feed/</wfw:commentRss>
+		<slash:comments>1</slash:comments>
+		</item>
+	</channel>
+</rss>

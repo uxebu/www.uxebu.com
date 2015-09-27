@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>uxebu &#187; jpadolsey</title>
+	<atom:link href="http://www.uxebu.com/blog/author/jpadolsey/feed/" rel="self" type="application/rss+xml" />
+	<link>http://www.uxebu.com</link>
+	<description>The first JavaScript-only development and consulting company</description>
+	<lastBuildDate>Thu, 30 Jul 2015 09:10:24 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=4.1.8</generator>
+	<item>
+		<title>Bonsai &amp; Bounding Boxes</title>
+		<link>http://www.uxebu.com/blog/2012/10/bonsai-and-bounding-boxes/</link>
+		<comments>http://www.uxebu.com/blog/2012/10/bonsai-and-bounding-boxes/#comments</comments>
+		<pubDate>Wed, 31 Oct 2012 13:56:36 +0000</pubDate>
+		<dc:creator><![CDATA[jpadolsey]]></dc:creator>
+				<category><![CDATA[BonsaiJS]]></category>
+
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=2644</guid>
+		<description><![CDATA[<p>In Bonsai’s latest release (0.4.1) we added support for a new ‘getBoundingBox’ method on all DisplayObjects. We can now accurately calculate the bounding box of paths, and groups containing paths. To demonstrate we’ve created a demo with a constantly morphing star and a constantly re-calculated bounding-box: We calculate the bounding box of any given path [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2012/10/bonsai-and-bounding-boxes/">Bonsai &#038; Bounding Boxes</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>In <a href="https://github.com/uxebu/bonsai">Bonsai’s latest release (0.4.1)</a> we added support for a new ‘getBoundingBox’ method on all DisplayObjects. We can now accurately calculate the bounding box of paths, and groups containing paths.</p>
+<p>To demonstrate we’ve created a demo with a constantly morphing star and a constantly re-calculated bounding-box:</p>
+<p style="margin: 0;"><iframe style="width: 100%; height: 600px;" src="http://jsfiddle.net/CMsSs/embedded/result" width="300" height="150" frameborder="0" allowfullscreen="allowfullscreen"></iframe></p>
+<p>We calculate the bounding box of any given path by converting all of its segments to cubic bezier curves and then calculating the extrema of each curve individually. It’s then a simple case of finding the smallest and biggest values on each axis to determine the bounding box.</p>
+<h3>Why?</h3>
+<p>Bonsai has always had a split architecture. The renderer has always been seperate to the runner. There are very good reasons for this but unfortunately it meant we could never query the renderer-side for information about drawn objects. So SVG’s getBBox was off the table. This is a good thing though. It’s very slow. Without our runner-side implementation something like the morphing-star demo above would not be possible. There are also many other applications.</p>
+<h3>The API</h3>
+<p>All DisplayObject’s now have a ‘getBoundingBox’ method. It returns an object like this:</p>
+<div class="codecolorer-container text twitlight" style="overflow: auto;">
+<table cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td class="line-numbers">
+<div>1<br />
+2<br />
+3<br />
+4<br />
+5<br />
+6<br />
+7<br />
+8</div>
+</td>
+<td>
+<div class="text codecolorer">{<br />
+left: 22,<br />
+top: 44,<br />
+width: 100,<br />
+height: 100,<br />
+bottom: 144,<br />
+right: 122<br />
+}</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Calling ‘getBoundingBox’ with no arguments will give you the bounding box of the object in local coordinate space. For example:</p>
+<div class="codecolorer-container text twitlight" style="overflow: auto;">
+<table cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td class="line-numbers">
+<div>1<br />
+2</div>
+</td>
+<td>
+<div class="text codecolorer">var rect = new Rect(50, 50, 100, 100);<br />
+rect.getBoundingBox(); // 0,0,100,100</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>To get the real position of the object in its parent coordinate space, you would simply pass a matrix transform so that the calculated extrema are transformed:</p>
+<div class="codecolorer-container text twitlight" style="overflow: auto;">
+<table cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td class="line-numbers">
+<div>1<br />
+2</div>
+</td>
+<td>
+<div class="text codecolorer">var rect = new Rect(50, 50, 100, 100);<br />
+rect.getBoundingBox( rect.attr(&#8216;matrix&#8217;) ); // 50,50,100,100</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3>Coordinate spaces</h3>
+<p>In Bonsai, and in most other drawing frameworks, local coordinate space is differentiated from the parent or global coordinate space. Take this simple example:</p>
+<div class="codecolorer-container text twitlight" style="overflow: auto;">
+<table cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td class="line-numbers">
+<div>1</div>
+</td>
+<td>
+<div class="text codecolorer">new Path().moveTo(0,0).lineTo(20,20);</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>That path would have a local bounding box of ’0,0,20,20′. Compare that with:</p>
+<div class="codecolorer-container text twitlight" style="overflow: auto;">
+<table cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td class="line-numbers">
+<div>1</div>
+</td>
+<td>
+<div class="text codecolorer">new Path().moveTo(10,10).lineTo(20,20);</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>That path would have a local bounding box of ’10,10,20,20′.</p>
+<p>When we place a DisplayObject, such as one of these paths, onto the stage it is positioned according to:</p>
+<ol>
+<li>Its own x and y coordinates (its own transform) — this is <strong>not</strong> the same as the initial ‘moveTo(x, y)’ points.</li>
+<li>All of its ancestors’ collective transforms</li>
+</ol>
+<p>We can get the bounding box relative to the path’s position within its own parent by grabbing the path’s transform (a 2D matrix in the form ‘scaleX, skewX, skewY, scaleY, translateX, translateY’) and passing it to the ‘getBoundingBox’ method:</p>
+<div class="codecolorer-container text twitlight" style="overflow: auto;">
+<table cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td class="line-numbers">
+<div>1</div>
+</td>
+<td>
+<div class="text codecolorer">var bbox = myPath.getBoundingBox( myPath.attr(&#8216;matrix&#8217;) );</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>It follows that we can get the global bounding box of ‘myPath’ by collecting an concat’ing all transform matrices between and including the path and the global stage:</p>
+<div class="codecolorer-container text twitlight" style="overflow: auto;">
+<table cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td class="line-numbers">
+<div>1<br />
+2<br />
+3<br />
+4<br />
+5<br />
+6<br />
+7<br />
+8<br />
+9<br />
+10<br />
+11<br />
+12<br />
+13</div>
+</td>
+<td>
+<div class="text codecolorer">DisplayObject.prototype.getAbsoluteBoundingBox = function() {var matrix = this.attr(‘matrix’).clone();<br />
+var p = this;</p>
+<p>while ((p = p.parent) &amp;&amp; p.id !== 0) {<br />
+// Get parent’s transform and concat<br />
+// it with what we have so far:<br />
+matrix.concat(p.attr(‘matrix’));<br />
+}</p>
+<p>return this.getBoundingBox( matrix );<br />
+};</p>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>And now we can directly call:</p>
+<div class="codecolorer-container text twitlight" style="overflow: auto;">
+<table cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td class="line-numbers">
+<div>1</div>
+</td>
+<td>
+<div class="text codecolorer">var bbox = myPath.getAbsoluteBoundingBox(); // gives global bounding box</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Note:</strong> We are hoping to add something like this to the API very soon. <a href="https://github.com/uxebu/bonsai/pull/141">Please follow progress here</a>.</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2012/10/bonsai-and-bounding-boxes/">Bonsai &#038; Bounding Boxes</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2012/10/bonsai-and-bounding-boxes/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Bikeshed – Episode 20</title>
+		<link>http://www.uxebu.com/blog/2011/12/bikeshed-episode-20/</link>
+		<comments>http://www.uxebu.com/blog/2011/12/bikeshed-episode-20/#comments</comments>
+		<pubDate>Tue, 20 Dec 2011 22:08:04 +0000</pubDate>
+		<dc:creator><![CDATA[jpadolsey]]></dc:creator>
+				<category><![CDATA[Uncategorized]]></category>
+
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=2179</guid>
+		<description><![CDATA[<p>Follow @bikeshedjs for more mysterious information or visit bikeshed on the world wide web.</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2011/12/bikeshed-episode-20/">Bikeshed – Episode 20</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><iframe src="http://padolsey.net/uxebu/chat.html" frameborder="0" width="100%" height="411"></iframe></p>
+<p><span id="more-2179"></span></p>
+<p><iframe width="640" height="360" src="//www.youtube.com/embed/Ct_T9hKhGBs?feature=player_detailpage" frameborder="0" allowfullscreen></iframe></p>
+<p><iframe style="border: none;" src="http://bikeshed.uxebu.com/201112/20/" scrolling="no" width="100%" height="411"></iframe></p>
+<p>Follow <a href="http://twitter.com/bikeshedjs">@bikeshedjs</a> for more <em>mysterious</em> information or visit <a href="http://bonsaijs.org">bikeshed on the world wide web</a>.</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2011/12/bikeshed-episode-20/">Bikeshed – Episode 20</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2011/12/bikeshed-episode-20/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Bikeshed &#8211; Episode 7</title>
+		<link>http://www.uxebu.com/blog/2011/12/bikeshed-episode-7/</link>
+		<comments>http://www.uxebu.com/blog/2011/12/bikeshed-episode-7/#comments</comments>
+		<pubDate>Wed, 07 Dec 2011 18:00:10 +0000</pubDate>
+		<dc:creator><![CDATA[jpadolsey]]></dc:creator>
+				<category><![CDATA[Uncategorized]]></category>
+
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=2066</guid>
+		<description><![CDATA[<p>Follow @bikeshedjs for more mysterious information or visit bikeshed on the world wide web.</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2011/12/bikeshed-episode-7/">Bikeshed &#8211; Episode 7</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><iframe width="640" height="360" src="//www.youtube.com/embed/bg0W150b6D8?feature=player_detailpage" frameborder="0" allowfullscreen></iframe></p>
+<p><span id="more-2066"></span></p>
+<p><iframe src="http://bikeshed.uxebu.com/201112/7/" width="100%" height="411" scrolling="no"  style="border: none;"></iframe></p>
+<p>Follow <a href="http://twitter.com/bikeshedjs">@bikeshedjs</a> for more <em>mysterious</em> information or visit <a href="http://bonsaijs.org">bikeshed on the world wide web</a>.</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2011/12/bikeshed-episode-7/">Bikeshed &#8211; Episode 7</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2011/12/bikeshed-episode-7/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+	</channel>
+</rss>

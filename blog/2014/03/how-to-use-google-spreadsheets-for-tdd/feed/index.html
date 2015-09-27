@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	
+	>
+<channel>
+	<title>Comments on: How to use Google Spreadsheets for TDD</title>
+	<atom:link href="http://www.uxebu.com/blog/2014/03/how-to-use-google-spreadsheets-for-tdd/feed/" rel="self" type="application/rss+xml" />
+	<link>http://www.uxebu.com/blog/2014/03/how-to-use-google-spreadsheets-for-tdd/</link>
+	<description>The first JavaScript-only development and consulting company</description>
+	<lastBuildDate>Sun, 27 Sep 2015 14:23:54 +0000</lastBuildDate>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=4.1.8</generator>
+	<item>
+		<title>By: Gleb Bahmutov</title>
+		<link>http://www.uxebu.com/blog/2014/03/how-to-use-google-spreadsheets-for-tdd/#comment-1556</link>
+		<dc:creator><![CDATA[Gleb Bahmutov]]></dc:creator>
+		<pubDate>Fri, 08 Aug 2014 21:40:00 +0000</pubDate>
+		<guid isPermaLink="false">http://uxebu.com/?p=4240#comment-1556</guid>
+		<description><![CDATA[I too always get angry when the failed assertion provides no context. I don&#039;t think it is 100% testing framework&#039;s fault, JavaScript evaluates the arguments before calling the &lt;em&gt;expect()&lt;/em&gt;, so the matcher has no idea what actually goes wrong. It would be nice if the testing engine at least printed the offending line using stack trace. 
+ 
+Programmer is expected instead to add a helpful message, duplicating the expressions as in &lt;em&gt;expect(2 + 2).toEqual(4, &#039;2 + 2 === 4&#039;);&lt;/em&gt; To me this breaks do not repeat yourself principle really badly. 
+ 
+For now, I am using my own lazy assertions &lt;a href=&quot;https://github.com/bahmutov/lazy-ass&quot; rel=&quot;nofollow&quot;&gt;https://github.com/bahmutov/lazy-ass&lt;/a&gt; + helper BDD wrapper &lt;a href=&quot;https://github.com/bahmutov/lazy-ass-helpful&quot; rel=&quot;nofollow&quot;&gt;https://github.com/bahmutov/lazy-ass-helpful&lt;/a&gt; so that when I write 
+ 
+&lt;code class=&quot;javascript&quot;&gt; 
+ 
+helpDescribe(&#039;addition&#039;, function () { 
+  it(&#039;adds numbers&#039;, function () { 
+    lazyAss(add(2, 2) === 5); // wrong on purpose 
+  }); 
+}); 
+&lt;/code&gt; 
+I will get the following 
+module addition test adds numbers failed 
+  condition [add(2, 2) === 5] ]]></description>
+		<content:encoded><![CDATA[<p>I too always get angry when the failed assertion provides no context. I don&#039;t think it is 100% testing framework&#039;s fault, JavaScript evaluates the arguments before calling the <em>expect()</em>, so the matcher has no idea what actually goes wrong. It would be nice if the testing engine at least printed the offending line using stack trace. </p>
+<p>Programmer is expected instead to add a helpful message, duplicating the expressions as in <em>expect(2 + 2).toEqual(4, &#039;2 + 2 === 4&#039;);</em> To me this breaks do not repeat yourself principle really badly. </p>
+<p>For now, I am using my own lazy assertions <a href="https://github.com/bahmutov/lazy-ass" rel="nofollow">https://github.com/bahmutov/lazy-ass</a> + helper BDD wrapper <a href="https://github.com/bahmutov/lazy-ass-helpful" rel="nofollow">https://github.com/bahmutov/lazy-ass-helpful</a> so that when I write </p>
+<p>&lt;code class=&quot;javascript&quot;&gt; </p>
+<p>helpDescribe(&#039;addition&#039;, function () {<br />
+  it(&#039;adds numbers&#039;, function () {<br />
+    lazyAss(add(2, 2) === 5); // wrong on purpose<br />
+  });<br />
+});<br />
+&lt;/code&gt;<br />
+I will get the following<br />
+module addition test adds numbers failed<br />
+  condition [add(2, 2) === 5] </p>
+]]></content:encoded>
+	</item>
+</channel>
+</rss>

@@ -1,0 +1,667 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>uxebu &#187; David Aurelio</title>
+	<atom:link href="http://www.uxebu.com/blog/author/david/feed/" rel="self" type="application/rss+xml" />
+	<link>http://www.uxebu.com</link>
+	<description>The first JavaScript-only development and consulting company</description>
+	<lastBuildDate>Thu, 30 Jul 2015 09:10:24 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=4.1.8</generator>
+	<item>
+		<title>Bikeshed &#8211; Episode 12</title>
+		<link>http://www.uxebu.com/blog/2011/12/bikeshed-episode-12/</link>
+		<comments>http://www.uxebu.com/blog/2011/12/bikeshed-episode-12/#comments</comments>
+		<pubDate>Mon, 12 Dec 2011 18:57:01 +0000</pubDate>
+		<dc:creator><![CDATA[David Aurelio]]></dc:creator>
+				<category><![CDATA[Uncategorized]]></category>
+
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=2099</guid>
+		<description><![CDATA[<p>Follow @bikeshedjs for more mysterious information or visit bikeshed on the world wide web.</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2011/12/bikeshed-episode-12/">Bikeshed &#8211; Episode 12</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><iframe width="640" height="360" src="//www.youtube.com/embed/u75jx8kA5vE?feature=player_detailpage" frameborder="0" allowfullscreen></iframe></p>
+<p><span id="more-2099"></span></p>
+<p><iframe style="border: none;" src="http://bikeshed.uxebu.com/201112/12/" scrolling="no" width="100%" height="411"></iframe></p>
+<p>Follow <a href="http://twitter.com/bikeshedjs">@bikeshedjs</a> for more <em>mysterious</em> information or visit <a href="http://bonsaijs.org">bikeshed on the world wide web</a>.</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2011/12/bikeshed-episode-12/">Bikeshed &#8211; Episode 12</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2011/12/bikeshed-episode-12/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Object-Based Inheritance For ECMAScript 5</title>
+		<link>http://www.uxebu.com/blog/2011/02/object-based-inheritance-for-ecmascript-5/</link>
+		<comments>http://www.uxebu.com/blog/2011/02/object-based-inheritance-for-ecmascript-5/#comments</comments>
+		<pubDate>Wed, 23 Feb 2011 12:38:40 +0000</pubDate>
+		<dc:creator><![CDATA[David Aurelio]]></dc:creator>
+				<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[ECMAScript 5]]></category>
+		<category><![CDATA[Inheritance]]></category>
+		<category><![CDATA[Object.create]]></category>
+
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=1405</guid>
+		<description><![CDATA[<p>This post describes a simple, object-based inheritance system for ECMAScript&#160;5 compliant runtimes. First, I will explain how inheritance works in JavaScript/ECMAScript, and how inheritance chains are built usually to give you a deeper understanding what I’m talking about. After that, I’ll introduce the new Object.create() method found in ECMAScript&#160;5 and an inheritance system built on [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2011/02/object-based-inheritance-for-ecmascript-5/">Object-Based Inheritance For ECMAScript 5</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>This post describes a simple, object-based inheritance system for ECMAScript&nbsp;5 compliant runtimes. First, I will explain how inheritance works in JavaScript/ECMAScript, and how inheritance chains are built usually to give you a deeper understanding what I’m talking about. After that, I’ll introduce the new <em>Object.create()</em> method found in ECMAScript&nbsp;5 and an inheritance system built on top of that functionality.<br />
+ <span id="more-1405"></span></p>
+<h2>The Prototype Chain / Inheritance in JavaScript</h2>
+<p>Inheritance in JavaScript bases on the <em>Prototype Chain.</em> Every object has an internal <em>“[[Prototype]]”</em> property pointing to another object or <code class="codecolorer text default"><span class="text">null</span></code>. The notation with square brackets is used in the <a href="http://www.ecma-international.org/publications/standards/Ecma-262.htm">ECMAScript specification</a>, I will stick to it in this post. This property typically isn&#8217;t accessible in a program – it is private to the JavaScript runtime, even though Gecko and some other runtimes have started exposing it through the non-standard <code class="codecolorer text default"><span class="text">__proto__</span></code> property.</p>
+<p>When trying to access a property on an object (e.g. <code class="codecolorer text default"><span class="text">fooObject.barProp</span></code>), the runtime will follow the prototype chain from object to object (using the <em>[[Prototype]]</em> property) until the property is found. If it is not defined throughout the whole prototype chain, <code class="codecolorer text default"><span class="text">undefined</span></code> is returned.</p>
+<p>The difference to class-based programming languages is, that property/method access is not resolved within a class hierarchy, but rather within an hierarchy of objects (“class instances”). Properties shared between instances (“shared properties” in ECMAScript terminology) and methods are defined on an object deeper in the chain, while “instance variables”(“own properties” in ECMAScript) are defined on the top-most object itself – the object you are working with.</p>
+<h2>Creating Inheriting Objects</h2>
+<p>The traditional method of creating objects with a specific prototype chain is to define a <em>constructor function</em> and set its <code class="codecolorer text default"><span class="text">prototype</span></code> property to the desired object.</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #003366; font-weight: bold;">function</span> MyConstructor<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><br />
+<span style="color: #009900;">&#125;</span><br />
+<br />
+MyConstructor.<span style="color: #660066;">prototype</span> <span style="color: #339933;">=</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; foo<span style="color: #339933;">:</span> <span style="color: #3366CC;">&quot;some property&quot;</span><span style="color: #339933;">,</span><br />
+&nbsp; &nbsp; bar<span style="color: #339933;">:</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp;<span style="color: #000066; font-weight: bold;">return</span> <span style="color: #3366CC;">&quot;some method&quot;</span><span style="color: #339933;">;</span><br />
+&nbsp; &nbsp; <span style="color: #009900;">&#125;</span><br />
+<span style="color: #009900;">&#125;</span><span style="color: #339933;">;</span></div></div>
+<p>Now it is possible to create instances using the new operator:</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #003366; font-weight: bold;">var</span> myInstance <span style="color: #339933;">=</span> <span style="color: #003366; font-weight: bold;">new</span> MyConstructor<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></div>
+<p>This code creates a new object, sets its internal <em>[[Prototype]]</em> property to <code class="codecolorer text default"><span class="text">MyConstructor.prototype</span></code>, and executes <code class="codecolorer text default"><span class="text">MyConstructor</span></code> in the context of the newly created object (“in the context” means that the <code class="codecolorer text default"><span class="text">this</span></code> keyword points to the new object).</p>
+<p>The <code class="codecolorer text default"><span class="text">instanceof</span></code> operator allows us to check whether an object has been created by a specific constructor function:</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">myInstance <span style="color: #000066; font-weight: bold;">instanceof</span> MyConstructor<span style="color: #339933;">;</span> <span style="color: #006600; font-style: italic;">// true</span></div></div>
+<p>(instanceof checks the whole prototype chain, and works with “subclasses”, too).<br />
+This coupling of constructor and instances is rather loose; when creating a second constructor with its prototype pointing to the same object as the first constructor, an object will be instance of both constructors:</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #003366; font-weight: bold;">function</span> MySecondConstructor<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+MySecondConstructor.<span style="color: #660066;">prototype</span> <span style="color: #339933;">=</span> MyConstructor.<span style="color: #660066;">prototype</span><span style="color: #339933;">;</span><br />
+<br />
+<span style="color: #003366; font-weight: bold;">new</span> MyConstructor<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #000066; font-weight: bold;">instanceof</span> MyConstructor<span style="color: #339933;">;</span> <span style="color: #006600; font-style: italic;">// true – ok</span><br />
+<span style="color: #003366; font-weight: bold;">new</span> MySecondConstructor<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #000066; font-weight: bold;">instanceof</span> MySecondConstructor<span style="color: #339933;">;</span> <span style="color: #006600; font-style: italic;">// true – we’ve expected that</span><br />
+<span style="color: #003366; font-weight: bold;">new</span> MySecondConstructor<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #000066; font-weight: bold;">instanceof</span> MyConstructor<span style="color: #339933;">;</span> <span style="color: #006600; font-style: italic;">// also true</span><br />
+<span style="color: #003366; font-weight: bold;">new</span> MyConstructor<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #000066; font-weight: bold;">instanceof</span> MySecondConstructor<span style="color: #339933;">;</span> <span style="color: #006600; font-style: italic;">// true again</span></div></div>
+<p>also, when changing the prototype property of a constructor to another object,</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="text codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">instanceof</div></div>
+<p>yields a different result:</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #003366; font-weight: bold;">var</span> myInstance <span style="color: #339933;">=</span> <span style="color: #003366; font-weight: bold;">new</span> MyConstructor<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+myInstance <span style="color: #000066; font-weight: bold;">instanceof</span> MyConstructor<span style="color: #339933;">;</span> <span style="color: #006600; font-style: italic;">// true</span><br />
+<br />
+MyConstructor.<span style="color: #660066;">prototype</span> <span style="color: #339933;">=</span> <span style="color: #009900;">&#123;</span><span style="color: #009900;">&#125;</span><span style="color: #339933;">;</span><br />
+myInstance <span style="color: #000066; font-weight: bold;">instanceof</span> MyConstructor<span style="color: #339933;">;</span> <span style="color: #006600; font-style: italic;">// false</span></div></div>
+<p>The explanation is simple – since <code class="codecolorer text default"><span class="text">MyConstructor.prototype</span></code> is not in the prototype chain of <code class="codecolorer text default"><span class="text">myInstance</span></code>, the operator yields <code class="codecolorer text default"><span class="text">false</span></code></p>
+<h2>Object-Based inheritance</h2>
+<p>The latest edition of ECMAScript – ECMAScript 5th Edition – gives us a powerful new tool to create objects with a specific prototype: <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object/create"><code class="codecolorer text default"><span class="text">Object.create()</span></code></a>. The method takes two parameters: The object to use as <em>[[Prototype]]</em> and an object containing <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object/defineProperty#Description">property descriptors</a> for the new object to create. Using <code class="codecolorer text default"><span class="text">Object.create</span></code> allows us to short-circuit object creation and avoid the usage of constructor functions.</p>
+<p>Creating two objects sharing a common prototype is easy:</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #003366; font-weight: bold;">var</span> baseObject <span style="color: #339933;">=</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; foo<span style="color: #339933;">:</span> <span style="color: #3366CC;">&quot;some property&quot;</span><span style="color: #339933;">,</span><br />
+&nbsp; &nbsp; bar<span style="color: #339933;">:</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp;<span style="color: #000066; font-weight: bold;">return</span> <span style="color: #3366CC;">&quot;some method&quot;</span><span style="color: #339933;">;</span><br />
+&nbsp; &nbsp; <span style="color: #009900;">&#125;</span><br />
+<span style="color: #009900;">&#125;</span><br />
+<br />
+<span style="color: #003366; font-weight: bold;">var</span> myObject <span style="color: #339933;">=</span> Object.<span style="color: #660066;">create</span><span style="color: #009900;">&#40;</span>baseObject<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<span style="color: #003366; font-weight: bold;">var</span> mySecondObject <span style="color: #339933;">=</span> Object.<span style="color: #660066;">create</span><span style="color: #009900;">&#40;</span>baseObject<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></div>
+<p>Building an inheritance chain is also possible, but might get a little bit tedious when using property descriptors to add new properties:</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;height:300px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #003366; font-weight: bold;">var</span> Person <span style="color: #339933;">=</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; firstName<span style="color: #339933;">:</span> <span style="color: #003366; font-weight: bold;">null</span><span style="color: #339933;">,</span> <span style="color: #006600; font-style: italic;">// the person’s first name</span><br />
+&nbsp; &nbsp; lastName<span style="color: #339933;">:</span> <span style="color: #003366; font-weight: bold;">null</span> <span style="color: #006600; font-style: italic;">// the person’s last name</span><br />
+<span style="color: #009900;">&#125;</span><span style="color: #339933;">;</span><br />
+<br />
+<span style="color: #006600; font-style: italic;">// “subclass” Person</span><br />
+<span style="color: #003366; font-weight: bold;">var</span> Employee <span style="color: #339933;">=</span> Object.<span style="color: #660066;">create</span><span style="color: #009900;">&#40;</span>Person<span style="color: #339933;">,</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; id<span style="color: #339933;">:</span> <span style="color: #009900;">&#123;</span> <span style="color: #006600; font-style: italic;">// the employees’s id</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; value<span style="color: #339933;">:</span> <span style="color: #003366; font-weight: bold;">null</span><span style="color: #339933;">,</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; enumerable<span style="color: #339933;">:</span> <span style="color: #003366; font-weight: bold;">true</span><span style="color: #339933;">,</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; configurable<span style="color: #339933;">:</span> <span style="color: #003366; font-weight: bold;">true</span><span style="color: #339933;">,</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; writable<span style="color: #339933;">:</span> <span style="color: #003366; font-weight: bold;">true</span><br />
+&nbsp; &nbsp; <span style="color: #009900;">&#125;</span><br />
+<span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<br />
+<span style="color: #006600; font-style: italic;">// create an instance of Employee</span><br />
+<span style="color: #003366; font-weight: bold;">var</span> david <span style="color: #339933;">=</span> Object.<span style="color: #660066;">create</span><span style="color: #009900;">&#40;</span>Employee<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+david.<span style="color: #660066;">firstName</span> <span style="color: #339933;">=</span> <span style="color: #3366CC;">&quot;David&quot;</span><span style="color: #339933;">;</span><br />
+david.<span style="color: #660066;">lastName</span> <span style="color: #339933;">=</span> <span style="color: #3366CC;">&quot;Aurelio&quot;</span><span style="color: #339933;">;</span><br />
+david.<span style="color: #660066;">id</span> <span style="color: #339933;">=</span> <span style="color: #CC0000;">1</span><span style="color: #339933;">;</span><br />
+<br />
+<span style="color: #006600; font-style: italic;">// “subclass” Employee</span><br />
+<span style="color: #003366; font-weight: bold;">var</span> Manager <span style="color: #339933;">=</span> Object.<span style="color: #660066;">create</span><span style="color: #009900;">&#40;</span>Employee<span style="color: #339933;">,</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; department<span style="color: #339933;">:</span> <span style="color: #009900;">&#123;</span> <span style="color: #006600; font-style: italic;">// the manager’s department</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; value<span style="color: #339933;">:</span> <span style="color: #003366; font-weight: bold;">null</span><span style="color: #339933;">,</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; enumerable<span style="color: #339933;">:</span> <span style="color: #003366; font-weight: bold;">true</span><span style="color: #339933;">,</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; configurable<span style="color: #339933;">:</span> <span style="color: #003366; font-weight: bold;">true</span><span style="color: #339933;">,</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; writable<span style="color: #339933;">:</span> <span style="color: #003366; font-weight: bold;">true</span><br />
+&nbsp; &nbsp; <span style="color: #009900;">&#125;</span><br />
+<span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<br />
+<span style="color: #006600; font-style: italic;">// create an instance of Manager</span><br />
+<span style="color: #003366; font-weight: bold;">var</span> tobias <span style="color: #339933;">=</span> Object.<span style="color: #660066;">create</span><span style="color: #009900;">&#40;</span>Manager<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+tobias.<span style="color: #660066;">firstName</span> <span style="color: #339933;">=</span> <span style="color: #3366CC;">&quot;Tobias&quot;</span><span style="color: #339933;">;</span><br />
+tobias.<span style="color: #660066;">lastName</span> <span style="color: #339933;">=</span> <span style="color: #3366CC;">&quot;von Klipstein&quot;</span><span style="color: #339933;">;</span><br />
+tobias.<span style="color: #660066;">id</span> <span style="color: #339933;">=</span> <span style="color: #CC0000;">0</span><span style="color: #339933;">;</span><br />
+tobias.<span style="color: #660066;">department</span> <span style="color: #339933;">=</span> <span style="color: #3366CC;">&quot;Infrastructure&quot;</span><span style="color: #339933;">;</span></div></div>
+<p>You may have noticed two things in this example: </p>
+<ol>
+<li>Creating “instances” of an object or “subclassing” it are basically the same process: We create a new object with its prototype set to the base object. Personally I like this fact; it just feels natural in an prototype-based inheritance model like the one in ECMAScript/JavaScript.</li>
+<li>Not using a constructor function shows how useful such an initialization function would be for instance creation.</li>
+</ol>
+<h2>Inheritance System Based On <code class="codecolorer text default"><span class="text">Object.create()</span></code></h2>
+<p>For me, using <code class="codecolorer text default"><span class="text">Object.create()</span></code> felt incredibly natural compared to fiddling around with constructor functions and the prototype object attached to them – that doesn’t mean having a constructor is bad; they are really useful for setting up an instance. But the coupling of constructor, constructor.prototype, and instances is too loose in my eyes, and makes it unnecessarily hard to understand inheritance in JavaScript.</p>
+<p>What I don’t like is the verbosity of the descriptor syntax. Granted, it gives us a lot of possibilities, but for most cases it is too cumbersome. In addition, I wanted to have a constructor when creating objects that are supposed to be used like a class instance in a class-oriented programming language.</p>
+<p>I came up with a light-weight inheritance system that provides separate methods for the two cases where I use <code class="codecolorer text default"><span class="text">Object.create()</span></code>, object extension and instantiation.</p>
+<p>Have a look at <a href="https://gist.github.com/838778">this gist</a>.<br />
+[gist id=838778 file=base.js]</p>
+<p>You can use <code class="codecolorer text default"><span class="text">BaseObject</span></code> as base for your inheritance/object tree, or simply copy all of its methods onto your own base object. Both instantiation and extension are done through Object.create, but work pretty differently. Let me go into detail and explain the four methods present on <code class="codecolorer text default"><span class="text">BaseObject</span></code>.</p>
+<ul>
+<li>The <code class="codecolorer text default"><span class="text">_construct</span></code> method acts like a regular constructor: It is executed in the context of a newly created instance right after creation in the context of that instance (<code class="codecolorer text default"><span class="text">this</span></code> works as you would expect). You may overwrite this constructor as often as necessary. You can access parent constructors through the <code class="codecolorer text default"><span class="text">_super</span></code> convenience method (see below for details). The dangling dash suggests you should regard this method as private. Usually, you never need to call it manually.
+</li>
+<li><code class="codecolorer text default"><span class="text">create</span></code> is used for instantiation. Whenever you need a new “instance” of a base object (that you might use like a class), you’d simply call “create()” on it: <code class="codecolorer text default"><span class="text">var myInstance = MyBase.create(arg1, arg2);</span></code>. The instance is created, and its “_construct” method is called with all arguments passed to “create()”. Eventually, the instance is returned. Normally, you might not need to overwrite the base create method, but you may do so for complete control over the instance creation process if needed.</li>
+<li>Use the <code class="codecolorer text default"><span class="text">extend</span></code> method to create “subclasses” – it differs from creating instances in two aspects: the constructor isn’t called, and you can easily create additional properties on the new object: The first parameter is a simple object. All of its properties are copied onto the new object (you may also pass <code class="codecolorer text default"><span class="text">null</span></code>). The second (optional) parameter is an object containing <em>property descriptors</em> for properties to be created on the new object. Check the example below for details. This system allows it to use simple properties without taking the power of property descriptors away from you.</li>
+<li><code class="codecolorer text default"><span class="text">_super</span></code> is a convenience method to call overwritten parent methods in the context of the current object. It works similar to python’s <em>super</em> and takes three arguments: A reference to the object that overwrites a method (<strong>not</strong> the name of the parent object), the name of the overwritten method (as string), and an array of parameters/an arguments object. Just take a look at the example to get the idea how it works.</li>
+</ul>
+<p>Generally, you should not overwrite the “extend()” and “_super()” methods. “create()” may be overwritten for more control over the creation process of instances. “_construct()” can be defined as often as needed.</p>
+<p>This example is a rewrite of the Person/Employee/Manager example using BaseObject as parent of Person:</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;height:300px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #003366; font-weight: bold;">var</span> Person <span style="color: #339933;">=</span> BaseObject.<span style="color: #660066;">extend</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#123;</span> <span style="color: #006600; font-style: italic;">// using only properties that are copied over</span><br />
+&nbsp; &nbsp; firstName<span style="color: #339933;">:</span> <span style="color: #003366; font-weight: bold;">null</span><span style="color: #339933;">,</span><br />
+&nbsp; &nbsp; lastName<span style="color: #339933;">:</span> <span style="color: #003366; font-weight: bold;">null</span><span style="color: #339933;">,</span><br />
+&nbsp; &nbsp; _construct<span style="color: #339933;">:</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span>firstName<span style="color: #339933;">,</span> lastName<span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #000066; font-weight: bold;">this</span>.<span style="color: #660066;">firstName</span> <span style="color: #339933;">=</span> firstName<span style="color: #339933;">;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #000066; font-weight: bold;">this</span>.<span style="color: #660066;">lastName</span> <span style="color: #339933;">=</span> lastName<span style="color: #339933;">;</span><br />
+&nbsp; &nbsp; <span style="color: #009900;">&#125;</span><span style="color: #339933;">,</span><br />
+&nbsp; &nbsp; toString<span style="color: #339933;">:</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #000066; font-weight: bold;">return</span> <span style="color: #000066; font-weight: bold;">this</span>.<span style="color: #660066;">firstName</span> <span style="color: #339933;">+</span> <span style="color: #3366CC;">&quot; &quot;</span> <span style="color: #339933;">+</span> <span style="color: #000066; font-weight: bold;">this</span>.<span style="color: #660066;">lastName</span><span style="color: #339933;">;</span><br />
+&nbsp; &nbsp; <span style="color: #009900;">&#125;</span><br />
+<span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<br />
+<span style="color: #003366; font-weight: bold;">var</span> Employee <span style="color: #339933;">=</span> Person.<span style="color: #660066;">extend</span><span style="color: #009900;">&#40;</span><span style="color: #003366; font-weight: bold;">null</span><span style="color: #339933;">,</span> <span style="color: #009900;">&#123;</span> <span style="color: #006600; font-style: italic;">// using only property descriptors</span><br />
+&nbsp; &nbsp; id<span style="color: #339933;">:</span> <span style="color: #009900;">&#123;</span> <span style="color: #006600; font-style: italic;">// the employees’s id</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; value<span style="color: #339933;">:</span> <span style="color: #003366; font-weight: bold;">null</span><span style="color: #339933;">,</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; enumerable<span style="color: #339933;">:</span> <span style="color: #003366; font-weight: bold;">true</span><span style="color: #339933;">,</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; configurable<span style="color: #339933;">:</span> <span style="color: #003366; font-weight: bold;">false</span><span style="color: #339933;">,</span> <span style="color: #006600; font-style: italic;">// can’t be deleted</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; writable<span style="color: #339933;">:</span> <span style="color: #003366; font-weight: bold;">true</span><br />
+&nbsp; &nbsp; <span style="color: #009900;">&#125;</span><span style="color: #339933;">,</span><br />
+&nbsp; &nbsp; _construct<span style="color: #339933;">:</span> <span style="color: #009900;">&#123;</span> <span style="color: #006600; font-style: italic;">// has only a value, is not enumerable, writable, or deletable </span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; value<span style="color: #339933;">:</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span>firstName<span style="color: #339933;">,</span> lastName<span style="color: #339933;">,</span> id<span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #000066; font-weight: bold;">this</span>._super<span style="color: #009900;">&#40;</span>Employee<span style="color: #339933;">,</span> arguments<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span> <span style="color: #006600; font-style: italic;">// calls the parent constructor with all received arguments</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #000066; font-weight: bold;">this</span>.<span style="color: #660066;">id</span> <span style="color: #339933;">=</span> id<span style="color: #339933;">;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #009900;">&#125;</span><br />
+&nbsp; &nbsp; <span style="color: #009900;">&#125;</span><span style="color: #339933;">,</span><br />
+<br />
+&nbsp; &nbsp; toString<span style="color: #339933;">:</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; value<span style="color: #339933;">:</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #000066; font-weight: bold;">return</span> <span style="color: #3366CC;">&quot;[id: &quot;</span> <span style="color: #339933;">+</span> <span style="color: #000066; font-weight: bold;">this</span>.<span style="color: #660066;">id</span> <span style="color: #339933;">+</span> <span style="color: #3366CC;">&quot; / &quot;</span> <span style="color: #339933;">+</span> <br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #000066; font-weight: bold;">this</span>._super<span style="color: #009900;">&#40;</span>Employee<span style="color: #339933;">,</span> <span style="color: #3366CC;">&quot;toString&quot;</span><span style="color: #009900;">&#41;</span> <span style="color: #339933;">+</span> <span style="color: #3366CC;">&quot;]&quot;</span><span style="color: #339933;">;</span> <span style="color: #006600; font-style: italic;">// calls parent &quot;toString&quot;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #009900;">&#125;</span><br />
+&nbsp; &nbsp; <span style="color: #009900;">&#125;</span><br />
+<span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<br />
+<span style="color: #006600; font-style: italic;">// create an instance of Employee</span><br />
+<span style="color: #003366; font-weight: bold;">var</span> david <span style="color: #339933;">=</span> Employee.<span style="color: #660066;">create</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">&quot;David&quot;</span><span style="color: #339933;">,</span> <span style="color: #3366CC;">&quot;Aurelio&quot;</span><span style="color: #339933;">,</span> <span style="color: #CC0000;">1</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+david.<span style="color: #660066;">toString</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span> <span style="color: #006600; font-style: italic;">// &quot;[id: 1 / David Aurelio]&quot;</span><br />
+<br />
+<span style="color: #003366; font-weight: bold;">var</span> Manager <span style="color: #339933;">=</span> Employee.<span style="color: #660066;">extend</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; <span style="color: #006600; font-style: italic;">// simple properties</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; _construct<span style="color: #339933;">:</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span>firstName<span style="color: #339933;">,</span> lastName<span style="color: #339933;">,</span> department<span style="color: #339933;">,</span> id<span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #000066; font-weight: bold;">this</span>._super<span style="color: #009900;">&#40;</span>Manager<span style="color: #339933;">,</span> <span style="color: #009900;">&#91;</span>firstName<span style="color: #339933;">,</span> lastName<span style="color: #339933;">,</span> id<span style="color: #009900;">&#93;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span> <span style="color: #006600; font-style: italic;">// calls the parent constructor with three parameters</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #000066; font-weight: bold;">this</span>.<span style="color: #660066;">department</span> <span style="color: #339933;">=</span> department<span style="color: #339933;">;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #009900;">&#125;</span><span style="color: #339933;">,</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; toString<span style="color: #339933;">:</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #000066; font-weight: bold;">return</span> <span style="color: #000066; font-weight: bold;">this</span>._super<span style="color: #009900;">&#40;</span>Manager<span style="color: #339933;">,</span> <span style="color: #3366CC;">&quot;toString&quot;</span><span style="color: #009900;">&#41;</span> <span style="color: #339933;">+</span> <span style="color: #006600; font-style: italic;">// calls parent &quot;toString&quot; method without arguments</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #3366CC;">&quot; (Manager)&quot;</span><span style="color: #339933;">;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #009900;">&#125;</span><br />
+&nbsp; &nbsp; <span style="color: #009900;">&#125;</span><span style="color: #339933;">,</span><br />
+&nbsp; &nbsp; <span style="color: #009900;">&#123;</span> <span style="color: #006600; font-style: italic;">// property descriptors</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; department<span style="color: #339933;">:</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; value<span style="color: #339933;">:</span> <span style="color: #003366; font-weight: bold;">null</span><span style="color: #339933;">,</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; enumerable<span style="color: #339933;">:</span> <span style="color: #003366; font-weight: bold;">true</span><span style="color: #339933;">,</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; configurable<span style="color: #339933;">:</span> <span style="color: #003366; font-weight: bold;">false</span><span style="color: #339933;">,</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; writable<span style="color: #339933;">:</span> <span style="color: #003366; font-weight: bold;">true</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #009900;">&#125;</span><br />
+<span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<br />
+<span style="color: #006600; font-style: italic;">// create an instance of Manager</span><br />
+<span style="color: #003366; font-weight: bold;">var</span> tobias <span style="color: #339933;">=</span> Manager.<span style="color: #660066;">create</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">&quot;Tobias&quot;</span><span style="color: #339933;">,</span> &nbsp;<span style="color: #3366CC;">&quot;von Klipstein&quot;</span><span style="color: #339933;">,</span> <span style="color: #3366CC;">&quot;Infrastructure&quot;</span><span style="color: #339933;">,</span> <span style="color: #CC0000;">0</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+tobias.<span style="color: #660066;">toString</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span> <span style="color: #006600; font-style: italic;">// &quot;[id: 0 / Tobias von Klipstein] (Manager)&quot;</span></div></div>
+<h2>What’s Nice</h2>
+<p>What I really, really like is the fact everything feels just natural – we’re dealing with a set of objects, not with a constructor/prototype construction (which might be one of the reasons inheritance in JS is so difficult to understand when coming from a class-based language). For example: Where would you define a “static” member in the classic approach? On the prototype? It’s in the inheritance chain and can be overwritten by “subclasses”, but might be hard to reach from other places (think of <code class="codecolorer text default"><span class="text">Shape.prototype.SQUARE</span></code>. Not cool. On the constructor? That&#8217;s nicer for access (<code class="codecolorer text default"><span class="text">Shape.SQUARE</span></code>), but places the property outside of the inheritance chain, thus making it impossible to overwrite it. In addition, I feel that using <code class="codecolorer text default"><span class="text">this.SQUARE</span></code> from methods feels more natural.</p>
+<p>Using a hierarchy of objects solves all that little inconsistencies. Yum!</p>
+<p>Extending incredibly flexible: since <code class="codecolorer text default"><span class="text">extend()</span></code> is present on every object created by <code class="codecolorer text default"><span class="text">extend()/create()</span></code>, you can extend everything with new properties.</p>
+<h2>What’s Not So Nice</h2>
+<p>Since the objects we use in a “class” role are objects, not functions, we can’t use the <code class="codecolorer text default"><span class="text">new</span></code> operator. After years of using it, I really have to adopt to the use of <code class="codecolorer text default"><span class="text">create()</span></code> instead.</p>
+<p>Also, <code class="codecolorer text default"><span class="text">instanceof</span></code> only works with constructor functions. Use the <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object/isPrototypeOf">.isPrototypeOf()</a> method of ECMAScript 5 instead.</p>
+<p>Compatibility is still an issue. The browser/runtime must support the new ECMAScript 5 features Object.create(), Object.getOwnPropertyNames(), Object.getOwnPropertyDescriptor(), and Object.getPrototypeOf(). Browsers supporting the required functionality include: Firefox 4, Safari 5, Chrome 9,<br />
+Internet Explorer 9 (untested). Opera has no support for these features yet.</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2011/02/object-based-inheritance-for-ecmascript-5/">Object-Based Inheritance For ECMAScript 5</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2011/02/object-based-inheritance-for-ecmascript-5/feed/</wfw:commentRss>
+		<slash:comments>6</slash:comments>
+		</item>
+		<item>
+		<title>TouchScroll 0.2: First Alpha Available [Edit: second]</title>
+		<link>http://www.uxebu.com/blog/2010/09/touchscroll-0-2-first-alpha-available/</link>
+		<comments>http://www.uxebu.com/blog/2010/09/touchscroll-0-2-first-alpha-available/#comments</comments>
+		<pubDate>Wed, 15 Sep 2010 15:55:39 +0000</pubDate>
+		<dc:creator><![CDATA[David Aurelio]]></dc:creator>
+				<category><![CDATA[Uncategorized]]></category>
+
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=1260</guid>
+		<description><![CDATA[<p>Finally it’s ready: The first alpha of TouchScroll 0.2. Edit: I’ve changed the method for animation chaining in alpha2, performance should be much better compared to alpha1 Please note that this version is not android-compatible yet. The final 0.2 will be, though. You can try the new version online (old demo with new TouchScroll) or [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2010/09/touchscroll-0-2-first-alpha-available/">TouchScroll 0.2: First Alpha Available [Edit: second]</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>Finally it’s ready: The first alpha of TouchScroll 0.2.<br />
+<strong>Edit: I’ve changed the method for animation chaining in alpha2, performance should be much better compared to alpha1</strong></p>
+<p><strong>Please note that this version is not android-compatible yet. The final 0.2 will be, though.</strong></p>
+<p>You can <a href="http://static.uxebu.com/~david/touchscroll/alpha/">try the new version online</a> (old demo with new TouchScroll) or grab it from github – use the <a href="http://github.com/davidaurelio/TouchScroll/tree/experimental">“experimental” branch</a> or <a href="http://github.com/davidaurelio/TouchScroll/downloads">download the package</a>.</p>
+<h2>New Features/Bugfixes:</h2>
+<ul>
+<li>The <strong>codebase has been cleaned up.</strong> No more super-closure that hides the whole implementation. The new codebase should make it easier to fix existing bugs and add features. <em>BTW: I am looking for skilled JavaScript Ninjas that would like to team up w/me for this project.</em></li>
+<li>The stylesheet is dynamically created and inserted into the DOM. No extra stylesheet is needed (but may be used to customize scrollbars).</li>
+<li>Squeezed scrollbars stay round.</li>
+<li>Can fire <strong>DOM scroll events</strong> (add <code class="codecolorer text default"><span class="text">scrollevents: true</span></code> to the instantiation options). The scroll event has a special <code class="codecolorer text default"><span class="text">touchscroll</span></code> property referencing the scroller instance. You can query <code class="codecolorer text default"><span class="text">scrollLeft</span></code> and <code class="codecolorer text default"><span class="text">scrollTop</span></code> on the instance (rather than on <code class="codecolorer text default"><span class="text">event.target</span></code>).</li>
+<li>If a scroller is scrolled to the bottom and its content is changed, the scroller is restricted to its bounds, whereas the new content would be invisible with the old version.</li>
+<li>TouchScroll instances now sport a <strong>DOM/BOM facade</strong> (see API below). An example: You can set innerHTML on an instance without having to know about its internals.</li>
+<li><strong>Scrolls focused elements into view.</strong> This is useful when using the “next”/“previous” buttons in forms and might also work with Androids cursor. This feature is in a very <strong>early stage</strong> and does not work perfectly.</li>
+<li>The overall number of function calls has been reduced. The performance still isn’t on par with native scrolling on the 3G and might never be.</li>
+</ul>
+<h2>Roadmap</h2>
+<ul>
+<li>Document public and private API in the Wiki.</li>
+<li>Make it Android compatible again. This might include using scrollTop/scrollLeft for older versions (&lt; 2).</li>
+<li>Fix all bugs in the issue tracker.</li>
+<li>Make the feature set more stable – iPhone 3G shows double animations at times, etc.</li>
+<li>Reduce the size of the minified version by using closure compiler with <code class="codecolorer text default"><span class="text">ADVANCED_OPTIMIZATIONS</span></code>.</li>
+</ul>
+<h2>How <em>You</em> Could Help</h2>
+<ul>
+<li>I am looking for skilled team members for TouchScroll. If you can read and understand the source code this might be a good start <img src="http://www.uxebu.com/wp-includes/images/smilies/icon_wink.gif" alt=";-)" class="wp-smiley" /></li>
+<li>You could retweet <a href="http://twitter.com/void_0/status/24582257634">my original alpha announcement tweet.</a> 25 retweets within 7 days will make me win an iPad (to test TouchScroll on).</li>
+</ul>
+<h2>Instantiation:</h2>
+<p>As always:</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #003366; font-weight: bold;">var</span> scroller <span style="color: #339933;">=</span> <span style="color: #003366; font-weight: bold;">new</span> TouchScroll<span style="color: #009900;">&#40;</span>domNode<span style="color: #009900;">&#91;</span><span style="color: #339933;">,</span> config<span style="color: #009900;">&#93;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></div>
+<p><em>config</em> is an object with the following properties (all optional):</p>
+<ul>
+<li>elastic: Whether the scroller bounces. Defaults to <em>false.</em></li>
+<li>scrollevents: Whether the scroller fires DOM scroll events. Defaults to <em>false.</em></li>
+<li>scrollbars: Whether to show scrollbars. Defaults to <em>true.</em></li>
+</ul>
+<h2>Public API:</h2>
+<ul>
+<li><strong>elastic:</strong> <em>Boolean</em>. Whether the scroller bounces – defaults to <em>false.</em></li>
+<li><strong>scrollevents:</strong> <em>Boolean</em>. Whether to fire DOM scroll events – defaults to <em>false</em><em>.</em></li>
+<li><strong>addEventListener:</strong> DOM facade method. Adds an event listener to the innermost scrolling layer.</li>
+<li><strong>appendChild:</strong> DOM facade method. Appends a child to the innermost scrolling layer.</li>
+<li><strong>centerAt:</strong> <em>function (left, top[, duration]). </em>Centers the scroller at the given coordinates, with optional animation duration.</li>
+<li><strong>childNodes:</strong> DOM facade property. References the child nodes of the innermost scrolling layer.</li>
+<li><strong>children:</strong> DOM facade property. References the element child nodes of the innermost scrolling layer.</li>
+<li><strong>config:</strong> <em>Object. </em>Refer to the <a href="http://github.com/davidaurelio/TouchScroll/wiki/Configuration">wiki</a> for details</li>
+<li><strong>firstChild:</strong> DOM facade property. References the first child node of the innermost scrolling layer.</li>
+<li><strong>firstElementChild:</strong> DOM facade property. References the first element child node of the innermost scrolling layer.</li>
+<li><strong>hideScrollbars:</strong> <em>function. </em>Hides the scrollbars.</li>
+<li><strong>innerHTML:</strong> DOM facade property. Gets/sets the innerHTML property of the innermost scrolling layer.</li>
+<li><strong>innerText:</strong> DOM facade property. Gets/sets the innerText property of the innermost scrolling layer.</li>
+<li><strong>insertBefore:</strong> DOM facade method. Works on the innermost scrolling layer.</li>
+<li><strong>lastChild:</strong> DOM facade property. References the last child node of the innermost scrolling layer.</li>
+<li><strong>lastElementChild:</strong> DOM facade property. References the last element child node of the innermost scrolling layer.</li>
+<li><strong>querySelector:</strong> DOM facade method. Works on the innermost scrolling layer.</li>
+<li><strong>querySelectorAll:</strong> DOM facade method. Works on the innermost scrolling layer.</li>
+<li><strong>replaceChild:</strong> DOM facade method. Works on the innermost scrolling layer.</li>
+<li><strong>scrollBy:</strong> <em>function (left, top[, duration]). </em>Scrolls by the given amount of pixels, with optional animation duration.</li>
+<li><strong>scrollLeft:</strong> BOM facade property. Gets/sets the left scroll offset.</li>
+<li><strong>scrollTo:</strong> <em>function (left, top[, duration]). </em>Scrolls to the given coordinates, with optional animation duration.</li>
+<li><strong>scrollTop:</strong> BOM facade property. Gets/sets the top scroll offset.</li>
+<li><strong>setupScroller:</strong> <em>function ([force]).</em> Adapts the scroller to its dimensions if dimensions have changed or <em>force </em>is <em>true.</em></li>
+<li><strong>showScrollbars:</strong> <em>function. </em>Hides the scrollbars.</li>
+<li><strong>snapBack:</strong> <em>function ([axis[, duration]).</em> Snaps the scroller back into its bounds. It should not be necessary to call this method manually.</li>
+</ul>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2010/09/touchscroll-0-2-first-alpha-available/">TouchScroll 0.2: First Alpha Available [Edit: second]</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2010/09/touchscroll-0-2-first-alpha-available/feed/</wfw:commentRss>
+		<slash:comments>9</slash:comments>
+		</item>
+		<item>
+		<title>TouchScroll, a scrolling layer for WebKit mobile [update]</title>
+		<link>http://www.uxebu.com/blog/2010/04/touchscroll-a-scrolling-layer-for-webkit-mobile/</link>
+		<comments>http://www.uxebu.com/blog/2010/04/touchscroll-a-scrolling-layer-for-webkit-mobile/#comments</comments>
+		<pubDate>Tue, 27 Apr 2010 14:24:27 +0000</pubDate>
+		<dc:creator><![CDATA[David Aurelio]]></dc:creator>
+				<category><![CDATA[CSS]]></category>
+		<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[mobile]]></category>
+
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=1195</guid>
+		<description><![CDATA[<p>[Update 2010-09-17:] Check the new version. Dion Almaer was faster than me blogging about TouchScroll. Here is what you are waiting for – the “official” blog post about TouchScroll and the link to the repository. Here it is: TouchScroll, our scrolling layer for WebKit Mobile. It is JavaScript/CSS 3 based and allows for fixed elements [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2010/04/touchscroll-a-scrolling-layer-for-webkit-mobile/">TouchScroll, a scrolling layer for WebKit mobile [update]</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><strong>[Update 2010-09-17:] Check the <a href="/blog/2010/09/15/touchscroll-0-2-first-alpha-available/">new version.</a></strong></p>
+<p>Dion Almaer was faster than me <a href="http://ajaxian.com/archives/touchscroll-implementing-scroll-physics-in-js-and-css">blogging about TouchScroll</a>. Here is what you are waiting for – the “official” blog post about TouchScroll and the link to the repository.</p>
+<p>Here it is: TouchScroll, our scrolling layer for WebKit Mobile. It is JavaScript/CSS 3 based and allows for fixed elements like headers and toolbars on web pages when viewed on the iPhone or on Android. It works on the iPad, too. Check out the <a href="http://static.uxebu.com/~david/touchscroll/">demo</a> (short URL: <a href="http://u.nu/8uvg8">http://u.nu/8uvg8</a>) to see it in action – it works in Desktop Safari (at least kind of) or WebKit Nightly (very good), but I recommend you have a look at it on your iPhone, iPad, or Android based device.</p>
+<p><span id="more-1195"></span></p>
+<h2>Motivation</h2>
+<p>While Safari Mobile features native scrolling, there are two reasons to re-implement scrolling with JavaScript: The original scrolling behavior is rather slow – we were looking for a solution that feels more fluid. And the viewport behavior of Mobile Safari and other mobile browsers using WebKit doesn’t allow for fixed positioned elements. It is optimized for document reading, not for building interfaces.</p>
+<p>Our goal is to be able to deploy application interfaces to browsers of handheld devices that feel as familiar as possible for the user. TouchScroll enables developers to use fixed interface elements like headers and toolbars.</p>
+<p>We also use <a href="http://www.phonegap.com/">PhoneGap</a> a lot to deploy <a href="http://uxebu.com/blog/2010/02/15/eventninja-a-mobile-cross-platform-app/">cross-platform applications</a> onto smartphones, and we think that web based apps don’t need to feel like aliens for users. And we weren’t satisfied with existing solutions.</p>
+<h2>Usage</h2>
+<p>To add a scrolling capabilities to an element, that element must have a fixed size. Have a look at the demo for an elegant approach using</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="text codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">display: -webkit-box</div></div>
+<p>.</p>
+<p>HTML:</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #339933;">&amp;</span>lt<span style="color: #339933;">;</span>div <span style="color: #003366; font-weight: bold;">class</span><span style="color: #339933;">=</span><span style="color: #3366CC;">&quot;scroller&quot;</span><span style="color: #339933;">&amp;</span>gt<span style="color: #339933;">;&amp;</span>lt<span style="color: #339933;">;!--</span> some great contents <span style="color: #339933;">--&amp;</span>gt<span style="color: #339933;">;&amp;</span>lt<span style="color: #339933;">;/</span>div<span style="color: #339933;">&amp;</span>gt<span style="color: #339933;">;</span></div></div>
+<p>JavaScript:</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #003366; font-weight: bold;">var</span> scrollNode <span style="color: #339933;">=</span> document.<span style="color: #660066;">querySelector</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">&quot;.scroller&quot;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">,</span> options <span style="color: #339933;">=</span> <span style="color: #009900;">&#123;</span><span style="color: #009900;">&#125;</span><span style="color: #339933;">;</span><br />
+<span style="color: #003366; font-weight: bold;">var</span> scroller <span style="color: #339933;">=</span> <span style="color: #003366; font-weight: bold;">new</span> TouchScroll<span style="color: #009900;">&#40;</span>scrollNode<span style="color: #339933;">,</span> options<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></div>
+<p>At the moment, the only known option is <em>elastic.</em> Use</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="text codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">{elastic: true}</div></div>
+<p>as second parameter to add the bouncing effect to the scroller.</p>
+<h2>Get it!</h2>
+<p>TouchScroll is available <a href="http://github.com/davidaurelio/TouchScroll">on github</a>. Feel free to fork it and send patches back. You can also <a href="http://github.com/davidaurelio/TouchScroll/downloads">get a minimized file</a> that includes the css-bezier library that TouchScroll depends on.</p>
+<h2>How is it done?</h2>
+<p>TouchScroll uses a combination of JavaScript and CSS 3. All animations are done with CSS transitions – no JavaScript intervals.</p>
+<p>The elasticity effect when crossing the scroller bounds is achieved by dividing the bezier curve (used as timing function) into two sub-curves using my (yet to be finished) <a href="http://github.com/davidaurelio/css-beziers">CSS Bezier library for JavaScript</a>.</p>
+<h2>Customization/Configuration</h2>
+<p>TouchScroll allows you to customize many aspects of the scrolling behaviour: Have a look at the</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="text codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">config</div></div>
+<p>object at the top of the source file.</p>
+<p>Customizable properties include bouncing behaviour and deceleration animation. Feel free to experiment. I know that scrolling is not as close to <em>&lt;insert device of choice&gt;</em> as possible. If you think you’ve found better values, just let me know.</p>
+<p>Configurable properties include:</p>
+<ul>
+<li>Scrolling threshold: The minimum pixel amount needed to begin scrolling</li>
+<li>Flicking behavior: flicking threshold, friction, and deceleration animation.</li>
+<li>The elasticity/bouncing effect: factor and maximum bounce length.</li>
+<li>Snap back behavior: timing function and default duration.</li>
+</ul>
+<h2>Goodies</h2>
+<p>After instanciation, each TouchScroll scroller re-adapts to its contents after</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="text codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">orientationchange</div></div>
+<p>and</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="text codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">resize</div></div>
+<p>events on</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="text codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">window</div></div>
+<p>as well as after</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="text codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">DOMSubtreeModified</div></div>
+<p>events on the scroller itself. That means, the scroller adapts to content additions and deletions.</p>
+<h2>Limitations</h2>
+<p>TouchScroll is meant to be used with touch-based devices and also works well with a stylus (tested with a Wacom tablet). Don’t use it for desktop browsers and the like. Simply add</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="text codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">overflow: auto</div></div>
+<p>to the scroller element for these cases. Zero-cost compatibility.</p>
+<h3>Hiding and Showing</h3>
+<p>If a scroller is instanciated with an layer that is not beeing displayed, it needs to be refreshed manually after making it visible. Simply use the</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="text codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">setupScroller</div></div>
+<p>method.</p>
+<h3>Styling</h3>
+<p>TouchScroll inserts two more</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="text codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">&amp;lt;div&amp;gt;</div></div>
+<p>elements to the outer scroller container, that wrao the prior contents. That means, that the outer scroller element <em>must not have padding.</em> The CSS child selector (</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="text codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">a &amp;gt; b</div></div>
+<p>) won’t work any more after instancing TouchScroll on an element for the same reason.</p>
+<h3>Android</h3>
+<p>Android has several problems that need to be solved. If you have solutions, please keep in mind that TouchScroll should remain compatible with WebKit as found on Android 1.5 and send us a patch.</p>
+<ul>
+<li>When not preventing the default action of the initial <em>touchstart</em> event on Android, the following <em>touchmove</em> events <strong>queue up</strong> and fire just before the eventual <em>touchend</em> event. That makes scrolling impossible.Cancelling the <em>touchstart</em> event results in other problems: It prevents tapped elements from beeing focused or clicked. The current workaround – dispatching a synthesized <em>click</em> event – hides the focus rectangle and makes the focussing of form elements nearly impossible, which is even worse.That means: at the moment it is <em>not possible to use TouchScroll in conjunction with forms on Android.</em>I’d like to know whether there is a solution that eliminates the need to prevent the default action of <em>touchstart.</em></li>
+<li>Due to the lack of hardware acceleration, the <strong>rendering performance</strong> on Android isn’t nearly as good as on the Apple’s devices. We already invested a lot of work to achieve good performance. If you can do better, send us a patch!</li>
+<li>Support for
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="text codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">-webkit-transform: matrix(…)</div></div>
+<p>is <strong>broken</strong> in Android &lt; v2.0. That affects reading the computed style of elements. We already worked around that issue using a regex-based parsing function for those devices.</li>
+</ul>
+<h3>Other Devices</h3>
+<p>The browser of <strong>S60 devices</strong> is based on WebKit, too. However, apart from the fact that TouchScroll does not work on those devices, you should simply set the overflow style of the scroll container to</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="text codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">overflow: auto</div></div>
+<p>for these devices and benefit from native scrolling. The same goes for <em>Nokia WRT</em> apps.</p>
+<p>I’ve done a quick test on the <strong>Palm Pre</strong>. Unfortunately, TouchScroll does not work in the browser of webOS. Moreover, I’m not sure whether it actually <em>makes sense</em> in this particular browser, as its overlays would lie directly on top of fixed elements at the bottom. In webOS apps you should probably use the native scroller anyway. Maybe I’ll do a short tutorial on how to instanciate TouchScroll on iPhone/Android and the webOS scroller when deploying a cross platform app to all of those devices.</p>
+<p>What other devices are relevant? Let us know!</p>
+<h2>To Do</h2>
+<p>The official to-do-list:</p>
+<ul>
+<li>Keep the scrollbars round while bouncing – I already know how to do this, so you can expect the solution in the next days.</li>
+<li>Add an option to completely switch off scrollbars.</li>
+<li>Find a solution to the event problems on Android – help greatly appreciated!</li>
+</ul>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2010/04/touchscroll-a-scrolling-layer-for-webkit-mobile/">TouchScroll, a scrolling layer for WebKit mobile [update]</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2010/04/touchscroll-a-scrolling-layer-for-webkit-mobile/feed/</wfw:commentRss>
+		<slash:comments>150</slash:comments>
+		</item>
+		<item>
+		<title>Mobile Cross-Platform Development: Palm Pre</title>
+		<link>http://www.uxebu.com/blog/2009/12/mobile-cross-platform-development-palm-pre/</link>
+		<comments>http://www.uxebu.com/blog/2009/12/mobile-cross-platform-development-palm-pre/#comments</comments>
+		<pubDate>Wed, 02 Dec 2009 07:22:50 +0000</pubDate>
+		<dc:creator><![CDATA[David Aurelio]]></dc:creator>
+				<category><![CDATA[Uncategorized]]></category>
+
+		<guid isPermaLink="false">http://blog.uxebu.com/?p=728</guid>
+		<description><![CDATA[<p>Porting a W3C widget to webOS should not take a lot of effort, should it? webOS is built on top of web technologies, and in my mind the web is tagged “#universal”. But unfortunately, webOS isn’t universal. It’s different. I’m going to show you which differences you need to be aware of when doing cross-platform [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2009/12/mobile-cross-platform-development-palm-pre/">Mobile Cross-Platform Development: Palm Pre</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>Porting a <a href="http://www.quirksmode.org/blog/archives/2009/04/introduction_to.html">W3C widget</a> to <a href="http://en.wikipedia.org/wiki/WebOS">webOS</a> should not take a lot of effort, should it? webOS is built on top of web technologies, and in my mind the web is tagged “#universal”. But unfortunately, webOS isn’t universal. It’s different. I’m going to show you which differences you need to be aware of when doing cross-platform development and your application is supposed to run on webOS.<span id="more-728"></span></p>
+<h4>Background</h4>
+<p>Developing applications for mobile devices using HTML, CSS, and JavaScript is possible through different runtimes and frameworks. On Nokia devices, you can use the <a href="http://widget.vodafone.com/dev/">Vodafone Apps Manager</a> (a runtime for W3C widgets) as well as <a href="http://www.forum.nokia.com/Technology_Topics/Web_Technologies/Web_Runtime/">Nokia Web Runtime (Nokia WRT)</a>. <a href="http://phonegap.com/">PhoneGap</a> is a framework that allows building of applications for iPhone, Android, Blackberry, Windows Mobile, and Nokia WRT with web technologies. On all of this platforms you basically throw in a base HTML file (e.g. index.html) that contains references to scripts and stylesheets. Easy, isn’t it? But not on webOS …</p>
+<h4>webOS</h4>
+<p>webOS uses a concept of <a href="http://developer.palm.com/index.php?option=com_content&amp;view=article&amp;id=1603#ApplicationBasics-StagesandScenes">stages and scenes</a>. A “stage” represents a card (similar to a window in desktop operating systems), whereas a “scene” can be imagined as a layer on a stage. Each stage consists of a stack containing at least one scene.  While I really like this concept, I am of the opinion that using this model shouldn’t be obligatory. It provides an elegant possibility to develop webOS based GUIs, but gets in your way as soon as you want to deploy your app on different platforms. All porting issues pointed out in this post arise from the stage/scene model.</p>
+<h4>First Try</h4>
+<p>When trying to repackage a W3C widget for webOS for the first time, I used the <code class="codecolorer text default"><span class="text">palm-generate</span></code> command line tool to create an empty app skeleton and copied the source code into it. After packaging with <code class="codecolorer text default"><span class="text">palm-package</span></code> and deploying on the emulator I was happy to see that everything seemed to work just fine. Far from it!</p>
+<h4>Issue: Scrolling</h4>
+<p>When simply converting a W3C widget (or any browser-based application) to a native webOS app you will notice that everything works fine except for scrolling. If the contents of the application are longer than the viewport, they are simply cut off, and scrolling isn’t possible.  To enable scrolling in webOS it is necessary to make use of a <a href="http://www.weboshelp.net/webos-mojo-development-resources/ui-widget-list/311-scroller"><code class="codecolorer text default"><span class="text">mojo-scroller</span></code>Element</a> (“Mojo” is the name of palm’s framework). The easiest way to achieve that is to “push a scene onto the stack”:</p>
+<ol>
+<li>Include the mojo framwork into your HTML file by adding a script tag before you include any other scripts or stylesheets:
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #339933;">&amp;</span>lt<span style="color: #339933;">;</span>script src<span style="color: #339933;">=</span><span style="color: #3366CC;">&quot;/usr/palm/frameworks/mojo/mojo.js&quot;</span> type<span style="color: #339933;">=</span><span style="color: #3366CC;">&quot;text/javascript&quot;</span> x<span style="color: #339933;">-</span>mojo<span style="color: #339933;">-</span>version<span style="color: #339933;">=</span><span style="color: #3366CC;">&quot;1&quot;</span><span style="color: #339933;">&amp;</span>gt<span style="color: #339933;">;&amp;</span>lt<span style="color: #339933;">;/</span>script<span style="color: #339933;">&amp;</span>gt<span style="color: #339933;">;</span></div></div>
+<p>Mojo will add a whole bunch of webOS-specific stylesheets to your application. If you like, you can use the classes defined there to achieve a more “native” feeling by <a href="http://www.weboshelp.net/webos-mojo-development-resources/palm-css-style-reference">using palm-specific classes</a>.</li>
+<li>If you created the app skeleton with palm-generate you will find the constructor <code class="codecolorer text default"><span class="text">StageAssistant</span></code> in the file <code class="codecolorer text default"><span class="text">app/assistants/stage-assistant.js</span></code>. An instance of <code class="codecolorer text default"><span class="text">StageAssistant</span></code> will be generated automatically on application start, and its setup method will be called. Add the call <code class="codecolorer text default"><span class="text">this.controller.pushScene(&quot;main&quot;);</span></code> to the empty <code class="codecolorer text default"><span class="text">setup</span></code> method of the prototype. This will create a new scene called “main” (which is a set of <code class="codecolorer text default"><span class="text">div</span></code>-Elements inserted into <code class="codecolorer text default"><span class="text">document.body</span></code>).</li>
+<li>Generate the scene skeleton using <code class="codecolorer text default"><span class="text">palm-generate</span></code>:
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">palm<span style="color: #339933;">-</span>generate <span style="color: #339933;">-</span>t new_scene <span style="color: #339933;">-</span>p <span style="color: #3366CC;">&quot;name=main&quot;</span> <span style="color: #339933;">&amp;</span>lt<span style="color: #339933;">;</span>app<span style="color: #339933;">-</span>dir<span style="color: #339933;">&amp;</span>gt<span style="color: #339933;">;</span></div></div>
+<p>When “pushing” a scene, the corresponding assistant is being instantiated, and the contents of the scene’s main view file are made visible (while everything else is hidden behind the newly created scroller). The two files are <code class="codecolorer text default"><span class="text">app/assistants/main-assistant.js</span></code>. and  <code class="codecolorer text default"><span class="text">app/views/main-scene.html</span></code>.</li>
+<li>The last step is to transfer the DOM/HTML of your application into the scene. My approach is to remove all DOM nodes from <code class="codecolorer text default"><span class="text">document.body</span></code> and reinsert them into the scene element. It is also possible to use <code class="codecolorer text default"><span class="text">innerHTML</span></code>, but already registered event handlers will be lost. Change the <code class="codecolorer text default"><span class="text">setup</span></code> method of <code class="codecolorer text default"><span class="text">StageController</span></code> to:
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">StageAssistant.<span style="color: #660066;">prototype</span>.<span style="color: #660066;">setup</span> <span style="color: #339933;">=</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; <span style="color: #003366; font-weight: bold;">var</span> body <span style="color: #339933;">=</span> <span style="color: #000066; font-weight: bold;">this</span>.<span style="color: #660066;">controller</span>.<span style="color: #660066;">body</span><span style="color: #339933;">,</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; fragment <span style="color: #339933;">=</span> <span style="color: #000066; font-weight: bold;">this</span>.<span style="color: #660066;">controller</span>.<span style="color: #660066;">document</span>.<span style="color: #660066;">createDocumentFragment</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<br />
+&nbsp; &nbsp; <span style="color: #000066; font-weight: bold;">while</span> <span style="color: #009900;">&#40;</span>body.<span style="color: #660066;">firstChild</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; fragment.<span style="color: #660066;">appendChild</span><span style="color: #009900;">&#40;</span>body.<span style="color: #660066;">firstChild</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+&nbsp; &nbsp; <span style="color: #009900;">&#125;</span><br />
+<br />
+&nbsp; &nbsp; <span style="color: #000066; font-weight: bold;">this</span>.<span style="color: #660066;">controller</span>.<span style="color: #660066;">pushScene</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">&quot;main&quot;</span><span style="color: #339933;">,</span> fragment<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<span style="color: #009900;">&#125;</span></div></div>
+<p>The second parameter passed to <code class="codecolorer text default"><span class="text">pushScene</span></code> will be passed to <code class="codecolorer text default"><span class="text">MainAssistant</span></code> as soon as it is instantiated.</p>
+<p>To reinsert the nodes into the DOM change <code class="codecolorer text default"><span class="text">main-assistant.js</span></code> to:</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #003366; font-weight: bold;">function</span> MainAssistant<span style="color: #009900;">&#40;</span>nodes<span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; <span style="color: #000066; font-weight: bold;">this</span>.<span style="color: #660066;">nodes</span> <span style="color: #339933;">=</span> nodes<span style="color: #339933;">;</span><br />
+<span style="color: #009900;">&#125;</span><br />
+<br />
+MainAssistant.<span style="color: #660066;">prototype</span>.<span style="color: #660066;">setup</span> <span style="color: #339933;">=</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; <span style="color: #000066; font-weight: bold;">this</span>.<span style="color: #660066;">controller</span>.<span style="color: #660066;">sceneElement</span>.<span style="color: #660066;">appendChild</span><span style="color: #009900;">&#40;</span><span style="color: #000066; font-weight: bold;">this</span>.<span style="color: #660066;">nodes</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+&nbsp; &nbsp; <span style="color: #000066; font-weight: bold;">this</span>.<span style="color: #660066;">nodes</span> <span style="color: #339933;">=</span> <span style="color: #003366; font-weight: bold;">null</span><span style="color: #339933;">;</span> <span style="color: #006600; font-style: italic;">// unset to release references</span><br />
+<span style="color: #009900;">&#125;</span></div></div>
+<p>This way, your original nodes are transferred to the visible and scrollable “main” scene. Don’t forget that any CSS selector like <code class="codecolorer text default"><span class="text">body &amp;gt; .foo</span></code> will stop working as intended, because your DOM is wrapped by two additional div elements!</li>
+</ol>
+<p>After these steps, scrolling finally works in apps ported to webOS. The code shown here is very generic. It can be used for every application. You should be aware that scrolling via window.pageYOffset is not possible, because the scrollable element is the mojo scroller, not the body element.</p>
+<h4>Event listeners</h4>
+<p>Developers who like registering event listeners on <code class="codecolorer text default"><span class="text">document.body</span></code> will notice that those quit working after cut’n’pasting the DOM nodes to the scene elements. The reason is simple: in webOS, events only bubble up to the scene element (the inner one of the DIVs mentioned above). Simply don’t do that. And if you are using <a href="http://docs.jquery.com/Events/live">jQuery’s <code class="codecolorer text default"><span class="text">live()</span></code></a>, stop using it. Sorry. Don’t blame it on me.</p>
+<h4>Scrolling, Part Ⅱ</h4>
+<p>Everything seems to work pretty well now, right? Well, there’s one more thing …</p>
+<p>When you scroll (or drag) your app, and stop dragging above a clickable element, that element will be clicked. It took me quite some time to figure out the reason, because the same HTML/JavaScript will work flawlessly in the browser built into webOS. You need to listen for the “mojo-tap” event rather than for the “click” event. The “click” event will be fired after a drag has ended, but the tap event will only be fired when a “true” tap has taken place. I really can’t understand why it has to be that way, and if it wouldn’t have been easier <strong>not to alter the default behavior</strong> of WebKit.</p>
+<p>The method I’m using is to have a variable containing the name of the event to bind to. That way, an application can still run on different platforms:</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #003366; font-weight: bold;">var</span> myapp <span style="color: #339933;">=</span> <span style="color: #009900;">&#123;</span> CLICK_EVENT <span style="color: #339933;">:</span> <span style="color: #3366CC;">&quot;click&quot;</span> <span style="color: #009900;">&#125;</span><span style="color: #339933;">;</span><br />
+<br />
+<span style="color: #000066; font-weight: bold;">if</span> <span style="color: #009900;">&#40;</span><span style="color: #000066; font-weight: bold;">typeof</span> Mojo <span style="color: #339933;">!=</span> <span style="color: #3366CC;">&quot;undefined&quot;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; myapp.<span style="color: #660066;">CLICK_EVENT</span> <span style="color: #339933;">=</span> Mojo.<span style="color: #660066;">Event</span>.<span style="color: #660066;">tap</span><span style="color: #339933;">;</span> <span style="color: #006600; font-style: italic;">// contains &quot;mojo-tap&quot;</span><br />
+<span style="color: #009900;">&#125;</span><br />
+<br />
+<span style="color: #006600; font-style: italic;">/* snip */</span><br />
+somElm.<span style="color: #660066;">addEventListener</span><span style="color: #009900;">&#40;</span>myapp.<span style="color: #660066;">CLICK_EVENT</span><span style="color: #339933;">,</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span> <span style="color: #006600; font-style: italic;">/* … */</span> <span style="color: #009900;">&#125;</span><span style="color: #339933;">,</span> <span style="color: #003366; font-weight: bold;">false</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></div>
+<h4>Why?</h4>
+<p>When I was hearing about webOS for the first time, I really looked forward to have “it [the Web] as <em>the</em> SDK” of the OS (quote from <a href="http://almaer.com/blog/iphone-developers-are-not-arrogant-and-stupid">Dion Almaer</a>). And while the SDK offers some nice features – like the stage/scene architecture – it really gets in your way as soon as you don’t want to code exclusively for it. Unfortunately, you don’t have any choice, say some sort of “compatibility mode” to the web (couldn’t resist this one). You have to bend to webOS and stick to its rules.</p>
+<p>Apparently Palm is working on better compatibility. On Ajaxian you can find <a href="http://ajaxian.com/archives/webos-developer-event-roundup">an article</a> stating that “The company [Palm] is involved with the BONDI and W3C widgets standardisation effort” (quoting Ben Galbraith and Dion Almaer). Honestly: Shouldn’t somebody have considered that in the first place?</p>
+<p>To me, the web is a universal platform. We’ve had many issues with proprietary “solutions” in the past millennium and still have them. I don’t like seeing proprietary features being introduced once more. It is obvious that functionality of the operating systems must be accessible in some way. But does that imply breaking things that have worked before?</p>
+<p>I would love to see the possibility of making simple applications run on webOS without too much efforts. At least it should be possible to run W3C widgets without big hassles.</p>
+<p>Sometimes one might be supposed to think that Palm isn’t really interested in compatibility. The <a href="http://developer.palm.com/index.php?option=com_content&amp;view=article&amp;id=1796">acceptance criteria of their “App Catalog”</a> state that “They [the applications] need to be written specifically for webOS and not delivered through the browser.” Whatever that may mean.</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2009/12/mobile-cross-platform-development-palm-pre/">Mobile Cross-Platform Development: Palm Pre</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2009/12/mobile-cross-platform-development-palm-pre/feed/</wfw:commentRss>
+		<slash:comments>10</slash:comments>
+		</item>
+		<item>
+		<title>CSS 3 Support in Mobile Runtimes</title>
+		<link>http://www.uxebu.com/blog/2009/11/css3-support-in-mobile-runtimes/</link>
+		<comments>http://www.uxebu.com/blog/2009/11/css3-support-in-mobile-runtimes/#comments</comments>
+		<pubDate>Fri, 27 Nov 2009 21:49:20 +0000</pubDate>
+		<dc:creator><![CDATA[David Aurelio]]></dc:creator>
+				<category><![CDATA[CSS]]></category>
+		<category><![CDATA[frontend engineering]]></category>
+		<category><![CDATA[mobile]]></category>
+		<category><![CDATA[browser]]></category>
+		<category><![CDATA[opera]]></category>
+		<category><![CDATA[webkit]]></category>
+
+		<guid isPermaLink="false">http://blog.uxebu.com/?p=663</guid>
+		<description><![CDATA[<p>In a recent project a client asked for boxes with rounded corners and filled with a gradient; within an application targeted at smartphones. On mobile devices it is important to keep things simple, for instance to keep the number of DOM nodes low. That rules out using additional elements for the corners. On the other hand, [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2009/11/css3-support-in-mobile-runtimes/">CSS 3 Support in Mobile Runtimes</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><a href="http://hub.uxebu.com:33550/wp-content/uploads/2009/11/box-rounded-corners-gradient.png"><img class="alignright size-full wp-image-732" title="Box with rounded corners and filled with a gradient" src="http://hub.uxebu.com:33550/wp-content/uploads/2009/11/box-rounded-corners-gradient.png" alt="Box with rounded corners and filled with a gradient" width="224" height="224" /></a>In a recent project a client asked for boxes with rounded corners and filled with a gradient; within an application targeted at smartphones.</p>
+<p>On mobile devices it is important to keep things simple, for instance to keep the number of DOM nodes low. That rules out using additional elements for the corners. On the other hand, many mobile devices are featuring recent versions of web rendering engines. Dive into CSS 3.</p>
+<p>Modern web development techniques offer a lot of possibilities to render boxes with rounded corners: e.g. border-radius, border-image, or SVG used as background. In this post I’m going to explore the support for them across different devices and runtime environments. <a href="/2009/11/27/css3-support-in-mobile-runtimes/#result-table">You can skip to the results table</a> if all you want is a quick overview.</p>
+<p>As stated above, I want to achieve a box with rounded corners and a gradient that reaches from top to bottom, scaling to the height of the box. The example might be simple, but it is representing a common design goal.</p>
+<p><span id="more-663"></span></p>
+<h4>State of affairs</h4>
+<p>As of today, several possibilities exist to develop applications for mobile devices using web technologies. Besides Palms <a href="http://en.wikipedia.org/wiki/WebOS">webOS</a>, <a href="http://phonegap.com/">PhoneGap</a> permits to develop cross-platform applications with JavaScript, HTML, and CSS for the iPhone, Android, Blackberry, Windows Mobile, and Nokia WRT (support for webOS is upcoming). On Nokia devices there are two frameworks to create applications with web technologies: the built-in <a href="http://www.forum.nokia.com/Technology_Topics/Web_Technologies/Web_Runtime/">Nokia Web Runtime Widgets</a> (Nokia WRT) and Opera-based <a href="http://widget.vodafone.com/dev/">Vodafone Apps Manager</a>, which provides a runtime for <a href="http://www.quirksmode.org/blog/archives/2009/04/introduction_to.html">W3C Widgets</a> (heads up! Vodafone Apps Manager is WebKit-based on the Vodafone 360 H1/M1 devices, to complicate development a little bit).</p>
+<p>While these runtimes provide the means to build applications using well-known technology to web developers, they also bring well-known problems to the mobile sphere: inconsistencies between rendering engines. Even though most of those runtimes are WebKit-based (with the exception of Vodafone Apps Manager), <a href="http://www.quirksmode.org/blog/archives/2009/10/there_is_no_web.html">there is no [single] Webkit on Mobile</a>, as PPK has pointed out. <a href="http://www.quirksmode.org/webkit.html">His comparison table</a> shows the results of testing for various JavaScript and CSS features.</p>
+<p>Freed from the burden of “making things work in IE” we can start using advanced CSS features to build interfaces for mobile applications – but hold on, it’s not as easy as desired. Due to the differences in capabilities of rendering engines and their versions, using CSS 3 features needs a lot of testing.</p>
+<h4>Test Setup</h4>
+<p>To keep things simple in the beginning, I’ve tested on two devices: a <em>Nokia 5800 XpressMusic</em> and a <em>Nokia N97 </em>(it might have played a role that I had those two at hand when writing the article <img src="http://www.uxebu.com/wp-includes/images/smilies/icon_wink.gif" alt=";-)" class="wp-smiley" /></p>
+<p><em></em>Both devices support Nokia WRT apps natively and W3C Widgets via Vodafone Apps Manager. <a href="http://static.uxebu.com/~david/css-support-in-mobile-runtimes/">The HTML file</a> consists of boxes with different set of CSS properties. I’ve uploaded the packaged <a href="http://static.uxebu.com/~david/css-support-in-mobile-runtimes/css3.wgz">Nokia WRT Widget</a> and the <a href="http://static.uxebu.com/~david/css-support-in-mobile-runtimes/css3.wgt">W3C Widget</a>, too. You can test them for yourself on your Nokia, if you like.</p>
+<p>On the <em>5800,</em> Nokia WRT is based on WebKit build 413 (which correlates roughly to Safari 2.0), the installed Vodafone Apps Manager uses Opera Mobile build 1265. The <em>N97</em> uses Webkit build 525 (introduced with Safari 3) and Opera Mobile build 1360.</p>
+<p>Because the two devices show no differences in rendering (with one exception), all screenshots have been taken on the N97 with the exception of one rendering bug found on the 5800. All other rendering differences are existing between runtimes only.</p>
+<h4>Test Results</h4>
+<h5>Result table</h5>
+<p>The result table provides a quick overview about the tested features and platforms. Detailed descriptions of the single tests can be found below.</p>
+<table id="result-table" border="0">
+<thead>
+<tr>
+<td></td>
+<th scope="row">Nokia WRT</th>
+<th scope="row">Vodafone Apps Manager</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th scope="row">border-radius</th>
+<td>yes, but not useful *</td>
+<td>no</td>
+</tr>
+<tr>
+<th scope="row">border-image</th>
+<td>yes</td>
+<td>no</td>
+</tr>
+<tr>
+<th scope="row">CSS gradients</th>
+<td>no</td>
+<td>no</td>
+</tr>
+<tr>
+<th scope="row">SVG background images</th>
+<td>no</td>
+<td>yes, with rendering bug **</td>
+</tr>
+<tr>
+<th scope="row">box-shadow</th>
+<td>no</td>
+<td>no</td>
+</tr>
+<tr>
+<th scope="row">opacity</th>
+<td>no</td>
+<td>yes</td>
+</tr>
+<tr>
+<th scope="row">CSS transitions</th>
+<td>no</td>
+<td>no</td>
+</tr>
+</tbody>
+</table>
+<p><small>* background overlaps border, blurry border on the N97, circular artifacts on the 5800</small><br />
+<small>** SVG backgrounds stop being rendered after the corresponding element is scrolled out of the viewport</small></p>
+<h5>Cases 1/2: Simple Box</h5>
+<div style="width: 550px" class="wp-caption aligncenter">
+<div class="mhx"><a href="http://hub.uxebu.com:33550/wp-content/uploads/2009/11/screen000002.png"><img class="size-medium wp-image-683 " title="Boxes 1 and 2 on Nokia WRT" src="http://hub.uxebu.com:33550/wp-content/uploads/2009/11/screen000002-168x300.png" alt="Boxes 1 and 2 on Nokia WRT" width="168" height="300" /></a> <a href="http://hub.uxebu.com:33550/wp-content/uploads/2009/11/screen000007.png"><img class="size-medium wp-image-688 " title="Boxes 1 and 2 on Vodafone Apps Manager" src="http://hub.uxebu.com:33550/wp-content/uploads/2009/11/screen000007-168x300.png" alt="Boxes 1 and 2 on Vodafone Apps Manager" width="168" height="300" /></a></div>
+<p><p class="wp-caption-text">Boxes 1 and 2 on Nokia WRT/Vodafone Apps Manager</p></div>
+<p><em>Case 1</em> simply uses a <code class="codecolorer text default"><span class="text">border</span></code> and a <code class="codecolorer text default"><span class="text">background-image</span></code>:</p>
+<div class="codecolorer-container css default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="css codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #000000; font-weight: bold;">background</span><span style="color: #00AA00;">:</span> <span style="color: #cc00cc;">#b0b0b0</span> <span style="color: #993333;">url</span><span style="color: #00AA00;">&#40;</span><span style="color: #ff0000; font-style: italic;">box.png</span><span style="color: #00AA00;">&#41;</span> <span style="color: #993333;">no-repeat</span> <span style="color: #993333;">scroll</span> <span style="color: #933;">-15px</span> <span style="color: #933;">-1px</span><span style="color: #00AA00;">;</span><br />
+<span style="color: #000000; font-weight: bold;">border</span><span style="color: #00AA00;">:</span> <span style="color: #933;">1px</span> <span style="color: #993333;">solid</span> <span style="color: #cc00cc;">#4a4a4a</span><span style="color: #00AA00;">;</span></div></div>
+<p>This renders equally well on both platforms, but is not very similar to what I want to achieve: The background gradient is barely visible, because the image used is fairly high and does not scale with the height of the box.</p>
+<p><em>Case 2</em> is a little bonus, as it does not relate to box styling: it tests for support of CSS transitions. By clicking the box, the class “clicked” is added or removed. In rendering engines supporting CSS transition the width of the box will be changed smoothly. Neither Nokia WRT nor Vodafone Apps Manager support them, though.</p>
+<div class="codecolorer-container css default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="css codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #6666ff;">.transition</span> <span style="color: #00AA00;">&#123;</span><br />
+&nbsp; &nbsp; transition-property<span style="color: #00AA00;">:</span> <span style="color: #000000; font-weight: bold;">width</span><span style="color: #00AA00;">;</span><br />
+&nbsp; &nbsp; transition-duration<span style="color: #00AA00;">:</span> 250ms<span style="color: #00AA00;">;</span><br />
+&nbsp; &nbsp; -webkit-transition-property<span style="color: #00AA00;">:</span> <span style="color: #000000; font-weight: bold;">width</span><span style="color: #00AA00;">;</span><br />
+&nbsp; &nbsp; -webkit-transition-duration<span style="color: #00AA00;">:</span> 250ms<span style="color: #00AA00;">;</span><br />
+<span style="color: #00AA00;">&#125;</span><br />
+<br />
+<span style="color: #6666ff;">.transition</span><span style="color: #6666ff;">.clicked</span> <span style="color: #00AA00;">&#123;</span><br />
+&nbsp; &nbsp; <span style="color: #000000; font-weight: bold;">color</span><span style="color: #00AA00;">:</span> <span style="color: #cc00cc;">#0f0</span><span style="color: #00AA00;">;</span><br />
+&nbsp; &nbsp; <span style="color: #000000; font-weight: bold;">width</span><span style="color: #00AA00;">:</span> <span style="color: #933;">270px</span><span style="color: #00AA00;">;</span><br />
+<span style="color: #00AA00;">&#125;</span></div></div>
+<h5>Cases 3/4: border-radius and border-image</h5>
+<div style="width: 550px" class="wp-caption aligncenter">
+<div class="mhx"><a href="http://hub.uxebu.com:33550/wp-content/uploads/2009/11/screen000003.png"><img class="size-medium wp-image-684" title="Boxes 3 and 4 on Nokia WRT" src="http://hub.uxebu.com:33550/wp-content/uploads/2009/11/screen000003-168x300.png" alt="Boxes 3 and 4 on Nokia WRT" width="168" height="300" /></a> <a href="http://hub.uxebu.com:33550/wp-content/uploads/2009/11/screen000008.png"><img class="size-medium wp-image-689" title="Boxes 3 and 4 on Vodafone Apps Manager" src="http://hub.uxebu.com:33550/wp-content/uploads/2009/11/screen000008-168x300.png" alt="Boxes 3 and 4 on Vodafone Apps Manager" width="168" height="300" /></a> <a href="http://hub.uxebu.com:33550/wp-content/uploads/2009/11/5800-border-radius.jpg"><img class="size-medium wp-image-697  " title="border-radius on the Nokia 5800 XpressMusic" src="http://hub.uxebu.com:33550/wp-content/uploads/2009/11/5800-border-radius-300x245.jpg" alt="border-radius on the Nokia 5800 XpressMusic" width="180" height="147" /></a></div>
+<p><p class="wp-caption-text">Boxes 3 and 4 on Nokia WRT/Vodafone Apps Manager,border-radius on the Nokia 5800 XpressMusic</p></div>
+<p>The <em>third test</em> adds <code class="codecolorer text default"><span class="text">border-radius</span></code> to the CSS declaration. This comes closer to the styling goal, but is not usable on both platforms: While it’s not rendered at all in the Opera-based Vodafone Apps Manager, the older WebKit engines of the 5800’s Nokia WRT adds circular artifacts to the corner, and the background overlaps the border on the N97. In addition, the border drawing is blurry on the N97 as soon as <code class="codecolorer text default"><span class="text">border-radius</span></code> is added to the declarations.</p>
+<div class="codecolorer-container css default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="css codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">border-radius<span style="color: #00AA00;">:</span> <span style="color: #933;">15px</span><span style="color: #00AA00;">;</span><br />
+-webkit-border-radius<span style="color: #00AA00;">:</span> <span style="color: #933;">15px</span><span style="color: #00AA00;">;</span><br />
+-moz-border-radius<span style="color: #00AA00;">:</span> <span style="color: #933;">15px</span><span style="color: #00AA00;">;</span></div></div>
+<p><em>Case 4</em> uses the same background image, but as <code class="codecolorer text default"><span class="text">border-image</span></code>. Again, Opera doesn’t support the property, but the WebKit-based Nokia WRT displays the box as intended: Sharp border, rounded corners, gradient from top to bottom. (Note: in contrast to the label on the box, the background property is set to white in this example).</p>
+<div class="codecolorer-container css default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="css codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #6666ff;">.border-img</span> <span style="color: #00AA00;">&#123;</span><br />
+&nbsp; &nbsp; <span style="color: #000000; font-weight: bold;">border-width</span><span style="color: #00AA00;">:</span> <span style="color: #933;">15px</span><span style="color: #00AA00;">;</span><br />
+&nbsp; &nbsp; <span style="color: #000000; font-weight: bold;">background</span><span style="color: #00AA00;">:</span> <span style="color: #cc00cc;">#ffffff</span><span style="color: #00AA00;">;</span><br />
+&nbsp; &nbsp; border-image<span style="color: #00AA00;">:</span> <span style="color: #993333;">url</span><span style="color: #00AA00;">&#40;</span><span style="color: #ff0000; font-style: italic;">box.png</span><span style="color: #00AA00;">&#41;</span> <span style="color: #cc66cc;">15</span> stretch<span style="color: #00AA00;">;</span><br />
+&nbsp; &nbsp; -webkit-border-image<span style="color: #00AA00;">:</span> <span style="color: #993333;">url</span><span style="color: #00AA00;">&#40;</span><span style="color: #ff0000; font-style: italic;">box.png</span><span style="color: #00AA00;">&#41;</span> <span style="color: #cc66cc;">15</span> stretch<span style="color: #00AA00;">;</span><br />
+&nbsp; &nbsp; -moz-border-image<span style="color: #00AA00;">:</span> <span style="color: #993333;">url</span><span style="color: #00AA00;">&#40;</span><span style="color: #ff0000; font-style: italic;">box.png</span><span style="color: #00AA00;">&#41;</span> <span style="color: #cc66cc;">15</span> stretch<span style="color: #00AA00;">;</span><br />
+&nbsp; &nbsp; <span style="color: #000000; font-weight: bold;">padding</span><span style="color: #00AA00;">:</span> <span style="color: #cc66cc;">0</span><span style="color: #00AA00;">;</span><br />
+<span style="color: #00AA00;">&#125;</span></div></div>
+<p>Interestingly, the WRT application crashes, when the combined offset/border-width syntax (e.g. <code class="codecolorer text default"><span class="text">-webkit-border-image: url(box.png) 15/15px stretch</span></code>).</p>
+<h5>Cases 5/6: Gradients and SVG</h5>
+<div style="width: 550px" class="wp-caption aligncenter">
+<div class="mhx"><a href="http://hub.uxebu.com:33550/wp-content/uploads/2009/11/screen000004.png"><img class="size-medium wp-image-685" title="Boxes 5 and 6 on Nokia WRT" src="http://hub.uxebu.com:33550/wp-content/uploads/2009/11/screen000004-168x300.png" alt="Boxes 5 and 6 on Nokia WRT" width="168" height="300" /></a> <a href="http://hub.uxebu.com:33550/wp-content/uploads/2009/11/screen000009.png"><img class="size-medium wp-image-690" title="Boxes 5 and 6 on Vodafone Apps Manager" src="http://hub.uxebu.com:33550/wp-content/uploads/2009/11/screen000009-168x300.png" alt="Boxes 5 and 6 on Vodafone Apps Manager" width="168" height="300" /></a></div>
+<p><p class="wp-caption-text">Boxes 5 and 6 on Nokia WRT/Vodafone Apps Manager</p></div>
+<p>The <em>fifth box</em> uses a different approach for styling the box: It uses a browser-rendered gradient (<code class="codecolorer text default"><span class="text">&lt;a href=&quot;http://webkit.org/blog/175/introducing-css-gradients/&quot;&gt;-webkit-gradient&lt;/a&gt;</span></code>) for the background:</p>
+<div class="codecolorer-container css default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="css codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #000000; font-weight: bold;">background</span><span style="color: #00AA00;">:</span> <span style="color: #993333;">red</span><span style="color: #00AA00;">;</span><br />
+<span style="color: #000000; font-weight: bold;">background</span><span style="color: #00AA00;">:</span> gradient<span style="color: #00AA00;">&#40;</span>linear<span style="color: #00AA00;">,</span> <span style="color: #000000; font-weight: bold;">left</span> <span style="color: #000000; font-weight: bold;">top</span><span style="color: #00AA00;">,</span> <span style="color: #000000; font-weight: bold;">left</span> <span style="color: #000000; font-weight: bold;">bottom</span><span style="color: #00AA00;">,</span> from<span style="color: #00AA00;">&#40;</span><span style="color: #cc00cc;">#666661</span><span style="color: #00AA00;">&#41;</span><span style="color: #00AA00;">,</span> to<span style="color: #00AA00;">&#40;</span><span style="color: #cc00cc;">#b0b0b0</span><span style="color: #00AA00;">&#41;</span><span style="color: #00AA00;">&#41;</span><span style="color: #00AA00;">;</span><br />
+<span style="color: #000000; font-weight: bold;">background</span><span style="color: #00AA00;">:</span> -webkit-gradient<span style="color: #00AA00;">&#40;</span>linear<span style="color: #00AA00;">,</span> <span style="color: #000000; font-weight: bold;">left</span> <span style="color: #000000; font-weight: bold;">top</span><span style="color: #00AA00;">,</span> <span style="color: #000000; font-weight: bold;">left</span> <span style="color: #000000; font-weight: bold;">bottom</span><span style="color: #00AA00;">,</span> from<span style="color: #00AA00;">&#40;</span><span style="color: #cc00cc;">#666661</span><span style="color: #00AA00;">&#41;</span><span style="color: #00AA00;">,</span> to<span style="color: #00AA00;">&#40;</span><span style="color: #cc00cc;">#b0b0b0</span><span style="color: #00AA00;">&#41;</span><span style="color: #00AA00;">&#41;</span><span style="color: #00AA00;">;</span></div></div>
+<p>Support for gradients in WebKit was introduced in april 2008, but is not supported on the Nokias. As expected, it doesn’t work in opera, either.</p>
+<p><em>Case 6</em> uses a SVG as background-image which always scales to the available width and height. <a href="http://dev.opera.com/articles/view/new-development-techniques-using-opera-k/">This technique has been described more than two years ago for Opera</a>, and works well in Opera based environments. Even though this example doesn’t make use of CSS 3 , only Opera seems to be able to use SVG graphics as background images as of today. This holds true for browsers with built-in SVG rendering capabilities, too.</p>
+<h5>Cases 7/8/9: Cross-Platform Solution and Advanced Features</h5>
+<div style="width: 550px" class="wp-caption aligncenter">
+<div class="mhx"><a href="http://hub.uxebu.com:33550/wp-content/uploads/2009/11/screen000005.png"><img class="size-medium wp-image-686" title="Boxes 7 and 8 on Nokia WRT" src="http://hub.uxebu.com:33550/wp-content/uploads/2009/11/screen000005-168x300.png" alt="Boxes 7 and 8 on Nokia WRT" width="168" height="300" /></a> <a href="http://hub.uxebu.com:33550/wp-content/uploads/2009/11/screen000010.png"><img class="size-medium wp-image-691" title="Boxes 7 and 8 on Vodafone Apps Manager" src="http://hub.uxebu.com:33550/wp-content/uploads/2009/11/screen000010-168x300.png" alt="Boxes 7 and 8 on Vodafone Apps Manager" width="168" height="300" /></a></div>
+<p><p class="wp-caption-text">Boxes 7 and 8 on Nokia WRT/Vodafone Apps Manager</p></div>
+<p><em>Examples 7 and 8</em> represent the attempt to combine the approaches from boxes #4 and #6: They use an <a href="http://static.uxebu.com/~david/css-support-in-mobile-runtimes/box.svg">SVG</a> <code class="codecolorer text default"><span class="text">background-image</span></code> and a <a href="http://static.uxebu.com/~david/css-support-in-mobile-runtimes/box.png">pixel graphic</a> as <code class="codecolorer text default"><span class="text">border-image</span></code>:</p>
+<div class="codecolorer-container css default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="css codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #000000; font-weight: bold;">background</span><span style="color: #00AA00;">:</span> <span style="color: #993333;">url</span><span style="color: #00AA00;">&#40;</span><span style="color: #ff0000; font-style: italic;">box.svg</span><span style="color: #00AA00;">&#41;</span> <span style="color: #933;">-15px</span> <span style="color: #933;">-15px</span> <span style="color: #993333;">repeat</span><span style="color: #00AA00;">;</span><br />
+border-image<span style="color: #00AA00;">:</span> <span style="color: #993333;">url</span><span style="color: #00AA00;">&#40;</span><span style="color: #ff0000; font-style: italic;">box.png</span><span style="color: #00AA00;">&#41;</span> <span style="color: #cc66cc;">15</span> stretch<span style="color: #00AA00;">;</span><br />
+-webkit-border-image<span style="color: #00AA00;">:</span> <span style="color: #993333;">url</span><span style="color: #00AA00;">&#40;</span><span style="color: #ff0000; font-style: italic;">box.png</span><span style="color: #00AA00;">&#41;</span> <span style="color: #cc66cc;">15</span> stretch<span style="color: #00AA00;">;</span><br />
+-moz-border-image<span style="color: #00AA00;">:</span> <span style="color: #993333;">url</span><span style="color: #00AA00;">&#40;</span><span style="color: #ff0000; font-style: italic;">box.png</span><span style="color: #00AA00;">&#41;</span> <span style="color: #cc66cc;">15</span> stretch<span style="color: #00AA00;">;</span></div></div>
+<p>Because both WebKit and Presto (Opera’s rendering engine) only support <em>one</em> of the approaches, the box renders fine in both engines (also, border images always lay on top background images).</p>
+<p>This would be a perfect cross-platform solution, if Vodafone Apps Manager wouldn’t show a nasty bug: The first time boxes with an SVG background are scrolled into the viewport, they are rendered properly. As soon as all boxes using the same SVG are scrolled out of the viewport, and then scrolled in again, the SVG won’t display any longer. I’ve added a video showing this behavior.</p>
+<p><object width="500" height="281" data="http://vimeo.com/moogaloop.swf?clip_id=7814078&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=1&amp;color=00ADEF&amp;fullscreen=1" type="application/x-shockwave-flash"><param name="allowfullscreen" value="true" /><param name="allowscriptaccess" value="always" /><param name="src" value="http://vimeo.com/moogaloop.swf?clip_id=7814078&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=1&amp;color=00ADEF&amp;fullscreen=1" /></object></p>
+<p><em>Case 8</em> just adds <code class="codecolorer text default"><span class="text">opacity</span></code> to the boxes, which is only supported in Opera, but slows down scrolling noticeable. <em>Case 9</em> tests for support of <code class="codecolorer text default"><span class="text">box-shadow</span></code>, which is not supported by any of the runtimes used in this test.</p>
+<h4>Conclusion</h4>
+<p>In our small test, we actually found a solution that runs in both WebKit and Presto. Sadly, this solution is only viable if the box <strong>isn’t ever scrolled out of the viewport.</strong> The rendering problems affecting the solution can only be found in mobile versions of the rendering engines tested.</p>
+<p>That means, support of a certain feature in the desktop version of a browser does not imply bug-free support in mobile versions. Drawing can be fuzzy or faulty. Examples are <code class="codecolorer text default"><span class="text">border-radius</span></code> in older Nokia WRT releases or the SVG rendering bug in Vodafone Apps Manager.</p>
+<p>Despite the fact we don’t have to deal with “legacy rendering engines” on mobile devices, it is not possible to rely on modern features like SVG graphics or CSS 3 yet. Due to many forks of WebKit, and Operas restraint in implementing CSS 3 features, each usage of such features should be <strong>thoroughly tested</strong> across all different target platforms. Write code your device can handle, don’t try to bend the browser.</p>
+<p>Another problem are slow rendering speeds on mobile devices. It might be impossible  to use certain features, just because animations and scrolling get choppy, thus killing the snappiness of the user interface.</p>
+<h4>The Future</h4>
+<p>The newest version of Operas rendering engine, Presto 2.4 is already in beta state for mobile devices with <a href="http://dev.opera.com/articles/view/opera-mobile-10-beta-developers-introduction/">Opera Mobile 10</a> (while the newest desktop version still uses Presto 2.2), and <a href="http://www.opera.com/docs/specs/presto23/">adds support for many CSS 3 features</a> like border-radius, border-image, background-size, and CSS transitions. This will enable us to use all of the techniques that have been shown for WebKit in this post (border images, border radius, and box shadow). Using a combination of background-image, background-size, and border-image could provide a solution that degrades gracefully on older devices.</p>
+<p>Also, CPU and rendering power of mobile devices will increase in the next years, providing faster rendering of HTML/CSS with smooth animations.</p>
+<p>Thanks to the fact that developers don’t have to account for the market leader, the mobile browser/rendering engine market evolves way faster than the desktop browser market does. I am excited about the possibilities we have today and looking forward to the possibilities we’re going to have after the next releases of browsers an built-in rendering engines.</p>
+<h4>To Do</h4>
+<p>The plan is to make the tests more complete. One the one hand that means adding tests (e.g. the current test series lacks a test for -webkit-/-o-background-size, which would allow to scale the background image with the size of the box). Another interesting topic is support for CSS transitions.</p>
+<p>On the other hand I would like to deploy the tests on as many platforms as possible. The next steps could cover packaging for platforms supported through PhoneGap and webOS.</p>
+<p>If you would like to see a certain feature tested, I would appreciate a comment very much. <a href="http://twitter.com/void_0">Follow me on Twitter (void_0)</a> to be kept up-to-date about my random findings in the mobile web dev sphere.</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2009/11/css3-support-in-mobile-runtimes/">CSS 3 Support in Mobile Runtimes</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2009/11/css3-support-in-mobile-runtimes/feed/</wfw:commentRss>
+		<slash:comments>6</slash:comments>
+		</item>
+	</channel>
+</rss>

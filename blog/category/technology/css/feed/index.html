@@ -1,0 +1,631 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>uxebu &#187; CSS</title>
+	<atom:link href="http://www.uxebu.com/blog/category/technology/css/feed/" rel="self" type="application/rss+xml" />
+	<link>http://www.uxebu.com</link>
+	<description>The first JavaScript-only development and consulting company</description>
+	<lastBuildDate>Thu, 30 Jul 2015 09:10:24 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=4.1.8</generator>
+	<item>
+		<title>TouchScroll, a scrolling layer for WebKit mobile [update]</title>
+		<link>http://www.uxebu.com/blog/2010/04/touchscroll-a-scrolling-layer-for-webkit-mobile/</link>
+		<comments>http://www.uxebu.com/blog/2010/04/touchscroll-a-scrolling-layer-for-webkit-mobile/#comments</comments>
+		<pubDate>Tue, 27 Apr 2010 14:24:27 +0000</pubDate>
+		<dc:creator><![CDATA[David Aurelio]]></dc:creator>
+				<category><![CDATA[CSS]]></category>
+		<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[mobile]]></category>
+
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=1195</guid>
+		<description><![CDATA[<p>[Update 2010-09-17:] Check the new version. Dion Almaer was faster than me blogging about TouchScroll. Here is what you are waiting for – the “official” blog post about TouchScroll and the link to the repository. Here it is: TouchScroll, our scrolling layer for WebKit Mobile. It is JavaScript/CSS 3 based and allows for fixed elements [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2010/04/touchscroll-a-scrolling-layer-for-webkit-mobile/">TouchScroll, a scrolling layer for WebKit mobile [update]</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><strong>[Update 2010-09-17:] Check the <a href="/blog/2010/09/15/touchscroll-0-2-first-alpha-available/">new version.</a></strong></p>
+<p>Dion Almaer was faster than me <a href="http://ajaxian.com/archives/touchscroll-implementing-scroll-physics-in-js-and-css">blogging about TouchScroll</a>. Here is what you are waiting for – the “official” blog post about TouchScroll and the link to the repository.</p>
+<p>Here it is: TouchScroll, our scrolling layer for WebKit Mobile. It is JavaScript/CSS 3 based and allows for fixed elements like headers and toolbars on web pages when viewed on the iPhone or on Android. It works on the iPad, too. Check out the <a href="http://static.uxebu.com/~david/touchscroll/">demo</a> (short URL: <a href="http://u.nu/8uvg8">http://u.nu/8uvg8</a>) to see it in action – it works in Desktop Safari (at least kind of) or WebKit Nightly (very good), but I recommend you have a look at it on your iPhone, iPad, or Android based device.</p>
+<p><span id="more-1195"></span></p>
+<h2>Motivation</h2>
+<p>While Safari Mobile features native scrolling, there are two reasons to re-implement scrolling with JavaScript: The original scrolling behavior is rather slow – we were looking for a solution that feels more fluid. And the viewport behavior of Mobile Safari and other mobile browsers using WebKit doesn’t allow for fixed positioned elements. It is optimized for document reading, not for building interfaces.</p>
+<p>Our goal is to be able to deploy application interfaces to browsers of handheld devices that feel as familiar as possible for the user. TouchScroll enables developers to use fixed interface elements like headers and toolbars.</p>
+<p>We also use <a href="http://www.phonegap.com/">PhoneGap</a> a lot to deploy <a href="http://uxebu.com/blog/2010/02/15/eventninja-a-mobile-cross-platform-app/">cross-platform applications</a> onto smartphones, and we think that web based apps don’t need to feel like aliens for users. And we weren’t satisfied with existing solutions.</p>
+<h2>Usage</h2>
+<p>To add a scrolling capabilities to an element, that element must have a fixed size. Have a look at the demo for an elegant approach using</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="text codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">display: -webkit-box</div></div>
+<p>.</p>
+<p>HTML:</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #339933;">&amp;</span>lt<span style="color: #339933;">;</span>div <span style="color: #003366; font-weight: bold;">class</span><span style="color: #339933;">=</span><span style="color: #3366CC;">&quot;scroller&quot;</span><span style="color: #339933;">&amp;</span>gt<span style="color: #339933;">;&amp;</span>lt<span style="color: #339933;">;!--</span> some great contents <span style="color: #339933;">--&amp;</span>gt<span style="color: #339933;">;&amp;</span>lt<span style="color: #339933;">;/</span>div<span style="color: #339933;">&amp;</span>gt<span style="color: #339933;">;</span></div></div>
+<p>JavaScript:</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #003366; font-weight: bold;">var</span> scrollNode <span style="color: #339933;">=</span> document.<span style="color: #660066;">querySelector</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">&quot;.scroller&quot;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">,</span> options <span style="color: #339933;">=</span> <span style="color: #009900;">&#123;</span><span style="color: #009900;">&#125;</span><span style="color: #339933;">;</span><br />
+<span style="color: #003366; font-weight: bold;">var</span> scroller <span style="color: #339933;">=</span> <span style="color: #003366; font-weight: bold;">new</span> TouchScroll<span style="color: #009900;">&#40;</span>scrollNode<span style="color: #339933;">,</span> options<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></div>
+<p>At the moment, the only known option is <em>elastic.</em> Use</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="text codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">{elastic: true}</div></div>
+<p>as second parameter to add the bouncing effect to the scroller.</p>
+<h2>Get it!</h2>
+<p>TouchScroll is available <a href="http://github.com/davidaurelio/TouchScroll">on github</a>. Feel free to fork it and send patches back. You can also <a href="http://github.com/davidaurelio/TouchScroll/downloads">get a minimized file</a> that includes the css-bezier library that TouchScroll depends on.</p>
+<h2>How is it done?</h2>
+<p>TouchScroll uses a combination of JavaScript and CSS 3. All animations are done with CSS transitions – no JavaScript intervals.</p>
+<p>The elasticity effect when crossing the scroller bounds is achieved by dividing the bezier curve (used as timing function) into two sub-curves using my (yet to be finished) <a href="http://github.com/davidaurelio/css-beziers">CSS Bezier library for JavaScript</a>.</p>
+<h2>Customization/Configuration</h2>
+<p>TouchScroll allows you to customize many aspects of the scrolling behaviour: Have a look at the</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="text codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">config</div></div>
+<p>object at the top of the source file.</p>
+<p>Customizable properties include bouncing behaviour and deceleration animation. Feel free to experiment. I know that scrolling is not as close to <em>&lt;insert device of choice&gt;</em> as possible. If you think you’ve found better values, just let me know.</p>
+<p>Configurable properties include:</p>
+<ul>
+<li>Scrolling threshold: The minimum pixel amount needed to begin scrolling</li>
+<li>Flicking behavior: flicking threshold, friction, and deceleration animation.</li>
+<li>The elasticity/bouncing effect: factor and maximum bounce length.</li>
+<li>Snap back behavior: timing function and default duration.</li>
+</ul>
+<h2>Goodies</h2>
+<p>After instanciation, each TouchScroll scroller re-adapts to its contents after</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="text codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">orientationchange</div></div>
+<p>and</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="text codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">resize</div></div>
+<p>events on</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="text codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">window</div></div>
+<p>as well as after</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="text codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">DOMSubtreeModified</div></div>
+<p>events on the scroller itself. That means, the scroller adapts to content additions and deletions.</p>
+<h2>Limitations</h2>
+<p>TouchScroll is meant to be used with touch-based devices and also works well with a stylus (tested with a Wacom tablet). Don’t use it for desktop browsers and the like. Simply add</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="text codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">overflow: auto</div></div>
+<p>to the scroller element for these cases. Zero-cost compatibility.</p>
+<h3>Hiding and Showing</h3>
+<p>If a scroller is instanciated with an layer that is not beeing displayed, it needs to be refreshed manually after making it visible. Simply use the</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="text codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">setupScroller</div></div>
+<p>method.</p>
+<h3>Styling</h3>
+<p>TouchScroll inserts two more</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="text codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">&amp;lt;div&amp;gt;</div></div>
+<p>elements to the outer scroller container, that wrao the prior contents. That means, that the outer scroller element <em>must not have padding.</em> The CSS child selector (</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="text codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">a &amp;gt; b</div></div>
+<p>) won’t work any more after instancing TouchScroll on an element for the same reason.</p>
+<h3>Android</h3>
+<p>Android has several problems that need to be solved. If you have solutions, please keep in mind that TouchScroll should remain compatible with WebKit as found on Android 1.5 and send us a patch.</p>
+<ul>
+<li>When not preventing the default action of the initial <em>touchstart</em> event on Android, the following <em>touchmove</em> events <strong>queue up</strong> and fire just before the eventual <em>touchend</em> event. That makes scrolling impossible.Cancelling the <em>touchstart</em> event results in other problems: It prevents tapped elements from beeing focused or clicked. The current workaround – dispatching a synthesized <em>click</em> event – hides the focus rectangle and makes the focussing of form elements nearly impossible, which is even worse.That means: at the moment it is <em>not possible to use TouchScroll in conjunction with forms on Android.</em>I’d like to know whether there is a solution that eliminates the need to prevent the default action of <em>touchstart.</em></li>
+<li>Due to the lack of hardware acceleration, the <strong>rendering performance</strong> on Android isn’t nearly as good as on the Apple’s devices. We already invested a lot of work to achieve good performance. If you can do better, send us a patch!</li>
+<li>Support for
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="text codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">-webkit-transform: matrix(…)</div></div>
+<p>is <strong>broken</strong> in Android &lt; v2.0. That affects reading the computed style of elements. We already worked around that issue using a regex-based parsing function for those devices.</li>
+</ul>
+<h3>Other Devices</h3>
+<p>The browser of <strong>S60 devices</strong> is based on WebKit, too. However, apart from the fact that TouchScroll does not work on those devices, you should simply set the overflow style of the scroll container to</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="text codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">overflow: auto</div></div>
+<p>for these devices and benefit from native scrolling. The same goes for <em>Nokia WRT</em> apps.</p>
+<p>I’ve done a quick test on the <strong>Palm Pre</strong>. Unfortunately, TouchScroll does not work in the browser of webOS. Moreover, I’m not sure whether it actually <em>makes sense</em> in this particular browser, as its overlays would lie directly on top of fixed elements at the bottom. In webOS apps you should probably use the native scroller anyway. Maybe I’ll do a short tutorial on how to instanciate TouchScroll on iPhone/Android and the webOS scroller when deploying a cross platform app to all of those devices.</p>
+<p>What other devices are relevant? Let us know!</p>
+<h2>To Do</h2>
+<p>The official to-do-list:</p>
+<ul>
+<li>Keep the scrollbars round while bouncing – I already know how to do this, so you can expect the solution in the next days.</li>
+<li>Add an option to completely switch off scrollbars.</li>
+<li>Find a solution to the event problems on Android – help greatly appreciated!</li>
+</ul>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2010/04/touchscroll-a-scrolling-layer-for-webkit-mobile/">TouchScroll, a scrolling layer for WebKit mobile [update]</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2010/04/touchscroll-a-scrolling-layer-for-webkit-mobile/feed/</wfw:commentRss>
+		<slash:comments>150</slash:comments>
+		</item>
+		<item>
+		<title>Developing Widgets for Bada Devices</title>
+		<link>http://www.uxebu.com/blog/2010/03/developing-widgets-for-bada-devices/</link>
+		<comments>http://www.uxebu.com/blog/2010/03/developing-widgets-for-bada-devices/#comments</comments>
+		<pubDate>Thu, 25 Mar 2010 11:06:36 +0000</pubDate>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+				<category><![CDATA[CSS]]></category>
+		<category><![CDATA[development tools]]></category>
+		<category><![CDATA[frontend engineering]]></category>
+		<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[mobile]]></category>
+		<category><![CDATA[Tumbles]]></category>
+		<category><![CDATA[w3c widgets]]></category>
+		<category><![CDATA[bada]]></category>
+		<category><![CDATA[widgets]]></category>
+
+		<guid isPermaLink="false">http://uxebu.com/blog/2010/03/25/developing-widgets-for-bada-devices/</guid>
+		<description><![CDATA[<p>Developing Widgets for Bada Devices</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2010/03/developing-widgets-for-bada-devices/">Developing Widgets for Bada Devices</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><a href="http://www.badadev.com/developing-widgets-for-bada-devices/">Developing Widgets for Bada Devices</a></p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2010/03/developing-widgets-for-bada-devices/">Developing Widgets for Bada Devices</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2010/03/developing-widgets-for-bada-devices/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>CSS 3 Support in Mobile Runtimes</title>
+		<link>http://www.uxebu.com/blog/2009/11/css3-support-in-mobile-runtimes/</link>
+		<comments>http://www.uxebu.com/blog/2009/11/css3-support-in-mobile-runtimes/#comments</comments>
+		<pubDate>Fri, 27 Nov 2009 21:49:20 +0000</pubDate>
+		<dc:creator><![CDATA[David Aurelio]]></dc:creator>
+				<category><![CDATA[CSS]]></category>
+		<category><![CDATA[frontend engineering]]></category>
+		<category><![CDATA[mobile]]></category>
+		<category><![CDATA[browser]]></category>
+		<category><![CDATA[opera]]></category>
+		<category><![CDATA[webkit]]></category>
+
+		<guid isPermaLink="false">http://blog.uxebu.com/?p=663</guid>
+		<description><![CDATA[<p>In a recent project a client asked for boxes with rounded corners and filled with a gradient; within an application targeted at smartphones. On mobile devices it is important to keep things simple, for instance to keep the number of DOM nodes low. That rules out using additional elements for the corners. On the other hand, [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2009/11/css3-support-in-mobile-runtimes/">CSS 3 Support in Mobile Runtimes</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><a href="http://hub.uxebu.com:33550/wp-content/uploads/2009/11/box-rounded-corners-gradient.png"><img class="alignright size-full wp-image-732" title="Box with rounded corners and filled with a gradient" src="http://hub.uxebu.com:33550/wp-content/uploads/2009/11/box-rounded-corners-gradient.png" alt="Box with rounded corners and filled with a gradient" width="224" height="224" /></a>In a recent project a client asked for boxes with rounded corners and filled with a gradient; within an application targeted at smartphones.</p>
+<p>On mobile devices it is important to keep things simple, for instance to keep the number of DOM nodes low. That rules out using additional elements for the corners. On the other hand, many mobile devices are featuring recent versions of web rendering engines. Dive into CSS 3.</p>
+<p>Modern web development techniques offer a lot of possibilities to render boxes with rounded corners: e.g. border-radius, border-image, or SVG used as background. In this post I’m going to explore the support for them across different devices and runtime environments. <a href="/2009/11/27/css3-support-in-mobile-runtimes/#result-table">You can skip to the results table</a> if all you want is a quick overview.</p>
+<p>As stated above, I want to achieve a box with rounded corners and a gradient that reaches from top to bottom, scaling to the height of the box. The example might be simple, but it is representing a common design goal.</p>
+<p><span id="more-663"></span></p>
+<h4>State of affairs</h4>
+<p>As of today, several possibilities exist to develop applications for mobile devices using web technologies. Besides Palms <a href="http://en.wikipedia.org/wiki/WebOS">webOS</a>, <a href="http://phonegap.com/">PhoneGap</a> permits to develop cross-platform applications with JavaScript, HTML, and CSS for the iPhone, Android, Blackberry, Windows Mobile, and Nokia WRT (support for webOS is upcoming). On Nokia devices there are two frameworks to create applications with web technologies: the built-in <a href="http://www.forum.nokia.com/Technology_Topics/Web_Technologies/Web_Runtime/">Nokia Web Runtime Widgets</a> (Nokia WRT) and Opera-based <a href="http://widget.vodafone.com/dev/">Vodafone Apps Manager</a>, which provides a runtime for <a href="http://www.quirksmode.org/blog/archives/2009/04/introduction_to.html">W3C Widgets</a> (heads up! Vodafone Apps Manager is WebKit-based on the Vodafone 360 H1/M1 devices, to complicate development a little bit).</p>
+<p>While these runtimes provide the means to build applications using well-known technology to web developers, they also bring well-known problems to the mobile sphere: inconsistencies between rendering engines. Even though most of those runtimes are WebKit-based (with the exception of Vodafone Apps Manager), <a href="http://www.quirksmode.org/blog/archives/2009/10/there_is_no_web.html">there is no [single] Webkit on Mobile</a>, as PPK has pointed out. <a href="http://www.quirksmode.org/webkit.html">His comparison table</a> shows the results of testing for various JavaScript and CSS features.</p>
+<p>Freed from the burden of “making things work in IE” we can start using advanced CSS features to build interfaces for mobile applications – but hold on, it’s not as easy as desired. Due to the differences in capabilities of rendering engines and their versions, using CSS 3 features needs a lot of testing.</p>
+<h4>Test Setup</h4>
+<p>To keep things simple in the beginning, I’ve tested on two devices: a <em>Nokia 5800 XpressMusic</em> and a <em>Nokia N97 </em>(it might have played a role that I had those two at hand when writing the article <img src="http://www.uxebu.com/wp-includes/images/smilies/icon_wink.gif" alt=";-)" class="wp-smiley" /></p>
+<p><em></em>Both devices support Nokia WRT apps natively and W3C Widgets via Vodafone Apps Manager. <a href="http://static.uxebu.com/~david/css-support-in-mobile-runtimes/">The HTML file</a> consists of boxes with different set of CSS properties. I’ve uploaded the packaged <a href="http://static.uxebu.com/~david/css-support-in-mobile-runtimes/css3.wgz">Nokia WRT Widget</a> and the <a href="http://static.uxebu.com/~david/css-support-in-mobile-runtimes/css3.wgt">W3C Widget</a>, too. You can test them for yourself on your Nokia, if you like.</p>
+<p>On the <em>5800,</em> Nokia WRT is based on WebKit build 413 (which correlates roughly to Safari 2.0), the installed Vodafone Apps Manager uses Opera Mobile build 1265. The <em>N97</em> uses Webkit build 525 (introduced with Safari 3) and Opera Mobile build 1360.</p>
+<p>Because the two devices show no differences in rendering (with one exception), all screenshots have been taken on the N97 with the exception of one rendering bug found on the 5800. All other rendering differences are existing between runtimes only.</p>
+<h4>Test Results</h4>
+<h5>Result table</h5>
+<p>The result table provides a quick overview about the tested features and platforms. Detailed descriptions of the single tests can be found below.</p>
+<table id="result-table" border="0">
+<thead>
+<tr>
+<td></td>
+<th scope="row">Nokia WRT</th>
+<th scope="row">Vodafone Apps Manager</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th scope="row">border-radius</th>
+<td>yes, but not useful *</td>
+<td>no</td>
+</tr>
+<tr>
+<th scope="row">border-image</th>
+<td>yes</td>
+<td>no</td>
+</tr>
+<tr>
+<th scope="row">CSS gradients</th>
+<td>no</td>
+<td>no</td>
+</tr>
+<tr>
+<th scope="row">SVG background images</th>
+<td>no</td>
+<td>yes, with rendering bug **</td>
+</tr>
+<tr>
+<th scope="row">box-shadow</th>
+<td>no</td>
+<td>no</td>
+</tr>
+<tr>
+<th scope="row">opacity</th>
+<td>no</td>
+<td>yes</td>
+</tr>
+<tr>
+<th scope="row">CSS transitions</th>
+<td>no</td>
+<td>no</td>
+</tr>
+</tbody>
+</table>
+<p><small>* background overlaps border, blurry border on the N97, circular artifacts on the 5800</small><br />
+<small>** SVG backgrounds stop being rendered after the corresponding element is scrolled out of the viewport</small></p>
+<h5>Cases 1/2: Simple Box</h5>
+<div style="width: 550px" class="wp-caption aligncenter">
+<div class="mhx"><a href="http://hub.uxebu.com:33550/wp-content/uploads/2009/11/screen000002.png"><img class="size-medium wp-image-683 " title="Boxes 1 and 2 on Nokia WRT" src="http://hub.uxebu.com:33550/wp-content/uploads/2009/11/screen000002-168x300.png" alt="Boxes 1 and 2 on Nokia WRT" width="168" height="300" /></a> <a href="http://hub.uxebu.com:33550/wp-content/uploads/2009/11/screen000007.png"><img class="size-medium wp-image-688 " title="Boxes 1 and 2 on Vodafone Apps Manager" src="http://hub.uxebu.com:33550/wp-content/uploads/2009/11/screen000007-168x300.png" alt="Boxes 1 and 2 on Vodafone Apps Manager" width="168" height="300" /></a></div>
+<p><p class="wp-caption-text">Boxes 1 and 2 on Nokia WRT/Vodafone Apps Manager</p></div>
+<p><em>Case 1</em> simply uses a <code class="codecolorer text default"><span class="text">border</span></code> and a <code class="codecolorer text default"><span class="text">background-image</span></code>:</p>
+<div class="codecolorer-container css default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="css codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #000000; font-weight: bold;">background</span><span style="color: #00AA00;">:</span> <span style="color: #cc00cc;">#b0b0b0</span> <span style="color: #993333;">url</span><span style="color: #00AA00;">&#40;</span><span style="color: #ff0000; font-style: italic;">box.png</span><span style="color: #00AA00;">&#41;</span> <span style="color: #993333;">no-repeat</span> <span style="color: #993333;">scroll</span> <span style="color: #933;">-15px</span> <span style="color: #933;">-1px</span><span style="color: #00AA00;">;</span><br />
+<span style="color: #000000; font-weight: bold;">border</span><span style="color: #00AA00;">:</span> <span style="color: #933;">1px</span> <span style="color: #993333;">solid</span> <span style="color: #cc00cc;">#4a4a4a</span><span style="color: #00AA00;">;</span></div></div>
+<p>This renders equally well on both platforms, but is not very similar to what I want to achieve: The background gradient is barely visible, because the image used is fairly high and does not scale with the height of the box.</p>
+<p><em>Case 2</em> is a little bonus, as it does not relate to box styling: it tests for support of CSS transitions. By clicking the box, the class “clicked” is added or removed. In rendering engines supporting CSS transition the width of the box will be changed smoothly. Neither Nokia WRT nor Vodafone Apps Manager support them, though.</p>
+<div class="codecolorer-container css default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="css codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #6666ff;">.transition</span> <span style="color: #00AA00;">&#123;</span><br />
+&nbsp; &nbsp; transition-property<span style="color: #00AA00;">:</span> <span style="color: #000000; font-weight: bold;">width</span><span style="color: #00AA00;">;</span><br />
+&nbsp; &nbsp; transition-duration<span style="color: #00AA00;">:</span> 250ms<span style="color: #00AA00;">;</span><br />
+&nbsp; &nbsp; -webkit-transition-property<span style="color: #00AA00;">:</span> <span style="color: #000000; font-weight: bold;">width</span><span style="color: #00AA00;">;</span><br />
+&nbsp; &nbsp; -webkit-transition-duration<span style="color: #00AA00;">:</span> 250ms<span style="color: #00AA00;">;</span><br />
+<span style="color: #00AA00;">&#125;</span><br />
+<br />
+<span style="color: #6666ff;">.transition</span><span style="color: #6666ff;">.clicked</span> <span style="color: #00AA00;">&#123;</span><br />
+&nbsp; &nbsp; <span style="color: #000000; font-weight: bold;">color</span><span style="color: #00AA00;">:</span> <span style="color: #cc00cc;">#0f0</span><span style="color: #00AA00;">;</span><br />
+&nbsp; &nbsp; <span style="color: #000000; font-weight: bold;">width</span><span style="color: #00AA00;">:</span> <span style="color: #933;">270px</span><span style="color: #00AA00;">;</span><br />
+<span style="color: #00AA00;">&#125;</span></div></div>
+<h5>Cases 3/4: border-radius and border-image</h5>
+<div style="width: 550px" class="wp-caption aligncenter">
+<div class="mhx"><a href="http://hub.uxebu.com:33550/wp-content/uploads/2009/11/screen000003.png"><img class="size-medium wp-image-684" title="Boxes 3 and 4 on Nokia WRT" src="http://hub.uxebu.com:33550/wp-content/uploads/2009/11/screen000003-168x300.png" alt="Boxes 3 and 4 on Nokia WRT" width="168" height="300" /></a> <a href="http://hub.uxebu.com:33550/wp-content/uploads/2009/11/screen000008.png"><img class="size-medium wp-image-689" title="Boxes 3 and 4 on Vodafone Apps Manager" src="http://hub.uxebu.com:33550/wp-content/uploads/2009/11/screen000008-168x300.png" alt="Boxes 3 and 4 on Vodafone Apps Manager" width="168" height="300" /></a> <a href="http://hub.uxebu.com:33550/wp-content/uploads/2009/11/5800-border-radius.jpg"><img class="size-medium wp-image-697  " title="border-radius on the Nokia 5800 XpressMusic" src="http://hub.uxebu.com:33550/wp-content/uploads/2009/11/5800-border-radius-300x245.jpg" alt="border-radius on the Nokia 5800 XpressMusic" width="180" height="147" /></a></div>
+<p><p class="wp-caption-text">Boxes 3 and 4 on Nokia WRT/Vodafone Apps Manager,border-radius on the Nokia 5800 XpressMusic</p></div>
+<p>The <em>third test</em> adds <code class="codecolorer text default"><span class="text">border-radius</span></code> to the CSS declaration. This comes closer to the styling goal, but is not usable on both platforms: While it’s not rendered at all in the Opera-based Vodafone Apps Manager, the older WebKit engines of the 5800’s Nokia WRT adds circular artifacts to the corner, and the background overlaps the border on the N97. In addition, the border drawing is blurry on the N97 as soon as <code class="codecolorer text default"><span class="text">border-radius</span></code> is added to the declarations.</p>
+<div class="codecolorer-container css default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="css codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">border-radius<span style="color: #00AA00;">:</span> <span style="color: #933;">15px</span><span style="color: #00AA00;">;</span><br />
+-webkit-border-radius<span style="color: #00AA00;">:</span> <span style="color: #933;">15px</span><span style="color: #00AA00;">;</span><br />
+-moz-border-radius<span style="color: #00AA00;">:</span> <span style="color: #933;">15px</span><span style="color: #00AA00;">;</span></div></div>
+<p><em>Case 4</em> uses the same background image, but as <code class="codecolorer text default"><span class="text">border-image</span></code>. Again, Opera doesn’t support the property, but the WebKit-based Nokia WRT displays the box as intended: Sharp border, rounded corners, gradient from top to bottom. (Note: in contrast to the label on the box, the background property is set to white in this example).</p>
+<div class="codecolorer-container css default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="css codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #6666ff;">.border-img</span> <span style="color: #00AA00;">&#123;</span><br />
+&nbsp; &nbsp; <span style="color: #000000; font-weight: bold;">border-width</span><span style="color: #00AA00;">:</span> <span style="color: #933;">15px</span><span style="color: #00AA00;">;</span><br />
+&nbsp; &nbsp; <span style="color: #000000; font-weight: bold;">background</span><span style="color: #00AA00;">:</span> <span style="color: #cc00cc;">#ffffff</span><span style="color: #00AA00;">;</span><br />
+&nbsp; &nbsp; border-image<span style="color: #00AA00;">:</span> <span style="color: #993333;">url</span><span style="color: #00AA00;">&#40;</span><span style="color: #ff0000; font-style: italic;">box.png</span><span style="color: #00AA00;">&#41;</span> <span style="color: #cc66cc;">15</span> stretch<span style="color: #00AA00;">;</span><br />
+&nbsp; &nbsp; -webkit-border-image<span style="color: #00AA00;">:</span> <span style="color: #993333;">url</span><span style="color: #00AA00;">&#40;</span><span style="color: #ff0000; font-style: italic;">box.png</span><span style="color: #00AA00;">&#41;</span> <span style="color: #cc66cc;">15</span> stretch<span style="color: #00AA00;">;</span><br />
+&nbsp; &nbsp; -moz-border-image<span style="color: #00AA00;">:</span> <span style="color: #993333;">url</span><span style="color: #00AA00;">&#40;</span><span style="color: #ff0000; font-style: italic;">box.png</span><span style="color: #00AA00;">&#41;</span> <span style="color: #cc66cc;">15</span> stretch<span style="color: #00AA00;">;</span><br />
+&nbsp; &nbsp; <span style="color: #000000; font-weight: bold;">padding</span><span style="color: #00AA00;">:</span> <span style="color: #cc66cc;">0</span><span style="color: #00AA00;">;</span><br />
+<span style="color: #00AA00;">&#125;</span></div></div>
+<p>Interestingly, the WRT application crashes, when the combined offset/border-width syntax (e.g. <code class="codecolorer text default"><span class="text">-webkit-border-image: url(box.png) 15/15px stretch</span></code>).</p>
+<h5>Cases 5/6: Gradients and SVG</h5>
+<div style="width: 550px" class="wp-caption aligncenter">
+<div class="mhx"><a href="http://hub.uxebu.com:33550/wp-content/uploads/2009/11/screen000004.png"><img class="size-medium wp-image-685" title="Boxes 5 and 6 on Nokia WRT" src="http://hub.uxebu.com:33550/wp-content/uploads/2009/11/screen000004-168x300.png" alt="Boxes 5 and 6 on Nokia WRT" width="168" height="300" /></a> <a href="http://hub.uxebu.com:33550/wp-content/uploads/2009/11/screen000009.png"><img class="size-medium wp-image-690" title="Boxes 5 and 6 on Vodafone Apps Manager" src="http://hub.uxebu.com:33550/wp-content/uploads/2009/11/screen000009-168x300.png" alt="Boxes 5 and 6 on Vodafone Apps Manager" width="168" height="300" /></a></div>
+<p><p class="wp-caption-text">Boxes 5 and 6 on Nokia WRT/Vodafone Apps Manager</p></div>
+<p>The <em>fifth box</em> uses a different approach for styling the box: It uses a browser-rendered gradient (<code class="codecolorer text default"><span class="text">&lt;a href=&quot;http://webkit.org/blog/175/introducing-css-gradients/&quot;&gt;-webkit-gradient&lt;/a&gt;</span></code>) for the background:</p>
+<div class="codecolorer-container css default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="css codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #000000; font-weight: bold;">background</span><span style="color: #00AA00;">:</span> <span style="color: #993333;">red</span><span style="color: #00AA00;">;</span><br />
+<span style="color: #000000; font-weight: bold;">background</span><span style="color: #00AA00;">:</span> gradient<span style="color: #00AA00;">&#40;</span>linear<span style="color: #00AA00;">,</span> <span style="color: #000000; font-weight: bold;">left</span> <span style="color: #000000; font-weight: bold;">top</span><span style="color: #00AA00;">,</span> <span style="color: #000000; font-weight: bold;">left</span> <span style="color: #000000; font-weight: bold;">bottom</span><span style="color: #00AA00;">,</span> from<span style="color: #00AA00;">&#40;</span><span style="color: #cc00cc;">#666661</span><span style="color: #00AA00;">&#41;</span><span style="color: #00AA00;">,</span> to<span style="color: #00AA00;">&#40;</span><span style="color: #cc00cc;">#b0b0b0</span><span style="color: #00AA00;">&#41;</span><span style="color: #00AA00;">&#41;</span><span style="color: #00AA00;">;</span><br />
+<span style="color: #000000; font-weight: bold;">background</span><span style="color: #00AA00;">:</span> -webkit-gradient<span style="color: #00AA00;">&#40;</span>linear<span style="color: #00AA00;">,</span> <span style="color: #000000; font-weight: bold;">left</span> <span style="color: #000000; font-weight: bold;">top</span><span style="color: #00AA00;">,</span> <span style="color: #000000; font-weight: bold;">left</span> <span style="color: #000000; font-weight: bold;">bottom</span><span style="color: #00AA00;">,</span> from<span style="color: #00AA00;">&#40;</span><span style="color: #cc00cc;">#666661</span><span style="color: #00AA00;">&#41;</span><span style="color: #00AA00;">,</span> to<span style="color: #00AA00;">&#40;</span><span style="color: #cc00cc;">#b0b0b0</span><span style="color: #00AA00;">&#41;</span><span style="color: #00AA00;">&#41;</span><span style="color: #00AA00;">;</span></div></div>
+<p>Support for gradients in WebKit was introduced in april 2008, but is not supported on the Nokias. As expected, it doesn’t work in opera, either.</p>
+<p><em>Case 6</em> uses a SVG as background-image which always scales to the available width and height. <a href="http://dev.opera.com/articles/view/new-development-techniques-using-opera-k/">This technique has been described more than two years ago for Opera</a>, and works well in Opera based environments. Even though this example doesn’t make use of CSS 3 , only Opera seems to be able to use SVG graphics as background images as of today. This holds true for browsers with built-in SVG rendering capabilities, too.</p>
+<h5>Cases 7/8/9: Cross-Platform Solution and Advanced Features</h5>
+<div style="width: 550px" class="wp-caption aligncenter">
+<div class="mhx"><a href="http://hub.uxebu.com:33550/wp-content/uploads/2009/11/screen000005.png"><img class="size-medium wp-image-686" title="Boxes 7 and 8 on Nokia WRT" src="http://hub.uxebu.com:33550/wp-content/uploads/2009/11/screen000005-168x300.png" alt="Boxes 7 and 8 on Nokia WRT" width="168" height="300" /></a> <a href="http://hub.uxebu.com:33550/wp-content/uploads/2009/11/screen000010.png"><img class="size-medium wp-image-691" title="Boxes 7 and 8 on Vodafone Apps Manager" src="http://hub.uxebu.com:33550/wp-content/uploads/2009/11/screen000010-168x300.png" alt="Boxes 7 and 8 on Vodafone Apps Manager" width="168" height="300" /></a></div>
+<p><p class="wp-caption-text">Boxes 7 and 8 on Nokia WRT/Vodafone Apps Manager</p></div>
+<p><em>Examples 7 and 8</em> represent the attempt to combine the approaches from boxes #4 and #6: They use an <a href="http://static.uxebu.com/~david/css-support-in-mobile-runtimes/box.svg">SVG</a> <code class="codecolorer text default"><span class="text">background-image</span></code> and a <a href="http://static.uxebu.com/~david/css-support-in-mobile-runtimes/box.png">pixel graphic</a> as <code class="codecolorer text default"><span class="text">border-image</span></code>:</p>
+<div class="codecolorer-container css default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="css codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #000000; font-weight: bold;">background</span><span style="color: #00AA00;">:</span> <span style="color: #993333;">url</span><span style="color: #00AA00;">&#40;</span><span style="color: #ff0000; font-style: italic;">box.svg</span><span style="color: #00AA00;">&#41;</span> <span style="color: #933;">-15px</span> <span style="color: #933;">-15px</span> <span style="color: #993333;">repeat</span><span style="color: #00AA00;">;</span><br />
+border-image<span style="color: #00AA00;">:</span> <span style="color: #993333;">url</span><span style="color: #00AA00;">&#40;</span><span style="color: #ff0000; font-style: italic;">box.png</span><span style="color: #00AA00;">&#41;</span> <span style="color: #cc66cc;">15</span> stretch<span style="color: #00AA00;">;</span><br />
+-webkit-border-image<span style="color: #00AA00;">:</span> <span style="color: #993333;">url</span><span style="color: #00AA00;">&#40;</span><span style="color: #ff0000; font-style: italic;">box.png</span><span style="color: #00AA00;">&#41;</span> <span style="color: #cc66cc;">15</span> stretch<span style="color: #00AA00;">;</span><br />
+-moz-border-image<span style="color: #00AA00;">:</span> <span style="color: #993333;">url</span><span style="color: #00AA00;">&#40;</span><span style="color: #ff0000; font-style: italic;">box.png</span><span style="color: #00AA00;">&#41;</span> <span style="color: #cc66cc;">15</span> stretch<span style="color: #00AA00;">;</span></div></div>
+<p>Because both WebKit and Presto (Opera’s rendering engine) only support <em>one</em> of the approaches, the box renders fine in both engines (also, border images always lay on top background images).</p>
+<p>This would be a perfect cross-platform solution, if Vodafone Apps Manager wouldn’t show a nasty bug: The first time boxes with an SVG background are scrolled into the viewport, they are rendered properly. As soon as all boxes using the same SVG are scrolled out of the viewport, and then scrolled in again, the SVG won’t display any longer. I’ve added a video showing this behavior.</p>
+<p><object width="500" height="281" data="http://vimeo.com/moogaloop.swf?clip_id=7814078&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=1&amp;color=00ADEF&amp;fullscreen=1" type="application/x-shockwave-flash"><param name="allowfullscreen" value="true" /><param name="allowscriptaccess" value="always" /><param name="src" value="http://vimeo.com/moogaloop.swf?clip_id=7814078&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=1&amp;color=00ADEF&amp;fullscreen=1" /></object></p>
+<p><em>Case 8</em> just adds <code class="codecolorer text default"><span class="text">opacity</span></code> to the boxes, which is only supported in Opera, but slows down scrolling noticeable. <em>Case 9</em> tests for support of <code class="codecolorer text default"><span class="text">box-shadow</span></code>, which is not supported by any of the runtimes used in this test.</p>
+<h4>Conclusion</h4>
+<p>In our small test, we actually found a solution that runs in both WebKit and Presto. Sadly, this solution is only viable if the box <strong>isn’t ever scrolled out of the viewport.</strong> The rendering problems affecting the solution can only be found in mobile versions of the rendering engines tested.</p>
+<p>That means, support of a certain feature in the desktop version of a browser does not imply bug-free support in mobile versions. Drawing can be fuzzy or faulty. Examples are <code class="codecolorer text default"><span class="text">border-radius</span></code> in older Nokia WRT releases or the SVG rendering bug in Vodafone Apps Manager.</p>
+<p>Despite the fact we don’t have to deal with “legacy rendering engines” on mobile devices, it is not possible to rely on modern features like SVG graphics or CSS 3 yet. Due to many forks of WebKit, and Operas restraint in implementing CSS 3 features, each usage of such features should be <strong>thoroughly tested</strong> across all different target platforms. Write code your device can handle, don’t try to bend the browser.</p>
+<p>Another problem are slow rendering speeds on mobile devices. It might be impossible  to use certain features, just because animations and scrolling get choppy, thus killing the snappiness of the user interface.</p>
+<h4>The Future</h4>
+<p>The newest version of Operas rendering engine, Presto 2.4 is already in beta state for mobile devices with <a href="http://dev.opera.com/articles/view/opera-mobile-10-beta-developers-introduction/">Opera Mobile 10</a> (while the newest desktop version still uses Presto 2.2), and <a href="http://www.opera.com/docs/specs/presto23/">adds support for many CSS 3 features</a> like border-radius, border-image, background-size, and CSS transitions. This will enable us to use all of the techniques that have been shown for WebKit in this post (border images, border radius, and box shadow). Using a combination of background-image, background-size, and border-image could provide a solution that degrades gracefully on older devices.</p>
+<p>Also, CPU and rendering power of mobile devices will increase in the next years, providing faster rendering of HTML/CSS with smooth animations.</p>
+<p>Thanks to the fact that developers don’t have to account for the market leader, the mobile browser/rendering engine market evolves way faster than the desktop browser market does. I am excited about the possibilities we have today and looking forward to the possibilities we’re going to have after the next releases of browsers an built-in rendering engines.</p>
+<h4>To Do</h4>
+<p>The plan is to make the tests more complete. One the one hand that means adding tests (e.g. the current test series lacks a test for -webkit-/-o-background-size, which would allow to scale the background image with the size of the box). Another interesting topic is support for CSS transitions.</p>
+<p>On the other hand I would like to deploy the tests on as many platforms as possible. The next steps could cover packaging for platforms supported through PhoneGap and webOS.</p>
+<p>If you would like to see a certain feature tested, I would appreciate a comment very much. <a href="http://twitter.com/void_0">Follow me on Twitter (void_0)</a> to be kept up-to-date about my random findings in the mobile web dev sphere.</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2009/11/css3-support-in-mobile-runtimes/">CSS 3 Support in Mobile Runtimes</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2009/11/css3-support-in-mobile-runtimes/feed/</wfw:commentRss>
+		<slash:comments>6</slash:comments>
+		</item>
+		<item>
+		<title>Text Rotation with CSS</title>
+		<link>http://www.uxebu.com/blog/2009/08/text-rotation-with-css/</link>
+		<comments>http://www.uxebu.com/blog/2009/08/text-rotation-with-css/#comments</comments>
+		<pubDate>Fri, 07 Aug 2009 05:26:21 +0000</pubDate>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+				<category><![CDATA[CSS]]></category>
+		<category><![CDATA[frontend engineering]]></category>
+		<category><![CDATA[Tumbles]]></category>
+
+		<guid isPermaLink="false">http://blog.uxebu.com/?p=622</guid>
+		<description><![CDATA[<p>Text Rotation with CSS</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2009/08/text-rotation-with-css/">Text Rotation with CSS</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><a href="http://snook.ca/archives/html_and_css/css-text-rotation">Text Rotation with CSS</a></p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2009/08/text-rotation-with-css/">Text Rotation with CSS</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2009/08/text-rotation-with-css/feed/</wfw:commentRss>
+		<slash:comments>1</slash:comments>
+		</item>
+		<item>
+		<title>Mobile days in Spain</title>
+		<link>http://www.uxebu.com/blog/2009/05/mobile-days-in-spain/</link>
+		<comments>http://www.uxebu.com/blog/2009/05/mobile-days-in-spain/#comments</comments>
+		<pubDate>Thu, 28 May 2009 11:55:24 +0000</pubDate>
+		<dc:creator><![CDATA[Nikolai Onken]]></dc:creator>
+				<category><![CDATA[business]]></category>
+		<category><![CDATA[CSS]]></category>
+		<category><![CDATA[development tools]]></category>
+		<category><![CDATA[dojango]]></category>
+		<category><![CDATA[dojo]]></category>
+		<category><![CDATA[Events]]></category>
+		<category><![CDATA[mobile]]></category>
+		<category><![CDATA[uxebu]]></category>
+		<category><![CDATA[dojo.beer()]]></category>
+		<category><![CDATA[mobile2.0]]></category>
+
+		<guid isPermaLink="false">http://blog.uxebu.com/?p=440</guid>
+		<description><![CDATA[<p>As Wolfram already has posted in the last blog post, we are currently involved quite a bit in the mobile world and especially in investigating on how Dojo can be used best to develop for mobile devices. Taking this as an opportunity we want to announce the next dojo.beer() in Barcelona on June 17th. You [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2009/05/mobile-days-in-spain/">Mobile days in Spain</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>As Wolfram already has posted in the last <a href="http://blog.uxebu.com/2009/05/27/mobile-weeks-wrap-up/">blog post</a>, we are currently involved quite a bit in the mobile world and especially in investigating on how <a href="http://www.dojotoolkit.org">Dojo</a> can be used best to develop for mobile devices.</p>
+<p>Taking this as an opportunity we want to announce the next dojo.beer() in Barcelona on June 17th.<br />
+You can get all info about the event on the <a href="http://dojocampus.org/content/2009/05/28/dojobeer-barcelona-june-17th/">DojoCampus event site</a>.</p>
+<p>The day after, we are speaking at the <a href="http://mobile20.eu/developer-day/">Mobile2.0 developer day</a> and will give a detailed introduction in how to write mobile applications using the Dojo Toolkit and making sure they are running on different platforms such as <a href="http://phonegap.com/">PhoneGap</a> and the W3C widgets being <a href="http://www.betavine.net">supported by Vodafone</a>.</p>
+<p>If you are in Barcelona that week, feel free to get in touch and if you have time to join for drinks during the dojo.beer or the mobile 2.0 conference let us know. Please sign up using the poll below.</p>
+<p><strong>Para los españoles <img src="http://www.uxebu.com/wp-includes/images/smilies/icon_smile.gif" alt=":-)" class="wp-smiley" /></strong></p>
+<p>Como Wolfram ha escrito en su último <a href="http://blog.uxebu.com/2009/05/27/mobile-weeks-wrap-up">artículo de blog</a>, nosotros estamos muy involucrados en el mundo de los móviles y estamos especialmente investigando como desarollar de la mejor manera para dispositivos móviles con Dojo.</p>
+<p>Aprovechamos esta oportunidad para anunciar el próximo dojo.beer() en Barcelona el 17 de junio de 2009.<br />
+Puedes encontrar toda la información en inglés sobre el evento en la <a href="http://dojocampus.org/content/2009/05/28/dojobeer-barcelona-june-17th">página de eventos de DojoCampus</a>.</p>
+<p>Al día siguiente vamos a dar una ponencia en el <a href="http://mobile20.eu/developer-day/">Mobile2.0 developer day</a> y vamos a explicar como escribir aplicaciones moviles usando el Dojo Toolit y como asegurarse de que funcionan en múltiples plataformas como <a href="http://phonegap.com">PhoneGap</a> y como W3C Widget  <a href="http://www.betavine.net">apoyado por Vodafone</a> entre otros.</p>
+<p>Si estás en Barcelona durante esa semana y te apetece contactar con nosotros  no dudes en venir a tomar una copa  al dojo.beer o a la conferencia mobile2.0. Por favor participa en el poll abajo si quieres ir.</p>
+<p><iframe width="300" height="250" frameborder="0" src="http://doodle.com/summary.html?pollId=zw4ui9kraiw8cgt3"> </iframe></p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2009/05/mobile-days-in-spain/">Mobile days in Spain</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2009/05/mobile-days-in-spain/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Pure Client-side Dojo API Docs</title>
+		<link>http://www.uxebu.com/blog/2009/03/pure-client-side-dojo-api-docs/</link>
+		<comments>http://www.uxebu.com/blog/2009/03/pure-client-side-dojo-api-docs/#comments</comments>
+		<pubDate>Thu, 12 Mar 2009 20:43:26 +0000</pubDate>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+				<category><![CDATA[CSS]]></category>
+		<category><![CDATA[development tools]]></category>
+		<category><![CDATA[dojo]]></category>
+		<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[uxebu]]></category>
+		<category><![CDATA[API]]></category>
+		<category><![CDATA[documentation]]></category>
+
+		<guid isPermaLink="false">http://blog.uxebu.com/?p=125</guid>
+		<description><![CDATA[<p>It was a project last year, where yet another inline documentation syntax was &#8220;created&#8221; and suggested to be used. That triggered our brains and they started spinning caused by the unhappiness of reinventing the wheel, especially for something that is still too much of a step-child for frontend engineers and doesn&#8217;t get the necessary dedication [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2009/03/pure-client-side-dojo-api-docs/">Pure Client-side Dojo API Docs</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>It was a project last year, where yet another inline documentation syntax was &#8220;created&#8221; and suggested to be used. That triggered our brains and they started spinning caused by the unhappiness of reinventing the wheel, especially for something that is still too much of a step-child for frontend engineers and doesn&#8217;t get the necessary dedication anyway, the JavaScript inline docs. So let&#8217;s give them some love :-).</p>
+<p>Fast forwarding &#8230; what came out of it is the <a href="http://dojodocs.uxebu.com" target="_blank">API docs viewer</a> which, we here at uxebu, built over the christmas holidays. It is completely client-based, for creating the documentation and retreiving all the information, no server-side code is needed anymore, it&#8217;s all done in <a href="http://dojotoolkit.org" target="_blank">dojo</a>.<br />
+<span id="more-125"></span></p>
+<p>If you want to see a detailed introductional video, sit back, relax and enjoy the following screencast:</p>
+<p><center><br />
+<iframe width="640" height="360" src="//www.youtube.com/embed/YhbrfnYJHuw?feature=player_detailpage" frameborder="0" allowfullscreen></iframe><br />
+</center></p>
+<p style="margin-top: 30px;"><center><a href="http://dojodocs.uxebu.com/" target="_blank"><img src="http://hub.uxebu.com:33550/wp-content/uploads/2009/03/apidocslaunch.gif" /></a></center></p>
+<h2>Inline doc styles</h2>
+<p>There are a couple of JavaScript inline documentation tools and styles out there, but no real standard has evolved yet. Maybe because of JavaScript&#8217;s dynamic nature it&#8217;s hard to fix it to just one style. Though this just makes the task more interesting, actually.</p>
+<p>Let&#8217;s take a step back and take a look at just three of the various different inline doc styles.</p>
+<p>The <em>jQuery way</em>, pretty much textual.</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #006600; font-style: italic;">// Execute a callback for every element in the matched set.</span><br />
+<span style="color: #006600; font-style: italic;">// (You can seed the arguments with an array of args, but this is</span><br />
+<span style="color: #006600; font-style: italic;">// only used internally.)</span><br />
+each<span style="color: #339933;">:</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span> callback<span style="color: #339933;">,</span> args <span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span></div></div>
+<p>The <em>YUI way</em>, as you will see it&#8217;s very JavaDoc like, the method is documented above the actual definition and uses the @ sign for identifiers.</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #006600; font-style: italic;">/**<br />
+&nbsp;* Returns a string without any leading or trailing whitespace. &nbsp;If <br />
+&nbsp;* the input is not a string, the input will be returned untouched.<br />
+&nbsp;* @method trim<br />
+&nbsp;* @since 2.3.0<br />
+&nbsp;* @param s {string} the string to trim<br />
+&nbsp;* @return {string} the trimmed string<br />
+&nbsp;*/</span><br />
+trim<span style="color: #339933;">:</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span>s<span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span></div></div>
+<p>The <em>dojo way</em>, with proprietary identifiers, inside the function code!</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">dojo.<span style="color: #660066;">trim</span> <span style="color: #339933;">=</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span>str<span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; <span style="color: #006600; font-style: italic;">// &nbsp;summary:</span><br />
+&nbsp; &nbsp; <span style="color: #006600; font-style: italic;">// &nbsp; &nbsp; &nbsp;Trims whitespace from both sides of the string</span><br />
+&nbsp; &nbsp; <span style="color: #006600; font-style: italic;">// &nbsp;str: String</span><br />
+&nbsp; &nbsp; <span style="color: #006600; font-style: italic;">// &nbsp; &nbsp; &nbsp;String to be trimmed</span><br />
+&nbsp; &nbsp; <span style="color: #006600; font-style: italic;">// &nbsp;returns: String</span><br />
+&nbsp; &nbsp; <span style="color: #006600; font-style: italic;">// &nbsp; &nbsp; &nbsp;Returns the trimmed string</span><br />
+&nbsp; &nbsp; <span style="color: #006600; font-style: italic;">// &nbsp;description:</span><br />
+&nbsp; &nbsp; <span style="color: #006600; font-style: italic;">// &nbsp; &nbsp; &nbsp;This version of trim() was selected for inclusion into the base due ...</span></div></div>
+<p>We see that there are different levels of depth and explicitness in the inline comments. But they all have in common, that important and interesting information are contained inside the source code, that should be exposed to the users of those APIs.</p>
+<h2>The __doc__ approach</h2>
+<p>In python, a certain type of comments is available as the docstring property <strong>doc</strong> of the function it is in. This was actually the initial idea, to provide the docs in this kind of way:</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">dojo.<span style="color: #660066;">trim</span> <span style="color: #339933;">=</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span>str<span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span><span style="color: #009900;">&#125;</span><br />
+dojo.<span style="color: #660066;">trim</span>.<span style="color: #339933;">&lt;</span>strong<span style="color: #339933;">&gt;</span>doc<span style="color: #339933;">&lt;/</span>strong<span style="color: #339933;">&gt;</span> <span style="color: #339933;">=</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; summary<span style="color: #339933;">:</span><span style="color: #3366CC;">&quot;Trims whitespace from both sides of the string&quot;</span><span style="color: #339933;">,</span><br />
+&nbsp; &nbsp; returns<span style="color: #339933;">:</span><span style="color: #009900;">&#123;</span>type<span style="color: #339933;">:</span><span style="color: #3366CC;">&quot;String&quot;</span><span style="color: #339933;">,</span> summary<span style="color: #339933;">:</span><span style="color: #3366CC;">&quot;Returns the trimmed string&quot;</span><span style="color: #009900;">&#125;</span><br />
+<span style="color: #009900;">&#125;</span></div></div>
+<p>It&#8217;s is pretty obvious, that this is is pretty ugly source code in the first place and secondly a comment is not a comment anymore but becomes source code. Prone to errors, and not really leading to higher productivity, we realized that this approach was actually just a learning stage.<br />
+Still it is pretty handy to use the command line in FireBug and have the docs at hand via autocompletion e.g. just typing <em>dojo.trim.<strong>doc__</em> and the docs are there (this feature is currently also implemented, but the __doc</strong> property must be generated by a function call afterwards and it is not in the main focus for the current state of the project).</p>
+<h2>The less disruptive approach</h2>
+<p>Since the <strong>doc</strong> approach has the ugly side effect that library authors would have to change all their source code it was dismissed pretty quickly. New ways had to be explored. Driven by the flexibility of JavaScript and it&#8217;s dynamic nature we found a nice mix of reflection and minimal file parsing that allows us to extract the information from the existing raw (unpacked and not minified!) source code, without the need to modify it upfront.</p>
+<p>First comes <strong>the reflection</strong>. Using the simple for-in loop over the prototype and the object itself allows us to extract all the methods and properties. Applying a little bit of logic using toString() and alikes and we know if the implementation of this object overrides, inherites or creates this method, we find out the default value of properties and a lot more. In the special case of dojo we can also easily find out the parent class(es). The reflection is actually worth a separate article, since it is quite powerful and allows deep insights into a class&#8217;s inner values.</p>
+<p>Second step is <strong>simple file parsing</strong>. Since we know that object &#8220;foo&#8221; has the method &#8220;bar&#8221;, we know that in the source code we can find the definition by looking for the following patterns:</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">foo.<span style="color: #660066;">bar</span> <span style="color: #339933;">=</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span><span style="color: #009900;">&#125;</span><br />
+<span style="color: #006600; font-style: italic;">// OR</span><br />
+foo <span style="color: #339933;">=</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; bar<span style="color: #339933;">:</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span><span style="color: #009900;">&#125;</span><br />
+<span style="color: #009900;">&#125;</span><br />
+<span style="color: #006600; font-style: italic;">// OR</span><br />
+foo <span style="color: #339933;">=</span> <span style="color: #003366; font-weight: bold;">new</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; <span style="color: #000066; font-weight: bold;">this</span>.<span style="color: #660066;">bar</span> <span style="color: #339933;">=</span> &nbsp;<span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span><span style="color: #009900;">&#125;</span><br />
+<span style="color: #009900;">&#125;</span></div></div>
+<p>There are a couple of special but rare other cases, but the patterns are very simple to detect as you can see. So our FileParser doesn&#8217;t really need to understand the JavaScript syntax, it is just looking for exact patterns and is therefore quite fast (we can surely still improve on the performance!).<br />
+Using regular expressions we also find out the parameters and the actual docstring itself, which then is parsed by the DocStringParser.</p>
+<p>Let&#8217;s summarize. We have an object&#8217;s/class&#8217;s (if you want to call it a class) methods, properties, their according docstring and the docstrings of the class itself. We know the inheritance structure, can determine the type (public, private, etc.) from the name (for now we assume it is private when it starts with an &#8220;_&#8221;) or soon we will use the docstring identifier &#8220;tags&#8221; (which was just shortly introduced into dojo as <a href="http://bugs.dojotoolkit.org/browser/dijit/trunk/_Widget.js?rev=16933#L301">you can see it used here</a>). And we have example code, which is contained in a lot of docstrings. So this is already quite an amount of useful data. Let&#8217;s make them useable.</p>
+<h2>Plugging it all together</h2>
+<p>The pieces are there, they just need to be plugged together and hopefully a useful API docs viewer will arise. For this special dojo use case, we also had to build a mapper which enables the mapping of a namespace to the correct file(s). E.g. dojo.query() is actually a function inside the <em>dojo</em> object, which would naturally mean it is inside <em>dojo.js</em>, but in this case this method is in a separate file <em>query.js</em> which is &#8220;the knowledge&#8221; of the mapper.</p>
+<p>Building the namespace tree was another challenge, loading all the files in the browser and inspecting the entire namespace via JavaScript would just be an aweful waste of resources. So currently there is a small python script which generates the JSON files which contain the contents of the tree to the left. But the high flexibility of using dynamic extending of objects (like e.g. <a href="http://bugs.dojotoolkit.org/browser/dojo/trunk/NodeList-fx.js?rev=12797#L10">NodeList-fx does</a>) mixins and other things make it hard to rely purely on the generated contents of the tree, so they are partly hand-crafted too.</p>
+<p><a href='http://blog.uxebu.com/wp-content/uploads/2009/03/dojo-ui.jpg' style="float:right; padding:5px"><img src="http://blog.uxebu.com/wp-content/uploads/2009/03/dojo-ui.jpg" alt="dojo UI example" title="dojo-ui" width="192" height="49" class="size-full wp-image-127" /></a>The UI is purely dojo, showing off some of the neat features, like the slick ExpandoPane. In my eyes it looks very nice, with a lot of attention to the detail. The UI was actually the part that needed the least time to build, thanks to Nikolai&#8217;s deep knowledge it was a piece of cake. There are of course a couple of glitches like the wrapping of the tabs, but hopefully this is just another kick in the right direction to speed up those kind of fixes. Because what is there is already much more than just the base of a GUI toolkit with some widgets, it is a full-fledged-ready-to-go-batteries-included-kick-ass set of UI components. (Ok, enough wallowing, yes I am biased :-).) So look for yourself and let us know what you think.</p>
+<h2>The future</h2>
+<p>As you know it too, working on those kind of projects always spins off a lot of new ideas. So we want to share some with you and maybe even get some help on some of them. First: we will put the source code out on google code (or alike) and it will be open for contributions, of course. We just need to do some renaming to ensure future-proof enhancements won&#8217;t just clobber this thing and make it unmaintainable.</p>
+<p>Another idea is to configure the API docs viewer for custom namespaces and as long as the inline comments are dojo style it should be just a snap of a finger to get your own project&#8217;s API docs out. Well, actually the snap of a finger is the creation of the above mentioned JSON file, which contains the tree structure. But one day we will also have an auto-detector which builds the tree initially out of traversing through a given existing namespace (given that it is entirely loaded).</p>
+<p>Idea No. 734 <img src="http://www.uxebu.com/wp-includes/images/smilies/icon_smile.gif" alt=":-)" class="wp-smiley" /> was to provide the API viewer for other libraries too. The architecture is made this way, that the reflection and file parsing are separated and could be extended to work with another inline doc style syntax (we made first experiments with it). In order to do this right we think about having a common interface where to put and get the apidoc data from. A json-schema for API doc data is required. I have started on one, but this task really is huge when done right.</p>
+<p>Of course the <strong>doc</strong> property will be provided. Currently when working with libraries or function that I don&#8217;t know I mostly use toString() on it and learn from the source code. I could also very well imagine myself using <strong>doc</strong> if it was there. So keep looking for that, I think it can change the way one uses the FireBug console and learns about libraries.</p>
+<p>Since we know all the objects, methods on the one hand and the according docs on the other hand we can tell how good the doc coverage is. This heads into the direction of continuous integration and imho that is really where JavaScript still has a long way to go.</p>
+<p>And there are a couple more ideas, like running the inline doctests in the UI, integrating the API viewer with Bespin and allowing to throw the api viewer onto any page using a bookmarklet, which would nicely let you browse the JavaScript API of any site, no matter if you want to learn, fix something or whatever. To mention just some of the ideas &#8230;</p>
+<p>Now if you want to get your hands dirty and play with the code, see how it can integrate with your own code or just have offline dojo api documentation, drop us an email ( labs (a t) uxebu.com ) and we will make sure a copy of the code lands in your mailbox. Also, if you find bugs, have ideas, want to contribute, contact us and we will exchange ideas to make this tool the best available javascript api viewer out there.</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2009/03/pure-client-side-dojo-api-docs/">Pure Client-side Dojo API Docs</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2009/03/pure-client-side-dojo-api-docs/feed/</wfw:commentRss>
+		<slash:comments>32</slash:comments>
+		</item>
+		<item>
+		<title>Writing Efficient CSS for use in the Mozilla UI</title>
+		<link>http://www.uxebu.com/blog/2009/03/writing-efficient-css-for-use-in-the-mozilla-ui/</link>
+		<comments>http://www.uxebu.com/blog/2009/03/writing-efficient-css-for-use-in-the-mozilla-ui/#comments</comments>
+		<pubDate>Wed, 11 Mar 2009 11:56:09 +0000</pubDate>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+				<category><![CDATA[CSS]]></category>
+		<category><![CDATA[Tumbles]]></category>
+
+		<guid isPermaLink="false">http://blog.uxebu.com/?p=131</guid>
+		<description><![CDATA[<p>Writing Efficient CSS for use in the Mozilla UI</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2009/03/writing-efficient-css-for-use-in-the-mozilla-ui/">Writing Efficient CSS for use in the Mozilla UI</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><a href="https://developer.mozilla.org/en/Writing_Efficient_CSS">Writing Efficient CSS for use in the Mozilla UI</a></p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2009/03/writing-efficient-css-for-use-in-the-mozilla-ui/">Writing Efficient CSS for use in the Mozilla UI</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2009/03/writing-efficient-css-for-use-in-the-mozilla-ui/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Performance Impact of CSS Selectors</title>
+		<link>http://www.uxebu.com/blog/2009/03/performance-impact-of-css-selectors/</link>
+		<comments>http://www.uxebu.com/blog/2009/03/performance-impact-of-css-selectors/#comments</comments>
+		<pubDate>Wed, 11 Mar 2009 11:02:44 +0000</pubDate>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+				<category><![CDATA[CSS]]></category>
+		<category><![CDATA[Tumbles]]></category>
+
+		<guid isPermaLink="false">http://blog.uxebu.com/?p=129</guid>
+		<description><![CDATA[<p>Performance Impact of CSS Selectors</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2009/03/performance-impact-of-css-selectors/">Performance Impact of CSS Selectors</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><a href="http://www.stevesouders.com/blog/2009/03/10/performance-impact-of-css-selectors/">Performance Impact of CSS Selectors</a></p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2009/03/performance-impact-of-css-selectors/">Performance Impact of CSS Selectors</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2009/03/performance-impact-of-css-selectors/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Optimizing visual identities, an introduction to CSS variables</title>
+		<link>http://www.uxebu.com/blog/2008/09/optimizing-visual-identities-an-introduction-to-css-variables/</link>
+		<comments>http://www.uxebu.com/blog/2008/09/optimizing-visual-identities-an-introduction-to-css-variables/#comments</comments>
+		<pubDate>Sat, 06 Sep 2008 22:32:56 +0000</pubDate>
+		<dc:creator><![CDATA[Nikolai Onken]]></dc:creator>
+				<category><![CDATA[CSS]]></category>
+		<category><![CDATA[dojo]]></category>
+		<category><![CDATA[css variables]]></category>
+		<category><![CDATA[dijit]]></category>
+		<category><![CDATA[themeing]]></category>
+		<category><![CDATA[visual identities]]></category>
+
+		<guid isPermaLink="false">http://blog.uxebu.com/?p=34</guid>
+		<description><![CDATA[<p>A few months ago, Daniel Glazman and David Hyatt have written a proposal for CSS variables. This is a great step forward and hopefully we will find cross browser implementations some time soon. In this article I will show how you can use CSS variables to optimize CSS. In the second part of this series [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2008/09/optimizing-visual-identities-an-introduction-to-css-variables/">Optimizing visual identities, an introduction to CSS variables</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>A few months ago, Daniel Glazman and David Hyatt have <a href="http://disruptive-innovations.com/zoo/cssvariables/">written a proposal</a> for CSS variables. This  is a great step forward and hopefully we will find cross browser implementations some time soon.</p>
+<p>In this article I will show how you can use CSS variables to optimize CSS. In the second part of this series you will learn how to use CSS variables efficiently in themeing applications (using the Dijit themes of the <a href="http://dojotoolkit.org">Dojo toolkit</a>) and in the last part we will take a look how we can deal with all the new technology and convert it into a cross-browser solution with the help of a little bit of server-side magic.<br />
+<span id="more-3881"></span></p>
+<h2>How do CSS variables work?</h2>
+<p>Using CSS variables is pretty simple, lets dive right in and look at an example:</p>
+<div class="codecolorer-container css default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="css codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #a1a100;">@variables {</span><br />
+&nbsp; CorporateBGColor<span style="color: #00AA00;">:</span> <span style="color: #cc00cc;">#123123</span><span style="color: #00AA00;">;</span><br />
+<span style="color: #00AA00;">&#125;</span><br />
+<br />
+<span style="color: #cc00cc;">#logo</span> <span style="color: #00AA00;">&#123;</span><br />
+&nbsp; <span style="color: #000000; font-weight: bold;">background</span><span style="color: #00AA00;">:</span> var<span style="color: #00AA00;">&#40;</span>CorporateBGColor<span style="color: #00AA00;">&#41;</span><span style="color: #00AA00;">;</span><br />
+<span style="color: #00AA00;">&#125;</span><br />
+<br />
+<span style="color: #cc00cc;">#contact</span> <span style="color: #00AA00;">&#123;</span><br />
+&nbsp; <span style="color: #000000; font-weight: bold;">background</span><span style="color: #00AA00;">:</span> var<span style="color: #00AA00;">&#40;</span>CorporateBGColor<span style="color: #00AA00;">&#41;</span><span style="color: #00AA00;">;</span><br />
+<span style="color: #00AA00;">&#125;</span></div></div>
+<p>Thats all there is to it (I admit there are a few more things but I leave those to you to find out &#8211; for now. The next blog post will cover it in more detail).</p>
+<h2>Optimizing CSS</h2>
+<p>When writing themes for toolkits, creating new visual identities, or designing complex websites you will notice that you will use the same CSS values over and over again.<br />
+CSS already provides you with a lot of granularity, you are able to separate content from visual appearance, but there are still many cases where you will find yourself repeating things over and over again.</p>
+<p>Usually front-end developers tend to move in two directions:</p>
+<p>1. Describing the visual appearance of a an element by trying to be as descriptive in regards to that element as possible:</p>
+<div class="codecolorer-container css default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="css codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #6666ff;">.shoppingBasket</span> <span style="color: #00AA00;">&#123;</span><br />
+&nbsp; <span style="color: #000000; font-weight: bold;">color</span><span style="color: #00AA00;">:</span> <span style="color: #cc00cc;">#000333</span><span style="color: #00AA00;">;</span><br />
+&nbsp; <span style="color: #000000; font-weight: bold;">background</span><span style="color: #00AA00;">:</span> <span style="color: #cc00cc;">#fefefe</span><span style="color: #00AA00;">;</span><br />
+&nbsp; <span style="color: #000000; font-weight: bold;">border</span><span style="color: #00AA00;">:</span> <span style="color: #933;">1px</span> <span style="color: #993333;">solid</span> <span style="color: #cc00cc;">#ccc</span><span style="color: #00AA00;">;</span><br />
+<span style="color: #00AA00;">&#125;</span></div></div>
+<p>The respective shopping element would then look as follows:</p>
+<div class="codecolorer-container html4strict default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="html4strict codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #009900;">&lt;<a href="http://december.com/html/4/element/div.html"><span style="color: #000000; font-weight: bold;">div</span></a> <span style="color: #000066;">class</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">&quot;shoppingBasket&quot;</span>&gt;</span>Basket<span style="color: #009900;">&lt;<span style="color: #66cc66;">/</span><a href="http://december.com/html/4/element/div.html"><span style="color: #000000; font-weight: bold;">div</span></a>&gt;</span></div></div>
+<p>2. Describing an elements visual appearance by using several classes which can be used in a wider context and are combined to create a &#8220;visual event&#8221;:</p>
+<div class="codecolorer-container css default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="css codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #6666ff;">.borderActive</span> <span style="color: #00AA00;">&#123;</span><br />
+&nbsp; <span style="color: #000000; font-weight: bold;">border</span><span style="color: #00AA00;">:</span> <span style="color: #933;">1px</span> <span style="color: #cc00cc;">#ccc</span> <span style="color: #993333;">solid</span><span style="color: #00AA00;">;</span><br />
+<span style="color: #00AA00;">&#125;</span><br />
+<span style="color: #6666ff;">.backgroundActive</span> <span style="color: #00AA00;">&#123;</span><br />
+&nbsp; <span style="color: #000000; font-weight: bold;">background</span><span style="color: #00AA00;">:</span> <span style="color: #cc00cc;">#fefefe</span><span style="color: #00AA00;">;</span><br />
+<span style="color: #00AA00;">&#125;</span><br />
+<span style="color: #6666ff;">.textDefault</span> <span style="color: #00AA00;">&#123;</span><br />
+&nbsp; <span style="color: #000000; font-weight: bold;">color</span><span style="color: #00AA00;">:</span> <span style="color: #cc00cc;">#000333</span><span style="color: #00AA00;">;</span><br />
+<span style="color: #00AA00;">&#125;</span></div></div>
+<p>The respective element would then use the classes as follows:</p>
+<div class="codecolorer-container html4strict default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="html4strict codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #009900;">&lt;<a href="http://december.com/html/4/element/div.html"><span style="color: #000000; font-weight: bold;">div</span></a> <span style="color: #000066;">class</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">&quot;borderActive backgroundActive textDefault&quot;</span>&gt;</span>Basket<span style="color: #009900;">&lt;<span style="color: #66cc66;">/</span><a href="http://december.com/html/4/element/div.html"><span style="color: #000000; font-weight: bold;">div</span></a>&gt;</span></div></div>
+<p>You already will have noticed that just taking one of the two roads will result in suboptimal CSS in regards to code beauty-ness, maintainability and performance.<br />
+Using the first route you will find yourself using the same &#8220;background: #fefefe;&#8221; all over again and taking the second road you will find yourself trying to create as much granularity as possible losing the larger overview.</p>
+<p style="margin: 40px;">
+<a href='http://hub.uxebu.com:33550/wp-content/uploads/2008/09/css2.png'><img src="http://hub.uxebu.com:33550/wp-content/uploads/2008/09/css2.png" alt="" title="css2" width="500" height="292" class="alignnone size-full wp-image-58" /></a></p>
+<p>Most front-end developers usually take the middle path, a mixture of both those techniques and this is good. Though many times &#8211; and especially in the cases of large cooperate themes, websites and toolkits &#8211; it is not optimal.</p>
+<h2>Are CSS variables a solution?</h2>
+<p>Lets just take a look at following implementation of above usecase, using CSS variables.</p>
+<p>First we will create a dictionary with the visual identity (dictionary.css), containing all CSS variable definitions:</p>
+<div class="codecolorer-container css default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="css codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #a1a100;">@variables {</span><br />
+&nbsp; backgroundActive<span style="color: #00AA00;">:</span> <span style="color: #cc00cc;">#fefefe</span><span style="color: #00AA00;">;</span><br />
+&nbsp; backgroundHover<span style="color: #00AA00;">:</span> <span style="color: #cc00cc;">#fff</span><span style="color: #00AA00;">;</span><br />
+<br />
+&nbsp; <span style="color: #808080; font-style: italic;">/* ... */</span><br />
+<br />
+&nbsp; textColorActive<span style="color: #00AA00;">:</span> <span style="color: #cc00cc;">#000333</span><span style="color: #00AA00;">;</span><br />
+&nbsp; textColorHover<span style="color: #00AA00;">:</span> <span style="color: #cc00cc;">#333000</span><span style="color: #00AA00;">;</span><br />
+<br />
+&nbsp; <span style="color: #808080; font-style: italic;">/* ... */</span><br />
+<br />
+&nbsp; borderDefaultWidth<span style="color: #00AA00;">:</span> <span style="color: #933;">1px</span><span style="color: #00AA00;">;</span><br />
+&nbsp; borderDefaultStyle<span style="color: #00AA00;">:</span> <span style="color: #993333;">solid</span><span style="color: #00AA00;">;</span><br />
+&nbsp; borderDefaultColor<span style="color: #00AA00;">:</span> <span style="color: #cc00cc;">#ccc</span><span style="color: #00AA00;">;</span><br />
+<br />
+&nbsp; <span style="color: #808080; font-style: italic;">/* ... */</span><br />
+<span style="color: #00AA00;">&#125;</span></div></div>
+<p>Now we will implement those variables in the master CSS file (layout.css):</p>
+<div class="codecolorer-container css default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="css codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #6666ff;">.shoppingBasket</span> <span style="color: #00AA00;">&#123;</span><br />
+&nbsp; <span style="color: #000000; font-weight: bold;">color</span><span style="color: #00AA00;">:</span> var<span style="color: #00AA00;">&#40;</span>textColorActive<span style="color: #00AA00;">&#41;</span><span style="color: #00AA00;">;</span><br />
+&nbsp; <span style="color: #000000; font-weight: bold;">background</span><span style="color: #00AA00;">:</span> var<span style="color: #00AA00;">&#40;</span>backgroundActive<span style="color: #00AA00;">&#41;</span><span style="color: #00AA00;">;</span><br />
+&nbsp; <span style="color: #000000; font-weight: bold;">border-style</span><span style="color: #00AA00;">:</span> var<span style="color: #00AA00;">&#40;</span>borderDefaultStyle<span style="color: #00AA00;">&#41;</span><span style="color: #00AA00;">;</span><br />
+&nbsp; <span style="color: #000000; font-weight: bold;">border-width</span><span style="color: #00AA00;">:</span> var<span style="color: #00AA00;">&#40;</span>borderDefaultWidth<span style="color: #00AA00;">&#41;</span><span style="color: #00AA00;">;</span><br />
+&nbsp; <span style="color: #000000; font-weight: bold;">border-color</span><span style="color: #00AA00;">:</span> var<span style="color: #00AA00;">&#40;</span>borderDefaultColor<span style="color: #00AA00;">&#41;</span><span style="color: #00AA00;">;</span><br />
+<span style="color: #00AA00;">&#125;</span><br />
+<br />
+<span style="color: #6666ff;">.userDetails</span> <span style="color: #00AA00;">&#123;</span><br />
+&nbsp; <span style="color: #000000; font-weight: bold;">border-style</span><span style="color: #00AA00;">:</span> var<span style="color: #00AA00;">&#40;</span>borderDefaultStyle<span style="color: #00AA00;">&#41;</span><span style="color: #00AA00;">;</span><br />
+&nbsp; <span style="color: #000000; font-weight: bold;">border-width</span><span style="color: #00AA00;">:</span> var<span style="color: #00AA00;">&#40;</span>borderDefaultWidth<span style="color: #00AA00;">&#41;</span><span style="color: #00AA00;">;</span><br />
+&nbsp; <span style="color: #000000; font-weight: bold;">border-color</span><span style="color: #00AA00;">:</span> var<span style="color: #00AA00;">&#40;</span>borderDefaultColor<span style="color: #00AA00;">&#41;</span><span style="color: #00AA00;">;</span><br />
+<span style="color: #00AA00;">&#125;</span><br />
+<br />
+<span style="color: #808080; font-style: italic;">/* ... */</span></div></div>
+<p>The respective element would still look like following:</p>
+<div class="codecolorer-container html4strict default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="html4strict codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #009900;">&lt;<a href="http://december.com/html/4/element/div.html"><span style="color: #000000; font-weight: bold;">div</span></a> <span style="color: #000066;">class</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">&quot;shoppingBasket&quot;</span>&gt;</span>Basket<span style="color: #009900;">&lt;<span style="color: #66cc66;">/</span><a href="http://december.com/html/4/element/div.html"><span style="color: #000000; font-weight: bold;">div</span></a>&gt;</span></div></div>
+<p>The benefit of this approach will clearly get visible when you are starting to deal with more than 10 classes. Envision a project with hundreds of classes, many of them describing similar things but not the same.</p>
+<h2>So what are the benefits?</h2>
+<ol>
+<li><strong>Clearly structured CSS</strong><br />You might argue that your CSS will be less readable because you don&#8217;t see the actual value of the css property you are looking at. This is a valid concern, but we have to realize that the benefit completely outweighs that issue (if seeing the visual effect of a class in the browser is not enough, there are great debugging tools which give you all the info you need). The fact that a developer can tell you with one look that the background color of one and all active panes is &#8220;#133213&#8243; (paneBackgroundActive: #133213;) &#8211; that is all Tab panes, Accordion panes, etc. etc. &#8211; will improve development cycles incredibly</li>
+<li><strong>Maintainability</strong><br />The visual definition is stored in one (maybe a few more) files. A front-end developer will not have to deal with a whole bunch of un-overseeable files but can focus on pure visual definitions. Changing a visual identity is a matter of adjusting one dictionary and not hundreds of CSS files.</li>
+<li><strong>Documentation</strong><br />One factor which unfortunately has not yet been covered by too many people is CSS documentation. This is as important as any other documentation &#8211; especially if you are developing large scale apps. Having dictionary files with visual definitions will enable you to write clear documentation.
+</li>
+</ol>
+<div class="codecolorer-container css default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="css codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #a1a100;">@variables {</span><br />
+&nbsp; <span style="color: #808080; font-style: italic;">/* <br />
+&nbsp; &nbsp;* used by the entire applications text <br />
+&nbsp; &nbsp;* unless overridden by another variable <br />
+&nbsp; &nbsp;*/</span><br />
+&nbsp; defaultTextColor<span style="color: #00AA00;">:</span> <span style="color: #cc00cc;">#123321</span><span style="color: #00AA00;">;</span><br />
+<span style="color: #00AA00;">&#125;</span></div></div>
+<p>The exact specification of how to document CSS best is a different discussion, there are already projects existing which are trying to push into that direction. </p>
+<h2>Why is this good if no browser supports it?</h2>
+<p>Since at the moment of writing only Webkit nightly is supporting CSS variables you might wonder why this whole thing should bother you at all.</p>
+<p>The first step we should take is trying to abstract and generalize even more when we write CSS &#8211; not in the way as I described in the two examples at the beginning of this post but in the &#8220;CSS variable way&#8221; I described in the above example.<br />
+Once we understand this we can decide whether it is worth shifting our development process to using CSS variables (this is not an easy decision, there is no (non-nightly) browser out there supporting it).</p>
+<p>Until CSS variables are widely supported by browsers you could write a simple parser which would do the search and replace for you on the server, you would actually be serving plain old CSS files.</p>
+<p>We will look into those possibilities in the next article using tools which allow you to preview a visual identity in real time, using the Dijit widgets and converting the CSS variable dictionary into plain CSS files on the server in the last article.</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2008/09/optimizing-visual-identities-an-introduction-to-css-variables/">Optimizing visual identities, an introduction to CSS variables</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2008/09/optimizing-visual-identities-an-introduction-to-css-variables/feed/</wfw:commentRss>
+		<slash:comments>3</slash:comments>
+		</item>
+	</channel>
+</rss>

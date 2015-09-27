@@ -1,0 +1,524 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>uxebu &#187; mobile</title>
+	<atom:link href="http://www.uxebu.com/blog/category/mobile/feed/" rel="self" type="application/rss+xml" />
+	<link>http://www.uxebu.com</link>
+	<description>The first JavaScript-only development and consulting company</description>
+	<lastBuildDate>Thu, 30 Jul 2015 09:10:24 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=4.1.8</generator>
+	<item>
+		<title>State of  in iOS5</title>
+		<link>http://www.uxebu.com/blog/2011/11/state-of-html5-audio-in-ios-5/</link>
+		<comments>http://www.uxebu.com/blog/2011/11/state-of-html5-audio-in-ios-5/#comments</comments>
+		<pubDate>Tue, 29 Nov 2011 09:00:26 +0000</pubDate>
+		<dc:creator><![CDATA[David Pfahler &#38; Stephan Bönnemann]]></dc:creator>
+				<category><![CDATA[HTML5]]></category>
+		<category><![CDATA[html5apps]]></category>
+		<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[mobile]]></category>
+		<category><![CDATA[Uncategorized]]></category>
+
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=1977</guid>
+		<description><![CDATA[<p><em>This is a guest post by <a href="http://twitter.com/davidpfahler">David Pfahler</a> and <a href="http://twitter.com/boennemann">Stephan Bönnemann</a>.</em></p>
+<h2>Why you’d like to use HTML5 audio in iOS 5</h2>
+<p>It’s all about apps these days. The question is whether you want to make the commitment and investment (of learning a new language) to program natively for one platform or leverage the web dev skills you already have? HTML5 is the way to go if you sympathize with the latter.</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2011/11/state-of-html5-audio-in-ios-5/">State of <audio> in iOS5</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><em>This is a guest post by David Pfahler Stephan Bönnemann of <a href="http://keeplook.in" title="keeplook.in">keeplook.in</a>.</em></p>
+<h2>Why you’d like to use HTML5 audio in iOS 5</h2>
+<p>It’s all about apps these days. The question is whether you want to make the commitment and investment (of learning a new language) to program natively for one platform or leverage the web dev skills you already have? HTML5 is the way to go if you sympathize with the latter.<br />
+<span id="more-1977"></span></p>
+<p>Let&#8217;s face it: The main problem for web developers that want to make apps is to deliver a great <strong>user experience</strong>. Hence, you&#8217;d like to use as much of today&#8217;s web technologies as possible to enhance the UX. One profound way of doing this is audio feedback. For example, many twitter apps use sounds if new tweets come in and another sound if no new tweets could be found. This kind of response is intuitive to the user. This is what you should go for.</p>
+<p>Also, imagine a game without sounds. Would be kind of boring, wouldn&#8217;t it?</p>
+<h2>Naive Assumptions: What you’d expect</h2>
+<p>Fortunately in iOS we have rich HTML5 support built into mobile Safari. Initially, Steve Jobs wanted all apps to be web apps! So what you&#8217;d assume regarding audio is the presence of the HTML5 audio tag. And guess what, there <em>is</em> an implementation of the audio tag in iOS. Hurray!</p>
+<p>So what do you expect from an audio tag implementation:</p>
+<ul>
+<li>call .load(), .play(), .pause() and other methods via JavaScript</li>
+<li>use remote files, dataURIs, cached files and other sources</li>
+<li>play several audio files / tags at once</li>
+<li>mix audio from several sources with different volumes, etc.</li>
+</ul>
+<h2>Reality checks: What should work but doesn’t</h2>
+<p>It becomes clear pretty fast that it&#8217;s not that simple. With iOS it&#8217;s a disaster. The bad news first:</p>
+<p><strong>It is not possible to load or play audio without user interaction.</strong></p>
+<p>Sad, but true. <a title="Safari Developer Library" href="http://developer.apple.com/library/safari/#documentation/AudioVideo/Conceptual/Using_HTML5_Audio_Video/ControllingMediaWithJavaScript/ControllingMediaWithJavaScript.html#//apple_ref/doc/uid/TP40009523-CH3-SW5">Apple deliberately decided</a> that a touch event is mandatory to load and play audio. There is no workaround for this.</p>
+<p>If we accept the fact that we need a touch event to play the audio, is it possible to use the audio tag as expected? Hmm, no, not really. So what&#8217;s broken as well?</p>
+<p><strong>Latency</strong>: Loading audio files on demand (after the touch event fired) is unusably slow. The desired user experience can not be achieved using this technique.</p>
+<p><strong>One audio tag at a time:</strong> You can never play more than one audio tag at once. This makes it impossible to mix sounds on the fly which would be necessary for games that have a background music and must also play sounds dynamically (e.g. when the character jumps).</p>
+<p><strong>Audio files only:</strong> You can not use anything as the source besides audio files (uncompressed WAV and AIF audio, MP3 audio, and AAC-LC or HE-AAC audio). If you could use dataURIs then it would be possible to preload the audio.</p>
+
+<h2>Workarounds: How to play anyways (at least somehow)</h2>
+<p>We invested a lot of time researching the audio tag on iOS 5. If you want to know how we play audio, read on.</p>
+<p>So what do you do with this crippled audio tag? Well, you trick it a little bit and use it as much as possible. Here are several ideas that work best for different scenarios:</p>
+<p><strong>Bind touchstart event to body:</strong> As you have to play on a touch event, we bind a touchstart handler on the body. So wherever the user touches first, we can use this event to load the audio file. Even better, from now on, we can load and play different sources from this audio tag.</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="text codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">bodyEl.addEventListener(&quot;touchstart&quot;, function() {<br />
+audioNode.load(); audioNode.play();<br />
+}, false);</div></div>
+<p><strong>Hot swapping sources:</strong> We can now change the &#8220;activated&#8221; audio tag&#8217;s source on the fly. So it is now possible &#8211; without user interaction (!) &#8211; to load and play different sources. But you can only play one source at a time, of course.</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="text codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">audioNode.addEventListener(&quot;ended&quot;, function() {<br />
+audioNode.src = &quot;newSource.mp3&quot;;<br />
+audioNode.load(); audioNode.play();<br />
+}, false);</div></div>
+<p><strong>Use audio sprites:</strong> The guys over at Zynga use audio sprites in their <a title="Zynga Jukebox on github" href="https://github.com/zynga/jukebox">Jukebox</a>. This means that you have a huge audio file containing one sound that you want to play, then one second of silence, then another sound and so on.</p>
+<p>Example for a sound sprite structure:<br />
+1 second silence<br />
+First sound<br />
+1 second silence<br />
+Second sound<br />
+1 second silence<br />
+Third sound</p>
+<p>In this file you include all the audio that you possibly want to play in your app. You only load the source once (as described above) and then jump to the relevant parts in the file. So the file is always playing but most of the time it just plays silence. When you need the sound, you can quickly jump to the part in the file that you need to play. This solution is quick (much faster than hot swapping!) but requires a long preloading phase before you can play the most sounds, because the file is bigger.</p>
+<h2>tl;dr</h2>
+<p>So audio in iOS is pretty much broken. If you are using a native wrapper like PhoneGap you could use native APIs via plugins like <a href="https://github.com/purplecabbage/phonegap-plugins/tree/master/iPhone/SoundPlug" title="SoundPlug on github">SoundPlug</a>. We&#8217;ll try what is possible in the upcoming versions of iOS. Please let us know your ideas and feedback in the comments.</p>
+<h2>Update:</h2>
+<p>Regarding Philip&#8217;s comment, this is how we think it could be.</p>
+<p><img src="http://img577.imageshack.us/img577/516/audiopref.png" width="200" class="size-medium" alt="Settings" style="border: 2px solid #CFCFCF;float: left" /><img src="http://img259.imageshack.us/img259/2771/audioalert.png" width="200" class="size-medium" alt="Alert" style="border: 2px solid #CFCFCF;float: left" /></p>
+<p></p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2011/11/state-of-html5-audio-in-ios-5/">State of <audio> in iOS5</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2011/11/state-of-html5-audio-in-ios-5/feed/</wfw:commentRss>
+		<slash:comments>5</slash:comments>
+		</item>
+		<item>
+		<title>EmbedJS 0.2 and AMD</title>
+		<link>http://www.uxebu.com/blog/2011/10/embedjs-0-2-and-amd/</link>
+		<comments>http://www.uxebu.com/blog/2011/10/embedjs-0-2-and-amd/#comments</comments>
+		<pubDate>Mon, 17 Oct 2011 15:43:16 +0000</pubDate>
+		<dc:creator><![CDATA[Jens Arps]]></dc:creator>
+				<category><![CDATA[development tools]]></category>
+		<category><![CDATA[HTML5]]></category>
+		<category><![CDATA[html5apps]]></category>
+		<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[mobile]]></category>
+		<category><![CDATA[development]]></category>
+		<category><![CDATA[dojo]]></category>
+		<category><![CDATA[embedjs]]></category>
+
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=1843</guid>
+		<description><![CDATA[<p>During JSConf.eu, we released EmbedJS 0.2. That release was mainly about a fundamental architectural change: the move to the AMD pattern for our features. Let me explain why we decided to do this, why we think this is a big step forward and what this means for the user. Modules AMD stands for &#8220;Asynchronous Module [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2011/10/embedjs-0-2-and-amd/">EmbedJS 0.2 and AMD</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>During JSConf.eu, we released EmbedJS 0.2. That release was mainly about a fundamental architectural change: the move to the AMD pattern for our features. Let me explain why we decided to do this, why we think this is a big step forward and what this means for the user.<br />
+<span id="more-1843"></span></p>
+<h2>Modules</h2>
+<p>AMD stands for &#8220;Asynchronous Module Definition&#8221;. So, what are modules? I&#8217;ll quote the definition from the <a href="http://wiki.commonjs.org/wiki/Modules/1.1" target="_blank">CommonJS Module specification</a>, as it describes it very well:</p>
+<blockquote><p>This specification addresses how modules should be written in order to be interoperable among a class of module systems that can be both client and server side, secure or insecure, implemented today or supported by future systems with syntax extensions. These modules are offered privacy of their top scope, facility for importing singleton objects from other modules, and exporting their own API.</p></blockquote>
+<p>So, modules are isolated parts of code that live in their own scope and are kind of self-contained. Well, that is pretty much how we see the individual Features in EmbedJS – we made our feature implementations as small as possible and reduced dependencies as much as possible. Many of EmbedJS&#8217; features are also browser-independent, so why not make it possible to use some of the tools in a non-browser environment?</p>
+<p>(If you want to learn more on modules and why we need them, I recommend <a href="http://twitter.com/briancavalier" target="_blank">@briancavalier</a>&#8216;s <a href="http://briancavalier.com/presentations/pgh-js-amd-10-2011/" target="_blank">presentation on modules</a>.)</p>
+<h2>Features in EmbedJS</h2>
+<p>So far, I didn&#8217;t really explain what I mean with &#8220;Features&#8221;, so let me do another quote, this time from the <a href="http://uxebu.github.com/embedjs/" target="_blank">Project Page</a>:</p>
+<blockquote><p>EmbedJS uses the concept of features: Functionalities are split up into features, as fine-grained as possible, and each feature might have multiple implementations.</p></blockquote>
+<p>Our Features are kinda small and contain only few methods, sometimes even just one. The asyc-promise feature, for example, will get you Promises, and the transport-jsonp feature will get you a method for pull in data via jsonp – and that&#8217;s it.  If multiple methods are contained within one feature, this is because they are too closely related to each other to split them up, like the html-class feature, which contains the <code class="codecolorer text default"><span class="text">addClass</span></code>, <code class="codecolorer text default"><span class="text">removeClass</span></code>, <code class="codecolorer text default"><span class="text">toggleClass</span></code> and <code class="codecolorer text default"><span class="text">hasClass</span></code> methods.</p>
+<h2>AMD vs CommonJS Modules 1.1</h2>
+<p>Now that we knew modules were the way to go, there was another, quite important question to solve: There are two common patterns for modules, so which one do we want to apply? One pattern is described in the above mentioned CommonJS Wiki, the other pattern is described in the <a href="https://github.com/amdjs/amdjs-api/wiki/AMD" target="_blank">AMD wiki</a>.</p>
+<p>Well, there have been <a href="http://tagneto.blogspot.com/2011/04/on-inventing-js-module-formats-and.html" target="_blank">some</a> <a href="http://unscriptable.com/index.php/2011/09/30/amd-versus-cjs-whats-the-best-format/" target="_blank">blog</a> <a href="http://blog.millermedeiros.com/2011/09/amd-is-better-for-the-web-than-commonjs-modules/" target="_blank">posts</a> lately that compare the pros and cons of each of them, so I don&#8217;t want to repeat all of this – but I&#8217;m hiving a similar tendency towards AMD. Besides this, there was another big reason to go with AMD: Remember, EmbedJS is based on the <a href="http://dojotoolkit.org/" target="_blank">Dojo Toolkit</a>, and it&#8217;s a <a href="http://dojofoundation.org/" target="_blank">Dojo Foundation Project</a> – and we hope that the efforts that went into making EmbedJS might flow back into the Dojo Toolkit one day. And as the Dojo Toolkit uses the AMD approach, the decision was quickly made to do so as well.</p>
+<h2>Implications for EmbedJS</h2>
+<p>There are several huge benefits for EmbedJS in using the AMD approach. The most noteworthy surely is the ease-of-use for developers. In your code, when you find you want an EmbedJS method, you <a href="http://uxebu.github.com/embedjs/docs/" target="_blank">look up the feature name</a> that provides this method, add it to the require statement and there you go. Man, easy.</p>
+<p>A second important thing is that EmbedJS now plays really nice with AMD based projects. In fact, you could see EmbedJS now as a collection of small useful modules, that can be easily integrated – and also easily extended.</p>
+<p>The third major benefit is that we can now get rid of all the custom tools we built around EmbedJS – you can load features with any AMD loader (though we use and recommend RequireJS) and build it with any AMD optimizer/builder (we recommend r.js).</p>
+<p>Let&#8217;s have an extra word on</p>
+<p><strong>Building</strong></p>
+<p>It was always possible with EmbedJS to create a custom build that would contain only the features you wanted/needed in your project. But, you had to use our build tool that we created. And learning &amp; using Yet-Another-Build-Tool™ is always… well, let&#8217;s just say it would be cool to avoid it (and, not to forget, so is maintaining it). We did a lot to improve that, we created a GUI that allowed you to just &#8220;click together&#8221; the features you wanted, and we worked on a dynamic loader that would ease development. But still, the situation was far from ideal, and people just ended up going for our ready-made &#8220;kitchensink&#8221; builds that contained <em>all</em> of the features.</p>
+<p>Now, we still provide those ready-made builds that contain only the implementations for a given platform (and are stripped of require/define calls), but I really hope that using the AMD approach and using an AMD optimizer to deploy will become the more adopted style.</p>
+<h2>Q: Cross-target? A: The Feature Plugin</h2>
+<p>One goal of EmbedJS is to allow for easy cross-device development. We got rid of run-time branching but instead went for an approach that held the different implementations for a given feature in separate files, so that one only has to deploy the actually needed code to a given device – and not all the alternate implementations, that sit useless in the device&#8217;s memory and never get used. We needed to achieve that with &#8220;in-house&#8221; means provided by the AMD approach. Lucky us, there&#8217;s the concept of <a href="https://github.com/amdjs/amdjs-api/wiki/Loader-Plugins" target="_blank">loader-plugins</a>, and so I created a <a href="https://github.com/jensarps/AMD-feature" target="_blank">feature-plugin for AMD loaders</a>. The idea is simple yet effective: You create an implementation map that maps a feature name to an implementation, and if there are multiple implementations, you supply tests that tells the plugin which feature to use.</p>
+<p>When you&#8217;re ready to deploy, you have two choices: I f you really don&#8217;t know on what target your code is going to end up, you can use the dynamic implementation map containing the tests for the optimizer, and you&#8217;ll get a build that contains all of the available implementations. Then, during runtime, the feature plugin will run the tests and load the specific implementation. But, if you <em>do</em> know what target your code will run on, you provide a specific implementation map that doesn&#8217;t contain tests but directly maps to the according implementations, and you will only have those in your built file.</p>
+<h2>Synopsis</h2>
+<p>AMD is exactly what we needed to make EmbedJS more what we want it to be – an easy to use JavaScript toolbox that is especially handy for cross-target scenarios such as cross-platform mobile development. So, please don&#8217;t hesitate and check it out on Github, read the project page and check out the examples!</p>
+<p>&nbsp;</p>
+<p><strong>Resources / Further Reading</strong></p>
+<ul>
+<li><a href="https://github.com/uxebu/embedjs" target="_blank">EmbedJS on GitHub</a></li>
+<li><a href="http://uxebu.github.com/embedjs/" target="_blank">EmbedJS Project Page</a></li>
+<li><a href="http://uxebu.github.com/embedjs/docs/" target="_blank">EmbedJS API Docs</a></li>
+<li><a href="https://github.com/jensarps/AMD-feature" target="_blank">AMD-Feature plugin</a></li>
+<li><a href="https://github.com/amdjs/amdjs-api/wiki" target="_blank">AMD Wiki</a></li>
+<li><a href="http://wiki.commonjs.org/wiki/CommonJS" target="_blank">CommonJS Wiki</a></li>
+</ul>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2011/10/embedjs-0-2-and-amd/">EmbedJS 0.2 and AMD</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2011/10/embedjs-0-2-and-amd/feed/</wfw:commentRss>
+		<slash:comments>4</slash:comments>
+		</item>
+		<item>
+		<title>JavaScript, HTML5, CSS3 workshop</title>
+		<link>http://www.uxebu.com/blog/2011/06/javascript-html5-css3-workshop/</link>
+		<comments>http://www.uxebu.com/blog/2011/06/javascript-html5-css3-workshop/#comments</comments>
+		<pubDate>Fri, 10 Jun 2011 13:58:56 +0000</pubDate>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+				<category><![CDATA[business]]></category>
+		<category><![CDATA[frontend engineering]]></category>
+		<category><![CDATA[HTML5]]></category>
+		<category><![CDATA[html5apps]]></category>
+		<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[mobile]]></category>
+		<category><![CDATA[uxebu]]></category>
+		<category><![CDATA[workshop]]></category>
+
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=1554</guid>
+		<description><![CDATA[<p>Uxebu is spreading its knowledge, get some of it &#8211; for 699€ if you are an early bird (999€ later)! Uxebu is now operating it&#8217;s business purely in the JavaScript space for about three years (oh that reminds me we should have a party!). We are convinced that JavaScript is ramping up now and we [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2011/06/javascript-html5-css3-workshop/">JavaScript, HTML5, CSS3 workshop</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<h2>Uxebu is spreading its knowledge, get some of it &#8211; for 699€ if you are an early bird (999€ later)!</h2>
+<p><span id="more-1554"></span></p>
+<p>Uxebu is now operating it&#8217;s business purely in the JavaScript space for about three years (oh that reminds me we should have a party!). We are convinced that JavaScript is ramping up now and we see that there are more and more things done and possible with the language. The browser landscape is developing rapidly and changing every day. The mobile industry is pushing the limits and we are helping to do our part in it. We learned a lot and are still learning. As it is in the nature of our company to spread our knowledge to allow everyone to use the technology at it&#8217;s best and push the limits with us, we think now it&#8217;s the time that we share our knowledge and pass it on to those hungering for diving into JavaScript!</p>
+<p>We really have <a href="http://twitter.com/void_0">gathered</a> <a href="http://twitter.com/jensarps">a lot</a> of <a href="http://twitter.com/tobeytailor">bright</a>, <a href="http://twitter.com/evilhackerdude">bleeding-edge</a> <a href="http://twitter.com/kuvos">people</a> and each of us is learning from another everyday. If you want to get some of the know how (at least as much as we can pass on in a two day workshop) you are invited to <a href="http://uxebu.com/html5-workshop/">join our workshops</a>. There will be one held in <a href="http://de.amiando.com/jsmunich.html"><strong>Munich 29th and 30th of June</strong></a> and another one in <a href="http://de.amiando.com/jsamsterdam.html"><strong>Amsterdam 11th and 12th of July</strong></a>. We will always have at least two uxebus teaching you the latest and hottest. We might even have some of the latest <a href="http://twitter.com/twtomcat/statuses/79157866954637313">bleeding-edge mobile devices</a> for you to run the app you will develop in the workshop.</p>
+<hr style="margin: 4em 0;" />
+<h2>Workshop Details</h2>
+<p>In this course we will cover a broad spectrum from JavaScript essentials to the bleeding edge of cross platform HTML5 development. We start from the ground up and go step by step, depending on the level of the participants we accelerate to show you the deep and dark sides of JavaScript.</p>
+<p>Each day of the course is split into an intensive “knowledge transfer” session in the morning and a hands on hacking workshop in the afternoon in which you will apply the contents learned during the morning. At the end you will have touched all contents not only through theory but also through intensive real life application and coding.</p>
+<p><em>Note that this course will not explain you how to work with jQuery and also not how to work without jQuery. The course mainly focuses on JavaScript, mobile and HTML5.</em></p>
+<h2>Day 1 (part 1) &#8211; JavaScript</h2>
+<p>We start with a small overview of the history. We tackle the basic structure of the language and move on with <strong>statements</strong>, <strong>expressions</strong>, <strong>functions</strong> and <strong>objects</strong>. We touch the different <strong>operators</strong> and when semi colons are introduced.</p>
+<p>We continue our way through the JavaScript landscape by taking a look at <strong>objects</strong>, <strong>properties</strong> and <strong>built-in functionality</strong>. At that point we’ll encounter our first major obstacles; <strong>scopes</strong> and <strong>closures</strong>. Once we conquer these we touch on the <strong>difference between functions and constructors</strong>. This is followed by our second major obstacle; <strong>prototype</strong> and the various values of the <strong>this keyword</strong>.</p>
+<h2>Day 1 (part 2) &#8211; Hackday: HTML5, CSS3</h2>
+<p>During the second part of day one, we will take what we have learned in the morning and mix it with a little shot of HTML5 fanciness. We will look at all those new APIs we can now access on our (mobile) devices to bring JavaScript to a new level. We will include cool APIs such as the <strong>Audio API, Video API, history, Canvas, SVG, File API, WebGL, DeviceMotion, WebWorkers, WebSocket, GPS</strong> &#8211; and if all ingredients fit well you might just end up with your first app written in JavaScript.</p>
+<h2>Day 2 (part 1) &#8211; The App Day</h2>
+<p>During the second day we willl continue with <strong>timers</strong>, <strong>callbacks</strong>, <strong>web workers</strong>, <strong>eval</strong> and the <strong>future of JavaScript</strong>. The speed of the course is matched with it’s participants. The important parts of the languages will be handled in the workshop. During the first part of day two we will also specifically look into topics which you want to cover after determining those during day one. This will give you the chance to get all your open questions answered so that you have your pockets full of knowledge after the workshop is over.</p>
+<h2>Day 2 &#8211; part two (Mobile)</h2>
+<p>JavaScript has grown strongly into the mobile space, so we will show you how to get the app you have started building during day one onto <strong>mobile devices</strong>. You will learn about <strong>media queries</strong>, some <strong>device sensors</strong>, <strong>performance</strong> and HTML5/CSS3/JavaScript tricks and how to optimize some parts for mobile and how to make a <strong>native app</strong> out of it, so you finally could even make get it into the <strong>app store</strong> and make money with it.</p>
+<h2>Now you want to join our workshop?</h2>
+<p>Join us either</p>
+<ul>
+<li>in <a href="http://de.amiando.com/jsmunich.html"><strong>Munich 29th and 30th of June</strong></a>or</li>
+<li>in <a href="http://de.amiando.com/jsamsterdam.html"><strong>Amsterdam 11th and 12th of July</strong> </a></li>
+</ul>
+<p><a href="http://uxebu.com/html5-workshop/"><img style="position: fixed; left: 0; top: 0;" src="http://uxebu.com/html5-workshop/workshop-badge.png" alt="Workshop: " /></a></p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2011/06/javascript-html5-css3-workshop/">JavaScript, HTML5, CSS3 workshop</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2011/06/javascript-html5-css3-workshop/feed/</wfw:commentRss>
+		<slash:comments>2</slash:comments>
+		</item>
+		<item>
+		<title>Coworking, Spanish geeks and more</title>
+		<link>http://www.uxebu.com/blog/2011/04/coworking-spanish-geeks-and-more/</link>
+		<comments>http://www.uxebu.com/blog/2011/04/coworking-spanish-geeks-and-more/#comments</comments>
+		<pubDate>Wed, 06 Apr 2011 08:09:43 +0000</pubDate>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+				<category><![CDATA[business]]></category>
+		<category><![CDATA[dojo]]></category>
+		<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[mobile]]></category>
+		<category><![CDATA[uxebu]]></category>
+		<category><![CDATA[coding dojo]]></category>
+		<category><![CDATA[coworking]]></category>
+		<category><![CDATA[valencia]]></category>
+
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=1519</guid>
+		<description><![CDATA[<p>After the MWC in Barcelona I moved my working place to Valencia for a week, a little further south. That is already a while ago, but still I wanted to write a little bit about all the experiences. Not last because I very much want to thank all the people who I have met, who [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2011/04/coworking-spanish-geeks-and-more/">Coworking, Spanish geeks and more</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>After the MWC in Barcelona I moved my working place to Valencia for a week, a little further south. That is already a while ago, but still I wanted to write a little bit about all the experiences. Not last because I very much want to thank all the people who I have met, who introduced me into the spanish community and made all this so much fun. Thank you very much first and foremost <a href="http://twitter.com/#!/coworkvalencia">Rosa</a> &#8211; you rock! Thank you <a href="http://twitter.com/#!/XaV1uzz">Xavi</a>, <a href="http://twitter.com/#!/txau">Jaume</a>, Jorge, Luis, and &#8230; fuck I am so bad with names :(.<br />
+<span id="more-1519"></span></p>
+<h2>Coworking in Valencia</h2>
+<p>My week in Valencia started out to look very quiet and just pure work. I tried to contact some JavaScript/mobile/web guys in this area before hand, but somehow didn&#8217;t really succeed. Some tweets went around but I didn&#8217;t really reach anybody. But I made sure I have a great place to work at, which was <a href="http://coworkingvalencia.com/">Coworking Valencia</a>, Rosa Montesa runs this place with so much passion &#8211; wow. And I just had to think of the <a href="http://www.combinat56.de">Combinat56 Coworking</a> space in Munich where we normally go, which is run by Sina with an equal lot of passion. Just great girls!</p>
+<p>So I arrived there Monday morning to do my work, and off it went. I chatted a while with Rosa and some other coworkers and from there I couldn&#8217;t stop it. At the end of the day my calendar was filled with lunches and meetups. I met a lot of interesting people, first Rosa had organized a small come-together the next day with the company <a href="http://www.brainstorm.es">Brainstorm</a> from right above, mainly hackers too, so we had quite some stuff in common. There I met Jorge who introduced me to more geeky people, thank you so much!</p>
+<h2>Spanish way of life</h2>
+<p>So the week went on and I tried to work a little bit, but I was basically so happy to live the spanish way of life a little bit. In the morning you don&#8217;t buy a take away coffee, actually you don&#8217;t see the busy people running around with their coffee mugs in there hands. I also just did that the first day, after that I adopted the spanish way, which is sitting down in a bar (also if it just for five minutes) and have a coffee. A lot of people there have a <a href="http://en.wikipedia.org/wiki/Carajillo">carajillo</a> in the morning but that was not appropriate for my mornings :).<br />
+For lunch (later than normal for me, around after 2pm) we mostly went to some place outside, since it was at least 20°C, beautiful sun just perfect. And then on the way home you just take some tapas maybe a beer in the bar around the corner and late at night (normally after 9pm) we had dinner. For me working there felt really comfortable and easy going. But I have also heard that normally working in Spain is not normally that relaxed.</p>
+<h2>The real geeks</h2>
+<p>On Thursday I went to the <a href="http://www.becodemyfriend.com/">BeCode</a> guys&#8217; office in the nice <a href="http://es.wikipedia.org/wiki/El_Carmen_(Valencia)">Barrio del Carmen</a>. The first thing after I arrived was &#8220;let&#8217;s go for a coffee&#8221; :). That is the spanish style! We exchanged the ideas of how we work and the kind of projects we do. Xavi the daddy of BeCode (scnr) told me that they are an incubator and try to have people come in and realize their ideas, pretty cool stuff. Was so refreshing and forward-thinking, I felt home.<br />
+Funny enough that day I learned about <a href="http://pivotal.github.com/jasmine/">Jasmine</a> there, they used in a project. Unfortunately we had no internet that day, so I was pretty much offline until the afternoon, which was somehow good, but not when you really want to get some things done. So I promised to be back the next day and then the office was also really crowded and I got to meet all of the <a href="http://www.becodemyfriend.com/equipo/">BeCode team</a>. In the evening I joined my first <a href="http://blog.dev.openfinance.es/2011/03/ii-coding-dojo/">coding dojo</a>, this one was held in the offices of <a href="http://blog.dev.openfinance.es/">OpenFinance</a>. We were given the task to write a roman to latin numbers converter in whatever programming language you like. You are given half an hour and try to get as far as you can, I joined forces with <a href="http://twitter.com/#!/txau">Jaume</a> we got it easily done in the half an hour time, we simply used the <a href="https://github.com/vf/web-testsuite">webtestsuite</a> as our testing framework since I know that one best and of course we wrote the converter in JavaScript :). As a second Kata you could hack the conversion the other way around. Jaume and I felt that this would be just another hacking it the other way job was, so we looked for a new challenge and we said let&#8217;s just use the google search engine for converting it for us and we just grab the result from there. We looked at a couple of APIs, at YQL but there was no real solution, so we went the scraping route. We got it almost done :). But as you <a href="http://www.flickr.com/photos/57436095@N03/sets/72157626167343224/with/5485645335/">can see</a> <a href="http://blog.dev.openfinance.es/2011/03/ii-coding-dojo/">and read</a> we had lots of fun and enough beer!<br />
+Of course we went for dinner later and were still hanging out some time around Valencia and in the BeCode office later. There the guys told me about an Code Retreat which is going to take place somewhere near Valencia &#8220;en el campo&#8221; with <a href="http://en.wikipedia.org/wiki/Paella">Paella</a> cooking and hacking, I hope that some of us uxebus may join, hope to find out details soon.</p>
+<p>All in all a big thank you to all you guys and I can just say I had a great, though also really exhausting, two weeks in Spain. Hope to see you soon!</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2011/04/coworking-spanish-geeks-and-more/">Coworking, Spanish geeks and more</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2011/04/coworking-spanish-geeks-and-more/feed/</wfw:commentRss>
+		<slash:comments>5</slash:comments>
+		</item>
+		<item>
+		<title>What is WAC and how it could help us</title>
+		<link>http://www.uxebu.com/blog/2011/02/what-is-wac-and-how-it-could-help-us/</link>
+		<comments>http://www.uxebu.com/blog/2011/02/what-is-wac-and-how-it-could-help-us/#comments</comments>
+		<pubDate>Thu, 24 Feb 2011 16:53:08 +0000</pubDate>
+		<dc:creator><![CDATA[Stephan]]></dc:creator>
+				<category><![CDATA[business]]></category>
+		<category><![CDATA[development tools]]></category>
+		<category><![CDATA[Events]]></category>
+		<category><![CDATA[frontend engineering]]></category>
+		<category><![CDATA[html5apps]]></category>
+		<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[mobile]]></category>
+		<category><![CDATA[w3c widgets]]></category>
+		<category><![CDATA[HTML5]]></category>
+		<category><![CDATA[w3c]]></category>
+		<category><![CDATA[wac]]></category>
+
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=1402</guid>
+		<description><![CDATA[<p>At Mobile World Congress 2011 in Barcelona, @uxebu attended the WAC event to catch up with the future of WAC. WAC, short for Wholesale Applications Community, is a group of global mobile operators. They provide, among other things, a spec for their correspondent web application runtime &#8220;WAC&#8221;. Recently the new WAC 2.0 Spec got out [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2011/02/what-is-wac-and-how-it-could-help-us/">What is WAC and how it could help us</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>
+At Mobile World Congress 2011 in Barcelona, @uxebu attended the WAC event to catch up with the future of WAC.<br />
+WAC, short for Wholesale Applications Community, is a group of global mobile operators.<br />
+They provide, among other things, a spec for their correspondent web application runtime &#8220;WAC&#8221;.
+</p>
+<p>
+Recently the new WAC 2.0 Spec got out and it&#8217;s looking good.<br />
+Compared to WAC 1.0, the WAC 2.0 Spec is a shift into the right direction:<br />
+Instead of inventing new APIs, WAC 2.0 adheres to web standards like HTML5 and W3C Widget Packaging.
+</p>
+<p><span id="more-1402"></span></p>
+<p>
+Let&#8217;s compare the two major spec revisions in that repsect:
+</p>
+<p>
+As said before, the WAC 1.0 Spec described distinct APIs, e.g., for audio, messaging (SMS &#038; email), camera and geo-location.
+</p>
+<p>
+Taking photos, for example, involved assigning a callback to a global value inside the Camera object and invoking Camera&#8217;s captureImage method.
+</p>
+<p>
+There&#8217;s a problem with that: What if two pieces of code both assign their own callback to that shared value?<br />
+The one which assigned its callback last will be executed. The first callback is &#8220;dead code&#8221;.<br />
+Of course this can be remedied by the app developer, but I believe it&#8217;s the library&#8217;s job to get something as essential as deferred execution right.<br />
+All WAC 1.0 APIs use this global callback model and inherit the problem.<br />
+There are better, more elegant ways to defer execution (e.g. dojo&#8217;s Deferred or node&#8217;s callback passing &#038; EventEmitter).<br />
+And fortunately, WAC 2.0 replaced the old model with a callback passing approach.
+</p>
+<p>
+If everything goes well, what could WAC provide developers with?
+</p>
+<ol>
+<li>An easy way to package web apps &#8220;for home screens &#038; app stores&#8221; by wrapping web apps in native container apps.</li>
+<li>An extension of browsers&#8217; capabilities to enable richer web apps. This includes APIs for camera and file access.</li>
+<li>In contrast to alternatives WAC has a strong focus on carrier network APIs. This could enable purchase through carrier billing.</li>
+<li>A security model to effectively protect user&#8217;s privacy and security.</li>
+</ol>
+<p>
+So go ahead and look at what the new WAC 2.0 has to offer.<br />
+I&#8217;m excited to build apps with it once it&#8217;s running on some major platforms!
+</p>
+<p>
+To conclude I&#8217;d like to end this post with my personal opinion on what I believe WAC needs to focus on to succeed:
+</p>
+<ol>
+<li>WAC runtimes have to run at least on iOS, Android and a few other major-marketshare platforms. There&#8217;s no point in developing cross-platform web apps if you ignore major platforms.</li>
+<li>WAC&#8217;s marketing &#038; identity need to be more developer-centric. Different top-notch WAC runtimes need to be advertised by WAC. Ideally there would be an official runtime for each platform.</li>
+<li>Apps built on top of WAC runtimes have to be compatible to major app stores. For example, imagine a developer is targeting Android and iOS. What if Apple rejected WAC-based apps because of, e.g., a bundled custom WebKit build? I&#8217;m pretty sure no sane developer would consider WAC if that effectively banned their app from ever going into the most profitable app store. And while there will be carrier-operated stores I am not overly confident in that. Human beings simply prefer one familiar store/market on their phone.</li>
+<li>Web app developers want their code base functioning consistently across multiple platforms with little or no effort. This implies that different WAC runtimes should strictly respect the specification. If there are implementation differences it&#8217;ll result in multiple code branches in the app code to repair broken implementations. Well, if WAC wants to succeed this must not become an issue for the app developer! Most apps are going to need custom code to support physical device differences. So hey, it will be incredibly helpful if the basic APIs were consistently implemented! Please don&#8217;t screw this up, because I somehow doubt someone would develop a cross-WAC-platform JavaScript framework.</li>
+<li>WAC 2.0 runtimes with the above properties should appear very soon. They also need to be advertised in an easy to understand manner.</li>
+<li>WAC should stick to W3C specs &#038; drafts for APIs. If an API becomes part of a given platform it should be removed from that platform&#8217;s WAC runtime. Think back to when Google removed Gears support from their own browser to make way for standardized APIs.</li>
+</ol>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2011/02/what-is-wac-and-how-it-could-help-us/">What is WAC and how it could help us</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2011/02/what-is-wac-and-how-it-could-help-us/feed/</wfw:commentRss>
+		<slash:comments>1</slash:comments>
+		</item>
+		<item>
+		<title>Travel with uxebu &#8211; We are hiring!</title>
+		<link>http://www.uxebu.com/blog/2011/02/travel-with-uxebu-we-are-hiring/</link>
+		<comments>http://www.uxebu.com/blog/2011/02/travel-with-uxebu-we-are-hiring/#comments</comments>
+		<pubDate>Thu, 10 Feb 2011 16:56:04 +0000</pubDate>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+				<category><![CDATA[business]]></category>
+		<category><![CDATA[frontend engineering]]></category>
+		<category><![CDATA[html5apps]]></category>
+		<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[mobile]]></category>
+		<category><![CDATA[uxebu]]></category>
+
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=1377</guid>
+		<description><![CDATA[<p>Yesterday HP announced the new WebOS devices in San Francisco. Nikolai and Stephan had been there (and they are still there). MWC starts on Monday. Six out of seven of the uxebus will be there in Barcelona, all week, one apartment, sea view and fun. After JSConf in Portland (at least) three of us are [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2011/02/travel-with-uxebu-we-are-hiring/">Travel with uxebu &#8211; We are hiring!</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>Yesterday HP announced the new WebOS devices in <strong>San Francisco</strong>. Nikolai and Stephan had been there (and they are still there). MWC starts on Monday. Six out of seven of the uxebus will be there in <strong>Barcelona</strong>, all week, one apartment, sea view and fun. After JSConf in <strong>Portland</strong> (at least) three of us are going to <a href="http://nodeconf.com/">NodeConf</a> and <a href="http://www.google.com/events/io/2011/">Google IO</a> again in <strong>San Francisco</strong>. Right after it all of uxebu will be in <strong>Amsterdam</strong> for <a href="http://mobilism.nl/2011">mobilism</a>. We have also been in <strong><a href="http://skillsmatter.com/podcast/ajax-ria/the-mobile-web-the-future-today">London</a></strong>, <strong><a href="http://swdc-central.com/">Malmö</a></strong>, <strong><a href="http://www.developermarch.com/mods/2010/report/index.html">Bangalore</a></strong> and more &#8230; Yeah we are a travel company!<br />
+<span id="more-1377"></span></p>
+<p>You do not only get to travel in uxebu. First and foremost we want to give you the opportunity and platform to accelerate the things you can do, show it to the community and enable you to reach more than you could on your own.<br />
+It doesn&#8217;t matter where you live! We are currently flirting with San Francisco too :).</p>
+<p>But we are also a family company! We encourage you to have fun and put the priorities right. And family and health are top priorities at uxebu. As you can also see, as long as you like traveling and hanging out with the top geeks in our community you get to do that at uxebu, a lot. Because this is the bread and butter of high quality that we offer to our customers. And in order to become a top geek (which is one goal that we have for you at uxebu, if you aren&#8217;t one yet :)) you should be around those where you can suck know how and hopefully also give back and share yours as well.<br />
+You get the hardware that you need to work as efficient as possible. You prefer working at home or in a co-working space? No problem, feel free! Once in a time we meet some place and hack together for a couple of days, talk about our roadmap, find out where each of us wants to head and we figure out the way how to achieve reaching the goal we determine together. We normally meet some nice place, like at a lake or in the mountains. The last times we had both :). And we take the families with us.</p>
+<p><a href="http://twitter.com/jensarps">Jens Arps</a> joined uxebu in May 2010, he is the guy behind <a href="https://github.com/jensarps/StorageJS">StorageJS</a>, he is project lead for the just new dojo foundation member <a href="http://embedjs.org">embedJS</a> and is working on a really exciting HTML5 customer project that I can not link here :(. <a href="http://twitter.com/evilhackerdude">Stephan Seidt</a> has hacked the newest (still unreleased) <a href="http://apparat.io">apparatio</a> API, he is the one who does the <a href="http://nodejs.org/">node.js</a> stuff in our team and WebGL is what <a href="http://2011.jsconf.us/#/proposal/6f23fd600302403a9f53e11390179c4e">he is passionate</a> about, really passionate! I don&#8217;t have to say much about <a href="http://twitter.com/tobeytailor">Tobias Schneider</a> the guy behind <a href="https://github.com/tobeytailor/gordon">Gordon</a>, he has become famous over night, spoke at the last two JSConf&#8217;s and is our hard-core optimizer.  <a href="http://twitter.com/davidaurelio">David Aurelio</a> has created <a href="https://github.com/davidaurelio/TouchScroll">TouchScroll</a> and if you team him up with Tobias Schneider we have ALL JavaScript knowhow in da house, and they are currently hacking together on a really awesome project. <a href="http://twitter.com/nonken">Nikolai Onken</a> a co-founder of uxebu is our social community front man and the party goer number one and besides that he has created HumanAPI and knows all the JavaScript guys around! <a href="http://twitter.com/tklipstein">Tobias von Klipstein</a> is also guilty of founding uxebu and he is our Jack of all trades, he had created the first version of apparatio almost all alone.<br />
+<a href="http://twitter.com/wolframkriesing">Me</a>, I write blog articles, sometimes. But I get to go to all parties anyway :).</p>
+<p>If you are a JavaScript geek, love to walk along the edge of what is possible with web technologies and think that <a href="http://techcrunch.com/2011/02/09/html5-versus-native-apps/">HTML5 is the rocket ship</a> you should send us an <a href="mailto:job@uxebu.com?subject=Let%20me%20in!">email</a> with some links to some of your projects and a short, convincing reasoning why you would like to work with us. And if you think that you can&#8217;t work with us because you are not ready yet, shoot us an email anyways and let us talk first and decide later. We are made of talented individuals each. But working together as a team is what makes us really strong. Be ready for it!</p>
+<p>And btw get ready to learn something new every day. And do also pass on your know how!</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2011/02/travel-with-uxebu-we-are-hiring/">Travel with uxebu &#8211; We are hiring!</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2011/02/travel-with-uxebu-we-are-hiring/feed/</wfw:commentRss>
+		<slash:comments>3</slash:comments>
+		</item>
+		<item>
+		<title>Explaining EmbedJS</title>
+		<link>http://www.uxebu.com/blog/2011/01/explaining-embedjs/</link>
+		<comments>http://www.uxebu.com/blog/2011/01/explaining-embedjs/#comments</comments>
+		<pubDate>Mon, 31 Jan 2011 14:02:28 +0000</pubDate>
+		<dc:creator><![CDATA[Jens Arps]]></dc:creator>
+				<category><![CDATA[development tools]]></category>
+		<category><![CDATA[dojo]]></category>
+		<category><![CDATA[frontend engineering]]></category>
+		<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[mobile]]></category>
+		<category><![CDATA[Uncategorized]]></category>
+		<category><![CDATA[uxebu]]></category>
+		<category><![CDATA[development]]></category>
+		<category><![CDATA[embedjs]]></category>
+		<category><![CDATA[memory usage]]></category>
+		<category><![CDATA[optimize]]></category>
+		<category><![CDATA[performance]]></category>
+
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=1366</guid>
+		<description><![CDATA[<p>Last week, we tagged the current state of EmbedJS 0.1. This is a large step for us, and something we have been waiting for and wanting to do for a long time. And with doing so, the need arises to answer a lot of questions – and we better start sooner than later. So, here [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2011/01/explaining-embedjs/">Explaining EmbedJS</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>Last week, we tagged the current state of EmbedJS 0.1. This is a large step for us, and something we have been waiting for and wanting to do for a long time. And with doing so, the need arises to answer a lot of questions – and we better start sooner than later. So, here it is, the first part of „Explaining EmbedJS“.</p>
+<h2>What is it?</h2>
+<p>It‘s a JavaScript Toolkit, especially aimed at embedded devices. Embedded devices, that is phones, tablet devices, TVs, car dashboards and the like. Devices that are capable of running JavaScript. We are sure that this list is going to grow over time – and will hopefully one day also include devices like your fridge. EmbedJS is based on the Dojo Toolkit.<br />
+<span id="more-1366"></span></p>
+<h2>Why?</h2>
+<p>Because the toolkits and frameworks that exist focus on desktop browsers and therefore have a different approach – an approach we didn‘t find that suitable for embedded/mobile development. And the JS frameworks that target mobile devices are flawed, too: either they target only a specific device or platform, or they provide far more than we do need and want.</p>
+<p>What we wanted was a toolkit that offered a unified API across different platforms, but with the best implementation that was available for each platform. And we didn‘t want to ship code that implemented a certain feature for, say, an old Blackberry device to an iPhone. Plus, we wanted that API to be small – enough to assist us in our daily work, but not that bloated that we would ship code to a phone that we wouldn‘t need in most of our projects.</p>
+<h2>The Dojo Toolkit</h2>
+<p>We at uxebu have a strong affinity to the <a href="http://dojotoolkit.org/" target="_blank">Dojo Toolkit</a> – most of us are committers – for a good reason: we believe that it has done many things right, and that it has an excellent code quality. Thus, finding a starting point for our venture to what was later to be EmbedJS was pretty easy: It was the very core of the Dojo Toolkit, dojo._base.</p>
+<p>We examined the code and split it into its smallest parts (features, how we call them in EmbedJS). After having the features all nicely separated, we could look for the best implementation for each of the platforms we wanted to support, and put it into a separate file. Then we optimized our code, tweaking here and there, but also using the code from dojo._base as it was, because it already was the best implementation.</p>
+<p>And we needed to find means to put all these tiny parts together again, respecting any given dependecies, to create a file that then contained all the feature‘s implementations for a given platform – so the EmbedJS Tools were born, including our highly flexible build system.</p>
+<h2>API</h2>
+<p>EmbedJS‘ API is a small subset on Dojo‘s API. It provides around 70 methods, from the fields language enhancement (like Array manipulation or JSON), OO (like classes and inheritance), transport (like JSONP or XHR), event system (like connecting to DOM events or methods), DOM manipulation (like style or node creation) and misc things like Promises or pub/sub.</p>
+<p>We kept the method signatures intact so that you can import your existing knowledge from working with the Dojo Toolkit to EmbedJS. There are only a few minor changes where we<br />
+a) found a new name highly useful, e.g <code class="codecolorer text default"><span class="text">dojo.io.script.get()</span></code> is <code class="codecolorer text default"><span class="text">embed.jsonp()</span></code><br />
+b) we needed to strip given functionality for the sake of code size.</p>
+<p>All methods in EmbedJS are available under the embed namespace as well as under the dojo namespace. I.e. to call the connect method you can use <code class="codecolorer text default"><span class="text">dojo.connect()</span></code> and <code class="codecolorer text default"><span class="text">embed.connect()</span></code>.</p>
+<p>The full API documentations is <a href="http://embedjs.org/apidocs/dools/app/apidoc/embedjs/" target="_blank">here</a>, though it‘s undergoing some updates right now.</p>
+<h2>Summary</h2>
+<p>I didn‘t want to dig too deep in the first article on EmbedJS, but I guess you got the point: EmbedJS is a highly optimized Dojo core, and offers you a specialized, optimal build for a given platform. To explain how the build system works, how we manage dependencies, how we separate our features and our implementations and how one can create a project-oriented custom build will need another blog post – but if you are too curious, you are invited to take a look at <a href="https://github.com/uxebu/embedjs" target="_blank">the source code at github</a>; a lot is self-explenatory there. A further source of information is the <a href="http://uxebu.github.com/embedjs/" target="_blank">EmbedJS project page</a>, as well as the <a href="https://github.com/uxebu/embedjs-tools" target="_blank">EmbedJS Tools source</a>.</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2011/01/explaining-embedjs/">Explaining EmbedJS</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2011/01/explaining-embedjs/feed/</wfw:commentRss>
+		<slash:comments>6</slash:comments>
+		</item>
+		<item>
+		<title>My first iPhone</title>
+		<link>http://www.uxebu.com/blog/2010/11/my-first-iphone/</link>
+		<comments>http://www.uxebu.com/blog/2010/11/my-first-iphone/#comments</comments>
+		<pubDate>Sun, 14 Nov 2010 20:56:24 +0000</pubDate>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+				<category><![CDATA[mobile]]></category>
+
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=1335</guid>
+		<description><![CDATA[<p>Just a couple of days ago we bought an iPhone4 for those of uxebu who wanted or needed one. I got me one too and I really need it I am serious &#8211; showing our apps is much easier when having my own phone instead of asking the customer to install a certain app from [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2010/11/my-first-iphone/">My first iPhone</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>Just a couple of days ago we bought an iPhone4 for those of uxebu who wanted or needed one. I got me one too and I really need it <img src="http://www.uxebu.com/wp-includes/images/smilies/icon_wink.gif" alt=";)" class="wp-smiley" /> I am serious &#8211; showing our apps is much easier when having my own phone instead of asking the customer to install a certain app from the store or go to a certain URL on his own iPhone.<br />
+I never had an iPhone before, I just played with those of others. So I thought I just write down some of my first days&#8217; experiences, since I felt there are really huge differences in the way the different phones are used and meant to be used.<br />
+<span id="more-1335"></span></p>
+<h2>Connectivity</h2>
+<p>Seemless connectivity is one of the best features of the iPhone, I configure a WiFi once and it uses it without bothering me, if not available it uses 3G. And it does that really fast, that was amazing! Not that other phones don&#8217;t have that, Android phones do that pretty well too, but BlackBerry, Nokia and others just never felt so smooth and fast regarding connectivity. You had to fight menus and it was just never as comfortable &#8211; though I have to add that BlackBerry6 got a lot better.<br />
+But let me differentiate here. The above targets the seemless and reasonable switching for being online, I really mean internet access. But the phone line connectivity felt different. I had been in places where the HTC Desire had phone coverage but the iPhone did not even find a source to connect to. I don&#8217;t know why, but a hotel in Munich a bit out of town and the Dubai Airport had been such places. For those iPhone-only users I can just hope that my phone is the exception.<br />
+Speaking of connection there was a very special use case that occured to me. On Emirates flights a mobile connection is provided, called AeroMobile iirc. I didn&#8217;t manage to connect with either phone, not the HTC Desire neither the iPhone4. But the Desire told me at least that my SIM card is not capable of connecting to this network. The iOS only told me to go into the settings and try to connect from there (also if I was already in there), which always left me hoping (until the Android told me why it couldn&#8217;t work).</p>
+<h2>Location</h2>
+<p>GPS reception is another thing somehow related to connectivity. And I can just say &#8211; awesome. I think I never held a device in my hands that retreived it&#8217;s position so quickly like the iPhone. I think GPS was turned on from the beginning (if not it was a single click that made me activate it), and from that moment on everytime I opened the maps app I got a result almost instantly. Maybe I had only been testing it with good reception, I can&#8217;t tell. I didn&#8217;t explicitly test GPS, it&#8217;s just a subjective feeling that my location was always retreived easily. Very smooth, that&#8217;s how it has to be.<br />
+Though there was one glitch. Once I used instagram and it retreived my location well, but didn&#8217;t again at this same spot, but that might have been just a glitch :).</p>
+<h2>Operator Settings</h2>
+<p>was another very positive experience the iPhone has to offer. If you have ever been fighting with APNs esp. on the Vodafone networks you know what I am talking about. Since we are working for Vodafone we had the pleasure already a couple of times with different phones, that we had to be careful which APN settings to use. And just to find them on the various different phones is not always easy &#8211; Nokia ;). The iPhone is configured for the first time when you activate it via iTunes. That is a pretty clever thing. All pure iPhone users will probably never get in touch with APNs, good for you. Of course the drawback here is that you have to activate the iPhone at all, which I didn&#8217;t really feel comfortable with. It felt a little bit like &#8220;first you tell Apple that you are the one using the iPhone&#8221;. Do I know what data iTunes sends home?</p>
+<h2>UX</h2>
+<p>Probably THE major difference to all other phones I had used before (and that have been a lot), was the instant reaction triggered by every touch. It felt good right away, anywhere I touch and expect something to happen it does happen. The LG Optimus with Windows Phone 7 on it is the only one comparable. Now the surface just needs to be smoother, somehow touching the glas makes this very organic touch interface, which works so fine, feel cold in the end. &#8230; Just a feeling.<br />
+Almost every app is built this way, that it reacts whenever you expect it to. Some are even optimized and built that way, that you get the feedback right away and you know it started working. Very nice. Surprisingly that one of the pre-installed Apple apps doesn&#8217;t completely fulfill this expectation, the camera app. First it takes quite a while to open and that really sucks when I want to take a quick picture. And second even though the app opened I have to wait until it is done initializing the app before I can switch between camera and video mode.<br />
+Anyway, I would really prefer a hardware button for taking pictures, that could replace a separate camera completely. And speaking of the camera, the HDR mode feels pretty useless imho. I expected much more of it one more feature you can reduce Apple, or improve it by very much, and while you are on it make it faster :).</p>
+<h2>Back Button Policy</h2>
+<p>One major difference in using Android compared to all other platforms is the system-wide history. Which easily speaking means you can click the back button (which every Android device has) to step through the history of all you did across applications. E.g. if you open the browser from within a twitter app and keep surfing in the browser, you can go back through the URLs you surfed too all the way back to the twitter app from where you came. This is something that is not possible on the iPhone. If your preferred twitter app doesn&#8217;t open a website inside the app you have to open the twitter app again to get back to it. The back button in the browser only lets you surf through the browsers history. In mobile I think the Android concept makes a lot of sense, simply because on mobile I have smaller apps with more focused use cases and combining them makes the mobile really powerful. So the Android way is very efficient for the user to keep the focus and not bother with what app did what, it let&#8217;s you simply use the phone. Imho very efficient.<br />
+Of course they are fundamentely different concepts, Android and iPhone. Android had multitasking right from the beginning and it always had a hardware back button. As discussed yesterday over dinner with Ashwin, Sudheer and Ramjee the iOS might get a system-wide history in the next major version. As stated above I think that would make such a device way more efficient to use.<br />
+The simple solution here, that appeared to me when I first surfed on the iPad is to use the three fingers back gesture across devices (it works on the Mac, but not yet on iPad and iPhone, etc.). That would make the iOS easily &#8220;upgradable&#8221; to provide a system-wide history, no UI changes necessary :). Who knows &#8230;</p>
+<h2>Add to homescreen</h2>
+<p>Another thing I was a little bit disappointed with was the &#8220;add to homescreen&#8221; functionality. I added my gmail to my homescreen and even though the iPhone supports multitasking every time I click the gmail shortcut it reloads the page instead of bringing the linked page to the front. That means if you had been searching something in your gmail, open a URL (in the browser) and go back to the gmail app (by clicking the icon on the homescreen) the search result is gone. Here you can also see how well a system wide history would fit into play.<br />
+And additionally I think it would be awesome, to make web apps (that are just linked on the homescreen) even more independent by giving them their own browser instance. My gmail did also always show up in the browser tabs, which was first suprising for me. But I guess the mobile web app concept is something around which we will see some movement in the near future. And I am sure a lot of better ideas will come up.</p>
+<h2>Conclusion</h2>
+<p>One last thing Apple: please come into the standards world, don&#8217;t try to be the next Microsoft. 1) use a proper micro USB port with your device, everybody does that, just for Apple devices I need an extra cable. And 2) if I connect the iWhatever via USB I want access to the USB device as a proper drive, just like everybody offers it. It is very silly that I need iPhoto to download pictures from the iPhone. I understand the business aspect but usability-wise I am sure this could put you in a much better spot. I am sure that you needed to hack quite some stuff into your OSes to hide this &#8220;special&#8221; USB device :(.<br />
+And the very last thing &#8230; battery life of the iPhone4 is he best among all the modern smartphones I had been carrying around the last couple of months. The following fail by far compared to the iPhone4: Palm Pre Plus, BlackBerry Torch, HTC Desire, Samsung Galaxy. Those last one day at most.</p>
+<p>To close this article, I would like to say that I like the differences and being able to compare. There is sooo much room for improvement and so many great ideas in all the concepts. I am very curious to see where the future is heading. I will keep using as many phones as I can get my hands on &#8230; the peek9 just arrived &#8230; gotta go playing <img src="http://www.uxebu.com/wp-includes/images/smilies/icon_smile.gif" alt=":)" class="wp-smiley" /></p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2010/11/my-first-iphone/">My first iPhone</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2010/11/my-first-iphone/feed/</wfw:commentRss>
+		<slash:comments>1</slash:comments>
+		</item>
+		<item>
+		<title>BlackBerry6, WebKit, WebWorks, DevCon10, etc.</title>
+		<link>http://www.uxebu.com/blog/2010/10/blackberry6-webkit-webworks-devcon10-etc/</link>
+		<comments>http://www.uxebu.com/blog/2010/10/blackberry6-webkit-webworks-devcon10-etc/#comments</comments>
+		<pubDate>Mon, 25 Oct 2010 08:59:59 +0000</pubDate>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+				<category><![CDATA[development tools]]></category>
+		<category><![CDATA[frontend engineering]]></category>
+		<category><![CDATA[html5apps]]></category>
+		<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[mobile]]></category>
+		<category><![CDATA[w3c widgets]]></category>
+		<category><![CDATA[blackberry6]]></category>
+		<category><![CDATA[embedjs]]></category>
+		<category><![CDATA[torch]]></category>
+
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=1311</guid>
+		<description><![CDATA[<p>The BlackBerry DevCon 2010 closed it&#8217;s doors a couple of days ago and to put the conclusion first, I have become a new evangelist for the BlackBerry6 platform. It supports W3C widgets, well &#8230; in a way ;). The core message I took away: web technologies have become first class citizens on the new BlackBerry [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2010/10/blackberry6-webkit-webworks-devcon10-etc/">BlackBerry6, WebKit, WebWorks, DevCon10, etc.</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>The BlackBerry DevCon 2010 closed it&#8217;s doors a couple of days ago and to put the conclusion first, I have become a new evangelist for the BlackBerry6 platform. It supports W3C widgets, well &#8230; in a way ;). The core message I took away: web technologies have become first class citizens on the new BlackBerry platform. And we from uxebu really love this, as you can imagine.<br />
+<span id="more-1311"></span></p>
+<p><a href="http://hub.uxebu.com:33550/wp-content/uploads/2010/10/embedTests-Torch.jpg" style="float:right; margin:1em;"><img class="size-thumbnail wp-image-1320" title="embedTests-Torch" src="http://hub.uxebu.com:33550/wp-content/uploads/2010/10/embedTests-Torch-150x150.jpg" alt="" width="150" height="150" /></a>First I want to thank RIM for sending us two Torch devices. Right away I navigated to <a href="http://bit.ly/embed-tests">the embedJS tests</a> and I didn&#8217;t expect it differently, the tests passed without any problem, 100% passed tests. Actually I expected the tests to pass lightning fast, the time it took was ok, but not lightning fast, unfortunately. The test suite executed in about 14 seconds, on the iPhone4 it took about 10. To be fair the processor power and the system architectures are completely different and not really comparable, but the user experience counts in the end. We have heard that the RIM guys are hard working on improvements and speeding up the device, there is some cool stuff to come.</p>
+<h2>WebKit and WebWorks</h2>
+<p>The most impressive and revolutionary thing was definitely that BlackBerry brings an 100 points ACID compliant WebKit and runs W3C widgets using it. So there are by default two ways that are even fun to get content onto this platform. You can write mobile websites expecting an a-grade browser and you can write apps, for the so called WebWorks platform (which are W3C widgets inside). All we want. The browser supports CSS transitions and transforms, not 3D though, since there is no GPU in those devices, but you never know what might come next. There is SVG on it, WebSockets, Canvas and a lot more niceties, I just browsed the objects using <a href="http://bit.ly/object-browser">Object Browser</a>, go try it yourself, on your device.<br />
+RIM renamed their widgets that existed already on BlackBerry5 to &#8220;WebWorks&#8221; and they got completely overhauled. The approach RIM went is pretty close to how PhoneGap works. WebWorks basically is a wrapper written in Java (the native language of BlackBerry) which internally instanciates a WebKit view and provides a bridge into JavaScript where the underlying native functionality is written in Java, of course. The cool thing about it is that this code is completely <a href="http://github.com/blackberry/WebWorks">open  source and on github</a>. Unfortunately the build scripts are still not on github, so you would still have to figure out yourself how to use the source from github to package your apps. RIM please push them soon! Currently <a href="http://na.blackberry.com/eng/developers/browserdev/widgetsdk.jsp">the executables</a> are the most comfortable way to build your widget.<br />
+Back to the API, since the implementation is open source you can easily extend it and make functionality available into JavaScript which currently is not there. So <a href="http://jsconf.eu/2010/speaker/livingroombindmotion_function.html">Nikolai&#8217;s robotic JavaScript</a> will really become fun and reality on BlackBerry too. Why RIM went this way becomes very obvious when you understand the security concept on BlackBerry. Since all APIs are, in the end, provided by a Java implementation and only &#8220;piped&#8221; into JavaScript all security restrictions apply to the widget just as if it was a native app. That means if you access GPS in your widget (using JavaScript) the Java function will be called and will be secured the same way as if it would have been called from within a pure Java app. Of course this doesn&#8217;t make your widget secure by default, since you are using web technologies you have to take care of writing apps which are not vulnerable by XSS attacs or alike. But it offers really comfortable extendability for this platform and is no workaround to get web technologies onto BlackBerries, I think it&#8217;s a very clever approach, good job RIM.</p>
+<h2>Security</h2>
+<p><a href="http://hub.uxebu.com:33550/wp-content/uploads/2010/10/PermissionsBlackBerry.jpg" style="float:right; margin:1em;"><img src="http://hub.uxebu.com:33550/wp-content/uploads/2010/10/PermissionsBlackBerry-150x150.jpg" alt="" title="PermissionsBlackBerry" width="150" height="150" class="size-thumbnail wp-image-1321" /></a>Everybody knows the ridiculous installation dialogs on Android which show you the APIs the app wants to access and the final question if you want to allow the app to access this functionality or not. If you say &#8220;no&#8221;, the app won&#8217;t install. That doesn&#8217;t really make me feel that the security concept is very flexible. It&#8217;s not giving the user a lot of control. Working with Opera&#8217;s widget runtimes already for a while I thought of a concept that would allow a lot kore control for the user and make apps hopefully more successful.<br />
+I will use a short example to explain it. Imagine a twitter app that you want to install and that has a lot of functionality but on the first install you only want it to be able to go online to read and send tweets. Functionality like GPS, searching my addressbook or taking pictures with the camera are built in into the app. But as long as i don&#8217;t trust the app i don&#8217;t want this functionality enabled. So I turn of access to certain APIs upon installation and enable them just when I feel secure and gained trust in the app or had been told by experts that the app is secure. But this is currently not possible on platforms like Android or iPhone. I talked about this idea and told <a href="http://supportforums.blackberry.com/t5/user/viewprofilepage/user-id/28983">RIM&#8217;s Tim Neil</a> about it, in the hope to meet open ears and confirm that this is a good idea. The answer I got surprised me big time: BlackBerry already has this for a while. We got out our Torch devices to look it up, and yes in the menu under &#8220;Device / Application Management&#8221; you can edit the permissions per app (see picture). Awesome and just right, I love this.<br />
+So Opera this was my idea to improve your widget runtime and maybe to jump ahead of the crowd again, I would like it.</p>
+<p>Overall the BlackBerry6 platform is very exciting and a lot of thought seem to have gone into it, especially with focus on the web, which is a really good thing. So, I will just step away and try to build the Object Browser as a WebWorks App.</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2010/10/blackberry6-webkit-webworks-devcon10-etc/">BlackBerry6, WebKit, WebWorks, DevCon10, etc.</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2010/10/blackberry6-webkit-webworks-devcon10-etc/feed/</wfw:commentRss>
+		<slash:comments>2</slash:comments>
+		</item>
+		<item>
+		<title>BarCamp Munich 2010 &#8211; seen through JavaScript and mobile eyes</title>
+		<link>http://www.uxebu.com/blog/2010/10/barcamp-munich-2010-seen-through-javascript-and-mobile-eyes/</link>
+		<comments>http://www.uxebu.com/blog/2010/10/barcamp-munich-2010-seen-through-javascript-and-mobile-eyes/#comments</comments>
+		<pubDate>Sat, 16 Oct 2010 15:47:05 +0000</pubDate>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+				<category><![CDATA[business]]></category>
+		<category><![CDATA[Events]]></category>
+		<category><![CDATA[html5apps]]></category>
+		<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[mobile]]></category>
+		<category><![CDATA[uxebu]]></category>
+		<category><![CDATA[w3c widgets]]></category>
+		<category><![CDATA[barcamp]]></category>
+		<category><![CDATA[conference]]></category>
+
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=1281</guid>
+		<description><![CDATA[<p>First and foremost big thanks to the organizers and sponsors of this awesome BarCamp. It almost seems as if BarCamps have already passed their tipping point, but still every time I discover new and interesting things, I meet people who attend for the first time and are excited about it, which makes it really awesome [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2010/10/barcamp-munich-2010-seen-through-javascript-and-mobile-eyes/">BarCamp Munich 2010 &#8211; seen through JavaScript and mobile eyes</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>First and foremost big thanks to the organizers and sponsors of this awesome <a href="http://barcampmunich.mixxt.de/">BarCamp</a>. It almost seems as if BarCamps have already passed their tipping point, but still every time I discover new and interesting things, I meet people who attend for the first time and are excited about it, which makes it really awesome and fun. Maybe the tipping point had been reached but I guess the BarCamp is just on it&#8217;s way to become an integral part of the web culture and establishes itself as a standard event type besides the normal (mostly commercial) conferences. And as I always like to point out the people at BarCamps are those that want to go there, not those that have to be there (because their company had sent them or alike). We enjoyed it and have hopefully also brought value to it &#8211; that is what a BarCamp is all about: participate.<br />
+Thank you!<br />
+And let&#8217;s move on, which I do right this moment, sitting on the train going to the next (commercial) event the <a href="http://webtechcon.de">WebTechCon in Mainz</a> to bring the cross platform mobile web to it :).<br />
+<span id="more-1281"></span></p>
+<h2>&#8220;Modern Company&#8221; session &#8211; uxebu as the example</h2>
+<p>But before I dive into the tech sessions I would like to mention that I really felt the need to hold a session which I had called &#8220;Modern Company&#8221; where I tried to show our philosophy at uxebu, how we work together, how we use the modern media, how it all came about and why we do it this way. First I didn&#8217;t know where to start. Then I started to talk about when and how the idea for uxebu came about, that we <a href="">decided online to found it</a> and really met some months later. Thanks to our open source background and our history we wanted to continue the same spirit inside the company, I tried to show how and based on what facts we grow our team (the word &#8220;hiring&#8221; seems such a one-sided process). I realize now that I forgot a lot of the good stuff, but maybe this is the chance to make this become a separate talk to hold at other events.<br />
+I really loved the discussion and the questions that it had started, <a href="http://titanpad.com/izRqsSTAoT">notes had been taken</a>, a lot of critical questions came up and had been answered by <a href="http://twitter.com/tobeytailor">Tobias</a> and me. One interesting mentioning came up about <a href="http://www.faz.net/s/Rub8EC3C0841F934F3ABA0703761B67E9FA/Doc~E80113EC3EB3F48A5A14211D237BF109D~ATpl~Ecommon~Scontent.html">an article which mentioned a company that pays the same salary to all employees</a>. Thank you for all this input, I really enjoyed it and will definitely talk about this more and will prepare some more info next time.</p>
+<h2>JavaScript &#8211; a topic of big interest</h2>
+<p>We had founded uxebu purely for doing JavaScript consulting and pushing the limits and it is just really exciting to see how much interest this language is gaining in the last years. Not only <a href="http://jsconf.com">jsconf</a> the mother of all JavaScript events underlines this but also a lot of other conferences and events like <a href="http://2010.full-frontal.org/">fullfrontal</a>, <a href="http://fronteers.nl/">fronteers</a>, <a href="http://js1k.com/home">js1k</a>, <a href="http://10k.aneventapart.com/">10k Apart</a>, <a href="http://events.jquery.org/2010/boston/">jQueryConf</a> and so on which <a href="http://twitter.com/netzzwerg">Béla Varga</a> listed in his &#8220;<a href="http://www.slideshare.net/netzzwerg/javascript-rock-and-roll">JavaScript Rock&#8217;n Roll</a>&#8221; session.<br />
+The &#8220;<a href="http://nodejs.org/">node.js</a>&#8221; session and &#8220;JavaScript Rock&#8217;n Roll&#8221; (by <a href="http://twitter.com/netzzwerg">Béla (@netzzwerg)</a> and <a href="http://twitter.com/tobeytailor">Tobias Schneider (@tobeytailor)</a>) made it very obvious that JavaScript is a hot topic, the BarCamp was not necessarily overcrowded with programmers, but still those two sessions had been very well filled and the discussions had been really fun. The conclusion of the &#8220;node.js&#8221; session that Tobias drew and evangelized was &#8220;node.js is currently very hyped and just not yet ready for production, so use at your own risk, it&#8217;s not even alpha yet&#8221;. Everybody also agreed that node.js is not the new saviour and a replacement for Apache, it&#8217;s another tool you should add to your tool belt, use it when it comes in handy and be sure to know how and when to use it. Final conclusion was, as usual, if you should use it depends on what you want to do :).<br />
+Béla opened up the &#8220;JavaScript Rock&#8217;n Roll&#8221; session by giving a very good overview of what toolkits exist out there, who created them and what they are good for. He very well layed out some of the advantages and disadvantages, the rough corners and what is hard and what easy to learn. Shortly the discussion about the right JavaScript IDE came up but as usual there is no one-fits-all solution, choose yourself! Everybody was very carefully listening when <a href="http://twitter.com/tobeytailor">@tobeytailor</a> dove deep into the details of <a href="http://www.ecma-international.org/publications/standards/Ecma-262.htm">ECMAScript</a>, JavaScript, the differences, the latest specification, the changes, prototypes, <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object/proto">__proto__</a> and so on. Other interesting topics in those sessions had been <a href="http://promotejs.com/">promotejs</a>, <a href="http://github.com/madrobby/vapor.js">vapor.js</a>, <a href="http://www.slideshare.net/jensarps/the-hitchhikers-guide-to-client-side-persistent-storage">details about storage mechanisms</a>, <a href="http://jquerymobile.com/">jQueryMobile</a>, <a href="http://embedjs.org/">embedJS</a>, <a href="http://apparat.io">apparat.io</a><br />
+That was real &#8220;JavaScript Rock&#8217;n Roll&#8221;!</p>
+<h2>Native vs. Web</h2>
+<p>On Saturday, the first day of the BarCamp, I had offered a session &#8220;Mobile: Native vs. Web&#8221; but didn&#8217;t see too many hands raised, so I just didn&#8217;t put it in the schedule, later some people asked me when this session would take place and that I should hold it on Sunday, which I fortunately then did together with <a href="http://twitter.com/flowdi">Florian Detig</a>. And I have to say I am very glad we did so, because 1) we (at uxebu) have a lot of awesome stuff to talk about and 2) it was really fun interacting with the audience and passing on all this information. It is always amazing again how much there is to say about how to create an app which can also be submitted into any of the various app stores by just using web technologies (the <a href="http://www.yourappshop.com">adult industry proved that again</a>). HTML, CSS and JavaScript are just way to underestimated for being of good use in the mobile world. Florian first showed his <a href="http://prezi.com/otqop-_wynvl/">awesome slides</a> (I think they are really cool!). I continued the talk and dove a bit deeper into the mobile web topic, after my try of explaining the different movements in the native API space with players like W3C&#8217;s DAP, BONDI, JIL, WAC we deeply went into answering and discussing web technologies on mobile devices, I talked about our experiences, showed some projects we realized and answered a couple questions.<br />
+Not really a surprise but still impressing was the positive feedback we got when I showed of <a href="http://apparat.io">apparat.io</a>, our soon to be launched service that will be able to convert a web app into a native app (You want to know about it first &#8211; follow <a href="http://twitter.com/apparatio">@apparatio</a>). The release date for the private beta will be the 25th October 2010, people who follow @apparatio will get accounts first. I also showed our project <a href="http://embedjs.org">embedJS</a> a toolkit (based on dojo) optimized for mobile usage.</p>
+<p>All in all the BarCamp just made it obvious again that we are playing in an very interesting field and that we at uxebu are pushing the limits, that is fun, as much as the BarCamp was big fun, we will be back next time, for sure!<br />
+Thanks again and keep up the good work!</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2010/10/barcamp-munich-2010-seen-through-javascript-and-mobile-eyes/">BarCamp Munich 2010 &#8211; seen through JavaScript and mobile eyes</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2010/10/barcamp-munich-2010-seen-through-javascript-and-mobile-eyes/feed/</wfw:commentRss>
+		<slash:comments>2</slash:comments>
+		</item>
+	</channel>
+</rss>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	
+	>
+<channel>
+	<title>Comments on: Using IndexedDB on Firefox</title>
+	<atom:link href="http://www.uxebu.com/blog/2011/03/using-indexeddb-on-firefox/feed/" rel="self" type="application/rss+xml" />
+	<link>http://www.uxebu.com/blog/2011/03/using-indexeddb-on-firefox/</link>
+	<description>The first JavaScript-only development and consulting company</description>
+	<lastBuildDate>Sun, 27 Sep 2015 14:23:54 +0000</lastBuildDate>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=4.1.8</generator>
+	<item>
+		<title>By: Joran Greef</title>
+		<link>http://www.uxebu.com/blog/2011/03/using-indexeddb-on-firefox/#comment-941</link>
+		<dc:creator><![CDATA[Joran Greef]]></dc:creator>
+		<pubDate>Sun, 03 Apr 2011 22:55:15 +0000</pubDate>
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=1494#comment-941</guid>
+		<description><![CDATA[It&#039;s not quite a full-blown database either. You can&#039;t do set operations on indices. You can&#039;t manage indices at time of putting/deleting objects. You have to predefine indexes, so in a sense IndexedDB is not schema-less and this introduces headaches when you need to migrate your data structures. This imposes performance problems on mobile devices, since the underlying key-path mechanism requires objects to be deserialized and then serialized for every index you create (whereas if IndexedDB supported application-managed indices you&#039;d be free to do this in any novel way and there are plenty). If you start storing more than 5,000 objects in IndexedDB then it will bring something like an iPad to its knees (or you may be unable to reason about the indexing taking place in the background). Considering that most indexed key/value stores get this point right, it&#039;s frustrating to see that this design flaw in the specification, which is complicated as a result, without providing any benefits, despite the limitations. 
+ 
+IndexedDB is an order of magnitude slower than WebSQL. In fact, some browsers have simply based their IndexedDB implementation on WebSQL. Mozilla have deprecated WebSQL. Developers must get out there on the W3C public web apps forum and ask for it to be added to Firefox. Then we can have two competing database APIs in Chrome, Safari, Firefox and Opera (and hopefully IE9). Don&#039;t let these things pass you by. Mozilla is the only one blocking this, and for conjectural reasons at that. 
+ 
+SQLite (the reference implementation for WebSQL) is the world&#039;s most widely deployed database. It has millions of tests in its test suites, is superbly efficient, and is often more performant than other SQL databases. It&#039;s hard to imagine IndexedDB coming anywhere close (and it&#039;s disappointing and crippled to start with, these issues are simply being relegated to a &quot;version 2&quot; which may take a few more years to materialize). Better to have something that works and works well, and is practically a standard, then something which is designed by a committee of which only one or two members have probably ever designed databases before. ]]></description>
+		<content:encoded><![CDATA[<p>It&#039;s not quite a full-blown database either. You can&#039;t do set operations on indices. You can&#039;t manage indices at time of putting/deleting objects. You have to predefine indexes, so in a sense IndexedDB is not schema-less and this introduces headaches when you need to migrate your data structures. This imposes performance problems on mobile devices, since the underlying key-path mechanism requires objects to be deserialized and then serialized for every index you create (whereas if IndexedDB supported application-managed indices you&#039;d be free to do this in any novel way and there are plenty). If you start storing more than 5,000 objects in IndexedDB then it will bring something like an iPad to its knees (or you may be unable to reason about the indexing taking place in the background). Considering that most indexed key/value stores get this point right, it&#039;s frustrating to see that this design flaw in the specification, which is complicated as a result, without providing any benefits, despite the limitations. </p>
+<p>IndexedDB is an order of magnitude slower than WebSQL. In fact, some browsers have simply based their IndexedDB implementation on WebSQL. Mozilla have deprecated WebSQL. Developers must get out there on the W3C public web apps forum and ask for it to be added to Firefox. Then we can have two competing database APIs in Chrome, Safari, Firefox and Opera (and hopefully IE9). Don&#039;t let these things pass you by. Mozilla is the only one blocking this, and for conjectural reasons at that. </p>
+<p>SQLite (the reference implementation for WebSQL) is the world&#039;s most widely deployed database. It has millions of tests in its test suites, is superbly efficient, and is often more performant than other SQL databases. It&#039;s hard to imagine IndexedDB coming anywhere close (and it&#039;s disappointing and crippled to start with, these issues are simply being relegated to a &quot;version 2&quot; which may take a few more years to materialize). Better to have something that works and works well, and is practically a standard, then something which is designed by a committee of which only one or two members have probably ever designed databases before. </p>
+]]></content:encoded>
+	</item>
+</channel>
+</rss>

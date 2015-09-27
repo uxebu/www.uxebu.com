@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	
+	>
+<channel>
+	<title>Comments on: Comparing (in) JavaScript and Python</title>
+	<atom:link href="http://www.uxebu.com/blog/2011/08/comparing-in-javascript-and-python/feed/" rel="self" type="application/rss+xml" />
+	<link>http://www.uxebu.com/blog/2011/08/comparing-in-javascript-and-python/</link>
+	<description>The first JavaScript-only development and consulting company</description>
+	<lastBuildDate>Sun, 27 Sep 2015 14:23:54 +0000</lastBuildDate>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=4.1.8</generator>
+	<item>
+		<title>By: Wolfram Kriesing</title>
+		<link>http://www.uxebu.com/blog/2011/08/comparing-in-javascript-and-python/#comment-952</link>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+		<pubDate>Mon, 08 Aug 2011 17:23:54 +0000</pubDate>
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=1581#comment-952</guid>
+		<description><![CDATA[@Scott, I am pretty sure that the order is from left to right, what you can try is &quot;function1() &amp;&amp; function2()&quot; and if function1 returns false function2 never gets executed. That&#039;s also what the (famous) trick &quot;func1 &amp;&amp; func1()&quot; is for, so that you check for existence first. ]]></description>
+		<content:encoded><![CDATA[<p>@Scott, I am pretty sure that the order is from left to right, what you can try is &quot;function1() &amp;&amp; function2()&quot; and if function1 returns false function2 never gets executed. That&#039;s also what the (famous) trick &quot;func1 &amp;&amp; func1()&quot; is for, so that you check for existence first. </p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Wolfram Kriesing</title>
+		<link>http://www.uxebu.com/blog/2011/08/comparing-in-javascript-and-python/#comment-951</link>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+		<pubDate>Mon, 08 Aug 2011 17:21:22 +0000</pubDate>
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=1581#comment-951</guid>
+		<description><![CDATA[Yeah, thanks Jason for writing that down, that was what I implicitly tried to say with the comparison to 2, thanks for writing it down in real words :) ]]></description>
+		<content:encoded><![CDATA[<p>Yeah, thanks Jason for writing that down, that was what I implicitly tried to say with the comparison to 2, thanks for writing it down in real words <img src="http://www.uxebu.com/wp-includes/images/smilies/icon_smile.gif" alt=":)" class="wp-smiley" /> </p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Jason Persampieri</title>
+		<link>http://www.uxebu.com/blog/2011/08/comparing-in-javascript-and-python/#comment-950</link>
+		<dc:creator><![CDATA[Jason Persampieri]]></dc:creator>
+		<pubDate>Mon, 08 Aug 2011 16:11:55 +0000</pubDate>
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=1581#comment-950</guid>
+		<description><![CDATA[Just so it&#039;s clear, the confusion here comes about due to the coercion of Boolean values to 0 or 1 (via toNumber), specifically.  That is, 
+ 
+x == true  
+ 
+gets coerced to  
+ 
+x === 1 
+ 
+Honestly, I don&#039;t really understand why the rules don&#039;t allow for comparing Boolean to other &quot;truthy&quot; numbers, but that&#039;s just the way it is. ]]></description>
+		<content:encoded><![CDATA[<p>Just so it&#039;s clear, the confusion here comes about due to the coercion of Boolean values to 0 or 1 (via toNumber), specifically.  That is, </p>
+<p>x == true  </p>
+<p>gets coerced to  </p>
+<p>x === 1 </p>
+<p>Honestly, I don&#039;t really understand why the rules don&#039;t allow for comparing Boolean to other &quot;truthy&quot; numbers, but that&#039;s just the way it is. </p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Scott Plumlee</title>
+		<link>http://www.uxebu.com/blog/2011/08/comparing-in-javascript-and-python/#comment-949</link>
+		<dc:creator><![CDATA[Scott Plumlee]]></dc:creator>
+		<pubDate>Mon, 08 Aug 2011 10:27:06 +0000</pubDate>
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=1581#comment-949</guid>
+		<description><![CDATA[Been bitten by this several times previously when trying to do comparisons inside if statements. Took 3 of us an hour to figure it out, then it seemed so obvious. Blows your mind to see this in the console: &#039;3 &lt; 1 &lt; 3&#039; returns &#039;true&#039;.
+
+Another place where this sort of pattern gets me is JavaScript var statements. Doing &#039;var x= y = 2&#039; gives you one local, one global.
+
+Doesn&#039;t the order of operations become (x == (2 == y))?]]></description>
+		<content:encoded><![CDATA[<p>Been bitten by this several times previously when trying to do comparisons inside if statements. Took 3 of us an hour to figure it out, then it seemed so obvious. Blows your mind to see this in the console: &#8216;3 &lt; 1 &lt; 3&#039; returns &#039;true&#039;.</p>
+<p>Another place where this sort of pattern gets me is JavaScript var statements. Doing &#039;var x= y = 2&#039; gives you one local, one global.</p>
+<p>Doesn&#039;t the order of operations become (x == (2 == y))?</p>
+]]></content:encoded>
+	</item>
+</channel>
+</rss>

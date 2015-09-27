@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	
+	>
+<channel>
+	<title>Comments on: Object-Based Inheritance For ECMAScript 5</title>
+	<atom:link href="http://www.uxebu.com/blog/2011/02/object-based-inheritance-for-ecmascript-5/feed/" rel="self" type="application/rss+xml" />
+	<link>http://www.uxebu.com/blog/2011/02/object-based-inheritance-for-ecmascript-5/</link>
+	<description>The first JavaScript-only development and consulting company</description>
+	<lastBuildDate>Sun, 27 Sep 2015 14:23:54 +0000</lastBuildDate>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=4.1.8</generator>
+	<item>
+		<title>By: Simple Inheritance In Javascript: The Traditional Way &#124; Web Citizen Magazine</title>
+		<link>http://www.uxebu.com/blog/2011/02/object-based-inheritance-for-ecmascript-5/#comment-940</link>
+		<dc:creator><![CDATA[Simple Inheritance In Javascript: The Traditional Way &#124; Web Citizen Magazine]]></dc:creator>
+		<pubDate>Thu, 06 Jun 2013 02:41:41 +0000</pubDate>
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=1405#comment-940</guid>
+		<description><![CDATA[[...] finally I&#8217;d like to point out, a few folks out there are actually using Object.create to bypass the constructor altogether keyword and [...] ]]></description>
+		<content:encoded><![CDATA[<p>[&#8230;] finally I&#8217;d like to point out, a few folks out there are actually using Object.create to bypass the constructor altogether keyword and [&#8230;] </p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Concepto de herencia prototípica en Javascript &#124; EtnasSoft</title>
+		<link>http://www.uxebu.com/blog/2011/02/object-based-inheritance-for-ecmascript-5/#comment-939</link>
+		<dc:creator><![CDATA[Concepto de herencia prototípica en Javascript &#124; EtnasSoft]]></dc:creator>
+		<pubDate>Fri, 15 Apr 2011 09:53:18 +0000</pubDate>
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=1405#comment-939</guid>
+		<description><![CDATA[[...] to JavaScript Prototypes Douglas Crockford, Classical Inheritance in JavaScript David Aurelio, Object-Based Inheritance For ECMAScript 5 John Resig, Simple JavaScript [...] ]]></description>
+		<content:encoded><![CDATA[<p>[&#8230;] to JavaScript Prototypes Douglas Crockford, Classical Inheritance in JavaScript David Aurelio, Object-Based Inheritance For ECMAScript 5 John Resig, Simple JavaScript [&#8230;] </p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Axel Rauschmayer</title>
+		<link>http://www.uxebu.com/blog/2011/02/object-based-inheritance-for-ecmascript-5/#comment-938</link>
+		<dc:creator><![CDATA[Axel Rauschmayer]]></dc:creator>
+		<pubDate>Thu, 24 Feb 2011 18:51:11 +0000</pubDate>
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=1405#comment-938</guid>
+		<description><![CDATA[I like the explicitness of $super (I have borrowed it from Prototype.js). But I hadn’t thought about it not surviving a minifier! An alternative that is very similar is to add $super as a temporary property to &quot;this&quot;. Resig’s Simple Inheritance [1] does it that way. I like that approach, anyway, it is very elegant. It is not prototypal, but fits better into the language (as it currently is).
+
+[1] http://ejohn.org/blog/simple-javascript-inheritance/]]></description>
+		<content:encoded><![CDATA[<p>I like the explicitness of $super (I have borrowed it from Prototype.js). But I hadn’t thought about it not surviving a minifier! An alternative that is very similar is to add $super as a temporary property to &#8220;this&#8221;. Resig’s Simple Inheritance [1] does it that way. I like that approach, anyway, it is very elegant. It is not prototypal, but fits better into the language (as it currently is).</p>
+<p>[1] <a href="http://ejohn.org/blog/simple-javascript-inheritance/" rel="nofollow">http://ejohn.org/blog/simple-javascript-inheritance/</a></p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: David Aurelio</title>
+		<link>http://www.uxebu.com/blog/2011/02/object-based-inheritance-for-ecmascript-5/#comment-937</link>
+		<dc:creator><![CDATA[David Aurelio]]></dc:creator>
+		<pubDate>Thu, 24 Feb 2011 11:16:12 +0000</pubDate>
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=1405#comment-937</guid>
+		<description><![CDATA[Hi Axel, 
+ 
+of course you&#8217;re right that the prototype should only contain shared data. And I completely agree that the usual way of subclassing is an anti-pattern. 
+ 
+I&#8217;ve taken a look at you approach and like it a lot, I just cant&#8217;t get used to &#8220;$super&#8221; as it depends on a specific extension mechanism (and might not survive a minifier). Granted, my &#8220;_super()&#8221; is not as nice to use (except for python programmers, maybe), but I think the implementation is cleaner. 
+ 
+I really like &lt;a href=&quot;http://www.2ality.com/2010/12/javascripts-prototypal-inheritance.html&quot; rel=&quot;nofollow&quot;&gt;your approach to explain prototypical inheritance&lt;/a&gt; in JavaScript without constructors. It makes the mechanism much easier to understand. ]]></description>
+		<content:encoded><![CDATA[<p>Hi Axel, </p>
+<p>of course you&rsquo;re right that the prototype should only contain shared data. And I completely agree that the usual way of subclassing is an anti-pattern. </p>
+<p>I&rsquo;ve taken a look at you approach and like it a lot, I just cant&rsquo;t get used to &ldquo;$super&rdquo; as it depends on a specific extension mechanism (and might not survive a minifier). Granted, my &ldquo;_super()&rdquo; is not as nice to use (except for python programmers, maybe), but I think the implementation is cleaner. </p>
+<p>I really like <a href="http://www.2ality.com/2010/12/javascripts-prototypal-inheritance.html" rel="nofollow">your approach to explain prototypical inheritance</a> in JavaScript without constructors. It makes the mechanism much easier to understand. </p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Axel Rauschmayer</title>
+		<link>http://www.uxebu.com/blog/2011/02/object-based-inheritance-for-ecmascript-5/#comment-936</link>
+		<dc:creator><![CDATA[Axel Rauschmayer]]></dc:creator>
+		<pubDate>Thu, 24 Feb 2011 00:12:41 +0000</pubDate>
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=1405#comment-936</guid>
+		<description><![CDATA[Great post! I would love for JavaScript to become purely prototypal. 
+ 
+Note that setting instance variables to null in the prototype leads to unnecessary properties: 
+js&gt; var p = Person.create(&quot;John&quot;, &quot;Doe&quot;); 
+js&gt; Object.getOwnPropertyNames(p) 
+firstName,lastName 
+js&gt; Object.getOwnPropertyNames(Object.getPrototypeOf(p)) 
+firstName,lastName,_construct,toString 
+ 
+The prototype should only contain shared data (=methods), while _construct() adds the non-shared data (=instance variables). In that regard, how subclassing is often done in JS is also a bit of an anti-pattern: 
+function Sub() {} 
+Sub.prototype = new Super(); 
+Now the protoype of all instances of Sub has the own properties of Super, which are never used. 
+ 
+My own shot at a purely prototypal API is here:  &lt;a href=&quot;http://www.2ality.com/2011/01/going-completely-prototypal-in.html&quot; rel=&quot;nofollow&quot;&gt;http://www.2ality.com/2011/01/going-completely-pr...&lt;/a&gt; ]]></description>
+		<content:encoded><![CDATA[<p>Great post! I would love for JavaScript to become purely prototypal. </p>
+<p>Note that setting instance variables to null in the prototype leads to unnecessary properties:<br />
+js&gt; var p = Person.create(&quot;John&quot;, &quot;Doe&quot;);<br />
+js&gt; Object.getOwnPropertyNames(p)<br />
+firstName,lastName<br />
+js&gt; Object.getOwnPropertyNames(Object.getPrototypeOf(p))<br />
+firstName,lastName,_construct,toString </p>
+<p>The prototype should only contain shared data (=methods), while _construct() adds the non-shared data (=instance variables). In that regard, how subclassing is often done in JS is also a bit of an anti-pattern:<br />
+function Sub() {}<br />
+Sub.prototype = new Super();<br />
+Now the protoype of all instances of Sub has the own properties of Super, which are never used. </p>
+<p>My own shot at a purely prototypal API is here:  <a href="http://www.2ality.com/2011/01/going-completely-prototypal-in.html" rel="nofollow"></a><a href="http://www.2ality.com/2011/01/going-completely-pr" rel="nofollow">http://www.2ality.com/2011/01/going-completely-pr</a>&#8230; </p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Tweets that mention Object-Based Inheritance For ECMAScript 5 « Uxebu.com – the Ajax and JavaScript Experts -- Topsy.com</title>
+		<link>http://www.uxebu.com/blog/2011/02/object-based-inheritance-for-ecmascript-5/#comment-935</link>
+		<dc:creator><![CDATA[Tweets that mention Object-Based Inheritance For ECMAScript 5 « Uxebu.com – the Ajax and JavaScript Experts -- Topsy.com]]></dc:creator>
+		<pubDate>Wed, 23 Feb 2011 13:11:04 +0000</pubDate>
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=1405#comment-935</guid>
+		<description><![CDATA[[...] This post was mentioned on Twitter by Dylan Schiemann and Tobias Schneider, David Aurelio. David Aurelio said: New blog post: “Object-Based Inheritance For ECMAScript 5” http://uxebu.com/blog/2011/02/23/object-based-inheritance-for-ecmascript-5/ [...] ]]></description>
+		<content:encoded><![CDATA[<p>[&#8230;] This post was mentioned on Twitter by Dylan Schiemann and Tobias Schneider, David Aurelio. David Aurelio said: New blog post: “Object-Based Inheritance For ECMAScript 5” <a href="http://uxebu.com/blog/2011/02/23/object-based-inheritance-for-ecmascript-5/" rel="nofollow">http://uxebu.com/blog/2011/02/23/object-based-inheritance-for-ecmascript-5/</a> [&#8230;] </p>
+]]></content:encoded>
+	</item>
+</channel>
+</rss>

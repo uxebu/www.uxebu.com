@@ -1,0 +1,521 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>uxebu &#187; Open Source</title>
+	<atom:link href="http://www.uxebu.com/blog/category/opensource/feed/" rel="self" type="application/rss+xml" />
+	<link>http://www.uxebu.com</link>
+	<description>The first JavaScript-only development and consulting company</description>
+	<lastBuildDate>Thu, 30 Jul 2015 09:10:24 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=4.1.8</generator>
+	<item>
+		<title>Learn ECMAScript 6 (in a different way)</title>
+		<link>http://www.uxebu.com/blog/2015/06/learn-ecmascript-6-in-a-different-way/</link>
+		<comments>http://www.uxebu.com/blog/2015/06/learn-ecmascript-6-in-a-different-way/#comments</comments>
+		<pubDate>Wed, 24 Jun 2015 14:10:41 +0000</pubDate>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+				<category><![CDATA[tdd]]></category>
+		<category><![CDATA[TDDbin]]></category>
+		<category><![CDATA[uxebu]]></category>
+		<category><![CDATA[es6]]></category>
+
+		<guid isPermaLink="false">http://www.uxebu.com/?p=6883</guid>
+		<description><![CDATA[<p>When I started using ES6 (or JavaScript2015, ECMAScript2015) I realized that I was looking around for posts, reading them and as soon as I understood how the new function/feature worked I left. Diving deep and understanding things was just a way I then did using TDD, by using the new function or feature. So why [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2015/06/learn-ecmascript-6-in-a-different-way/">Learn ECMAScript 6 (in a different way)</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>When I started using ES6 (or JavaScript2015, ECMAScript2015) I realized that I was looking around for posts, reading them and as soon as I understood how the new function/feature worked I left. Diving deep and understanding things was just a way I then did using TDD, by using the new function or feature. So why not make this accessible for others. That&#8217;s how <a href="http://es6katas.org" title="ES6 Katas">ES6 katas</a> came about.<br />
+<span id="more-6883"></span></p>
+<h2>When to start with ES6?</h2>
+<p>Now! I would say, dive in and get started. There is no time to loose, <a href="http://www.ecma-international.org/ecma-262/6.0/" title="ES6 standard">ES6 is an official finalized standard</a>, it&#8217;s not a draft anymore. So it will come your way sooner or later. And even better it will evolve even faster from now on, hopefully.<br />
+I just had a discussion with a friend, he asked &#8220;Why doesn&#8217;t node support ES6 yet?&#8221;. The simple and short answer was use `npm install <a href="https://babeljs.io/" title="babel transpiler">babel</a> &#038;&#038; babel-node index.js` instead of `node index.js` and you have all ES6 features. Why node is not completely supporting ES6 is not part of what I want to discuss here, it has dependencies on the V8. But nowadays we have such a huge eco system in JavaScript that there are ways that allow us to use transpilation and CoffeeScript made this very obvious, that this is a way to go.</p>
+<h2>ES6 and TDD?</h2>
+<p>There are multiple ways of learning and trying out ES6. But for me the native way was using it. And since I am quite accustomed to use TDD it was a no-brainer to enable ES6 in <a href="http://tddbin.com" title="TDD bin">TDDbin</a> and use it there. I started exploring if and how ES6 works in TDDbin.<br />
+It might be discussable that TDD is the right tool to learn a language. It is just one way. And it allowed me to learn and focus on one thing at a time. We all know that once we start using a feature somewhere and there is lots of other (code) noise around it the focusing on learning that one feature gets lost. That&#8217;s why I started exploring ES6 features in the TDD style. I think the first thing I tried (at least that&#8217;s <a href="https://github.com/tddbin/katas/blob/master/katas/es6/language/template-strings/basics.js" title="First kata">the first kata</a>) was template strings.<br />
+<script src="https://gist.github.com/wolframkriesing/40c8d1fb5b99804f0b06.js"></script><br />
+That actually made me want to try more. And always ensure that my learnings stick. It also made me kind of want to keep track of what I learned, so I really liked the test result output, which just showed &#8220;yeah all green, you got it all right&#8221;. It felt cool.<br />
+When I released the first katas I was pointed to <a href="http://rubykoans.com/" title="Ruby koans">ruby koans</a>, which existed way before ES6 katas. So I was playing with the thought of renaming it to ES6 koans, but in the end I just didn&#8217;t.</p>
+<h2>One Kata a Day, at 9:55am</h2>
+<p>In the beginning I didn&#8217;t know how serious this kata thing will be. Anyway, I pushed the stuff into a repo. Actually the <a href="https://github.com/tddbin/katas/commit/81ad2ea9985b231bbd2b22119f7851493aa7fc7a" title="First kata">first kata I ever pushed</a> was on how to use mocha and node&#8217;s assert. Since this was what TDDBin uses initially. This was not really a kata, but a kind of documentation to see how mocha and assert can be used. This was the initial thing that gets loaded into TDDBin so anyone new to it can use it right away.<br />
+Since stuff landed in a repo it meant I can actually link to it. So I started out cautiously <a href="https://twitter.com/tddbin/status/576305472128446466" title="First ES6 kata">tweeting</a> <a href="https://twitter.com/tddbin/status/577392659121111040" title="Second ES6 kata">the</a> <a href="https://twitter.com/tddbin/status/577755047225769984" title="Third ES6 kata">katas</a> <a href="https://twitter.com/tddbin/status/578117422495834112" title="Fourth ES6 kata">every</a> day. I didn&#8217;t know for how long I can keep it up. After there had been a couple of them out in the wild my colleague <a href="http://twitter.com/basecode" title="Tobias Reiss">Tobias</a> told me why not collect them all on one site and just link use the <a href="https://github.com/tddbin/es6katas.org/blob/50bd2a8fcbcdbc2c30acc442703d877ec6c1a290/src/config.js" title="Github search for katas">github search</a> to find them all. Cool idea. Nothing to maintain and it auto-updates whenever a new kata ended up in the repo. How cool is that?<br />
+Pressure increased. From the beginning on I thought it was a good idea to post a kata always at 9:55am GMT+2, so you can just do a quick kata before the 10am stand-up :). I am not sure if all katas are simple enough to get this done, but hey it was a good story. From the beginning on I used the hash tag <a href="https://twitter.com/search?q=%23es6kata" title="Hash tag #es6kata">#es6kata</a>, so you can find all katas in historical order.<br />
+Fun fact. You will notice that they all have textually written their ordinal number, so first, second, &#8230; In the beginning I just needed a pattern but later even this started to become a learning exercise. And I got eighth and ninth wrong in the beginning. I had to look them up. That was fun. So I kept numbering them. The word &#8220;<a href="https://twitter.com/tddbin/status/592601544908001281" title="Thirtieth ES6 kata">thirtieth</a>&#8221; was fun too. Gee, did I not know this stuff.</p>
+<h2>Kata Groups</h2>
+<p>The first ten or twenty katas I was still a bit insecure of how to write them and how to get a flow into the katas. I was overwhelmed by the wealth of new things that existed in ES6. I knew they need some structure. Looking at <a href="http://kangax.github.io/compat-table/es6/" title="Kangax ES6 compat table">kangax&#8217;s compatibility table</a> kind of gave me an idea of how to group the katas. It also showed me that there is lots of potential for new katas. There will be one-hundred katas easily just to learn the new ES6 features.<br />
+I knew there needed to be some kind of structure to it. Basically there are two kinds of kata groups. One the APIs, for example of `Object` or `Array` and the other is by features like destructuring, scoping, template strings, etc.<br />
+<a href="http://es6katas.org" target="_blank"><img src="http://www.uxebu.com/wp-content/uploads/2015/06/ES6katas-UI-features-288x250.png" alt="ES6katas-UI-features" width="288" height="250" class="alignright size-medium wp-image-6888" /></a>I sorted them into folders with the according names. And used those names as group names. It became ugly and not really helpful over time. Just a little while ago I switched to maintaining the <a href="https://github.com/tddbin/katas/blob/f92c5ae03e4c7869523c257df7bb2f0707735b20/katas/es6/language/__raw-metadata__.js" title="ES6 kata meta info">meta info in a separate file</a>, which is also used now to generate the kata groups. This allows for some niceties on the site, like additional info and the highlighting of the latest and easy katas. It also makes some better headlines and the links are more explainatory, or at least as good as the description is I gave it inside the meta info file.</p>
+<h2>How I create a kata</h2>
+<p>When I create a kata I try to write helpful text into `describe` and `it`, just the way I try to structure tests. They shall &#8220;tell a story&#8221;™ as Kent Beck says.<br />
+Starting a kata from the top hopefully makes the user explore the feature in more depth from top to bottom. When reading all passing tests the learnings should be the green test results, like here:<br />
+<a href="http://www.uxebu.com/wp-content/uploads/2015/06/class-creation-result.png"><img src="http://www.uxebu.com/wp-content/uploads/2015/06/class-creation-result-450x161.png" alt="class-creation-result" width="450" height="161" class="aligncenter size-medium wp-image-6894" /></a><br />
+When reading the tests it is helpful to overread the `describe` and `it` and just see the text in there as the hint of what to do. Maybe using some other word for `it` could be helpful. It would be as easy as `smthg = it`.<br />
+The test description is supposed to make the user understand what the test tries to teach. I realize that there are multiple ways to solve a test, that&#8217;s why the description should be read carefully and the user shall try to modify the result accordingly. If that doesn&#8217;t work I would be really thankful for pull requests.<br />
+In order to lead the user to the result, the last line, where the assertion takes place should not be changed. This sometimes leads to unnecessary overhead in a test, I just didn&#8217;t find a better way yet. I rarely use the `___` space holder since it draws the focus on this spot and possibly leaves the rest unread.</p>
+<h2>Teach to Learn</h2>
+<p>So I hope the <a href="http://es6katas.org" title="ES6 katas site">ES6 katas</a> are helpful to some people out there. It was pretty awesome that <a href="https://news.ycombinator.com/item?id=9751035" title="Hackernews">HN</a> picked it up last weekend and this drew some attention to it and the feedback was mostly positive.</p>
+<p><a href="http://www.meetup.com/de/uxebu-events/events/222317814/" target="_blank"><img src="http://www.uxebu.com/wp-content/uploads/2015/06/uxebu_ws_teaser_web-250x250.jpg" alt="uxebu_ws_teaser_web" width="250" height="250" class="alignright size-medium wp-image-6845" /></a>If you are interested in diving deeper we are running a <a href="http://www.meetup.com/de/uxebu-events/events/222317814/" title="ES6 react workshop">workshop on ECMAScript 6 in use with react.js in Munich</a>. I would be happy to welcome people who like to take a two day ride with me in building an entire app from scratch using all those fine technologies. Find more info here and sign up.</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2015/06/learn-ecmascript-6-in-a-different-way/">Learn ECMAScript 6 (in a different way)</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2015/06/learn-ecmascript-6-in-a-different-way/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>TDDBin is open source, supports ES6 and moves on</title>
+		<link>http://www.uxebu.com/blog/2015/03/tddbin-open-source-supports-es6-moves/</link>
+		<comments>http://www.uxebu.com/blog/2015/03/tddbin-open-source-supports-es6-moves/#comments</comments>
+		<pubDate>Mon, 02 Mar 2015 09:41:53 +0000</pubDate>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+				<category><![CDATA[JS Code Retreat]]></category>
+		<category><![CDATA[TDD]]></category>
+		<category><![CDATA[TDDbin]]></category>
+
+		<guid isPermaLink="false">http://www.uxebu.com/?p=6697</guid>
+		<description><![CDATA[<p>Finally it has become reality. TDDBin.com is open source. And it does support ES6 by using babel &#8211; which is probably more ES6 than your browser can do. What is TDDBin? TDDBin had been started to provide a no-setup environment for the first JSCodeRetreat. Not everybody has jasmine, mocha or some other (unit) testing tool [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2015/03/tddbin-open-source-supports-es6-moves/">TDDBin is open source, supports ES6 and moves on</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><img src="http://www.uxebu.com/wp-content/uploads/2015/03/tddbin-logo-v2-150x150.png" alt="tddbin-logo-v2" width="150" height="150" class="alignright size-thumbnail wp-image-6782" />Finally it has become reality. <a href="http://tddbin.com" title="tddbin.com">TDDBin.com</a> is <a href="https://github.com/tddbin/tddbin-frontend" title="TDDBin on github">open source</a>. And it does support <a href="https://babeljs.io/docs/learn-es6/" title="Learn ES6">ES6</a> by using <a href="https://babeljs.io/" title="Babeljs">babel</a> &#8211; which is probably more ES6 than your browser can do.<br />
+<span id="more-6697"></span></p>
+<h2>What is TDDBin?</h2>
+<p>TDDBin had been started to provide a no-setup environment for the first <a href="http://JSCodeRetreat.com/1">JSCodeRetreat</a>. Not everybody has jasmine, mocha or some other (unit) testing tool running locally and for a code retreat this is something that makes it much easier to get started. That&#8217;s where TDDBin came into play, I wanted one URL where you can edit and run unit tests.<br />
+That&#8217;s how TDDBin came about and now it has been relaunched, rewritten and open-sourced.</p>
+<h2>What is new?</h2>
+<p>The <strong>repo has moved</strong>. The frontend code, which has been open source for a while but never had been deployed has moved from uxebu&#8217;s github to <a href="https://github.com/tddbin/tddbin-frontend" title="TDDBin on github">github.com/tddbin/tddbin-frontend</a>. Why the move? Some online tools want to have access to all your github user&#8217;s repos and since tddbin also serves as a playground I didn&#8217;t feel comfortable always giving access to all uxebu repos. That&#8217;s why I created the <a href="https://github.com/tddbin" title="Github user tddbin">github user tddbin</a>.</p>
+<p><strong>ES6/JavaScript2015 support</strong> using babel. On the tech side there is ES6 support in there now, which was actually <a href="https://github.com/tddbin/tddbin-frontend/commit/0700611e82f874288d7bd871b989a57f69867bec" title="the ES6 commit">much simpler to implement</a> than expected <img src="http://www.uxebu.com/wp-includes/images/smilies/icon_smile.gif" alt=":)" class="wp-smiley" /> fortunately. Which means all the <a href="https://babeljs.io/docs/learn-es6/" title="Learn ES6">ES6 features that babel provides</a> are useable in any browser that works with tddbin!</p>
+<p>We <strong>use <a href="https://trello.com/b/FW1gUVxe/tddbin-com" title="Trello">trello</a></strong> for ideas, feature voting, commenting, brain storming and everything before code gets written. If you have an idea for tddbin or miss a feature, please <a href="https://trello.com/c/hlmD1RIr" title="feature idea">add a comment here</a>. If want to vote for a feature please do so by <a href="https://trello.com/b/FW1gUVxe/tddbin-com" title="vote">clicking on the card <img src="http://www.uxebu.com/wp-content/uploads/2015/02/trello-voting.png" alt="trello-voting" width="67" class="alignnone size-full wp-image-6701" /></a> (you need a trello account for that). Or if you want a feature really bad encourage others to vote for it (use the &#8220;Share and more&#8230;&#8221; link on a trello card to link to it) or create a pull request.</p>
+<h2>Fixes</h2>
+<p><strong>Keyboard shortcuts</strong> also <a href="https://github.com/tddbin/tddbin-frontend/blob/12dfaf8134777750efee798750ea66d4bcc0bf4d/html/_util.js#L23" title="shortcut for non macs">work on non-Mac computers</a>. The old version only used to work with the Mac&#8217;s Command ⌘ key, now also Control as used on other systems works. (I have seen it on Linux.)</p>
+<p><strong>No login required</strong> anymore. In the former version we stored the source code on the server, so you could come back and use it. This feature is gone but therefore also a github account is not needed anymore to use tddbin, so you can really start right away. The link <a href="http://tddbin.com" title="tddbin.com">tddbin.com</a> takes you right to the editor and test runner, I hope this reduces the hurdle to use it and try it out even more.</p>
+<p>The nasty <strong>trailing empty line bug is gone</strong> too :). I remember running around at our code retreats telling people to not forget a trailing empty line at the end of the file because there was a bug that will screw your code. This one is gone now. Back in the old version the loading process was very difficult and it was a monkey-patched requirejs in order to be able to load the code from localstorage. Fortunately this is gone and with it also the above described bug.</p>
+<p><strong>Firefox works too</strong>. Actually this is painful to admit but before Firefox didn&#8217;t work and I never got around to fix it. Now it does and I am glad I don&#8217;t have to carry that shame any longer :).</p>
+<h2>Tech details</h2>
+<p>Currently tddbin is <strong>pure client side</strong>, once the site is loaded there is no more server interaction. Is this a feature or not &#8211; decide for yourself. That&#8217;s just how it is right now. Why? Basically in order to get out this version as fast as possible. And it still took sooo long. True.</p>
+<p><strong>Travis does the build</strong>. <a href="https://travis-ci.org/tddbin/tddbin-frontend" title="travis">Travis</a> does not only run the test suite, it also does the building and deployment. Currently this is done in the <a href="https://github.com/tddbin/tddbin-frontend/blob/12dfaf8134777750efee798750ea66d4bcc0bf4d/.travis.yml#L5">&#8220;after_success&#8221; clause of the .travis.yml</a>. I want to deploy only after success, that is right. But if kicking off the build separately is right I am not sure, I remember reading travis docs which say it is part of what travis does. Feel free to improve it.</p>
+<p>From travis it gets <strong>automatically deployed to github-pages</strong>. This one is really cool, imho. I had been tired of projects that are pure client side and hosted on github pages but I had to build locally and push to the gh-pages branch. This just felt so un-automated and a waste of my time (or: not lean as <a href="https://twitter.com/borillo" title="Ricardo Borillo">@borillo</a> would say). Finally I scraped <a href="https://twitter.com/boennemann/status/568061867052163073">all</a> <a href="https://medium.com/@nthgergo/publishing-gh-pages-with-travis-ci-53a8270e87db">the</a> <a href="https://github.com/jbdeboer/travis_after_all" title="push2gh-pages">pieces</a> together and made it work the way I think it is right. A project named <a href="https://github.com/uxebu/push2gh-pages">push2gh-pages</a> that provides this separately and reuseable as a npm module is under way.</p>
+<p>Hooked up code <a href="https://www.bithound.io/tddbin/tddbin-frontend" title="bithound">analysis</a> <a href="https://www.codacy.com/public/wk_2448/tddbin-frontend/dashboard" title="codacy">tools</a> which make some of the obligatory badges <a href="https://www.codacy.com/public/wk_2448/tddbin-frontend"><img src="https://www.codacy.com/project/badge/52205d40abd9463b9f5dca236b12b997"/></a> <a href="https://www.bithound.io/tddbin/tddbin-frontend"><img src="https://www.bithound.io/tddbin/tddbin-frontend/badges/score.svg" alt="bitHound Score" /></a> every good github project has to have nowadays (the more the better!).</p>
+<h2>Changes, Removals</h2>
+<p>The more the pain grew of having the source code just laying on github and not running in production, the less important the features became. Sure, no production, no real improvements are made and felt. So some features just didn&#8217;t survive.</p>
+<p>Currently there is <strong>no jasmine support</strong> (this must change soon). It <a href="http://www.uxebu.com/blog/2014/08/integrating-jasmine-mocha-tddbin-com-two-tragedies/">was just painful to hook up jasmine</a> to report the test result using it&#8217;s API. Since that reporting feature actually is not even needed now, since there is no state to be stored in any backend it should be very simple to enable jasmine again. Which would require tddbin to get a switch for which test runner to use. Mmmmh, any good ideas?</p>
+<p>Due to mocha being nasty to browserify which made <a href="https://github.com/tddbin/tddbin-frontend/blob/23eaa1eb4049da64ee3b941270e92f8fd13b10c0/html/example-tests.js#L10-L16">referee fail</a> there is also no &#8220;expect&#8221; syntax in there yet :(. Get more details on why <a href="http://wolfram.kriesing.de/tech/links/#problem-including-mocha-into-a-browserify-build-2014-02-19-">browserify and mocha don&#8217;t match up</a>.</p>
+<p>The test and the source code you write is <strong>not stored on a server</strong> anymore. The sessions are not stored, as you probably already read above. Depending on how fast tddbin moves along this might change again.</p>
+<h2>Finally</h2>
+<p>Have fun TDDing away and if you care, feel free to help out by <a href="https://trello.com/b/FW1gUVxe/tddbin-com" title="trello">voting, commenting</a>, <a href="https://github.com/tddbin/tddbin-frontend/issues" title="tddbin issues">opening issues</a>, <a href="http://twitter.com/tddbin" title="twitter">tweeting</a>, blogging, etc. If you want to meet people and practice more often, check if there is a <a href="http://jscoderetreat.com/">JSCodeRetreat</a> somewhere near you, or <a href="http://jscoderetreat.com/howitworks.html">make it happen</a>.</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2015/03/tddbin-open-source-supports-es6-moves/">TDDBin is open source, supports ES6 and moves on</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2015/03/tddbin-open-source-supports-es6-moves/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>JS CodeRetreat #3 Highlights</title>
+		<link>http://www.uxebu.com/blog/2014/09/coderetreat-3-highlights/</link>
+		<comments>http://www.uxebu.com/blog/2014/09/coderetreat-3-highlights/#comments</comments>
+		<pubDate>Tue, 09 Sep 2014 09:56:12 +0000</pubDate>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+				<category><![CDATA[Events]]></category>
+		<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[JS Code Retreat]]></category>
+		<category><![CDATA[tdd]]></category>
+		<category><![CDATA[TDDbin]]></category>
+		<category><![CDATA[uxebu]]></category>
+
+		<guid isPermaLink="false">http://www.uxebu.com/?p=5427</guid>
+		<description><![CDATA[<p>First and foremost I would love to thank all the attendees that made the #jscr #4 such a cool event, which obviously made it worth spending another Saturday on working on our coding skills. And of course I would love to thank Martin Ruprecht who facilitated the event with me and Irene who has put [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/09/coderetreat-3-highlights/">JS CodeRetreat #3 Highlights</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><a href="http://www.uxebu.com/wp-content/uploads/2014/09/jscr3people.jpg"><img src="http://www.uxebu.com/wp-content/uploads/2014/09/jscr3people-150x150.jpg" alt="jscr3people" width="150" height="150" class="alignright size-thumbnail wp-image-5593" /></a>First and foremost I would love to thank all the attendees that made the <a href="https://twitter.com/search?f=realtime&#038;q=%23jscr" title="#jscr search on twitter">#jscr</a> #4 such a cool event, which obviously made it worth spending another Saturday on working on our coding skills. And of course I would love to thank <a href="https://twitter.com/mrupilo" title="Martin Ruprecht">Martin Ruprecht</a> who facilitated the event with me and <a href="https://twitter.com/irenelladn89" title="Irene">Irene</a> who has put in lots of the work behind the scenes. E.g. the good on-site made <a href="http://www.pizza-innovazione.de" title="Pizza Innovazione">pizza</a> was just one of her ideas and that was a great lunch, just like last time.</p>
+<h2>Five times 45 minutes</h2>
+<p>For those who don&#8217;t know the event here comes a short summary of what we did.<br />
+Upon arrival everyone could have a coffee, brez&#8217;n, Club Mate or whatever other refreshment/breakfast (s)he needed to get over the early start, 9:30 on a Saturday morning.</p>
+<blockquote class="twitter-tweet" width="550"><p><a href="https://twitter.com/wolframkriesing">@wolframkriesing</a> does the introduction. Much more people here than i expected&#8230; <a href="https://twitter.com/hashtag/jscr?src=hash">#jscr</a> <a href="http://t.co/0hB2eyyfw4">pic.twitter.com/0hB2eyyfw4</a></p>
+<p>&mdash; Marco Emrich (@marcoemrich) <a href="https://twitter.com/marcoemrich/status/508164275131916288">September 6, 2014</a></p></blockquote>
+<p><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
+<p>After a quick introduction of how the day will be structured we started right away with the first session. All the sessions every attendee chose a new partner to work in pairs all the time. Of those sessions we had five, each lasted 45 minutes, which I think was enough to get everyone exhausted. In all sessions we tried to solve one problem <a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life" title="GoL">Conway&#8217;s Game Of Life</a> (GoL). GoL is perfect for such events, it is not too simple to get bored and not that hard that the solution is impossible.</p>
+<p>Session 1: Everyone started out by solving the problem in a test-driven manner. It was meant to get familiar with the problem, everyone to wake up and get into gear. The mix of groups seemed to have been perfect. Everyone had understood the rules of Game of Life and the problem of the day needed no more explanation. (Was is the Club Mate?)<br />
+Session 2: We increased the difficulty level a bit, we did a ping-pong session. Ping-pong here means to pass the keyboard forth and back between the pairs. You write a test that fails, pass on the keyboard. Your pair writes the according production code and a new failing test that has the intention to move your production code forward. And you pass the keyboard back. If you wanted to increase difficulty you could set a timer and not allow more than three minutes to pass until the production code makes the failing test pass. If you didn&#8217;t succeed remove the written code, since it seems to be too complex and a simpler test should be chosen, refactoring be applied first or another solution be found that allows you to get it done in three minutes.<br />
+Session 3: was the one I was really looking forward to, we called it &#8220;<a href="http://jscoderetreat.com/3/schedule.html#session4" title="Create Legacy Session">Create legacy</a>&#8221; the idea is by Marc Bless who <a href="http://agilecoach.de/2013-12-14/creating-legacy-behavior-in-15-minutes/">described it here</a>. Fortunately nobody had done it before and that made it most fun I guess. The task was GoL again but quick+dirty this time. After 15min we took one person out of every team, told them to put on the Clean Code hat and go back to another team and push for clean code, tests, etc. You can&#8217;t get much closer to real life I guess :).</p>
+<p>Then we had a great lunch, from the <a href="https://twitter.com/PizzaTruckMUC">pizza truck</a> (really worth it!).</p>
+<blockquote class="twitter-tweet" width="550"><p>Pizza truck at <a href="https://twitter.com/hashtag/jscr?src=hash">#jscr</a> #3 Munich <a href="http://t.co/Z2mLOzkB2b">pic.twitter.com/Z2mLOzkB2b</a></p>
+<p>&mdash; Nils Bernert (@NilsBernert) <a href="https://twitter.com/NilsBernert/status/508222205923434496">September 6, 2014</a></p></blockquote>
+<p><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
+<p>Session 4: Probably the most extravagant one. Everyone had to implement GoL in Google Spreadsheets. I showed the basics on how to do <a href="http://www.uxebu.com/blog/2014/03/how-to-use-google-spreadsheets-for-tdd/">TDD and JS in a spreadsheet</a>. Lots of awesome ideas and for the first time visuals came out of this session. More about that later.<br />
+<a href="http://www.uxebu.com/wp-content/uploads/2014/09/TDDbin-in-action.png"><img src="http://www.uxebu.com/wp-content/uploads/2014/09/TDDbin-in-action-150x150.png" alt="TDDbin in action" width="150" height="150" class="alignright size-thumbnail wp-image-5582" /></a>Session 5: The restriction was not to use a mouse. Since most people used <a href="http://TDDbin.com" title="TDDbin.com">TDDbin.com</a> we enhanced it a bit and people could also choose another no-restriction, we offered: No IFs and no more than four lines per function. Some people even combined them.</p>
+<p>After each session we had a (sometimes) short retrospective to share our experiences and also to laugh a lot about the crazy things that one might comes up with when applying those restrictions. All the way at the end we had some beers and some of us even stayed and chatted until almost midnight. All in all a beautiful day, thanks a lot! We will repeat it, for sure. Or feel free to join us and do the same thing in your city. Or invite us to do it in your city.</p>
+<h2>Creating legacy session</h2>
+<p>Just a couple days before this event I was surfing through <a href="http://coderetreat.org">coderetreat.org</a> in order to see if there are some interesting restrictions that we could copy for this event. And out came the &#8220;Create legacy&#8221; restriction by Marc Bless. Already when running the session we realized that we need to improve our execution of it. But first things first. The introduction for this session was quite short. We said &#8220;build the GoL as fast as you can, in a quick and dirty manner, no TDD, no clean code, etc.&#8221;. I think everyone was a little surprised by that. But everyone started straight away. We tried to stress everyone a little bit by making manager-style comments to push the code size and the number of features. I don&#8217;t know if it worked. At 15 minutes in we told everyone to quickly pay attention. We told them that one of each pair will have to leave the team and please come to the back of the room. There we told them that they are now the seniors that only accept clean code, tests and quality, no bullshit and no hacks. We sent them back to a different pair, so they don&#8217;t work on their own code anymore but on someone else&#8217;s code.</p>
+<p>In the end some teams really removed most of the old code and rewrote things. Some didn&#8217;t know how to test the legacy that had been created before. Others reported that all those 45 minutes were basically wasted because the old code didn&#8217;t work and only in the end they found out that it all needs a rewrite. Some people also reported that this very much feels like the real day-to-day work. I just couldn&#8217;t resist to mention that everyone only had 15 minutes to create legacy and already that was hard to work with. Just imagine legacy code of two years of age.</p>
+<h2>Our learnings from the &#8220;Create legacy&#8221; session</h2>
+<p>We realized quickly that we can improve the execution of this session. We did it for the first time, so Martin and me quickly agreed that this is a really cool session but we know the edges that it has, or at least that we added to it.</p>
+<ol>
+<li>Stricter instructions &#8211; Already when all the teams had started we realized that our instructions could have been better. Something like &#8220;you have 15 minutes to create GoL, get at least all the rules done in 15 minutes.&#8221; Would have been better. Since we didn&#8217;t explicitly mention that there will be an interruption at any time I think people didn&#8217;t feel the pressure soon enough. We kept the coming interruption a secret. I think this makes no sense.</li>
+<li>Just have one coder &#8211; Another option that maybe makes this even harder could be to tell the teams that only one person shall be writing the code. And when we interrupt the teams we take this person out of the team. This will add the additional effort which might cause &#8220;all the knowledge to be removed&#8221; from the team. In the best case the team has really paired well and both understood the code well, then the coming cleaning part will be easier. But in case that the passive pair also has problems understanding some of the code the discussion and maybe even confusion would be much more fun.</li>
+<li>Only let the clean-coder code &#8211; When the clean coder joins the team she should take over the keyboard. This will ensure that the old code gets touched and the &#8220;legacy owner&#8221; will have to explain and reason about the current code. This might trigger more discussion and hopefully also engages both parties even deeper. And it prevents the situation that the legacy owner doesn&#8217;t give up control.</li>
+</ol>
+<p>Lot&#8217;s of room to improve. Anyway this was one of my favorite sessions this day and I will make sure that it improves.</p>
+<h2>GoL in Google Spreadsheets</h2>
+<p>Why Google Spreadsheets? All got started by the <a href="http://www.uxebu.com/blog/2014/03/how-to-use-google-spreadsheets-for-tdd/">past experience</a> with it. And spreadsheets offer a couple of nice features. One is the input can be created in a very simple way. Just two numbers, each number in a cell. Or even just one number. If you want to make it more complicated you can. A second feature that I was really looking forward to seeing was that a google spreadsheet is nothing less but a grid, which is also part of the GoL. Maybe someone will come up with a solution really rendering it in the cells. And there have been solutions like that. The other feature of a spreadsheet is that you don&#8217;t need no test framework that is in your way sometimes. The specification can be easily readable and maybe even manager-compatible. But we didn&#8217;t get that far.</p>
+<p>I had made some good experiences using Google Spreadsheets for introducing TDD to students. The simple red-green visualization was also one of the features people brought up during the retrospective at this retreat.</p>
+<p>Others realized that input can and maybe should be simplified in order to make it useable in such a minimal environment that spreadsheets just are. This approach also made it very tempting to not focus on one test at a time, since it was able to just create many tests at once. </p>
+<p>The simplicity of test creation was another learning that came out of this session. Which means in spreadsheet duplicating and adding more rows is pretty simple, once everything is set up. Using this you get more time to focus on the coding part and the building of tests actually boils down to an initial discussion and agreement among pairs and in an ideal case it is no topic later on, which means you get a maximum of time to make your code better. Which also bears the danger of not discussing tests too.</p>
+<blockquote class="twitter-tweet" width="550"><p>Google spreadsheet TDD at the <a href="https://twitter.com/jsCodeRetreat">@jsCodeRetreat</a> &#8211; amazing! <a href="http://t.co/jxIEfNLztZ">pic.twitter.com/jxIEfNLztZ</a></p>
+<p>&mdash; Ruben Straube (@derstrauber) <a href="https://twitter.com/derstrauber/status/508249704837447680">September 6, 2014</a></p></blockquote>
+<p><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
+<blockquote class="twitter-tweet" width="550"><p><a href="https://twitter.com/hashtag/TDD?src=hash">#TDD</a> with <a href="https://twitter.com/hashtag/javascript?src=hash">#javascript</a> and <a href="https://twitter.com/hashtag/GoogleSpreadsheets?src=hash">#GoogleSpreadsheets</a> <a href="https://twitter.com/hashtag/jscr?src=hash">#jscr</a> jscoderetreat <a href="http://t.co/vgiMZOwz9z">pic.twitter.com/vgiMZOwz9z</a></p>
+<p>&mdash; Hernan Maguina (@hernanvicente) <a href="https://twitter.com/hernanvicente/status/508328343926620160">September 6, 2014</a></p></blockquote>
+<p><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
+<blockquote class="twitter-tweet" width="550"><p>Game of Life google docs style! <a href="https://twitter.com/hashtag/jscr?src=hash">#jscr</a> <a href="http://t.co/4DvfCznbc8">pic.twitter.com/4DvfCznbc8</a></p>
+<p>&mdash; Jonathan Prince (@greatsage) <a href="https://twitter.com/greatsage/status/508250181452984320">September 6, 2014</a></p></blockquote>
+<p><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
+<blockquote class="twitter-tweet" width="550"><p>Nice spreadsheet js hacking at <a href="https://twitter.com/hashtag/jscr?src=hash">#jscr</a> <a href="http://t.co/CMrEnxHqaS">pic.twitter.com/CMrEnxHqaS</a></p>
+<p>&mdash; Emanuel Steger (@em4nue1) <a href="https://twitter.com/em4nue1/status/508267825417715712">September 6, 2014</a></p></blockquote>
+<p><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
+<h2>The community</h2>
+<p>Again I have to say it was really great to see the people engaging a lot during the event. And all that on a Saturday. When you hear the people talk about small tests, units, restrictions and GoL internals during lunch you know they are hooked.</p>
+<p>Let&#8217;s do it again! And we will, just watch out for #jscr #4 in December. </p>
+<p>Happy hacking&#8230;</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/09/coderetreat-3-highlights/">JS CodeRetreat #3 Highlights</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2014/09/coderetreat-3-highlights/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>SoCraTes 2014</title>
+		<link>http://www.uxebu.com/blog/2014/08/socrates-2014/</link>
+		<comments>http://www.uxebu.com/blog/2014/08/socrates-2014/#comments</comments>
+		<pubDate>Tue, 12 Aug 2014 12:00:31 +0000</pubDate>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+				<category><![CDATA[Events]]></category>
+		<category><![CDATA[frontend engineering]]></category>
+		<category><![CDATA[Open Source]]></category>
+		<category><![CDATA[redis]]></category>
+		<category><![CDATA[tdd]]></category>
+		<category><![CDATA[TDDbin]]></category>
+
+		<guid isPermaLink="false">http://www.uxebu.com/?p=5292</guid>
+		<description><![CDATA[<p>It&#8217;s already two days ago, that SoCraTes is over and there is still this cosy feeling that it left. It was one of those memorable conferences that you know you wanna return to. Oh, an un-conference it was! And that&#8217;s the point, it was not the &#8220;one (wo)man standing and telling you the truth&#8221; conference. It [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/08/socrates-2014/">SoCraTes 2014</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>It&#8217;s already two days ago, that SoCraTes is over and there is still this cosy feeling that it left. It was one of those memorable conferences that you know you wanna return to. Oh, an un-conference it was! And that&#8217;s the point, it was not the &#8220;one (wo)man standing and telling you the truth&#8221; conference. It was a &#8220;kick off a topic and let&#8217;s all see where it goes&#8221; conference. No speakers announced before, no fixed topics &#8211; just software craftsmanship as a rough framing.</p>
+<h2>Open Space/Mind</h2>
+<p>A BarCamp is just the same concept. Every morning you have an empty grid with rooms and time slots which want to be filled. And they get filled, by all the attendees. And after 1h or less you have a schedule that offers something for everyone. See the <a title="Schedule for Day 1" href="https://twitter.com/socrates_2014/status/497663363250663424">schedule for day1</a>. It was hard to select which session to go to. Not only because of all the interesting topics but also because you knew that every session would engage you. If not, the law of two feet said that you just carry yourself somewhere else.<br />
+Of course the hot topics were around people and crafting software. But also swimming, biking, running, watching stars, music and various kinds of gaming were done. And all just because someone kicked it of and people joined. I think every conference should be this style, it&#8217;s way more engaging and also encouraging people to take part, which makes it so valuable.</p>
+<h2>I did only learn</h2>
+<p>The very first day I learned about offline git, how you pass around commits on a USB stick. Then I joined a redis session, touched it and got a feeling for what it feels like to use redis and following that of course the obligatory discussion (accompanying NoSQL) about the right use case for the right tool. &#8220;TDD is dead&#8221; was a topic at every table at some point. And the awesome feeling of not rejecting all thoughts but accepting them as stimulation to think further is just what very well stands for the mindset of the people at this conference. But of course the answer to dead or not dead was not even worth discussing :). EventSourcing and CQRS had been one of the hot topics too, as I have seen this going around a lot lately, actually at all conferences I had been to this year. I tried to contribute a little bit with experience from the JavaScript world, especially on Sunday by taking part in the <a title="Agora" href="https://github.com/softwerkskammer">Agora</a> (which is the system behind <a title="softwerkskammer.org" href="http://softwerkskammer.org">softwerkskammer.org</a>) hackathon.</p>
+<h2>Hacking with JS test frameworks</h2>
+<p>In the hackathon on Sunday, which ran parallel to a Legacy CodeRetreat, we wanted to do some JavaScript. Of course there was no discussion that after we had prototyped and knew how to use the technology (reactjs in this case) we fire up the test framework. But first we fought the obligatory packaging fight, shall we use AMD, CommonJS, requirejs, browserify or plain old script tags. I think this very well allowed everyone to learn something, but it also made obvious that JavaScript just requires some boilerplate.<br />
+Funny enough I had been working on integrating mocha and jasmine into <a title="TDDbin Frontend" href="https://github.com/uxebu/tddbin-frontend">TDDbin</a> over the last days and therefore felt I can contribute. Since the Agora project already uses mocha that was the way to go. And it felt right. Cool, so let&#8217;s use it. And I guess the rest I have to put into a separate blog post, I can see this getting out of hand :).</p>
+<h2>Conclusion</h2>
+<p>If you care about your craft and want to get better at it, go to SoCraTes 2015!<br />
+Thanks to all the team behind this conference and all attendees who made it so outstanding. Find out more on <a href="https://twitter.com/socrates_2014">twitter.com/socrates_2014</a>.</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/08/socrates-2014/">SoCraTes 2014</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2014/08/socrates-2014/feed/</wfw:commentRss>
+		<slash:comments>1</slash:comments>
+		</item>
+		<item>
+		<title>Integrating jasmine and mocha for TDDbin.com &#8211; two tragedies</title>
+		<link>http://www.uxebu.com/blog/2014/08/integrating-jasmine-mocha-tddbin-com-two-tragedies/</link>
+		<comments>http://www.uxebu.com/blog/2014/08/integrating-jasmine-mocha-tddbin-com-two-tragedies/#comments</comments>
+		<pubDate>Mon, 04 Aug 2014 15:16:37 +0000</pubDate>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+				<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[JS Code Retreat]]></category>
+		<category><![CDATA[Open Source]]></category>
+		<category><![CDATA[tdd]]></category>
+		<category><![CDATA[TDDbin]]></category>
+		<category><![CDATA[uxebu]]></category>
+
+		<guid isPermaLink="false">http://www.uxebu.com/?p=5270</guid>
+		<description><![CDATA[<p>It was up in the air for a long time and finally I got around it to start open sourcing the code behind tddbin.com. After fiddling around with the existing code base I quickly arrived to the conclusion there is some major clean up, actually simplification and modularization very necessary. So I started to extract [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/08/integrating-jasmine-mocha-tddbin-com-two-tragedies/">Integrating jasmine and mocha for TDDbin.com &#8211; two tragedies</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>It was up in the air for a long time and finally I got around it to start open sourcing the code behind <a title="tddbin.com" href="http://tddbin.com">tddbin.com</a>. After fiddling around with the existing code base I quickly arrived to the conclusion there is some major clean up, actually simplification and modularization very necessary. So I started to extract and change the frontend, which is the plan to be working standalone. It can be found on <a title="github/uxebu/tddbin-frontend" href="http://github/uxebu/tddbin-frontend">github.com/uxebu/tddbin-frontend</a>.</p>
+<h2>The Master Plan</h2>
+<p>Actually I only wanted to finish the keyboard shortcuts that only worked on Mac OS X for now and they are actually very convenient when using TDDbin. Of course I wanted to test-drive the implementation and I did. It was more than a month ago, that I last touched the source code and I had to set it up on my new computer. This took me way too long and it was so tied up with the backend code, that I felt very quickly that this is not right.</p>
+<p>So I separated out the frontend. And the plan is to have the frontend run separately since it is all just JavaScript, HTML and CSS. I want it all in a separate repo so it will be able for contributors to just clone the repo, do an `npm install` and off you can go. And using TDDbin without requiring a github account should come for free then.</p>
+<p>The features this thing shall have:</p>
+<ul>
+<li>test-runner: The test-runner is the &#8220;view&#8221; that shows the test execution. It should be a standalone component, which can get source code pushed to it, that it then executes and shows the test results. By de-coupling this from the rest it will also be possible (for a contributor) to build a new test-runner for some other test framework.</li>
+<li>editor: This is the code editor, that is based on ACE and shall just have some small add-ons, such as the shortcut menu and provide hooks for retrieving, inserting, modifying the code, decoupled from ACE. This will also allow to replace the editor but which I think is way more important: implement features such as auto-completion, refactoring, etc. right into this component, instead of &#8220;somewhere in the project&#8221;. Again, focus is on maintainability and modularization.</li>
+</ul>
+<p>I am sure there are more features that will come on the frontend side but for now this should be a good start.</p>
+<h2>Integrating Jasmine</h2>
+<p>The current online version of TDDbin has a jasmine runner, which I fought with some time in order to adapt and modify it so it does what I need it for the use case of TDDbin to do. Which is:</p>
+<ul>
+<li>allow to execute tests in a single page application and reinstanciate the runner with new source code</li>
+<li>provide statistics about the test run</li>
+</ul>
+<p>It seems that jasmine is not really meant for those use cases. I had to hack into the boot.js to get out the statistics and I accepted that. But reloading the source code on the site was not so simple. The old version of TDDbin which is still online as of this writing uses <a title="lsjs" href="https://github.com/uxebu/lsjs">lsjs</a> which basically is a replacement for requirejs which stores all the files once loaded into localStorage. That made it relatively easy to update the test file and run it again. When I rewrote it as it is now in tddbin-frontend I felt that lsjs was quite some overhead, so I removed it and went without it. And that was a bit simpler. Though now I am passing the source code to the test-runner and eval it there pfui. I think this is not only ugly but also security-wise not so clever, since any code you write gets executed in the page context. I opened <a title="eval() issue" href="https://github.com/uxebu/tddbin-frontend/issues/1">a ticket for it</a>, if someone has a smarter idea I would be happy to accept a pull request for it or a hint.</p>
+<p>Now that I had jasmine running without lsjs it always added the new test cases to the existing test suite and the number of tests did always increase. Digging into jasmine again &#8230; and I had done lots of it already. Man, if I could just get rid of this feeling that jasmine needs a rewrite :(. After half a wasted day I found out that I can simply get the top test suite and empty it&#8217;s children array, how ugly. I even <a title="Question on the jasmine list" href="https://groups.google.com/forum/?pli=1#!topic/jasmine-js/HIIBJnWPNZg">asked on the jasmine list</a>, see it also for the source code of how I did it.</p>
+<p>Done. I thought. But as usual: the last bug fixed means that it wasn&#8217;t the last bug. Now I saw that the jasmine reporter, the HTML reporter in this case, that paints all the stuff into the site would also need it&#8217;s ass kicked and empty all the renderings it had done, so the results from a new test run would not show up mixed with the previous results. I searched for that for a bit but then I decided I don&#8217;t want a project full of hacks. So I dropped this approach. The jasmine test-runner is in the repo but it&#8217;s only half working :(. I give up.</p>
+<h2>Integrating Mocha</h2>
+<p>Now it was the right time to switch to something professional. I read a little bit on the web and also found in some blog post that &#8220;mocha can be configured to have jasmine-style expects&#8221;. And that is something I definitely want. I could not find it though. I think this post was wrong.</p>
+<p>I would like the TDDbin users to write tests as fast as possible, no new assertion API, just use jasmine-style. And since mocha is assertion-style agnostic I thought this is a good use case to prove that. The TDDbin users should get the simplest assertion API possible and the quasi-standard is jasmine. So I want to have that. Fortunately I remembered that some uxebus have experience with that and <a title="David Aurelio" href="https://twitter.com/void_0">David</a> even uses it in many projects. He uses <a title="Referee mocha plugin" href="https://github.com/busterjs/referee">referee</a> for that. As the <a title="referee's jasmine-style assertion API" href="http://docs.busterjs.org/en/latest/modules/referee/#expectations">referee docs say there is a jasmine-style assertion API</a>. So I hooked that into the <a title="spec-runner.html" href="https://github.com/uxebu/tddbin-frontend/blob/d769ec26dd5bb74a9e13f442b03812553ce43f55/examples/test-runner/mocha.html">spec-runner.html</a> which is the file that gets loaded into the iframe and fed with the test source code. No need to talk about the missing docs on how to use it with requirejs. (Gosh, I hate the package system mess in JavaScript. &lt;/rant&gt;)<br />
+Alright, the assertion API is like jasmine. That is great.</p>
+<p>Let&#8217;s try loading new test cases into the mocha environment. By default every doc says to use `mocha.run()` in order to run the tests. Of course the describe()s and it()s of our test source code have be run before and &#8220;registered&#8221; their tests with mocha. And as I expected too mocha would add every new test I try to run.<br />
+No problem I thought, mocha provides a class `Mocha` which I just instanciate and call run() on the new mocha instance. And of course this doesn&#8217;t work right from the start. In the end I searched in the mocha source code and found that the global mocha instance provided by the build is not a pure `new Mocha()` but <a title="modified mocha global" href="https://github.com/visionmedia/mocha/blob/6e8058f54de2c1b23eb81a4f5c3a55b5adcaedab/mocha.js#L5951">a modified instance</a>, which blew my entire hope of &#8220;switching to professional&#8221;. So I ended up with an alike <a title="hack for mocha env" href="https://github.com/uxebu/tddbin-frontend/blob/d769ec26dd5bb74a9e13f442b03812553ce43f55/src/test-runner/mocha/spec-runner.html#L35">hack for mocha test-runner</a> as I had to do for jasmine. Though fixing the reporter was maybe simpler, since I knew which div mocha writes to, so I just emptied it&#8217;s innerHTML.</p>
+<p>Fortunately getting the stats was a bit simpler, though not documented anywhere and I could only find out by diving into the source code. If you want to know how to <a title="mocha test results" href="https://github.com/uxebu/tddbin-frontend/blob/d769ec26dd5bb74a9e13f442b03812553ce43f55/src/test-runner/mocha/spec-runner.html#L46">get the results from a test run from mocha look into the source code here</a>.</p>
+<h2>Finally</h2>
+<p>The mocha test-runner is working nicely, I am using that as default now. But integrating any of the test runners into a single page app didn&#8217;t make me happy at all. I guess that&#8217;s when one should take the time and contribute to a successful open source project. At least I started writing it down, who knows what else I will do.</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/08/integrating-jasmine-mocha-tddbin-com-two-tragedies/">Integrating jasmine and mocha for TDDbin.com &#8211; two tragedies</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2014/08/integrating-jasmine-mocha-tddbin-com-two-tragedies/feed/</wfw:commentRss>
+		<slash:comments>2</slash:comments>
+		</item>
+		<item>
+		<title>Our JS CodeRetreat: sharing knowledge from both sides</title>
+		<link>http://www.uxebu.com/blog/2014/03/our-js-coderetreat-sharing-knowledge-from-both-sides/</link>
+		<comments>http://www.uxebu.com/blog/2014/03/our-js-coderetreat-sharing-knowledge-from-both-sides/#comments</comments>
+		<pubDate>Mon, 10 Mar 2014 11:55:39 +0000</pubDate>
+		<dc:creator><![CDATA[Irene De Nicolo]]></dc:creator>
+				<category><![CDATA[Events]]></category>
+		<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[JS Code Retreat]]></category>
+		<category><![CDATA[tdd]]></category>
+		<category><![CDATA[TDDbin]]></category>
+		<category><![CDATA[uxebu]]></category>
+
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=3284</guid>
+		<description><![CDATA[<p>“Knowledge sharing”: even though I’m getting used to this mindset, this is something that still surprises me quite a lot. Our JS CodeRetreat was all about sharing: we shared our TDD knowledge, giving you all the chance to attend a free course for an entire day, and you shared your experience and much more during the [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/03/our-js-coderetreat-sharing-knowledge-from-both-sides/">Our JS CodeRetreat: sharing knowledge from both sides</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><strong>“Knowledge sharing”</strong>: even though I’m getting used to this mindset, this is something that still surprises me quite a lot.<br />
+Our JS CodeRetreat was all about sharing: we shared our TDD knowledge, giving you all the chance to attend a free course for an entire day, and you shared your experience and much more during the retrospective moments.<br />
+The aim of this blogpost is, again, to share all the opinions, emotions, information and tools collected during the event.</p>
+<p><a href="http://uxebu.com/wp-content/uploads/2014/02/2014-02-08-18_Fotor.jpg"><img class="aligncenter size-medium wp-image-3851" src="http://uxebu.com/wp-content/uploads/2014/02/2014-02-08-18_Fotor-300x218.jpg" alt="2014-02-08 18_Fotor" width="300" height="218" /></a><span id="more-3855"></span></p>
+<h3></h3>
+<h3>MY PERSONAL OPINION?</h3>
+<p>Yes, I think it’s right to put my personal opinion before the paragraph regarding the actual learnings you gained. I&#8217;m not self-centered, the fact is that the “human touch” really was an important aspect of our JS CodeRetreat, and it would be a shame not to talk about it. I learned a lot, but nothing regarding coding. As I mentioned you all at the beginning, “I’m Irene, I work at Uxebu, and I don’t know how to code”. Despite this, the JS CodeRetreat was a very formative and enjoyable experience for me too! I really think that this event gave a lot to everyone, and not only relating to coding improvements (although I have LOTS of material confirming that you were quite pleased with your coding learnings too… but let’s wait for the next paragraph for this!).</p>
+<p>Many people and their reactions gave me positive feelings. Just to give a couple of samples, Francis, this amazing guy from San Francisco/ Spain/ Philippine/ wherever: crazy, both in clothing and in the approach <img src="http://www.uxebu.com/wp-includes/images/smilies/icon_smile.gif" alt=":)" class="wp-smiley" /> really a happy guy, was able to give a “personal touch” in each retrospective. Was a pleasure to meet such a positive person! And Georg… I know him quite well, but this time he also made his contribution to the human side of the event, by asking to many people suggestions for his bachelor’s thesis (regarding TDD, obviously :)).<br />
+Another person who has left a mark? Irishka, and not only because we have the same beautiful name :). She was the only woman at the event. She is a young mother-programmer, the first one I met up to now (actually, she is the first female-developer I ever met at all!!). A very nice and spontaneous girl, always smiley and kind. It’s a mystery how someone so calm can also be a programmer <img src="http://www.uxebu.com/wp-includes/images/smilies/icon_razz.gif" alt=":P" class="wp-smiley" /> I could keep on saying something about each of you, but I’ll continue just boring myself writing about you in my personal diary ;). A special thanks goes to the guys that stayed there helping in cleaning and tidying up. Not only for the cleaning part, but especially for the great night we enjoyed all together! An unexpected but really fun evening, I also learned a lot about vegans: I&#8217;ll never be vegan, that&#8217;s for sure, but it still was a very interesting conversation.</p>
+<p>About the organisation, I was quite proud of it, except for the pizza delivery… no more ordering from Pizza Mamma Mia (come on fellows! More than 1h delay in pizza delivery is unbelievable). Sure, there still are lots of things we could improve, as buying Club Mate for everyone (in my opinion, the least attractive drink in the world, but you all love it so much!! Next time you’ll have it, I swear :)). People want it so much, a guy also brought his own… we definitely need to provide that next time. And what about Haribo? I think that Haribo tastes even worse than Club Mate… but you were all eating them, you finished almost 2 giant boxes! On the one hand I don’t understand you, on the other hand I admire you: programmers sometimes are a group so different from all the other human beings, but in their diversity they are all quite similar, and a proof is that they all have the same ugly tastes <img src="http://www.uxebu.com/wp-includes/images/smilies/icon_smile.gif" alt=":)" class="wp-smiley" /> but don’t worry, I’m learning your tastes, and we’ll provide everything for the <strong>next event (<a href="http://jscoderetreat.com/2/" target="_blank">10th of May!</a>).</strong></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h3>WHAT HAVE WE LEARNED?</h3>
+<p>A lot. Thanks to you and to your countless post-it pasted all over the wall. The event was divided into 5 sessions, and after each session we had a retrospective moment, during which each of you shared his own opinions, ideas and possible improvements of the just ended session. We collected all of them, and after reading them we were even more proud of our event: you were all so pleased!! Thank you <img src="http://www.uxebu.com/wp-includes/images/smilies/icon_smile.gif" alt=":)" class="wp-smiley" /> (but, I have to say, for a -short- while I haven’t considered you nice people: summing up your post-it was absolutely nerve wracking. Next time only CAP letters, please!! :D)<br />
+Anyway, I could briefly summarize your comments, dividing them into opinions, remarks and outbursts (due to the lack of space I’ll not list every single post-it… too many :))</p>
+<p><em>[Look at how your comments evolved during the day!]<br />
+</em>&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&gt;<br />
+<a href="http://uxebu.com/wp-content/uploads/2014/02/Document2...jpg"><img class="aligncenter size-full wp-image-3843" src="http://uxebu.com/wp-content/uploads/2014/02/Document2...jpg" alt="post-it sum up" width="1066" height="1445" /></a></p>
+<p>At the end of the day you all suggested lots of</p>
+<h3>TOOLS</h3>
+<p>. Here’s the list!</p>
+<p>• Codacy.com<br />
+• Tddbin.com<br />
+• Grunt<br />
+• Gulp<br />
+• Plato<br />
+• Codewars.com (not a tool but worth it)<br />
+• iTerm 2 (Terminal replacement for Mac OS X)<br />
+• Currently (Google Chrome extension for weather)<br />
+• Codeclimate for codestats<br />
+• Unix Command (grep -rn &#8220;search term&#8221; directory/from/here)<br />
+• Floobits.com</p>
+<p>&nbsp;</p>
+<h3>CAN WE IMPROVE?</h3>
+<p>Sure! It’s always possible to improve. It’s clear, we were all very happy about everything, but mostly because it was our first JS CodeRetreat. Over time it will improve more and more, both in the content and in the organisational point of view. We had various improvement suggestions, for example the (too) long closing moment, the starting time (this is something that really tormented your souls <img src="http://www.uxebu.com/wp-includes/images/smilies/icon_smile.gif" alt=":)" class="wp-smiley" /> next time we’ll think of a possible solution!), or the lack of cigarette breaks… all issues that we’ll keep in mind for the future improvements!<br />
+Other suggestions were to provide international keyboards (why didn’t we think about it? You’re so right!!), make the first session with “no conditions AT ALL” (true), and finally make videos of the retrospective moments… actually, I don’t say anything to avoid bad luck, but maybe for the next event we’ll have a surprise about the video equipment <img src="http://www.uxebu.com/wp-includes/images/smilies/icon_smile.gif" alt=":)" class="wp-smiley" /> we’ll see, stay tuned! We have many further ideas of how to improve and become better and better, but if you want to suggest us something else, just leave a comment, a tweet, or whatever you prefer <img src="http://www.uxebu.com/wp-includes/images/smilies/icon_smile.gif" alt=":)" class="wp-smiley" /></p>
+<p>Again (and again, and again…), THANK YOU for this great experience, and hope to see you all the <strong><a href="http://jscoderetreat.com/2/" target="_blank">10th of May!</a></strong> <img src="http://www.uxebu.com/wp-includes/images/smilies/icon_biggrin.gif" alt=":D" class="wp-smiley" /><br />
+(PS: for the next MeetUp event <a href="http://www.meetup.com/JS-CodeRetreat-Munich/events/169544652/" target="_blank"><strong>click here</strong></a>, for the Lanyrd event <a href="http://lanyrd.com/2014/jscr2-muc/" target="_blank"><strong>click here</strong></a>).</p>
+<p>&nbsp;</p>
+<p><a href="http://uxebu.com/wp-content/uploads/2014/02/IMG_2346_Fotor.jpg"><img class="aligncenter size-medium wp-image-3846" src="http://uxebu.com/wp-content/uploads/2014/02/IMG_2346_Fotor-225x300.jpg" alt="IMG_2346_Fotor" width="225" height="300" /></a></p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/03/our-js-coderetreat-sharing-knowledge-from-both-sides/">Our JS CodeRetreat: sharing knowledge from both sides</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2014/03/our-js-coderetreat-sharing-knowledge-from-both-sides/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Defactoring In Action</title>
+		<link>http://www.uxebu.com/blog/2014/03/defactoring-in-action/</link>
+		<comments>http://www.uxebu.com/blog/2014/03/defactoring-in-action/#comments</comments>
+		<pubDate>Tue, 04 Mar 2014 14:32:00 +0000</pubDate>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+				<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[tdd]]></category>
+		<category><![CDATA[TDDbin]]></category>
+
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=3422</guid>
+		<description><![CDATA[<p>I would just add a tiny little bit to Kent Beck&#8217;s If you can&#8217;t make it better, make it worse. (Kent Beck) and that is &#8220;in order to make it even better&#8220;. I don&#8217;t know where I stumbled over defactoring for the first time. It might had been in one of Kent Beck&#8217;s videos about [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/03/defactoring-in-action/">Defactoring In Action</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>I would just add a tiny little bit to Kent Beck&#8217;s</p>
+<blockquote><p><strong>If you can&#8217;t make it better, make it worse</strong>.<br />
+(<a href="https://www.facebook.com/notes/kent-beck/when-worse-is-better-incrementally-escaping-local-maxima/498576730175196">Kent Beck</a>)</p></blockquote>
+<p>and that is &#8220;<strong>in order to make it even better</strong>&#8220;.<br />
+<span id="more-3422"></span> </p>
+<p>I don&#8217;t know where I stumbled over defactoring for the first time. It might had been in one of <a href="http://pragprog.com/screencasts/v-kbtdd/test-driven-development">Kent Beck&#8217;s videos about TDD</a>, that I bought once or <a href="http://raganwald.com/2013/10/08/defactoring.html">here</a> or <a href="http://c2.com/cgi/wiki?HowToDefactor">here</a>. </p>
+<p>But just a little bit ago in one of my <a href="https://plus.google.com/118439413511203124981/posts">TDDbin sessions</a> it fell in my lap and happily used it. The following video shows how I got from this code</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #000066; font-weight: bold;">if</span> <span style="color: #009900;">&#40;</span>out<span style="color: #009900;">&#91;</span><span style="color: #CC0000;">0</span><span style="color: #009900;">&#93;</span> <span style="color: #339933;">&gt;</span> out<span style="color: #009900;">&#91;</span><span style="color: #CC0000;">1</span><span style="color: #009900;">&#93;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span> <br />
+&nbsp; out <span style="color: #339933;">=</span> <span style="color: #009900;">&#91;</span>out<span style="color: #009900;">&#91;</span><span style="color: #CC0000;">1</span><span style="color: #009900;">&#93;</span><span style="color: #339933;">,</span> out<span style="color: #009900;">&#91;</span><span style="color: #CC0000;">0</span><span style="color: #009900;">&#93;</span><span style="color: #009900;">&#93;</span>.<span style="color: #660066;">concat</span><span style="color: #009900;">&#40;</span>out.<span style="color: #660066;">slice</span><span style="color: #009900;">&#40;</span><span style="color: #CC0000;">2</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span> <br />
+<span style="color: #009900;">&#125;</span> <br />
+<span style="color: #000066; font-weight: bold;">if</span> <span style="color: #009900;">&#40;</span>out<span style="color: #009900;">&#91;</span><span style="color: #CC0000;">2</span><span style="color: #009900;">&#93;</span> <span style="color: #339933;">&gt;</span> out<span style="color: #009900;">&#91;</span><span style="color: #CC0000;">3</span><span style="color: #009900;">&#93;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span> <br />
+&nbsp; out <span style="color: #339933;">=</span> out.<span style="color: #660066;">slice</span><span style="color: #009900;">&#40;</span><span style="color: #CC0000;">0</span><span style="color: #339933;">,</span> <span style="color: #CC0000;">2</span><span style="color: #009900;">&#41;</span>.<span style="color: #660066;">concat</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#91;</span>out<span style="color: #009900;">&#91;</span><span style="color: #CC0000;">3</span><span style="color: #009900;">&#93;</span><span style="color: #339933;">,</span> out<span style="color: #009900;">&#91;</span><span style="color: #CC0000;">2</span><span style="color: #009900;">&#93;</span><span style="color: #009900;">&#93;</span><span style="color: #009900;">&#41;</span>.<span style="color: #660066;">concat</span><span style="color: #009900;">&#40;</span>out.<span style="color: #660066;">slice</span><span style="color: #009900;">&#40;</span><span style="color: #CC0000;">4</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span> <br />
+<span style="color: #009900;">&#125;</span> <br />
+<span style="color: #000066; font-weight: bold;">if</span> <span style="color: #009900;">&#40;</span>out<span style="color: #009900;">&#91;</span><span style="color: #CC0000;">3</span><span style="color: #009900;">&#93;</span> <span style="color: #339933;">&gt;</span> out<span style="color: #009900;">&#91;</span><span style="color: #CC0000;">4</span><span style="color: #009900;">&#93;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span> <br />
+&nbsp; out <span style="color: #339933;">=</span> out.<span style="color: #660066;">slice</span><span style="color: #009900;">&#40;</span><span style="color: #CC0000;">0</span><span style="color: #339933;">,</span> <span style="color: #CC0000;">3</span><span style="color: #009900;">&#41;</span>.<span style="color: #660066;">concat</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#91;</span>out<span style="color: #009900;">&#91;</span><span style="color: #CC0000;">4</span><span style="color: #009900;">&#93;</span><span style="color: #339933;">,</span> out<span style="color: #009900;">&#91;</span><span style="color: #CC0000;">3</span><span style="color: #009900;">&#93;</span><span style="color: #009900;">&#93;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span> <br />
+<span style="color: #009900;">&#125;</span></div></div>
+<p>to that code</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">out <span style="color: #339933;">=</span> swapNeighbours<span style="color: #009900;">&#40;</span>out<span style="color: #339933;">,</span> <span style="color: #CC0000;">0</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span> <br />
+out <span style="color: #339933;">=</span> swapNeighbours<span style="color: #009900;">&#40;</span>out<span style="color: #339933;">,</span> <span style="color: #CC0000;">2</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span> <br />
+out <span style="color: #339933;">=</span> swapNeighbours<span style="color: #009900;">&#40;</span>out<span style="color: #339933;">,</span> <span style="color: #CC0000;">3</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<span style="color: #003366; font-weight: bold;">function</span> swapNeighbours<span style="color: #009900;">&#40;</span>out<span style="color: #339933;">,</span> offset<span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span> <br />
+&nbsp; <span style="color: #000066; font-weight: bold;">if</span> <span style="color: #009900;">&#40;</span>out<span style="color: #009900;">&#91;</span>offset<span style="color: #009900;">&#93;</span> <span style="color: #339933;">&gt;</span> out<span style="color: #009900;">&#91;</span>offset <span style="color: #339933;">+</span> <span style="color: #CC0000;">1</span><span style="color: #009900;">&#93;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span> <br />
+&nbsp; &nbsp; out <span style="color: #339933;">=</span> out.<span style="color: #660066;">slice</span><span style="color: #009900;">&#40;</span><span style="color: #CC0000;">0</span><span style="color: #339933;">,</span> offset<span style="color: #009900;">&#41;</span>.<span style="color: #660066;">concat</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#91;</span>out<span style="color: #009900;">&#91;</span>offset <span style="color: #339933;">+</span> <span style="color: #CC0000;">1</span><span style="color: #009900;">&#93;</span><span style="color: #339933;">,</span> out<span style="color: #009900;">&#91;</span>offset<span style="color: #009900;">&#93;</span><span style="color: #009900;">&#93;</span><span style="color: #009900;">&#41;</span>.<span style="color: #660066;">concat</span><span style="color: #009900;">&#40;</span>out.<span style="color: #660066;">slice</span><span style="color: #009900;">&#40;</span>offset <span style="color: #339933;">+</span> <span style="color: #CC0000;">2</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span> <br />
+&nbsp; <span style="color: #009900;">&#125;</span> <br />
+&nbsp; <span style="color: #000066; font-weight: bold;">return</span> out<span style="color: #339933;">;</span> <br />
+<span style="color: #009900;">&#125;</span></div></div>
+<p>To make a long story short, I think watching those 5 minutes of the video will explain best what it is. </p>
+<p><iframe src="//www.youtube.com/embed/SK7R8crPYek?feature=player_embedded&amp;start=1099" width="550" height="280" frameborder="0" allowfullscreen="allowfullscreen"></iframe><br />
+I am curious about your experiences with defactoring, please leave a comment.</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/03/defactoring-in-action/">Defactoring In Action</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2014/03/defactoring-in-action/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>How to host a JS CodeRetreat in your city</title>
+		<link>http://www.uxebu.com/blog/2014/03/how-to-host-a-js-coderetreat-in-your-city/</link>
+		<comments>http://www.uxebu.com/blog/2014/03/how-to-host-a-js-coderetreat-in-your-city/#comments</comments>
+		<pubDate>Tue, 04 Mar 2014 14:57:06 +0000</pubDate>
+		<dc:creator><![CDATA[Irene De Nicolo]]></dc:creator>
+				<category><![CDATA[Events]]></category>
+		<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[JS Code Retreat]]></category>
+		<category><![CDATA[tdd]]></category>
+		<category><![CDATA[TDDbin]]></category>
+		<category><![CDATA[uxebu]]></category>
+
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=3352</guid>
+		<description><![CDATA[<p>The aim of this blogpost is to encourage and help those of you who are willing to host a JS CodeRetreat in your city. I’m pretty sure that lots of people thought “nice idea! I’d like to take part to it…but where to start?”. It’s simple. Requires some energy and effort to organise it but, [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/03/how-to-host-a-js-coderetreat-in-your-city/">How to host a JS CodeRetreat in your city</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>The aim of this blogpost is to encourage and help those of you who are willing to <strong>host a JS CodeRetreat in your city</strong>. I’m pretty sure that lots of people thought “nice idea! I’d like to take part to it…but where to start?”. It’s simple. Requires some energy and effort to organise it but, believe me, it’s totally worth it. And you will be rewarded with a great feeling of satisfaction! (and we’ll help you too, that’s for sure!)</p>
+<h6><strong>Shortcut</strong></h6>
+<ul>
+<li><a href="#Whyisitimportant"><strong>Why is it important?</strong></a></li>
+<li><a href="#Wheretostart"><strong>Where to start</strong></a></li>
+<li><a href="#Howtopayforit"><strong>How to pay for it?</strong></a></li>
+<li><a href="#Howtopromoteit"><strong>How to promote it? Sponsoring</strong></a></li>
+<li><a href="#Whatwillineed"><strong>What will I need?</strong></a></li>
+<li><a href="#whatisretrospective"><strong>What’s a retrospective?</strong></a></li>
+<li><a href="#whatuxebuprovides"><strong>What Uxebu provides?</strong></a></li>
+<li><a href="#anotherdate"><strong>Can I host a JS CodeRetreat in my city, but not during the global date?</strong></a></li>
+<li><a href="#companycoderetreat"><strong>Company CodeRetreat?</strong></a></li>
+</ul>
+<p><span id="more-3352"></span></p>
+<p><a name="Whyisitimportant"></a></p>
+<h1></h1>
+<h1>Why is it important?</h1>
+<p>Don’t worry, I’m not here to explain for the thousandth time <a href="http://jscoderetreat.com">“what’s a JS CodeRetreat”</a>: you can find lots of information on the <a href="http://jscoderetreat.com">official website</a>, on <a href="https://twitter.com/search?q=coderetreat">twitter</a>, on <a href="http://uxebu.com/blog/2014/02/11/js-coderetreat-our-successful-event/">other</a> <a href="http://uxebu.com/blog/2014/01/16/our-mindmap/">uxebu</a> <a href="http://uxebu.com/blog/2014/01/15/day-1-how-to-organize-an-event-day-by-day/">blogposts</a>, <a href="http://uxebu.com/blog/2014/01/14/how-to-organize-an-event-day-by-day-our-js-coderetreat/">etc.</a></p>
+<p>But why is it important to host this event in your city too?</p>
+<p>There are so many reasons that it’s really quite difficult to create a list. First of all, this isn’t a conference, it’s a CodeRetreat! Rules are totally different, attendees take actively part in the coding experience: act a lot, listen very little. In a conference you are mostly sitting and listening to talks. Besides the chatting in the breaks the activity is up to the speaker. In a CodeRetreat you hack and you actively share what you have learned after every session (of 45min) and the facilitator actually speaks very little compared to all the attendees.</p>
+<p>Secondly, although the purpose of this event is NOT AT ALL advertising your company, you’ll still have a lot of visibility, and people will get to know your company as “THE company hosting the JS CodeRetreat”. Believe me, for us this has been a great jump forward in spreading what we do daily. Testing and TDD are not yet widespread practices, but they should be, and with this event you’ll have the chance to communicate it!</p>
+<p>&nbsp;</p>
+<p><a name="Wheretostart"></a></p>
+<h1>Where to start?</h1>
+<p><strong>First step is to <a href="http://jscoderetreat.com/2/city/new.html">add your city to the official JS CodeRetreat website</a>.</strong></p>
+<p><a href="http://uxebu.com/wp-content/uploads/2014/03/Screen-Shot-2014-04-02-at-15.03.51.png"><img class="aligncenter size-large wp-image-4319" src="http://uxebu.com/wp-content/uploads/2014/03/Screen-Shot-2014-04-02-at-15.03.51-1024x435.png" alt="Screen Shot 2014-04-02 at 15.03.51" width="1024" height="435" /></a></p>
+<p>After that, where exactly are you going to host your event? This is a crucial point: you need a hall big enough to contain <a href="http://www.flickr.com/photos/119361579@N03/12925347443/">all the people you expect, tables, chairs, etc.</a>, and there should still be a free space where to eat and hold all your <a href="http://www.flickr.com/photos/119361579@N03/12925375833/">“retrospectives”</a> (I’ll explain you what’s this about in a sec). The hall should have enough plug-ins (though you can still buy spare ones), and it has to provide a good wifi connection, adequate for fullfilling the wifi needs of all your attendees.</p>
+<p>You’ll need projectors (min. 1, but if we planned a <a href="http://www.flickr.com/photos/119361579@N03/12925329613/">“Randori”</a> in the timetable, you’ll need one every 10/13 expected people) and microphones (better if wifi), both usually available in many halls. If not, keep in mind that projectors and microphones are crucial, therefore you should start looking for them asap :).</p>
+<p>&nbsp;</p>
+<p><a name="Howtopayforit"></a></p>
+<h1>How to pay for it? Sponsoring.</h1>
+<p>Look for sponsors. This is the best way, and you’ll both take advantage from your JS CodeRetreat event (your names will be everywhere!). You’ll need sponsors at least for the hall/location, the food and the drinks. In my opinion, the best way to find sponsors is simply going to other events that you might be interested in (MeetUp.com is full of stuff), and talk to people during breaks or spare time. Really, believe me, there are lots of people looking for events to sponsor, sometime the most simple thing to do is the one that would never come into your mind! Attending events organized by other companies could be a great opportunity to find new sponsor. (And to increase your personal culture. There are so many awesome and interesting events around you, maybe you don’t even know!).</p>
+<p>&nbsp;</p>
+<p><a name="Howtopromoteit"></a></p>
+<h1>How to promote it?</h1>
+<p>Remember: this is not advertisment! Your name will be everywhere, that’s for sure, but you still don’t have to advertise your company, but the event! It’s quite different…. There is a code of conduct that has to be <a href="http://coderetreat.org/hosting">respected</a>.<br />
+Create your event on <a href="http://meetup.com">meetup.com</a>, <a href="http://lanyrd.com">lanyrd.com</a>, Facebook, sponsor it with your twitter page, post it and share it with all the JS groups and people you think could be interested. We can help you by advertising it on the <a href="http://twitter.com/jscoderetreat">official JS CodeRetreat twitter page</a>, on the <a href="http://jscoderetreat.com">main website</a>, etc.</p>
+<p>&nbsp;</p>
+<p><a name="Whatwillineed"></a></p>
+<h1>What will I need?</h1>
+<p>Besides what I’ve already mentioned (projectors, microphone, extension chords, etc.) you’ll need some extra stuff to make sure your event will be designed in detail and, therefore, awesome.</p>
+<p>First of all, you’ll need <strong>food</strong>.Sponsors are paying for that, but you still have to buy it, and therefore you should think in advance of what to buy and how much to buy. You need to provide breakfast, lunch, snacks, coffee, milk and drinks. As an example, for our JS CodeRetreat that took place on the 8th of February, we bought: coffee (we had the machine), milk and sugar, lots of different types of biscuits, yogurt, butter bretzel, chips, haribo, beers, coke, juice and other soft drinks, and pizza for lunch. You’ll obviously need cups, glasses, plates and cutlery too! Don’t forget to think of the obvious stuff :).</p>
+<p>You’ll then need some <strong>stationery items</strong>: coloured markers, adhesive labels to use as name tags, lots of coloured post-its (you’ll need them for the retrospective moment), note pads and pens. My suggestion, after having seen <a href="http://www.flickr.com/photos/119361579@N03/12925637444/">how useful pens and blocks</a> were in our previous event, is to make some gadgets to give away after the event. Best idea is to create note pads and pens/pencils, but also cups could be a great idea! Those are the most comon gadgets but, I have to say, the most useful too! Everyone can use them during the event, and then bring everything back home or in their offices <img src="http://www.uxebu.com/wp-includes/images/smilies/icon_smile.gif" alt=":)" class="wp-smiley" /> We also created energy drinks with our logo, stickers and an awesome poster regarding TDD: all objects that the attendees seemed to like quite a lot, therefore I suggest you to do the same!</p>
+<p>We’ll provide you the <strong>slides</strong>, that will work as a guideline for your event speakers, so you don’t have to think to much of what to talk about… you won’t be talking that much though, the goal is to make your partecipants learn something modern, useful and new… they’ll act the most of the time, not listen :).</p>
+<p>Another suggestion is to provide some <strong>international keyboards</strong>: we didn’t think of it, but we saw that many people wasted time just setting international keyboards on their laptops, therefore providing them would give an extra edge to your event.<br />
+Until the next event we will have <a href="http://tddbin.com">tddbin.com</a> ready to be used in pairs, so you can just use your laptop and the environment you are used to.</p>
+<p>&nbsp;</p>
+<p><a name="whatisretrospective"></a></p>
+<h1>What’s this “retrospective”?</h1>
+<p>This is the most awesome part of the event. After each session, you will all meet together in another side of the hall, and your speakers will ask some more deep questions about the just ended session. You can’t believe how much you’ll come to learn by doing this! You should also find a system to summarize all the informations, suggestions and opinions: we thought of hanging <a href="http://www.flickr.com/photos/119361579@N03/12925374603/">sheets with the sessions on the wall, and everyone just attached their opinion under them on a post it</a>. Considering that this is the core moment of all the event, and that we learned a lot just listening to the attendees speaking, for the next time we decided to make some videos of the retrospective, and I suggest you to do the same. It’s really a formative moment for everyone, don’t miss the opportunity to remember it in the best possible way! Videos, records, post-its, pics… do as much as possible so as not to miss anything. <strong>The retrospectives will give you lots of satisfaction, I swear.</strong></p>
+<p>Btw, pics and videos are important during the whole event (a good smartphone could be enough). These will be useful not only to remember this great experience in details, but also for your social media contents, for promoting it the next time, and for your sponsors too: they’ll probably ask for proof that their logo was present during the event, remember this!</p>
+<p>&nbsp;</p>
+<p><a name="whatuxebuprovides"></a></p>
+<h1>What uxebu provides?</h1>
+<p>We help you with the sponsoring and promoting stuff, we provide you the slides for the event (a big help for your speakers!), we’ll give you the timetable, with the chosen kata and a detailed description of what will happen during every session and during the whole day. If you still feel not prepared enough on the topic, we can send you some links to videos, blog articles and other stuff regarding the carrying out of the CodeRetreats. Obviously, if you need more informations, we’re here to help you, therefore just get in touch with one of us!</p>
+<p>&nbsp;</p>
+<p><a name="anotherdate"></a></p>
+<h1>What if I want to host a JS CodeRetreat in my city, but not during the global date?</h1>
+<p>You can certainly do that! It’s a community event, you can host one whenever you prefer (though hosting it during the global date gives to the event another feeling). We can help you too, just get in contact with us and let’s see what we could do together!</p>
+<p>&nbsp;</p>
+<p><a name="companycoderetreat"></a></p>
+<h1>A company CodeRetreat?</h1>
+<p>Well, if you’re interested, uxebu provides intensive internal trainings, that could last 1 or 2 days, according to the number of attendees and on your JavaScript level. We can reach you wherever you are, <a href="mailto:contact+uxebu-blog@uxebu.com?subject=Company%20CodeRetreat%20or%20Training">just ping us</a> if your company wants to learn more about JS tests, TDD, clean code, and much more ;).</p>
+<p>I hope that this (loooong!!!) blog post will facilitate the hosting of your JS CodeRetreat. For further questions, again, feel super free to ask us!</p>
+<p>See you soon!</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/03/how-to-host-a-js-coderetreat-in-your-city/">How to host a JS CodeRetreat in your city</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2014/03/how-to-host-a-js-coderetreat-in-your-city/feed/</wfw:commentRss>
+		<slash:comments>1</slash:comments>
+		</item>
+		<item>
+		<title>Working at Uxebu</title>
+		<link>http://www.uxebu.com/blog/2014/01/working-in-uxebu/</link>
+		<comments>http://www.uxebu.com/blog/2014/01/working-in-uxebu/#comments</comments>
+		<pubDate>Fri, 31 Jan 2014 09:05:02 +0000</pubDate>
+		<dc:creator><![CDATA[Gaganjot]]></dc:creator>
+				<category><![CDATA[development tools]]></category>
+		<category><![CDATA[dojo]]></category>
+		<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[tdd]]></category>
+		<category><![CDATA[uxebu]]></category>
+
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=2839</guid>
+		<description><![CDATA[<p>Hello!! Myself Gaganjot, am a student of Informatics in TU Munich. I joined Uxebu as a software developer (working student), having motivation and enthusiasm to work in Web Development. While in Uxebu When I started I was a novice to NodeJS, which was at the core of Uxebu. But having the confidence to learn it [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/01/working-in-uxebu/">Working at Uxebu</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>Hello!! Myself Gaganjot, am a student of Informatics in TU Munich. I joined Uxebu as a software developer (working student), having motivation and enthusiasm to work in Web Development.</p>
+<h2>While in Uxebu</h2>
+<p>When I started I was a novice to <a href="http://nodejs.org/" target="_blank">NodeJS</a>, which was at the core of Uxebu. But having the confidence to learn it and later realising that Uxebu has bunch of great developers with whom I will be working along, I was quickly into somewhat &#8216;professional&#8217; web-development (compared to only having done small University projects).</p>
+<p>During my first task only, I learnt many tools and techniques which are used in today&#8217;s software industry. The most important thing, which is very important in success of every startup is its work culture. And talking about Uxebu, I must say that how it should be; because having regular contact and communication with other members of the company is as important as having good product/service.<br />
+I also came to know about the difference between ONLY WRITING the code and WRITING the code. And I could sense the analogy between Uxebu&#8217;s coding practises and the following quotation:<br />
+&#8220;Any fool can write code that a computer can understand. Good programmers write code that humans can understand. -Martin Fowler&#8221;<br />
+<span id="more-2839"></span></p>
+<p>I came to know that how your work could be beneficial to others if written abiding certain pre-decided rules (like committing code often, better renaming, modularising, refactoring, writing simple-small-dedicated functions to be reused, etc) and that is what I think high quality development is, writing code which is more understandable, manageable and easily-maintainable, which doesn&#8217;t need any documentation (at-least for developers).<br />
+Being a working student I didn&#8217;t spend my major time in company, but then also the time which I spend here is worth value for a student having software-development (after sometime I would say writing quality software) as a long-term goal. For putting this into habit, we regularly have coding-dojo sessions at the start of the day. Having Coding Dojo was a completely new experience for me, where I learnt about the <a href="http://www.cs.pomona.edu/classes/cs121/supp/williams_prpgm.pdf" target="_blank">pair-programming</a>, <a href="http://www.cs.helsinki.fi/u/luontola/tdd-2009/ext/ObjectCalisthenics.pdf" target="_blank">code calisthenics</a>, <a href="http://www.codinghorror.com/blog/2006/05/code-smells.html" target="_blank">avoiding code-smells</a> and <a href="http://en.wikipedia.org/wiki/Code_refactoring" target="_blank">refactoring</a>.<br />
+This is not all which I have to tell, as the main organ of Uxebu quality-development is something else. This was <a href="http://www.agiledata.org/essays/tdd.html" target="_blank">TDD (Test Driven Development)</a>, which initially sounds to me really crazy until I knew the essence of it. After having seen TDD used in some of the projects and then putting TDD into practise I realised what is meant by maintainable software, how TDD can be used to validate the code and then, not the last, but TDD deriving the design of the software too.</p>
+<p>Putting it altogether, it was a great experience being in Uxebu and working in Germany.</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/01/working-in-uxebu/">Working at Uxebu</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2014/01/working-in-uxebu/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Happy Holidays</title>
+		<link>http://www.uxebu.com/blog/2012/12/happy-holidays/</link>
+		<comments>http://www.uxebu.com/blog/2012/12/happy-holidays/#comments</comments>
+		<pubDate>Fri, 21 Dec 2012 15:31:26 +0000</pubDate>
+		<dc:creator><![CDATA[Nikolai Onken]]></dc:creator>
+				<category><![CDATA[BonsaiJS]]></category>
+
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=2696</guid>
+		<description><![CDATA[<p>We want to wish you all a very happy christmas and a good start into 2013. This year has been very special for us with the launch of http://pixelplant.com, the Flash to HTML5 conversion service including human support and with open sourcing BonsaiJS, after spending almost one year on building something we think would also [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2012/12/happy-holidays/">Happy Holidays</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>We want to wish you all a very happy christmas and a good start into 2013. This year has been very special for us with the launch of <a href="http://pixelplant.com">http://pixelplant.com</a>, the Flash to HTML5 conversion service including human support <img src="http://www.uxebu.com/wp-includes/images/smilies/icon_wink.gif" alt=";)" class="wp-smiley" /> and with open sourcing <a href="http://bonsaijs.org">BonsaiJS</a>, after spending almost one year on building something we think would also be useful for others.</p>
+<p>We are really looking forward to the next year as we continue improving the Flash conversion and have some very exciting releases coming up &#8211; but we won&#8217;t mention too much yet, so stay tuned <img src="http://www.uxebu.com/wp-includes/images/smilies/icon_wink.gif" alt=";)" class="wp-smiley" /></p>
+<p><em>David, Fabio, Tobias, Tobi, Peter, Wolfram and Nikolai</em></p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2012/12/happy-holidays/">Happy Holidays</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2012/12/happy-holidays/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+	</channel>
+</rss>

@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	
+	>
+<channel>
+	<title>Comments on: One var statement for one variable!</title>
+	<atom:link href="http://www.uxebu.com/blog/2010/04/one-var-statement-for-one-variable/feed/" rel="self" type="application/rss+xml" />
+	<link>http://www.uxebu.com/blog/2010/04/one-var-statement-for-one-variable/</link>
+	<description>The first JavaScript-only development and consulting company</description>
+	<lastBuildDate>Sun, 27 Sep 2015 14:23:54 +0000</lastBuildDate>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=4.1.8</generator>
+	<item>
+		<title>By: uxebu</title>
+		<link>http://www.uxebu.com/blog/2010/04/one-var-statement-for-one-variable/#comment-1547</link>
+		<dc:creator><![CDATA[uxebu]]></dc:creator>
+		<pubDate>Tue, 03 Jun 2014 23:04:00 +0000</pubDate>
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=1135#comment-1547</guid>
+		<description><![CDATA[Completely agree that consistency is key. ]]></description>
+		<content:encoded><![CDATA[<p>Completely agree that consistency is key. </p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Andrew Phillipo</title>
+		<link>http://www.uxebu.com/blog/2010/04/one-var-statement-for-one-variable/#comment-1545</link>
+		<dc:creator><![CDATA[Andrew Phillipo]]></dc:creator>
+		<pubDate>Mon, 19 May 2014 15:09:00 +0000</pubDate>
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=1135#comment-1545</guid>
+		<description><![CDATA[The corollary to this argument is that: 
+ 
+a) var statements are not minified while variables are; having lots of var&#039;s seems pointless  
+b) your argument that 1 character mistakes mean that you should avoid a way of coding is a poor one.  There are loads of instances where missing a single character in javascript becomes an issue.  
+c) One variable instantiation per closure is what is really happening. Best to make this explicit.  
+d) You are deliberately not indenting the variables correctly making the examples look overly odd.  All variables should take up their own line and be indented by four characters. 
+e) Douglas Crockford and Nicholas Zakas both recommend the opposite way to yourself.  I&#039;d probably trust them personally knowing how damn good they are at coding and Javascript (I&#039;ve worked with Nicholas at Yahoo and having a consistent standard on stuff like this is more important than how you feel as a programmer). ]]></description>
+		<content:encoded><![CDATA[<p>The corollary to this argument is that: </p>
+<p>a) var statements are not minified while variables are; having lots of var&#039;s seems pointless<br />
+b) your argument that 1 character mistakes mean that you should avoid a way of coding is a poor one.  There are loads of instances where missing a single character in javascript becomes an issue.<br />
+c) One variable instantiation per closure is what is really happening. Best to make this explicit.<br />
+d) You are deliberately not indenting the variables correctly making the examples look overly odd.  All variables should take up their own line and be indented by four characters.<br />
+e) Douglas Crockford and Nicholas Zakas both recommend the opposite way to yourself.  I&#039;d probably trust them personally knowing how damn good they are at coding and Javascript (I&#039;ve worked with Nicholas at Yahoo and having a consistent standard on stuff like this is more important than how you feel as a programmer). </p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: wkriesing</title>
+		<link>http://www.uxebu.com/blog/2010/04/one-var-statement-for-one-variable/#comment-750</link>
+		<dc:creator><![CDATA[wkriesing]]></dc:creator>
+		<pubDate>Thu, 25 Aug 2011 20:14:32 +0000</pubDate>
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=1135#comment-750</guid>
+		<description><![CDATA[Thank you Sean, yes that is a typo. Fixed ]]></description>
+		<content:encoded><![CDATA[<p>Thank you Sean, yes that is a typo. Fixed </p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Sean</title>
+		<link>http://www.uxebu.com/blog/2010/04/one-var-statement-for-one-variable/#comment-749</link>
+		<dc:creator><![CDATA[Sean]]></dc:creator>
+		<pubDate>Thu, 25 Aug 2011 17:56:05 +0000</pubDate>
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=1135#comment-749</guid>
+		<description><![CDATA[You have a mistake in your first real-world example. Did you do that on purpose to make a point? 
+You wrote: 
+// DO 
+var g = this.getObject(&quot;group.name&quot;, test) &#124;&#124; groupName, 
+// Trim and replace all special chars, to have a proper test ID. 
+var group = g.replace(/^s*/, &quot;&quot;).replace(/s*$/, &quot;&quot;) 
+             .replace(/[^0-9a-zA-Z]/g, &quot;_&quot;); 
+ 
+That code has a comma followed by var. ]]></description>
+		<content:encoded><![CDATA[<p>You have a mistake in your first real-world example. Did you do that on purpose to make a point?<br />
+You wrote:<br />
+// DO<br />
+var g = this.getObject(&quot;group.name&quot;, test) || groupName,<br />
+// Trim and replace all special chars, to have a proper test ID.<br />
+var group = g.replace(/^s*/, &quot;&quot;).replace(/s*$/, &quot;&quot;)<br />
+             .replace(/[^0-9a-zA-Z]/g, &quot;_&quot;); </p>
+<p>That code has a comma followed by var. </p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Wolfram Kriesing</title>
+		<link>http://www.uxebu.com/blog/2010/04/one-var-statement-for-one-variable/#comment-748</link>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+		<pubDate>Thu, 09 Jun 2011 15:41:25 +0000</pubDate>
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=1135#comment-748</guid>
+		<description><![CDATA[Just found another reason why multiple var statements are needed. If you try to debug: 
+var x = f(), 
+      y = f1(), 
+     z = f2(); 
+you can NOT set a breakpoint on the f1() call.  
+var x = f(); 
+var y = f1(); 
+var z = f2(); 
+doing this you can! 
+You can even do: 
+var x = f(); 
+debugger; 
+var y = f1(); 
+var z = f2(); 
+just hit me and cost my precious time :( ]]></description>
+		<content:encoded><![CDATA[<p>Just found another reason why multiple var statements are needed. If you try to debug:<br />
+var x = f(),<br />
+      y = f1(),<br />
+     z = f2();<br />
+you can NOT set a breakpoint on the f1() call.<br />
+var x = f();<br />
+var y = f1();<br />
+var z = f2();<br />
+doing this you can!<br />
+You can even do:<br />
+var x = f();<br />
+debugger;<br />
+var y = f1();<br />
+var z = f2();<br />
+just hit me and cost my precious time <img src="http://www.uxebu.com/wp-includes/images/smilies/icon_sad.gif" alt=":(" class="wp-smiley" /> </p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: frenky</title>
+		<link>http://www.uxebu.com/blog/2010/04/one-var-statement-for-one-variable/#comment-747</link>
+		<dc:creator><![CDATA[frenky]]></dc:creator>
+		<pubDate>Sun, 08 May 2011 05:21:34 +0000</pubDate>
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=1135#comment-747</guid>
+		<description><![CDATA[O1hdAZ &lt;a href=&quot;http://gdjI3b7VaWpU1m0dGpvjRrcu9Fk.com&quot; rel=&quot;nofollow&quot;&gt;http://gdjI3b7VaWpU1m0dGpvjRrcu9Fk.com&lt;/a&gt; ]]></description>
+		<content:encoded><![CDATA[<p>O1hdAZ <a href="http://gdjI3b7VaWpU1m0dGpvjRrcu9Fk.com" rel="nofollow">http://gdjI3b7VaWpU1m0dGpvjRrcu9Fk.com</a> </p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: fearphage</title>
+		<link>http://www.uxebu.com/blog/2010/04/one-var-statement-for-one-variable/#comment-746</link>
+		<dc:creator><![CDATA[fearphage]]></dc:creator>
+		<pubDate>Mon, 08 Nov 2010 05:16:51 +0000</pubDate>
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=1135#comment-746</guid>
+		<description><![CDATA[Regular expressions are not difficult to comprehend at all... especially the simplistic examples in this post. They are very straight-forward and clear in my opinion. I&#039;m aware that they can be much more complex however. Minifiers never remove veriables in my experience. So if you make a 1-time-use variable, it will have it&#039;s name shortened but the minifier will not remove the variable and replace it with inline code... at least I&#039;ve never seen such. If you have, please link me to this minifier. ]]></description>
+		<content:encoded><![CDATA[<p>Regular expressions are not difficult to comprehend at all&#8230; especially the simplistic examples in this post. They are very straight-forward and clear in my opinion. I&#039;m aware that they can be much more complex however. Minifiers never remove veriables in my experience. So if you make a 1-time-use variable, it will have it&#039;s name shortened but the minifier will not remove the variable and replace it with inline code&#8230; at least I&#039;ve never seen such. If you have, please link me to this minifier. </p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Wolfram Kriesing</title>
+		<link>http://www.uxebu.com/blog/2010/04/one-var-statement-for-one-variable/#comment-745</link>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+		<pubDate>Mon, 25 Oct 2010 17:00:55 +0000</pubDate>
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=1135#comment-745</guid>
+		<description><![CDATA[@fearphage I dont really agree. Esp. when you have code that complex, which regexps are unfortunately by nature, you better document them. And in this case maintainability, which means others shall have an easy time understand the code, is definitely much more worth than a small optimization like that. 
+And the minifier/compiler can do this optimization for me anyway. So I can&#039;t agree. 
+ 
+And regarding your later example: that is very well possible too, just do never copy/paste the &quot;foo = 1&quot; line, that will break the code too. 
+ 
+Thanks for the input! Very welcome. 
+ 
+Wolfram ]]></description>
+		<content:encoded><![CDATA[<p>@fearphage I dont really agree. Esp. when you have code that complex, which regexps are unfortunately by nature, you better document them. And in this case maintainability, which means others shall have an easy time understand the code, is definitely much more worth than a small optimization like that.<br />
+And the minifier/compiler can do this optimization for me anyway. So I can&#039;t agree. </p>
+<p>And regarding your later example: that is very well possible too, just do never copy/paste the &quot;foo = 1&quot; line, that will break the code too. </p>
+<p>Thanks for the input! Very welcome. </p>
+<p>Wolfram </p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: fearphage</title>
+		<link>http://www.uxebu.com/blog/2010/04/one-var-statement-for-one-variable/#comment-744</link>
+		<dc:creator><![CDATA[fearphage]]></dc:creator>
+		<pubDate>Mon, 25 Oct 2010 15:25:33 +0000</pubDate>
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=1135#comment-744</guid>
+		<description><![CDATA[Woops. Submitted prematurely. 
+ 
+I personally use this format 
+ 
+var 
+  foo = 1 
+  ,bar = 2 
+  ,catpants = { 
+    cat: true 
+   ,pants: true 
+  } 
+  ,$ = function() { 
+  } 
+; 
+ 
+You don&#039;t run into issues with &quot;should this line end with a comma?&quot; because none of them do. Also since the comma is on the line that requires it, I can remove a variable declaration without needing to edit anything else unless it&#039;s the first variable declaration. ]]></description>
+		<content:encoded><![CDATA[<p>Woops. Submitted prematurely. </p>
+<p>I personally use this format </p>
+<p>var<br />
+  foo = 1<br />
+  ,bar = 2<br />
+  ,catpants = {<br />
+    cat: true<br />
+   ,pants: true<br />
+  }<br />
+  ,$ = function() {<br />
+  }<br />
+; </p>
+<p>You don&#039;t run into issues with &quot;should this line end with a comma?&quot; because none of them do. Also since the comma is on the line that requires it, I can remove a variable declaration without needing to edit anything else unless it&#039;s the first variable declaration. </p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: fearphage</title>
+		<link>http://www.uxebu.com/blog/2010/04/one-var-statement-for-one-variable/#comment-743</link>
+		<dc:creator><![CDATA[fearphage]]></dc:creator>
+		<pubDate>Mon, 25 Oct 2010 15:19:19 +0000</pubDate>
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=1135#comment-743</guid>
+		<description><![CDATA[Your examples don&#039;t give enough information to conclude if that&#039;s the best way to do things. I personally don&#039;t make a variable unless I use the value more than 1 time otherwise it&#039;s just a waste. So in your first Real Life Example, that could potentially be combined into 1 variable delcaration. If the next line after those variables was `return ret` then there should be 0 variable declarations and you should just return the expression. 
+ 
+Example: 
+ 
+return (&quot;ID_&quot; + (this.getObject(&quot;group.name&quot;, test) &#124;&#124; groupName).replace(/^s*/, &quot;&quot;).replace(/s*$/, &quot;&quot;).replace(/[^0-9a-zA-Z]/g, &quot;_&quot;)).replace(/_+/g, &quot;_&quot;).replace(/[_]+$/, &quot;&quot;); 
+ 
+You could pretty that up and optimize the regular expressions but yea. I think it&#039;s a bad practice to make one-time use variables overall. ]]></description>
+		<content:encoded><![CDATA[<p>Your examples don&#039;t give enough information to conclude if that&#039;s the best way to do things. I personally don&#039;t make a variable unless I use the value more than 1 time otherwise it&#039;s just a waste. So in your first Real Life Example, that could potentially be combined into 1 variable delcaration. If the next line after those variables was `return ret` then there should be 0 variable declarations and you should just return the expression. </p>
+<p>Example: </p>
+<p>return (&quot;ID_&quot; + (this.getObject(&quot;group.name&quot;, test) || groupName).replace(/^s*/, &quot;&quot;).replace(/s*$/, &quot;&quot;).replace(/[^0-9a-zA-Z]/g, &quot;_&quot;)).replace(/_+/g, &quot;_&quot;).replace(/[_]+$/, &quot;&quot;); </p>
+<p>You could pretty that up and optimize the regular expressions but yea. I think it&#039;s a bad practice to make one-time use variables overall. </p>
+]]></content:encoded>
+	</item>
+</channel>
+</rss>

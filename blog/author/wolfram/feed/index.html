@@ -1,0 +1,558 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>uxebu &#187; Wolfram Kriesing</title>
+	<atom:link href="http://www.uxebu.com/blog/author/wolfram/feed/" rel="self" type="application/rss+xml" />
+	<link>http://www.uxebu.com</link>
+	<description>The first JavaScript-only development and consulting company</description>
+	<lastBuildDate>Thu, 30 Jul 2015 09:10:24 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=4.1.8</generator>
+	<item>
+		<title>Learn ECMAScript 6 (in a different way)</title>
+		<link>http://www.uxebu.com/blog/2015/06/learn-ecmascript-6-in-a-different-way/</link>
+		<comments>http://www.uxebu.com/blog/2015/06/learn-ecmascript-6-in-a-different-way/#comments</comments>
+		<pubDate>Wed, 24 Jun 2015 14:10:41 +0000</pubDate>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+				<category><![CDATA[tdd]]></category>
+		<category><![CDATA[TDDbin]]></category>
+		<category><![CDATA[uxebu]]></category>
+		<category><![CDATA[es6]]></category>
+
+		<guid isPermaLink="false">http://www.uxebu.com/?p=6883</guid>
+		<description><![CDATA[<p>When I started using ES6 (or JavaScript2015, ECMAScript2015) I realized that I was looking around for posts, reading them and as soon as I understood how the new function/feature worked I left. Diving deep and understanding things was just a way I then did using TDD, by using the new function or feature. So why [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2015/06/learn-ecmascript-6-in-a-different-way/">Learn ECMAScript 6 (in a different way)</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>When I started using ES6 (or JavaScript2015, ECMAScript2015) I realized that I was looking around for posts, reading them and as soon as I understood how the new function/feature worked I left. Diving deep and understanding things was just a way I then did using TDD, by using the new function or feature. So why not make this accessible for others. That&#8217;s how <a href="http://es6katas.org" title="ES6 Katas">ES6 katas</a> came about.<br />
+<span id="more-6883"></span></p>
+<h2>When to start with ES6?</h2>
+<p>Now! I would say, dive in and get started. There is no time to loose, <a href="http://www.ecma-international.org/ecma-262/6.0/" title="ES6 standard">ES6 is an official finalized standard</a>, it&#8217;s not a draft anymore. So it will come your way sooner or later. And even better it will evolve even faster from now on, hopefully.<br />
+I just had a discussion with a friend, he asked &#8220;Why doesn&#8217;t node support ES6 yet?&#8221;. The simple and short answer was use `npm install <a href="https://babeljs.io/" title="babel transpiler">babel</a> &#038;&#038; babel-node index.js` instead of `node index.js` and you have all ES6 features. Why node is not completely supporting ES6 is not part of what I want to discuss here, it has dependencies on the V8. But nowadays we have such a huge eco system in JavaScript that there are ways that allow us to use transpilation and CoffeeScript made this very obvious, that this is a way to go.</p>
+<h2>ES6 and TDD?</h2>
+<p>There are multiple ways of learning and trying out ES6. But for me the native way was using it. And since I am quite accustomed to use TDD it was a no-brainer to enable ES6 in <a href="http://tddbin.com" title="TDD bin">TDDbin</a> and use it there. I started exploring if and how ES6 works in TDDbin.<br />
+It might be discussable that TDD is the right tool to learn a language. It is just one way. And it allowed me to learn and focus on one thing at a time. We all know that once we start using a feature somewhere and there is lots of other (code) noise around it the focusing on learning that one feature gets lost. That&#8217;s why I started exploring ES6 features in the TDD style. I think the first thing I tried (at least that&#8217;s <a href="https://github.com/tddbin/katas/blob/master/katas/es6/language/template-strings/basics.js" title="First kata">the first kata</a>) was template strings.<br />
+<script src="https://gist.github.com/wolframkriesing/40c8d1fb5b99804f0b06.js"></script><br />
+That actually made me want to try more. And always ensure that my learnings stick. It also made me kind of want to keep track of what I learned, so I really liked the test result output, which just showed &#8220;yeah all green, you got it all right&#8221;. It felt cool.<br />
+When I released the first katas I was pointed to <a href="http://rubykoans.com/" title="Ruby koans">ruby koans</a>, which existed way before ES6 katas. So I was playing with the thought of renaming it to ES6 koans, but in the end I just didn&#8217;t.</p>
+<h2>One Kata a Day, at 9:55am</h2>
+<p>In the beginning I didn&#8217;t know how serious this kata thing will be. Anyway, I pushed the stuff into a repo. Actually the <a href="https://github.com/tddbin/katas/commit/81ad2ea9985b231bbd2b22119f7851493aa7fc7a" title="First kata">first kata I ever pushed</a> was on how to use mocha and node&#8217;s assert. Since this was what TDDBin uses initially. This was not really a kata, but a kind of documentation to see how mocha and assert can be used. This was the initial thing that gets loaded into TDDBin so anyone new to it can use it right away.<br />
+Since stuff landed in a repo it meant I can actually link to it. So I started out cautiously <a href="https://twitter.com/tddbin/status/576305472128446466" title="First ES6 kata">tweeting</a> <a href="https://twitter.com/tddbin/status/577392659121111040" title="Second ES6 kata">the</a> <a href="https://twitter.com/tddbin/status/577755047225769984" title="Third ES6 kata">katas</a> <a href="https://twitter.com/tddbin/status/578117422495834112" title="Fourth ES6 kata">every</a> day. I didn&#8217;t know for how long I can keep it up. After there had been a couple of them out in the wild my colleague <a href="http://twitter.com/basecode" title="Tobias Reiss">Tobias</a> told me why not collect them all on one site and just link use the <a href="https://github.com/tddbin/es6katas.org/blob/50bd2a8fcbcdbc2c30acc442703d877ec6c1a290/src/config.js" title="Github search for katas">github search</a> to find them all. Cool idea. Nothing to maintain and it auto-updates whenever a new kata ended up in the repo. How cool is that?<br />
+Pressure increased. From the beginning on I thought it was a good idea to post a kata always at 9:55am GMT+2, so you can just do a quick kata before the 10am stand-up :). I am not sure if all katas are simple enough to get this done, but hey it was a good story. From the beginning on I used the hash tag <a href="https://twitter.com/search?q=%23es6kata" title="Hash tag #es6kata">#es6kata</a>, so you can find all katas in historical order.<br />
+Fun fact. You will notice that they all have textually written their ordinal number, so first, second, &#8230; In the beginning I just needed a pattern but later even this started to become a learning exercise. And I got eighth and ninth wrong in the beginning. I had to look them up. That was fun. So I kept numbering them. The word &#8220;<a href="https://twitter.com/tddbin/status/592601544908001281" title="Thirtieth ES6 kata">thirtieth</a>&#8221; was fun too. Gee, did I not know this stuff.</p>
+<h2>Kata Groups</h2>
+<p>The first ten or twenty katas I was still a bit insecure of how to write them and how to get a flow into the katas. I was overwhelmed by the wealth of new things that existed in ES6. I knew they need some structure. Looking at <a href="http://kangax.github.io/compat-table/es6/" title="Kangax ES6 compat table">kangax&#8217;s compatibility table</a> kind of gave me an idea of how to group the katas. It also showed me that there is lots of potential for new katas. There will be one-hundred katas easily just to learn the new ES6 features.<br />
+I knew there needed to be some kind of structure to it. Basically there are two kinds of kata groups. One the APIs, for example of `Object` or `Array` and the other is by features like destructuring, scoping, template strings, etc.<br />
+<a href="http://es6katas.org" target="_blank"><img src="http://www.uxebu.com/wp-content/uploads/2015/06/ES6katas-UI-features-288x250.png" alt="ES6katas-UI-features" width="288" height="250" class="alignright size-medium wp-image-6888" /></a>I sorted them into folders with the according names. And used those names as group names. It became ugly and not really helpful over time. Just a little while ago I switched to maintaining the <a href="https://github.com/tddbin/katas/blob/f92c5ae03e4c7869523c257df7bb2f0707735b20/katas/es6/language/__raw-metadata__.js" title="ES6 kata meta info">meta info in a separate file</a>, which is also used now to generate the kata groups. This allows for some niceties on the site, like additional info and the highlighting of the latest and easy katas. It also makes some better headlines and the links are more explainatory, or at least as good as the description is I gave it inside the meta info file.</p>
+<h2>How I create a kata</h2>
+<p>When I create a kata I try to write helpful text into `describe` and `it`, just the way I try to structure tests. They shall &#8220;tell a story&#8221;™ as Kent Beck says.<br />
+Starting a kata from the top hopefully makes the user explore the feature in more depth from top to bottom. When reading all passing tests the learnings should be the green test results, like here:<br />
+<a href="http://www.uxebu.com/wp-content/uploads/2015/06/class-creation-result.png"><img src="http://www.uxebu.com/wp-content/uploads/2015/06/class-creation-result-450x161.png" alt="class-creation-result" width="450" height="161" class="aligncenter size-medium wp-image-6894" /></a><br />
+When reading the tests it is helpful to overread the `describe` and `it` and just see the text in there as the hint of what to do. Maybe using some other word for `it` could be helpful. It would be as easy as `smthg = it`.<br />
+The test description is supposed to make the user understand what the test tries to teach. I realize that there are multiple ways to solve a test, that&#8217;s why the description should be read carefully and the user shall try to modify the result accordingly. If that doesn&#8217;t work I would be really thankful for pull requests.<br />
+In order to lead the user to the result, the last line, where the assertion takes place should not be changed. This sometimes leads to unnecessary overhead in a test, I just didn&#8217;t find a better way yet. I rarely use the `___` space holder since it draws the focus on this spot and possibly leaves the rest unread.</p>
+<h2>Teach to Learn</h2>
+<p>So I hope the <a href="http://es6katas.org" title="ES6 katas site">ES6 katas</a> are helpful to some people out there. It was pretty awesome that <a href="https://news.ycombinator.com/item?id=9751035" title="Hackernews">HN</a> picked it up last weekend and this drew some attention to it and the feedback was mostly positive.</p>
+<p><a href="http://www.meetup.com/de/uxebu-events/events/222317814/" target="_blank"><img src="http://www.uxebu.com/wp-content/uploads/2015/06/uxebu_ws_teaser_web-250x250.jpg" alt="uxebu_ws_teaser_web" width="250" height="250" class="alignright size-medium wp-image-6845" /></a>If you are interested in diving deeper we are running a <a href="http://www.meetup.com/de/uxebu-events/events/222317814/" title="ES6 react workshop">workshop on ECMAScript 6 in use with react.js in Munich</a>. I would be happy to welcome people who like to take a two day ride with me in building an entire app from scratch using all those fine technologies. Find more info here and sign up.</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2015/06/learn-ecmascript-6-in-a-different-way/">Learn ECMAScript 6 (in a different way)</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2015/06/learn-ecmascript-6-in-a-different-way/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>The ES6 arrow function &#8211; a usage story</title>
+		<link>http://www.uxebu.com/blog/2015/05/the-es6-arrow-function-a-usage-story/</link>
+		<comments>http://www.uxebu.com/blog/2015/05/the-es6-arrow-function-a-usage-story/#comments</comments>
+		<pubDate>Wed, 13 May 2015 09:19:42 +0000</pubDate>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+				<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[Technology]]></category>
+		<category><![CDATA[es6]]></category>
+
+		<guid isPermaLink="false">http://www.uxebu.com/?p=6784</guid>
+		<description><![CDATA[<p>One of the most famous features of ECMAScript6 is the arrow function. The arrow function is a shortcut for `function() {}` which can now be written like so `() => {}`. And it embeds a second feature: lexical `this` binding. I have struggled with it and enjoyed it. Read about why it sucked and where [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2015/05/the-es6-arrow-function-a-usage-story/">The ES6 arrow function &#8211; a usage story</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><img src="http://www.uxebu.com/wp-content/uploads/2015/05/arrow-function4-150px-150x134.jpg" alt="arrow-function4-150px" width="150" height="134" class="alignright size-thumbnail wp-image-6824" />One of the most famous features of ECMAScript6 is the arrow function.<br />
+The arrow function is a shortcut for `function() {}` which can now be written like so `() => {}`. And it embeds a second feature: lexical `this` binding.<br />
+I have struggled with it and enjoyed it. Read about why it sucked and where it added value.<br />
+<span id="more-6784"></span></p>
+<h2>The obvious advantages</h2>
+<p>It was around end of 2014 when I felt I had to pick up on the move forward of JavaScript, I started to <a href="http://www.uxebu.com/blog/2014/11/get-real-es6-webpack/">dive into ES6</a>. The arrow function was one of the first things I adapted in a lot of places. It is beautiful to write </p>
+<p><script src="https://gist.github.com/wolframkriesing/6e92a718d86b46ae885a.js"></script></p>
+<p>instead of </p>
+<p><script src="https://gist.github.com/wolframkriesing/1c104a83b2053daa2367.js"></script></p>
+<p>way less boilerplate, much nicer to read and more expressive.<br />
+As soon as my brain got used to mapping `x => x` or `(x, y) => x + y` to function declarations (with implicit returns) those constructs became meaningful to me. You know how it is, you need to use it a couple of times until it feels familiar and doesn&#8217;t require real effort anymore to be useful. It&#8217;s <a href="http://tddbin.com/#?kata=es6/language/arrow-functions/basics" title="Practice arrow-function basics" target="_blank">just practice</a>.</p>
+<h2>Replacing all `self` and most `bind()`</h2>
+<p>You also remember the `self = this` and `this.method.bind(this)` uses that polluted the code? Or the `bind()` at the end of a big anonymous function, which makes it easy to overlook and hard to find out the actual scope of that anonymous function. Yes, you remember too!? Or do you still have this in your code? Now is your chance to get rid of it. Start using ES6! And the time is right, look at <a href="https://babeljs.io/users/" title="babeljs users">the list of babeljs users</a> (babeljs, the quasi-standard ES6 transpiler).</p>
+<p>One purpose of the arrow function is to allow us to be more expressive in our code like so:</p>
+<p><script src="https://gist.github.com/wolframkriesing/a19e5af78dbbb534e6a2.js"></script></p>
+<p>And those are the cases where the new arrow syntax really shines. The code becomes less cluttered and maintaining (lexical) this-scope is much cleaner and more obvious. </p>
+<h2>Don&#8217;t stop learning here!</h2>
+<p>Be careful though, having bound a method&#8217;s `this` via the arrow function does not allow you to re-bind it. The `=>` is a lexical binding! Take the following mocha/jasmine test suite:</p>
+<p><script src="https://gist.github.com/wolframkriesing/690394e345bd1ede60ca.js"></script></p>
+<p>`this.testMe` is `undefined` inside the test case and the test will fail. Using the old-style function, this test will pass.</p>
+<p><script src="https://gist.github.com/wolframkriesing/6fde78bce9f225498253.js"></script></p>
+<p>This test run is green now. The test libraries (mocha here) wants to pass the scope (the `this`) into each `it()` by using `apply` or `call`. Which won&#8217;t work in the first case, since the arrow function does bind `this` fix to the lexical scope it is in and that can&#8217;t be changed!</p>
+<h2>Expressivness</h2>
+<p>After I got over the initial excitement of using ES6, especially the arrow function I realized that I very often use the short syntax `let f = () => {}` instead of `function f() {}`.<br />
+It was the hipster syndrom that made me use that all over the place. And it was not a good idea, everywhere. Why? If there is no `this` to bind it&#8217;s useless and blurs my intention. Actually the latter is even much more explicit and readable when really defining a normal function. &#8220;I define a function.&#8221; That&#8217;s all I do. And that&#8217;s what `function() {}` perfectly states, I think. The assignment (using `let`) and the definition of the function (using `() => {}`) don&#8217;t need to be separately spelled out, it&#8217;s inherent in the `function` syntax, so let it do it&#8217;s job.</p>
+<h2>Adding some `const`</h2>
+<p>Still in the early days, but some more ES6 experience later, functional feelings and immutability popping up all around I started to use `const f = () => {}`. This has additional value, but I would still argue the syntax is less expressive than the old style. Ok, there is a positive side-effect using `const`. I can not reassign the variable name `f`. In case of using babel it will already complain that I am trying to change the value of a constant by saying `&#8221;f&#8221; is read-only`.<br />
+In my opinion the `const` syntax is also useless here. It may communicate a purpose: &#8220;this is immutable&#8221;. Is there really value in this more verbose and less readable syntax? Was overriding a function really ever the problem, so that it becomes necessary to make it immutable? I doubt it. (Maybe it also just needs time for me to oversee this new syntax and see the explicitness in it too.)<br />
+Though I would agree there is the functional use case where I would also tend towards using that const style syntax using the arrow functions.</p>
+<p><script src="https://gist.github.com/wolframkriesing/face2c99cde73dab009c.js"></script></p>
+<p>Small one-liner functions that are used in a functional style make nicer reads using the `const` and the arrow function syntax. </p>
+<h2>Conclusion</h2>
+<p>Back in the years before 2010, when <a href="https://twitter.com/slightlylate" title="Alex Russell">Alex Russell</a> was still the lead of dojo I remember him stating very often that a short-hand for the `function(){}` syntax would be something he likes to see coming to JS. Finally it is there and it does make things handy and more compact.<br />
+But doesn&#8217;t it come with a side-effect? A side-effect you have to know and understand to avoid falling into it&#8217;s trap. As there are many others in JavaScript, like type-coersion, scope-binding, etc. Now there is one more. Make sure to <a href="http://es6katas.org">try it out, play with it and get familiar with it</a>.</p>
+<p>So I would like to remind you (and me), stay explicit and (try to) evaluate the new things objectively.</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2015/05/the-es6-arrow-function-a-usage-story/">The ES6 arrow function &#8211; a usage story</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2015/05/the-es6-arrow-function-a-usage-story/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Explicitness over Language Sugar &#8211; array vs. object</title>
+		<link>http://www.uxebu.com/blog/2015/04/explicitness-over-language-sugar-array-vs-object/</link>
+		<comments>http://www.uxebu.com/blog/2015/04/explicitness-over-language-sugar-array-vs-object/#comments</comments>
+		<pubDate>Thu, 16 Apr 2015 13:03:03 +0000</pubDate>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+				<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[refactoring]]></category>
+
+		<guid isPermaLink="false">http://www.uxebu.com/?p=6734</guid>
+		<description><![CDATA[<p>Tuesday the monthly Agile Tuesday took place, my first one. Thanks to Mario Gadet who invited me a long time ago and made sure I didn&#8217;t forget about it. Already this put the bar quite high for me and I was quite nervous about it because I didn&#8217;t expect the typical tech audience. And it [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2015/04/explicitness-over-language-sugar-array-vs-object/">Explicitness over Language Sugar &#8211; array vs. object</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><img src="http://www.uxebu.com/wp-content/uploads/2015/04/2760280871_03ec095d02_q-150x150.jpg" alt="Sugar cubes" width="150" height="150" class="alignright size-thumbnail wp-image-6769" />Tuesday the monthly <a href="http://agiletuesday.org/" title="Agile Tuesday">Agile Tuesday</a> took place, my first one. Thanks to Mario Gadet who invited me a long time ago and made sure I didn&#8217;t forget about it. Already this put the bar quite high for me and I was quite nervous about it because I didn&#8217;t expect the typical tech audience. And it all turned out different than expected :).</p>
+<h2>Refactoring hands-on</h2>
+<p>I talked a bit <a href="http://de.slideshare.net/wolframkriesing/refactoring-out-of-the-mess" title="Refactoring out of the mess">about refactoring</a>. I tried to summarize the hows and whys for it in order to get to the doing, right after the talk. And I picked the beautiful <a href="https://github.com/emilybache/Tennis-Refactoring-Kata/blob/master/javascript/TennisGame1.js" title="Emily Bache's Tennis kata">Tennis</a> <a href="tddbin.com/#?kata=es5/tennis-refactoring/1" title="Tennis refactoring kata #1 in TDDBin">kata</a> to refactor some stuff where some interesting things evolved.<br />
+We did it mob-style. The mob, the entire audience, told me what to do. The only thing I did, was asking questions or trying to deal out who is next, when the amount of input came too fast. So I typed using WebStorm, which made some people be astonished about what is already possible with this IDE in combination with JavaScript. The tests ran automatically so we never left the green state for too long. Thanks to the crowd I got reminded a couple of times to do, what I had suggested in the talk before, use Ctrl+Z to undo changes.<br />
+And while at it we made a couple of interesting discoveries, let me share some with you.</p>
+<h2>The Evil of Native Constructs</h2>
+<p>A very interesting discussion spun off when we refactored the following switch</p>
+<p><script src="https://gist.github.com/wolframkriesing/0a1c5dc2ceac5074902d.js"></script> </p>
+<p>into this array </p>
+<p><script src="https://gist.github.com/wolframkriesing/c6cf31e709282cb57ab2.js"></script></p>
+<p>The valid arguments raised were that the explicitness of the `switch` gets lost in an implicit use of arrays, they are zero-indexed and therefore implicitly do the same as the switch, but it&#8217;s not &#8220;visible&#8221; as well as in the code before. From there we started discussing how much the source code shall rely on language specific constructs. Shall a piece of domain knowledge, here the mapping of 0 points to &#8216;Love&#8217; and 1 to &#8216;Fifteen&#8217; and so on, be hidden behind an implicit construct that actually does the same and allows for less code, but also reveals the intention less good?</p>
+<p>Which raises a new question: what is the minimum level of language-specific knowledge required for the code to be maintainable, also by non-seniors? It’s just a fact that there is a gap in knowledge between the original author, the team and/or the future maintainers of this code. Should therefore the code be written by using less &#8220;difficult&#8221; constructs? Maybe even prevent certain language constructs that might cause traps?<br />
+I doubt that this helps. Depending on the domain the code is written for the code has to adapt. If the mapping of 0 to &#8216;Love&#8217; and 1 to &#8216;Fifteen&#8217; are core concepts of the business domain we are in, make those concepts clear to the (future) maintainers by writing more explicit code.<br />
+Artificially reducing a programming language&#8217;s feature set which sometimes just prevents that others have to learn new things, feels also very counter-productive and almost like trying to slow down evolution. A programmer just has to learn, constantly.</p>
+<p>This led to an alternative construct we used, which makes the domain-level view more explicit. We write the relation between the numbers 0,1,2,3 and the according strings explicitly into the source code. We are not using a switch-case though.</p>
+<p><script src="https://gist.github.com/wolframkriesing/4ceb80ba6375a44c5676.js"></script></p>
+<p>The object-notation will be accessed just in the same way as the array above via `pointsMap[points]`. All participants have been really happy with this solution. So we all agreed to keep on moving forward from here.<br />
+Since JavaScript is an interpreted language the obligatory speed discussion came up. Is object creation and access not much slower compared to array creation and access? But that discussion stalled quickly, due to irrelevance. And I was happy about that, because if this is our hot path then we will find that out, but for now the better code has way more value.</p>
+<h2>Tie Scores</h2>
+<p>A little bit later we touched code that looked something like this:</p>
+<p><script src="https://gist.github.com/wolframkriesing/3853882d00481084257b.js"></script></p>
+<p>The mapping is very much like the one we handled above, but has a little twist to it, which is the case for all values from 3 upwards. First thing the crowd decided to do is move the map out of the function.</p>
+<p><script src="https://gist.github.com/wolframkriesing/388ad401dfd42af687b0.js"></script></p>
+<p>Then we tried to reduce the actual function down to this. </p>
+<p><script src="https://gist.github.com/wolframkriesing/f2780b471bf8c6664095.js"></script></p>
+<p>The decision to remove the `if (points < 3)` was actually pretty easy. We said that this can be done implicitly by looking up if there is a value defined for the given number of points.
+Some people liked it some not. It is a very JavaScripty solution, but actually very common in JS land. Those are the kinds of discussion I love at non-JavaScript events, they always provide me with different views. It went a bit forth and back. 
+The disadvantage of the latter solution is that you have to look up in two places to completely understand what the function does. You have to know what is defined in the `pointsMap` or you won’t understand when the ‚Deuce‘ is returned. Another critique was that the string ‚Deuce‘ is in the function, but all other strings are in the map.
+Finally we tried something a bit unusual, we moved the `Deuce` string also into the map and changed the function to look like this:
+
+<script src="https://gist.github.com/wolframkriesing/d3a4200ddb7523fbb6c1.js"></script></p>
+<p>And the crowd was happy, I mean really happy, it seemed.</p>
+<h2>Conclusion</h2>
+<p>The discussion about explicitness led us to use an object instead of an array. If this hadn’t taken place we would never have seen the solution with the elegant `default` key in the object.<br />
+Doing all that in a mob-style fashion, which means discussing in the group and having one person execute the solution that had been agreed upon, is always again a fun experience and makes people engage and steer towards a good solution together, learning to accept opinions and find one (of the) best solutions.</p>
+<h2>Can we help your project?</h2>
+<p>We love to discuss <a href="http://www.uxebu.com/blog/2014/03/defactoring-in-action/" title="Defactoring">code</a> and <a href="http://www.uxebu.com/blog/2015/01/value-manual-testing/" title="Value of manual testing">tests</a>, build <a href="http://www.uxebu.com/blog/2014/07/test-public-api-implementation-details/" title="Test public API">strategies</a> and <a href="http://jscoderetreat.com" title="JSCR">help improving</a> things. If you think this is something that should be done in your project/company/department <a href="mailto:contact+blog-explicitness@uxebu.com" title="EMail us" style="text-decoration: underline; font-weight: bold; font-size: larger;">please contact us</a>! We are happily offering support and love to share our knowledge.<br />
+You can also <a href="http://www.uxebu.com/about-us/events/" title="Meet us...">find us at various events</a>, we are always curious about learning new things and helping out if we can.</p>
+<p>Sugar cubes <a href="https://www.flickr.com/photos/digitalcolony/" title="Sugar cubes">image source</a></p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2015/04/explicitness-over-language-sugar-array-vs-object/">Explicitness over Language Sugar &#8211; array vs. object</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2015/04/explicitness-over-language-sugar-array-vs-object/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>TDDBin is open source, supports ES6 and moves on</title>
+		<link>http://www.uxebu.com/blog/2015/03/tddbin-open-source-supports-es6-moves/</link>
+		<comments>http://www.uxebu.com/blog/2015/03/tddbin-open-source-supports-es6-moves/#comments</comments>
+		<pubDate>Mon, 02 Mar 2015 09:41:53 +0000</pubDate>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+				<category><![CDATA[JS Code Retreat]]></category>
+		<category><![CDATA[TDD]]></category>
+		<category><![CDATA[TDDbin]]></category>
+
+		<guid isPermaLink="false">http://www.uxebu.com/?p=6697</guid>
+		<description><![CDATA[<p>Finally it has become reality. TDDBin.com is open source. And it does support ES6 by using babel &#8211; which is probably more ES6 than your browser can do. What is TDDBin? TDDBin had been started to provide a no-setup environment for the first JSCodeRetreat. Not everybody has jasmine, mocha or some other (unit) testing tool [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2015/03/tddbin-open-source-supports-es6-moves/">TDDBin is open source, supports ES6 and moves on</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><img src="http://www.uxebu.com/wp-content/uploads/2015/03/tddbin-logo-v2-150x150.png" alt="tddbin-logo-v2" width="150" height="150" class="alignright size-thumbnail wp-image-6782" />Finally it has become reality. <a href="http://tddbin.com" title="tddbin.com">TDDBin.com</a> is <a href="https://github.com/tddbin/tddbin-frontend" title="TDDBin on github">open source</a>. And it does support <a href="https://babeljs.io/docs/learn-es6/" title="Learn ES6">ES6</a> by using <a href="https://babeljs.io/" title="Babeljs">babel</a> &#8211; which is probably more ES6 than your browser can do.<br />
+<span id="more-6697"></span></p>
+<h2>What is TDDBin?</h2>
+<p>TDDBin had been started to provide a no-setup environment for the first <a href="http://JSCodeRetreat.com/1">JSCodeRetreat</a>. Not everybody has jasmine, mocha or some other (unit) testing tool running locally and for a code retreat this is something that makes it much easier to get started. That&#8217;s where TDDBin came into play, I wanted one URL where you can edit and run unit tests.<br />
+That&#8217;s how TDDBin came about and now it has been relaunched, rewritten and open-sourced.</p>
+<h2>What is new?</h2>
+<p>The <strong>repo has moved</strong>. The frontend code, which has been open source for a while but never had been deployed has moved from uxebu&#8217;s github to <a href="https://github.com/tddbin/tddbin-frontend" title="TDDBin on github">github.com/tddbin/tddbin-frontend</a>. Why the move? Some online tools want to have access to all your github user&#8217;s repos and since tddbin also serves as a playground I didn&#8217;t feel comfortable always giving access to all uxebu repos. That&#8217;s why I created the <a href="https://github.com/tddbin" title="Github user tddbin">github user tddbin</a>.</p>
+<p><strong>ES6/JavaScript2015 support</strong> using babel. On the tech side there is ES6 support in there now, which was actually <a href="https://github.com/tddbin/tddbin-frontend/commit/0700611e82f874288d7bd871b989a57f69867bec" title="the ES6 commit">much simpler to implement</a> than expected <img src="http://www.uxebu.com/wp-includes/images/smilies/icon_smile.gif" alt=":)" class="wp-smiley" /> fortunately. Which means all the <a href="https://babeljs.io/docs/learn-es6/" title="Learn ES6">ES6 features that babel provides</a> are useable in any browser that works with tddbin!</p>
+<p>We <strong>use <a href="https://trello.com/b/FW1gUVxe/tddbin-com" title="Trello">trello</a></strong> for ideas, feature voting, commenting, brain storming and everything before code gets written. If you have an idea for tddbin or miss a feature, please <a href="https://trello.com/c/hlmD1RIr" title="feature idea">add a comment here</a>. If want to vote for a feature please do so by <a href="https://trello.com/b/FW1gUVxe/tddbin-com" title="vote">clicking on the card <img src="http://www.uxebu.com/wp-content/uploads/2015/02/trello-voting.png" alt="trello-voting" width="67" class="alignnone size-full wp-image-6701" /></a> (you need a trello account for that). Or if you want a feature really bad encourage others to vote for it (use the &#8220;Share and more&#8230;&#8221; link on a trello card to link to it) or create a pull request.</p>
+<h2>Fixes</h2>
+<p><strong>Keyboard shortcuts</strong> also <a href="https://github.com/tddbin/tddbin-frontend/blob/12dfaf8134777750efee798750ea66d4bcc0bf4d/html/_util.js#L23" title="shortcut for non macs">work on non-Mac computers</a>. The old version only used to work with the Mac&#8217;s Command ⌘ key, now also Control as used on other systems works. (I have seen it on Linux.)</p>
+<p><strong>No login required</strong> anymore. In the former version we stored the source code on the server, so you could come back and use it. This feature is gone but therefore also a github account is not needed anymore to use tddbin, so you can really start right away. The link <a href="http://tddbin.com" title="tddbin.com">tddbin.com</a> takes you right to the editor and test runner, I hope this reduces the hurdle to use it and try it out even more.</p>
+<p>The nasty <strong>trailing empty line bug is gone</strong> too :). I remember running around at our code retreats telling people to not forget a trailing empty line at the end of the file because there was a bug that will screw your code. This one is gone now. Back in the old version the loading process was very difficult and it was a monkey-patched requirejs in order to be able to load the code from localstorage. Fortunately this is gone and with it also the above described bug.</p>
+<p><strong>Firefox works too</strong>. Actually this is painful to admit but before Firefox didn&#8217;t work and I never got around to fix it. Now it does and I am glad I don&#8217;t have to carry that shame any longer :).</p>
+<h2>Tech details</h2>
+<p>Currently tddbin is <strong>pure client side</strong>, once the site is loaded there is no more server interaction. Is this a feature or not &#8211; decide for yourself. That&#8217;s just how it is right now. Why? Basically in order to get out this version as fast as possible. And it still took sooo long. True.</p>
+<p><strong>Travis does the build</strong>. <a href="https://travis-ci.org/tddbin/tddbin-frontend" title="travis">Travis</a> does not only run the test suite, it also does the building and deployment. Currently this is done in the <a href="https://github.com/tddbin/tddbin-frontend/blob/12dfaf8134777750efee798750ea66d4bcc0bf4d/.travis.yml#L5">&#8220;after_success&#8221; clause of the .travis.yml</a>. I want to deploy only after success, that is right. But if kicking off the build separately is right I am not sure, I remember reading travis docs which say it is part of what travis does. Feel free to improve it.</p>
+<p>From travis it gets <strong>automatically deployed to github-pages</strong>. This one is really cool, imho. I had been tired of projects that are pure client side and hosted on github pages but I had to build locally and push to the gh-pages branch. This just felt so un-automated and a waste of my time (or: not lean as <a href="https://twitter.com/borillo" title="Ricardo Borillo">@borillo</a> would say). Finally I scraped <a href="https://twitter.com/boennemann/status/568061867052163073">all</a> <a href="https://medium.com/@nthgergo/publishing-gh-pages-with-travis-ci-53a8270e87db">the</a> <a href="https://github.com/jbdeboer/travis_after_all" title="push2gh-pages">pieces</a> together and made it work the way I think it is right. A project named <a href="https://github.com/uxebu/push2gh-pages">push2gh-pages</a> that provides this separately and reuseable as a npm module is under way.</p>
+<p>Hooked up code <a href="https://www.bithound.io/tddbin/tddbin-frontend" title="bithound">analysis</a> <a href="https://www.codacy.com/public/wk_2448/tddbin-frontend/dashboard" title="codacy">tools</a> which make some of the obligatory badges <a href="https://www.codacy.com/public/wk_2448/tddbin-frontend"><img src="https://www.codacy.com/project/badge/52205d40abd9463b9f5dca236b12b997"/></a> <a href="https://www.bithound.io/tddbin/tddbin-frontend"><img src="https://www.bithound.io/tddbin/tddbin-frontend/badges/score.svg" alt="bitHound Score" /></a> every good github project has to have nowadays (the more the better!).</p>
+<h2>Changes, Removals</h2>
+<p>The more the pain grew of having the source code just laying on github and not running in production, the less important the features became. Sure, no production, no real improvements are made and felt. So some features just didn&#8217;t survive.</p>
+<p>Currently there is <strong>no jasmine support</strong> (this must change soon). It <a href="http://www.uxebu.com/blog/2014/08/integrating-jasmine-mocha-tddbin-com-two-tragedies/">was just painful to hook up jasmine</a> to report the test result using it&#8217;s API. Since that reporting feature actually is not even needed now, since there is no state to be stored in any backend it should be very simple to enable jasmine again. Which would require tddbin to get a switch for which test runner to use. Mmmmh, any good ideas?</p>
+<p>Due to mocha being nasty to browserify which made <a href="https://github.com/tddbin/tddbin-frontend/blob/23eaa1eb4049da64ee3b941270e92f8fd13b10c0/html/example-tests.js#L10-L16">referee fail</a> there is also no &#8220;expect&#8221; syntax in there yet :(. Get more details on why <a href="http://wolfram.kriesing.de/tech/links/#problem-including-mocha-into-a-browserify-build-2014-02-19-">browserify and mocha don&#8217;t match up</a>.</p>
+<p>The test and the source code you write is <strong>not stored on a server</strong> anymore. The sessions are not stored, as you probably already read above. Depending on how fast tddbin moves along this might change again.</p>
+<h2>Finally</h2>
+<p>Have fun TDDing away and if you care, feel free to help out by <a href="https://trello.com/b/FW1gUVxe/tddbin-com" title="trello">voting, commenting</a>, <a href="https://github.com/tddbin/tddbin-frontend/issues" title="tddbin issues">opening issues</a>, <a href="http://twitter.com/tddbin" title="twitter">tweeting</a>, blogging, etc. If you want to meet people and practice more often, check if there is a <a href="http://jscoderetreat.com/">JSCodeRetreat</a> somewhere near you, or <a href="http://jscoderetreat.com/howitworks.html">make it happen</a>.</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2015/03/tddbin-open-source-supports-es6-moves/">TDDBin is open source, supports ES6 and moves on</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2015/03/tddbin-open-source-supports-es6-moves/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>The value of manual testing</title>
+		<link>http://www.uxebu.com/blog/2015/01/value-manual-testing/</link>
+		<comments>http://www.uxebu.com/blog/2015/01/value-manual-testing/#comments</comments>
+		<pubDate>Mon, 12 Jan 2015 13:29:51 +0000</pubDate>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+				<category><![CDATA[development tools]]></category>
+		<category><![CDATA[frontend engineering]]></category>
+		<category><![CDATA[testing]]></category>
+
+		<guid isPermaLink="false">http://www.uxebu.com/?p=6669</guid>
+		<description><![CDATA[<p>I refactored the reactjs implementation of todoMVC. And when I was done I realized that going through the process made me learn a lot especially about testing. Let me lay out where integration tests and manual tests played their roles in this process. The purpose When preparing for a munichjs talk I gave last week [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2015/01/value-manual-testing/">The value of manual testing</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><img src="http://www.uxebu.com/wp-content/uploads/2015/01/beautiful-150x150.jpg" alt="beautiful" width="150" height="150" class="alignright size-thumbnail wp-image-6683" />I <a href="https://github.com/wolframkriesing/todomvc/tree/react-componentize/examples/react/js">refactored the reactjs implementation of todoMVC</a>. And when I was done I realized that going through the process made me learn a lot especially about testing. Let me lay out where integration tests and manual tests played their roles in this process.<br />
+<span id="more-6669"></span></p>
+<h2>The purpose</h2>
+<p>When preparing for a <a href="http://slides.com/wolframkriesing/react-js-dom-as-it-was-meant#/">munichjs talk</a> I gave last week about reactjs (and testing) I tried to find a common task that hopefully everyone had at least heard about before. <a href="http://todomvc.com/">TodoMVC</a> seemed perfect, which is basically one specification and many implementations in all kinds of different web frameworks, made to compare them.<br />
+My plan was to use the commonly known todoMVC project to transfer all the learnings from a bigger reactjs project that we worked on the first half of 2014. Choosing todoMVC I thought would make it easier to do so. But it needed some refactoring to apply the learnings we had made in that big project. In the end I think it worked out quite well.</p>
+<p>I am the testing-guy. Maybe a bit extreme at times, but it gives me a good feeling. And since I know I don’t know much yet, I like the excessive path at times to learn what the middle way might be.<br />
+Approaching the todoMVC app, I looked for the tests first. I didn’t find any. Alright, that means I will have to make the effort to ensure that my refactorings will keep the app working as expected. My refactorings are serving a very special purpose. I want to show that react doesn’t require to deal with state for implementing business logic. It pushes you to a clean separation of concerns especially between data and UI. And almost for free comes a good testability.<br />
+Bottom line is to prove the claim „reactjs &#8211; DOM as it was intended“, as I like to phrase it.</p>
+<h2>Refactoring, 3, 2, 1, go</h2>
+<p>I know where I want the code to head. The refactoring was a mix of <a href="http://martinfowler.com/articles/workflowsOfRefactoring/#comprehension">comprehension refactoring</a> and application of the <a href="http://programmer.97things.oreilly.com/wiki/index.php/The_Boy_Scout_Rule">boy scout rule</a>.<br />
+As you can see in <a href="https://github.com/wolframkriesing/todomvc/commits/react-componentize">my commit history</a>, I like to take tiny steps (baby steps) and almost every time I make a too big step I undo later anyways.<br />
+Refactoring is one thing, but knowing that I didn’t break anything is another, and that is where we normally apply testing. In a well-tested application we can use some kind of coverage tool to tell us how well the app is covered and then we know to which degree we can rely on the existing tests or if we have to write some more.<br />
+In an completely untested app, as it was the case here, we have to decide how to approach a verifiable app. My first thought was, I write some integration tests which click through the UI and I verify some results. I would use selenium or an alike tool for it and I might be fine. Thinking that through it seemed too much effort, since I didn’t plan to invest more than a day in this, so I didn&#8217;t. Though two days later I thought of using a golden master comparison of the complete web site content after every interaction, that may would have been a much faster approach, but I didn’t think of it at this point.<br />
+There was another thing that actually made me hesitate to write some automated integration tests at that point. It was my lack of knowledge of what the todoMVC app really does. Yeah, ok it does some todo list handling, but which features exactly I didn’t know. So I decided to go for a manual testing approach. I can hear some people scream: „What, no automated tests?“ and I say „No“. And I tell you why. </p>
+<h2>Manual testing</h2>
+<p>Actually I am a big fan and strong believer in automated tests, it’s the only way you will get reliable and reproducible results. And I know that from experience. It was painful when we did only manual testing. Actually this painful experience led us  at uxebu to become strong believers and learners in the testing culture.</p>
+<p>It is very tempting to do the first couple of refactorings only supported by manual tests. There is no test setup time, you feel to become productive very quickly. And sticking to small refactorings gives a sense of security.<br />
+And even though I didn’t feel comfortable with this in the beginning, I learned about the value throughout the process. So I started out just doing manual tests. In the beginning there was this voice in my head „automate the tests!“ which I didn’t listen to. In the first place I didn’t listen to it because I thought my refactoring might just be small things, and won’t take more than one or two hours (which turned out to be wrong). Pretty quickly I realized that my manual tests do not only serve the purpose of verifying that the app works. I learned a lot about the app and the features it provides. As I said in the beginning, I didn’t read the todoMVC spec, and tbh I also didn’t plan to do so. I love exploring apps by refactoring them (I successfully did that the first time I refactored the <a href="https://github.com/emilybache/Tennis-Refactoring-Kata">Tennis Kata</a> and am hooked since).<br />
+I started to create kind of a rhythm of what to test after every refactoring step. In combination with the deeper learnings about the source code I adapted this test list. I found out that I can also manipulate the todo-items even when a filter is applied, so I added that to my (manual) test list.<br />
+After a couple of hours in and quite a number of refactoring steps, I realized that my test list is stabilizing and I felt it was the right time to create automated tests. And than I cheated. At this time I stopped refactoring, since I got pretty close to where I needed the code to be for my talk. Until here I actually just moved around UI logic code. I only touched a small business logic part. Remember my main purpose here was to show a certain aspect of reactjs, I got there.</p>
+<h2>Explore, stabilize, commoditize</h2>
+<p>I thought I would feel pretty bad about the result of my pure manual testing approach, but to be honest I don’t. After <a href="http://dannorth.net/">Dan North</a> implanted <a href="http://www.slideshare.net/slideshow/embed_code/14731053?startSlide=16">„explore, stabilize, commoditize“</a> into my brain last year I feel like this applies in more places than expected. So it does here too. I optimized for discovery first. I tried to discover all the features of this app, I „explored“. By repeating this process often I got to a stabilized set of tests that now need to be commoditized, which means automated in this case.<br />
+Starting the automation of the tests just now, does also give me a way better feeling of what tests I should write. What groups of test sets I create, what features are important and where do I might need to put less focus. I basically learned about the app by using (and refactoring) it. From time to time I also opened the original todoMVC app (without the refactorings) to compare that I didn’t break a certain thing.<br />
+This was the perfect app to do this kind of explorative testing. I believe that we should take the time to manual test before most of our refactoring work, especially when the apps have UIs. And this manual tests should serve as the base for what integration tests to write for legacy code, it shall not be the excuse to not automate the tests. I gained much more confidence in the feature set of the todoMVC app, I even learned about edge cases that I hadn’t thought would exist. I can perfectly write tests for the app now. I feel I can give estimated guesses about when an integration test can be deleted because it’s feature set has been validated by the according unit test. Having only the necessary set of integration tests left is our final goal anyways! Right?</p>
+<h2>Integration tests and false believe</h2>
+<p>One issue still stands out for me. I experience a lot when working with legacy apps. It is how and when to question the existing set of tests. For one you don’t want to miss a test that might lead to breaking part of the app and two you also don’t want to spend endless amount of time writing new tests that might not add real value. (I guess I should finally read <a href="http://www.informit.com/store/working-effectively-with-legacy-code-9780131177055">Michael Feathers’ book</a>).<br />
+In the web environment I believe it is even more complicated to confidently build the safety net around web apps. The number of technologies (HTML, CSS, JavaScript, various OSes, browsers, …) involved just makes it even harder. On the one hand there needs to be sufficient tooling, which partly doesn’t exist yet or is too hard to setup and maintain and on the other hand applying the right strategies is not always easy. </p>
+<p>So, even when a good set of (integration) tests exists don’t let the false sense of security pull you onto the dark side. Do always question your set of tests, verify the requirements, environments the app runs in and expectations of the customers as soon as you can. You will not only learn more about the app but your safety net and the strategies how to expand it will improve. Testing is one of those endless learnings that a software craftsman should be doing. </p>
+<p>Keep it up and stay flexible!</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2015/01/value-manual-testing/">The value of manual testing</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2015/01/value-manual-testing/feed/</wfw:commentRss>
+		<slash:comments>2</slash:comments>
+		</item>
+		<item>
+		<title>Get real with ES6 (and webpack)</title>
+		<link>http://www.uxebu.com/blog/2014/11/get-real-es6-webpack/</link>
+		<comments>http://www.uxebu.com/blog/2014/11/get-real-es6-webpack/#comments</comments>
+		<pubDate>Mon, 24 Nov 2014 07:51:57 +0000</pubDate>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+				<category><![CDATA[development tools]]></category>
+		<category><![CDATA[frontend engineering]]></category>
+		<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[tdd]]></category>
+
+		<guid isPermaLink="false">http://www.uxebu.com/?p=6615</guid>
+		<description><![CDATA[<p>After the last post, where I briefly described how to setup mocha with ES6 (using traceur, a transpiler to working JavaScript) I couldn&#8217;t stop and had to prove, that getting it to run with on a real site was doable. It had it&#8217;s hurdles but voila it does work. See the github repo if you [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/11/get-real-es6-webpack/">Get real with ES6 (and webpack)</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>After the <a href="http://www.uxebu.com/blog/2014/11/es6-tdd-work-traceur-mocha-sinon/">last post</a>, where I briefly described how to setup <a href="http://mochajs.org">mocha</a> with <a href="http://wiki.ecmascript.org/doku.php?id=harmony:specification_drafts">ES6</a> (using <a href="https://github.com/google/traceur-compiler">traceur</a>, a transpiler to working JavaScript) I couldn&#8217;t stop and had to prove, that getting it to run with on a real site was doable. It had it&#8217;s hurdles but voila it does work. See <a href="https://github.com/uxebu/mocha-sinon-traceur-example">the github repo</a> if you want to dive right into code.<br />
+<span id="more-6615"></span></p>
+<h2>Using Webpack needs an ES6 compiler</h2>
+<p>The latest I happily used to build CommonJS (node.js) style code and run it on the web is <a href="http://webpack.github.io">webpack</a>. Since it comes with all possible loaders that one needs (<a href="https://facebook.github.io/react/docs/jsx-in-depth.html">JSX</a>, ES6, etc.) there was not much thought I spent in what to use.</p>
+<p>To get ES6 running in all (modern) browsers a transpilation step is required, which translates <a href="https://github.com/google/traceur-compiler/wiki/LanguageFeatures">ES6 syntax</a> into ES5 syntax that runs in all the browsers. For that I use traceur, which by features seems to be the most interesting one, more about this in a bit. Besides the translation of the code it does also need a runtime which brings all the boilerplate like class creation. I would like to have this all handled on the fly, I prefer not to have much to do with it. Please do just work.</p>
+<p>As described in my last post I thought of using <a href="https://github.com/shama/es6-loader">es6-loader</a> for it. Quickly I realized I needed to hunt for something else. Why? Because I already started to use ES6 module syntax and wanted to keep going with it, just getting closer to the future sooner :). Have a look at it:<br />
+<script src="https://gist.github.com/wolframkriesing/b7de988d9f16aae25831.js"></script><br />
+es6-loader uses <a href="https://github.com/termi/es6-transpiler#not-supported">the es6-transpiler, which states module syntax is not supported</a> yet. Alright. That actually made the case for me to not use this project since I don&#8217;t want to run the tests with mocha but the production code with es6-transpiler, this does feel like pain coming up. So I went looking for a webpack-module that can do traceur. Even though I think it&#8217;s worth keeping an eye on es6-transpiler since <a href="https://github.com/termi/es6-transpiler#goal">the goals</a> are just a bit different than those of traceur.</p>
+<p>The hunt quickly revealed that there are two projects, after some stumbling I saw that actually one was just a pull request that got merged already. And in the end I saw that <a href="https://github.com/ndhoule/webpack-traceur-loader">webpack-traceur-loader</a> is what I need. One thing that worried me a little was that the current version of traceur it uses was 0.5x and traceur is already at 0.7x. But later I realized that all features work, so let&#8217;s go ahead. Here it is worth mentioning that the approach of mocha-traceur is quite cool, where <a href="https://github.com/domenic/mocha-traceur#mocha-traceur">it&#8217;s README says</a> </p>
+<blockquote><p>Traceur is intentionally not included in this package so you can install your preferred version alongside Mocha Traceur.</p></blockquote>
+<p>which makes lots of sense as long as the API is compatible. If that&#8217;s not the case the user will have the failure and might be pissed.<br />
+And by this you can see that I already do run two different traceur versions. For the tests I am using the one I `npm install`ed and for production I am using the one wepback-traceur-loader brings along. I have to align the two to prevent bugs of the &#8220;works with the tests but not in production&#8221; kind &#8211; writing this on my virtual to do list.</p>
+<h2>Make an index.html and use ES6 for real</h2>
+<p>All the config is set up. Now I gotta try it in real life. So I added an &#8216;empty&#8217; index.html to the <a href="https://github.com/uxebu/mocha-sinon-traceur-example/tree/add-webpack/src">example project</a>. I just want to throw &#8220;works&#8221; into the body&#8217;s innerText. That serves as a good enough integration test for now.</p>
+<p>Now I `npm install`ed the above discussed webpack-traceur-loader and enabled it. My `webpack.config.js` looks like this now (copied <a href="https://github.com/uxebu/mocha-sinon-traceur-example/blob/299581015364142e569e321bce168294d933ed9a/webpack.config.js">from the repo</a>):<br />
+<script src="https://gist.github.com/wolframkriesing/e1ee1196661659df221f.js"></script><br />
+Now also the ES6 loader stuff works fine. And believe it or not, after `npm start` (which starts the webpack-dev-server) the site shows &#8220;works&#8221;. Find the revision <a href="https://github.com/uxebu/mocha-sinon-traceur-example/commit/96eb526d022e0c825e82fd2b23e9634ef1ac2f68">online in the example project repo</a>.</p>
+<h2>Include an external library, jQuery</h2>
+<p>Actually I am doing this because I want to convert the <a href="https://github.com/uxebu/compass-to-map-app">compass-map-app-kata</a> to ES6 since I am tired of `var self = this;` and binding scopes, which imho is just blurring code and code&#8217;s intention with something that is missing in the language. But the app does also use jQuery to connect to all the simple DOM stuff. So next step here is to get jQuery into the game.</p>
+<p>I want to see that the ES6 setup does not only work for my local files, but does also work when I integrate with external libraries. Of course I could go the easy way and include jQuery in the index.html, no-brainer. But I want to require jQuery on the server side too, so it gets bundled with the app.<br />
+I did `npm install jquery` and now inside my code I can use the nice `import jQuery from &#8216;jquery';`. Beautiful. Webpack doesn&#8217;t complain and it builds, it also shows me that it includes jQuery, as you can see below in line 22.<br />
+<script src="https://gist.github.com/wolframkriesing/10e761faf174c5556c97.js"></script></p>
+<p>That was easy. Now let&#8217;s use jQuery in the code. So I add `jQuery(document.body).text(&#8230;)` so it prints &#8216;works&#8217; on my site. But there is no &#8216;works&#8217; showing up in the browser. Opening the console I see a &#8216;Uncaught TypeError: object is not a function&#8217;. What??? After a bit of debugging I find out that jQuery is an empty object. Ok, this must be the building part. What else can it be? So I start trying all possible things, going back to `var jQuery = require(&#8216;jquery&#8217;)`. I also renamed all ES6 files to use `.es6.js` and configure webpack accordingly. I don&#8217;t like that, even though it very well shows what is ES6 and what not, but it is also there only because I just don&#8217;t know any better.<br />
+No solution really works.</p>
+<p>Long story short. I saw that the `jquery.js` got modified after run through traceur and it then only exports `{}`. Well, that&#8217;s not what I want. So I have to exclude jQuery from traceur running over it. After fiddeling around, debugging into the webpack loader, learning lot&#8217;s from it and demistifying another piece of magic, I found the `exclude` parameter I have to pass to traceur in the `webpack.config.js`, as you can see below in line 9:<br />
+<script src="https://gist.github.com/wolframkriesing/c16ce2f47dec1de7c782.js"></script><br />
+See in the last line that I also turned on `debug`, this outputs all the files that traceur handles, as you can see a bit further up in the webpack console output. Make sure NOT to see libs like jquery in there prefixed with `[traceur-loader]`, only the code you really want to be compiled.</p>
+<h2>Use it in real, compass-map-app-kata</h2>
+<p>The <a href="https://github.com/uxebu/mocha-sinon-traceur-example">example project</a> was born out of &#8220;I want to get it to work without any noise around it&#8221;. But of course the actual reason I investigated all that was another &#8220;bigger&#8221; app. The <a href="https://github.com/uxebu/compass-to-map-app">compass-map-app-kata</a>, which is still called a kata, since it is that for me. And I am thinking of how to make this into a nice <a href="http://www.uxebu.com/workshops/">workshop <img src="http://www.uxebu.com/wp-includes/images/smilies/icon_smile.gif" alt=":)" class="wp-smiley" /></a> since I see lots of potential in showing a real app using the DOM, doing it test-driven and sharpening the skills around TDD in a real ES6 web app environment.<br />
+The conversion from ES5 to ES6 of the compass app is a complete post on it&#8217;s own, which I might follow up on later. If you are interested, you can dive in by investigating the commits on <a href="https://github.com/uxebu/compass-to-map-app/tree/switch-to-es6">the switch-to-es6 branch</a>.<br />
+The short summary is: It does work. I am happy I did the baby steps in the example repo to focus on the small problems and really just worry about the actual problems, so I kinda applied the <a href="http://mikadomethod.wordpress.com">mikado method</a> here, trying to find out the next missing piece in the chain, fixing it and switching back to the bigger scope.</p>
+<h2>Other/External services</h2>
+<p>The next step of getting this into production is to hook up with several external services for monitoring the health of the app. You can see that I added all kinds of badges in the <a href="https://github.com/uxebu/compass-to-map-app/blob/master/README.md">README</a> in order to test out those health-services. Let me quickly list what worked well with ES6 and where there are still bumps. </p>
+<h3>Travis CI</h3>
+<p>Integrating it <a href="https://travis-ci.org/uxebu/compass-to-map-app">with travis</a> was no different than you do it with every project, of course it just does an `npm test` which requires a <a href="https://github.com/uxebu/compass-to-map-app/blob/master/.travis.yml">`.travis.yml`</a>, so make sure they are there.<br />
+I also added <a href="https://codeship.com">codeship</a> though I didn&#8217;t see how to make the project overview public. But it&#8217;s all green too (at least as of this writing) as you can see in the README badge. </p>
+<h3>Code coverage</h3>
+<p>I didn&#8217;t get a local <a href="https://github.com/gotwarlost/istanbul">istanbul</a> for the coverage to work yet, there seems to be <a href="https://github.com/meoguru/istanbul-traceur">istanbul-traceur</a> which seems to require gulp, I didn&#8217;t try that yet. I hooked up <a href="https://coveralls.io/r/uxebu/compass-to-map-app">coveralls.io</a> but seem to get no result from it yet. Not sure what I missed there. Hints welcome. It says that as soon as it passes in travis it will give me results, but didn&#8217;t yet.</p>
+<h3>Code quality services</h3>
+<p>I <a href="https://www.codacy.com/public/wk_2448/compass-to-map-app/files?bid=1981561">integrated codacy</a> which is currently not doing much more than some simple code analysis, in this project it seems not to give any value, since it does not seem to understand ES6 syntax yet. You can see that by `LoC` and some other fields being empty.<br />
+<a href="http://bithound.io">bithound.io</a> seems to do a real good job in detecting the ES6 files and understanding them, see <a href="https://app.bithound.io/uxebu/compass-to-map-app/files">the project files here</a>. And it reports the files are in good health. I am glad for them :). Though the real value I get from it is still quite low. Actually I want to know more about my code, maybe this project is just way too small to really do too much wrong that can be found with static code analysis.</p>
+<h2>Conclusion!</h2>
+<p>Overall I have to say the ES6 tool chain is already quite useable. And it is fun to move on with the language. Though I am still a little struggling with myself what will be the metrics for me for what to use when. After all I could write up the same for converting a project to <a href="http://livescript.net">LiveScript</a>, <a href="http://coffeescript.org">CoffeeScript</a> or <a href="http://www.typescriptlang.org">TypeScript</a>. They all get compiled to JavaScript, the big hurdle will be to see how well or bad either of those supports your workflow. There are multiple considerations that impact at least my workflow. It&#8217;s the following that come to my mind, and those I will have to keep an eye on when working with a language that is not &#8220;native&#8221;:</p>
+<ul>
+<li>Does this new language really give me benefits or just satisfies my need to be up to date with the latest tech?</li>
+<li>IDE support. First I need to have my IDE understand and highlight the syntax properly but very soon also refactorings and other tooling around it I need.</li>
+<li>Setup work. Adding `&#8211;coffee` or `mocha-traceur` for running the tests bare a certain overhead to be considered.</li>
+<li>Flow overhead when developing. Is there any disturbing compile time, longer test run time and/or more to setup with various options and addons needed?</li>
+<li>Test report noise. How unreadable will my stack traces become, how much will this slow me down in my daily work? (Even though stack traces are always a thing one has to learn to read.)</li>
+<li>External library/tool integrations. Is there any danger in integrating external tools and libraries, as talked about above with jQuery and the health-services.</li>
+</ul>
+<p>Compiler, transpiler, whatever &#8230; you can replace each of the terms with whatever fits your preference.</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/11/get-real-es6-webpack/">Get real with ES6 (and webpack)</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2014/11/get-real-es6-webpack/feed/</wfw:commentRss>
+		<slash:comments>1</slash:comments>
+		</item>
+		<item>
+		<title>ES6 and TDD at work, with traceur, mocha and sinon</title>
+		<link>http://www.uxebu.com/blog/2014/11/es6-tdd-work-traceur-mocha-sinon/</link>
+		<comments>http://www.uxebu.com/blog/2014/11/es6-tdd-work-traceur-mocha-sinon/#comments</comments>
+		<pubDate>Wed, 19 Nov 2014 17:33:38 +0000</pubDate>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+				<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[tdd]]></category>
+		<category><![CDATA[TDD]]></category>
+
+		<guid isPermaLink="false">http://www.uxebu.com/?p=6602</guid>
+		<description><![CDATA[<p>It was this little itch, that I had for quite a while, but you know how it is, you never get around to scratch it. Now was the time to do so. I had ES6 working already a couple of times using webpack but did always switch back, due to not having taken the time [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/11/es6-tdd-work-traceur-mocha-sinon/">ES6 and TDD at work, with traceur, mocha and sinon</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>It was this little itch, that I had for quite a while, but you know how it is, you never get around to scratch it.<br />
+Now was the time to do so. I had ES6 working already a couple of times using webpack but did always switch back, due to not having taken the time to get all the test setup run with it too. Which was mainly the fault of jasmine(-node) not really supporting it.<br />
+So I just have to replace it. I did with mocha. And here is how it went. Keep on reading or <a href="https://github.com/uxebu/mocha-sinon-traceur-example" title="read it up in the project's README">read it up in the project&#8217;s README</a>.</p>
+<h2>TDD with ES6</h2>
+<p>The initial pain I had was to get up to speed with ES6 (using traceur) to be compatible with all browsers. So I tried out jasmine-node with it, but failed misserably. Of course I saw mocha-traceur which seemed to make it all a breeze. But who believes documentation, right? So I had to try it. And it worked out of the box, just the way I wanted it.</p>
+<p>I used a bit of ES6 in the initial test, just the following:</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #003366; font-weight: bold;">import</span> <span style="color: #009900;">&#123;</span>Some<span style="color: #009900;">&#125;</span> from <span style="color: #3366CC;">'./test'</span> <span style="color: #006600; font-style: italic;">// importing a module</span><br />
+<br />
+describe<span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'something'</span><span style="color: #339933;">,</span> <span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #339933;">=&gt;</span> <span style="color: #009900;">&#123;</span> <span style="color: #006600; font-style: italic;">// using the arrow function</span><br />
+&nbsp; it<span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'that should work'</span><span style="color: #339933;">,</span> <span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #339933;">=&gt;</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; <span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></div>
+<p><a href="https://github.com/google/traceur-compiler/wiki/LanguageFeatures">traceur</a> does support all that. Of course a traceur transpiler (setup) was needed, so I used the above mentioned mocha-traceur which just required me to run `mocha &#8211;compilers js:mocha-traceur src/*.js` as you find it in the <a href="https://github.com/uxebu/mocha-sinon-traceur-example/blob/fb354685b590390f8695f5ecee890c4f9072f944/package.json#L7">package.json</a>. This takes away the pain to manually transpile it, it always does that when the tests are run.</p>
+<p>Of course I also made the `npm test` run, using just this snippet. Done.</p>
+<h2>Spying, mocking and stubbing</h2>
+<p>Next up, I wanted a solution that makes spying etc. easy. Easy for me means that it cleans up after itself. When I create a spy in a test I want it to be gone after the test, except of course I declare it in a `beforeEach()` (which isn&#8217;t covered by this project yet).</p>
+<p>I found <a href="https://github.com/elliotf/mocha-sinon">mocha-sinon</a> that claims to do it. And it does. Looking through the code and reading some docs the author <a href="https://github.com/elliotf/mocha-sinon#if-you-dont-like-this-module">states that it is also very easy to do by yourself</a>, like so:</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #003366; font-weight: bold;">var</span> sinon <span style="color: #339933;">=</span> require<span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'sinon'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<br />
+beforeEach<span style="color: #009900;">&#40;</span><span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; <span style="color: #000066; font-weight: bold;">this</span>.<span style="color: #660066;">sinon</span> <span style="color: #339933;">=</span> sinon.<span style="color: #660066;">sandbox</span>.<span style="color: #660066;">create</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<br />
+afterEach<span style="color: #009900;">&#40;</span><span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span><br />
+&nbsp; <span style="color: #000066; font-weight: bold;">this</span>.<span style="color: #660066;">sinon</span>.<span style="color: #660066;">restore</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></div>
+<p>Awesome, so I can reduce the overhead of another project in the setup. I put this snippet in <a href="https://github.com/uxebu/mocha-sinon-traceur-example/blob/fb354685b590390f8695f5ecee890c4f9072f944/src/sinon-cleanup.js">sinon-cleanup.js</a> and require this instead of the project itself. Thanks <a href="https://github.com/elliotf">Elliot Foster</a>.</p>
+<h2>Webpack and ES6</h2>
+<p>What is missing yet, is to show how to make this work in the browser. That is actually fairly easy using <a href="http://webpack.github.io/">webpack</a> and the <a href="https://github.com/shama/es6-loader">es6-loader module</a> for it.</p>
+<h2>Nice to haves</h2>
+<p>Now one could add things like:</p>
+<ul>
+<li>running it in karma and multiple browsers</li>
+<li>running it on some browser farm, like saucelabs</li>
+<li>creating a site that actually says &#8220;Hello world&#8221; to prove this setup does really work</li>
+<li>integrating with travis, code quality tools, etc.</li>
+</ul>
+<p>Have fun testing away with ES6. I am curious now how problematic the transpilation will make my life, let&#8217;s see.<br />
+You find the <a href="https://github.com/uxebu/mocha-sinon-traceur-example">working project on github</a>.</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/11/es6-tdd-work-traceur-mocha-sinon/">ES6 and TDD at work, with traceur, mocha and sinon</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2014/11/es6-tdd-work-traceur-mocha-sinon/feed/</wfw:commentRss>
+		<slash:comments>2</slash:comments>
+		</item>
+		<item>
+		<title>Why this Test-Driven Development Workshop?</title>
+		<link>http://www.uxebu.com/blog/2014/11/why-test-drivendevelopment-workshop-1/</link>
+		<comments>http://www.uxebu.com/blog/2014/11/why-test-drivendevelopment-workshop-1/#comments</comments>
+		<pubDate>Tue, 11 Nov 2014 00:53:16 +0000</pubDate>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+				<category><![CDATA[development tools]]></category>
+		<category><![CDATA[TDD]]></category>
+		<category><![CDATA[uxebu]]></category>
+
+		<guid isPermaLink="false">http://www.uxebu.com/?p=6436</guid>
+		<description><![CDATA[<p>The JSCodeRetreat is always a lot of fun, a day free of stress, just practicing and honing our craft. But sometimes people come up to us and ask if we could do an introduction to TDD before, so it is easier to understand what the red-green-refactor cycle means or how baby-steps shall be understood. Well, [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/11/why-test-drivendevelopment-workshop-1/">Why this Test-Driven Development Workshop?</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><img src="http://www.uxebu.com/wp-content/uploads/2014/11/global_420806432-150x150.jpeg" alt="global_420806432" class="alignright size-thumbnail wp-image-6578" />The <a href="http://jscoderetreat.com" title="JS CodeRetreat" target="_blank">JSCodeRetreat</a> is always a lot of fun, a day free of stress, just practicing and honing our craft. But sometimes people come up to us and ask if we could do an introduction to TDD before, so it is easier to understand what the red-green-refactor cycle means or how baby-steps shall be understood. Well, we listened. And we set up this <strong><a href="http://www.meetup.com/uxebu-events/events/211708152/" title="TDD Workshop" target="_blank">workshop: TDD for beginners</a></strong>. The first one is going to take place on the 4th of December, two days before the <a href="http://jscoderetreat.com/events.html" target="_blank" title="JSCR #4">JSCR #4</a>.</p>
+<h2>This little itch</h2>
+<p>It was many years ago, that I was working in a company that was certified ISO nine-thousand-something. And it felt like quality was written everywhere, but rather on the walls and on paper. And quality meant to do paper work and that does ensure quality. I guess I had a wrong impression of quality. It felt way less fun to produce quality than to buy a quality product (you know, when it&#8217;s expensive it must be of high-quality, so it&#8217;s a pleasure spending that money). Something was wrong with my perception of quality.<br />
+During that time I was working with Daniel, a very skilled programmer, and we enjoyed working together so much. When he wrote code I would have written it exactly the way he did. That was fun, pure fun! That is what work should feel like and programming even more so, since in my opinion programming is not work, it&#8217;s a part of me. And that part I want to do as good as possible, I want to get better at it and I get excited the better I get, because it shapes so much more of what I actually want to achieve I just can&#8217;t describe how it feels. But there was always this little itch which was there, that when I change a thing in my code I might break something or just have to (manually) test if all is as it was before, plus the new feature or fix. And that feedback always was the not-so-fun part.</p>
+<h2>Scratching it</h2>
+<p>Many times I got told that TDD is when you write a test first and then you write the production code that makes this test pass. Lot&#8217;s of times, I just overheard them. Then I maybe tried it a couple of times but it wasn&#8217;t for me. Until we in uxebu worked on a product which was just so big, that (manually) testing and ensuring all the features still work the same way as before the last change was just too complex. It was clear that we needed automated tests here. So we set up a test environment and pushed testing forward and so on. But it still felt like a heavy process which we didn&#8217;t know how to do. I remember from my ISO-times, that there must be something like a test plan. Feels, good. And sucked fast. A colleague of mine Stephan suggested that we invite J.B. Rainsberger for a workshop, which we did. After the initial skepticism was gone and we got some things done with TDD it felt like a good path. The valley that came was deep for me. Man did I screw up. But afterwards it was going uphill, steep!<br />
+TDD is nothing else but doing in code what I had been doing before in my head. I sketch the problem, I solve it and verify that it works. Only that now I do less guessing about the assumptions, but I really do, as a programmer just needs to do it, write down the requirement in a test. That is, if I tell `I` to convert to `1` then I write that down in a test and next time I run the test again I am still sure that it still is that way.<br />
+TDD is no more than a brain dump into structured code and the relief of having to scan the code&#8217;s results manually. Just let the stupid computer do that work, not me anymore. Thank you!<br />
+I could pull out reports, statistics, research papers and Gardner reports to convince you. I don&#8217;t need to. Try it. You will be convinced or not. Just like programming, either you are a programmer or not, there is nothing in-between. And give it time to estimate the value of TDD well, it&#8217;s not learned in a week.</p>
+<h2>Step by Step</h2>
+<p>I recall my first programming steps. It took quite a while for me to understand the parts of `10 PRINT &#8220;Hello world&#8221;`. Why the hell does it have to have a `10` in front. And just like my daughter asked me a couple days ago: What are those quote-signs for?<br />
+Learning was so slow in the beginning. As it is with many things, I guess. But with programming, I quickly gained the knowledge of how to do things. I stored it and recalled it every time I needed that knowledge. I modified the patterns a little bit and I applied them again. I became really secure in using them. Back when I wrote C code all day long, I remember that I was proud to compile only twice a day and have been &#8220;working&#8221; the rest of the time. There was one time, when I used to have a small PSION mobile computer with just a text editor and I hacked out a program of about 200 lines of code on it, without syntax checking, no compile run and no test run of the program. For about six hours I was coding. And when I got back to real computer to run the program it had only one syntax error and it ran. Boy, was I proud. All that just assured me more and more that I am becoming a skilled programmer. How wrong was I!<br />
+I lost sight of the big thing, I had one way of doing things hammered in my brain, it was not in my comfort zone to change that. And if the program needed additional features that didn&#8217;t match the initial plan the code started to rot. Architectural changes applied to the code had been close to impossible. I hardly refactored back then. When I did refactor, I checked the result manually. As usual.</p>
+<h2>Thinking and Working Step by Step</h2>
+<p>In the last years I unlearned going in big steps. I practiced really hard and am a happy baby-step user now. I feel uncomfortable when I have to make big steps, when I have to write out more than just the last thought. My good feeling fades quickly when I fall back into the old let-me-fix-this-and-that-quickly habit. In those moments I just praise `Undo`, it has become one of my biggest friends. And a good reminder of how often I still move forward way too fast.<br />
+Especially when refactoring a quick test run and a tiny change are so valuable. I just can&#8217;t thing of how to properly do defactoring without baby-steps. I got trapped so often by just another step that I had skipped, just because of the `I know that` feeling. The false sense of security really robs my time.<br />
+In a CodeRetreat one participant said after the paper-only session: &#8220;It is amazing to write code on paper and realizing how often we do already change things while writing the code.&#8221;. The times are those where we don&#8217;t even remember that we hit backspace or changed a piece of code again before we are actually happy or ready to run the tests. It&#8217;s just like this &#8220;Where did I put the car keys again?&#8221; thingy. It becomes a habit which eliminates consciousness and I just hack it out like a trained stupid robot, even though I might know much better. I am getting better at doing things more consciously.<br />
+It takes some practice to go in smaller steps but it really is worth the time and consciousness you gain. TDD taught me that again.</p>
+<h2>Re-think Requirements and Dependecies</h2>
+<p>Another thing that TDD taught me is the re-evaluation of requirements and dependencies before implementing them. First it&#8217;s the test that I have to write, where I have to formulate an explicit expectation. If I do already have a problem doing that, how can I assume to have understood the problem?<br />
+Once I got through to the real requirement I have to dump it into code. When this gets difficult or when lot&#8217;s of setting up of environment is going on, I smell another problem. The dependency problem. Nowadays I start writing out a complex test in order to find out how deep I have to dive. It is like prototyping the problem, I try out things until I have learned enough about the problem to really write a better test. Explore, Stabilize, Commoditize (Dan North). Once I stabilized my knowledge about the problem I start refactoring my tests.</p>
+<h2>Finally &#8211; How to workshop?</h2>
+<p>TDD is not hard, it just takes a bit of practice. The first kick-off and the inspiration to do it more often I will try to give you during that day. We are going to switch between me showing some stuff for ten to twenty minutes and to practicing it. I will be there to actively support you, answer all your questions and give you guidance around applying TDD.<br />
+You will pair with different people which adds most value to the learning, since you can discuss the things with your pair and push each other forward. From time to time I will sneak in, listen to you and ask questions that make you think harder.</p>
+<p>I am looking forward to <strong><a href="http://www.meetup.com/uxebu-events/events/211708152/" title="Workshop">seeing you at the workshop</a></strong> and also love to discuss things in more detail.<br />
+So why this workshop? Because TDD brings back and increases the fun in programming!</p>
+<p>All the best </p>
+<p>Wolfram</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/11/why-test-drivendevelopment-workshop-1/">Why this Test-Driven Development Workshop?</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2014/11/why-test-drivendevelopment-workshop-1/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>JS CodeRetreat #3 Highlights</title>
+		<link>http://www.uxebu.com/blog/2014/09/coderetreat-3-highlights/</link>
+		<comments>http://www.uxebu.com/blog/2014/09/coderetreat-3-highlights/#comments</comments>
+		<pubDate>Tue, 09 Sep 2014 09:56:12 +0000</pubDate>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+				<category><![CDATA[Events]]></category>
+		<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[JS Code Retreat]]></category>
+		<category><![CDATA[tdd]]></category>
+		<category><![CDATA[TDDbin]]></category>
+		<category><![CDATA[uxebu]]></category>
+
+		<guid isPermaLink="false">http://www.uxebu.com/?p=5427</guid>
+		<description><![CDATA[<p>First and foremost I would love to thank all the attendees that made the #jscr #4 such a cool event, which obviously made it worth spending another Saturday on working on our coding skills. And of course I would love to thank Martin Ruprecht who facilitated the event with me and Irene who has put [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/09/coderetreat-3-highlights/">JS CodeRetreat #3 Highlights</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><a href="http://www.uxebu.com/wp-content/uploads/2014/09/jscr3people.jpg"><img src="http://www.uxebu.com/wp-content/uploads/2014/09/jscr3people-150x150.jpg" alt="jscr3people" width="150" height="150" class="alignright size-thumbnail wp-image-5593" /></a>First and foremost I would love to thank all the attendees that made the <a href="https://twitter.com/search?f=realtime&#038;q=%23jscr" title="#jscr search on twitter">#jscr</a> #4 such a cool event, which obviously made it worth spending another Saturday on working on our coding skills. And of course I would love to thank <a href="https://twitter.com/mrupilo" title="Martin Ruprecht">Martin Ruprecht</a> who facilitated the event with me and <a href="https://twitter.com/irenelladn89" title="Irene">Irene</a> who has put in lots of the work behind the scenes. E.g. the good on-site made <a href="http://www.pizza-innovazione.de" title="Pizza Innovazione">pizza</a> was just one of her ideas and that was a great lunch, just like last time.</p>
+<h2>Five times 45 minutes</h2>
+<p>For those who don&#8217;t know the event here comes a short summary of what we did.<br />
+Upon arrival everyone could have a coffee, brez&#8217;n, Club Mate or whatever other refreshment/breakfast (s)he needed to get over the early start, 9:30 on a Saturday morning.</p>
+<blockquote class="twitter-tweet" width="550"><p><a href="https://twitter.com/wolframkriesing">@wolframkriesing</a> does the introduction. Much more people here than i expected&#8230; <a href="https://twitter.com/hashtag/jscr?src=hash">#jscr</a> <a href="http://t.co/0hB2eyyfw4">pic.twitter.com/0hB2eyyfw4</a></p>
+<p>&mdash; Marco Emrich (@marcoemrich) <a href="https://twitter.com/marcoemrich/status/508164275131916288">September 6, 2014</a></p></blockquote>
+<p><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
+<p>After a quick introduction of how the day will be structured we started right away with the first session. All the sessions every attendee chose a new partner to work in pairs all the time. Of those sessions we had five, each lasted 45 minutes, which I think was enough to get everyone exhausted. In all sessions we tried to solve one problem <a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life" title="GoL">Conway&#8217;s Game Of Life</a> (GoL). GoL is perfect for such events, it is not too simple to get bored and not that hard that the solution is impossible.</p>
+<p>Session 1: Everyone started out by solving the problem in a test-driven manner. It was meant to get familiar with the problem, everyone to wake up and get into gear. The mix of groups seemed to have been perfect. Everyone had understood the rules of Game of Life and the problem of the day needed no more explanation. (Was is the Club Mate?)<br />
+Session 2: We increased the difficulty level a bit, we did a ping-pong session. Ping-pong here means to pass the keyboard forth and back between the pairs. You write a test that fails, pass on the keyboard. Your pair writes the according production code and a new failing test that has the intention to move your production code forward. And you pass the keyboard back. If you wanted to increase difficulty you could set a timer and not allow more than three minutes to pass until the production code makes the failing test pass. If you didn&#8217;t succeed remove the written code, since it seems to be too complex and a simpler test should be chosen, refactoring be applied first or another solution be found that allows you to get it done in three minutes.<br />
+Session 3: was the one I was really looking forward to, we called it &#8220;<a href="http://jscoderetreat.com/3/schedule.html#session4" title="Create Legacy Session">Create legacy</a>&#8221; the idea is by Marc Bless who <a href="http://agilecoach.de/2013-12-14/creating-legacy-behavior-in-15-minutes/">described it here</a>. Fortunately nobody had done it before and that made it most fun I guess. The task was GoL again but quick+dirty this time. After 15min we took one person out of every team, told them to put on the Clean Code hat and go back to another team and push for clean code, tests, etc. You can&#8217;t get much closer to real life I guess :).</p>
+<p>Then we had a great lunch, from the <a href="https://twitter.com/PizzaTruckMUC">pizza truck</a> (really worth it!).</p>
+<blockquote class="twitter-tweet" width="550"><p>Pizza truck at <a href="https://twitter.com/hashtag/jscr?src=hash">#jscr</a> #3 Munich <a href="http://t.co/Z2mLOzkB2b">pic.twitter.com/Z2mLOzkB2b</a></p>
+<p>&mdash; Nils Bernert (@NilsBernert) <a href="https://twitter.com/NilsBernert/status/508222205923434496">September 6, 2014</a></p></blockquote>
+<p><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
+<p>Session 4: Probably the most extravagant one. Everyone had to implement GoL in Google Spreadsheets. I showed the basics on how to do <a href="http://www.uxebu.com/blog/2014/03/how-to-use-google-spreadsheets-for-tdd/">TDD and JS in a spreadsheet</a>. Lots of awesome ideas and for the first time visuals came out of this session. More about that later.<br />
+<a href="http://www.uxebu.com/wp-content/uploads/2014/09/TDDbin-in-action.png"><img src="http://www.uxebu.com/wp-content/uploads/2014/09/TDDbin-in-action-150x150.png" alt="TDDbin in action" width="150" height="150" class="alignright size-thumbnail wp-image-5582" /></a>Session 5: The restriction was not to use a mouse. Since most people used <a href="http://TDDbin.com" title="TDDbin.com">TDDbin.com</a> we enhanced it a bit and people could also choose another no-restriction, we offered: No IFs and no more than four lines per function. Some people even combined them.</p>
+<p>After each session we had a (sometimes) short retrospective to share our experiences and also to laugh a lot about the crazy things that one might comes up with when applying those restrictions. All the way at the end we had some beers and some of us even stayed and chatted until almost midnight. All in all a beautiful day, thanks a lot! We will repeat it, for sure. Or feel free to join us and do the same thing in your city. Or invite us to do it in your city.</p>
+<h2>Creating legacy session</h2>
+<p>Just a couple days before this event I was surfing through <a href="http://coderetreat.org">coderetreat.org</a> in order to see if there are some interesting restrictions that we could copy for this event. And out came the &#8220;Create legacy&#8221; restriction by Marc Bless. Already when running the session we realized that we need to improve our execution of it. But first things first. The introduction for this session was quite short. We said &#8220;build the GoL as fast as you can, in a quick and dirty manner, no TDD, no clean code, etc.&#8221;. I think everyone was a little surprised by that. But everyone started straight away. We tried to stress everyone a little bit by making manager-style comments to push the code size and the number of features. I don&#8217;t know if it worked. At 15 minutes in we told everyone to quickly pay attention. We told them that one of each pair will have to leave the team and please come to the back of the room. There we told them that they are now the seniors that only accept clean code, tests and quality, no bullshit and no hacks. We sent them back to a different pair, so they don&#8217;t work on their own code anymore but on someone else&#8217;s code.</p>
+<p>In the end some teams really removed most of the old code and rewrote things. Some didn&#8217;t know how to test the legacy that had been created before. Others reported that all those 45 minutes were basically wasted because the old code didn&#8217;t work and only in the end they found out that it all needs a rewrite. Some people also reported that this very much feels like the real day-to-day work. I just couldn&#8217;t resist to mention that everyone only had 15 minutes to create legacy and already that was hard to work with. Just imagine legacy code of two years of age.</p>
+<h2>Our learnings from the &#8220;Create legacy&#8221; session</h2>
+<p>We realized quickly that we can improve the execution of this session. We did it for the first time, so Martin and me quickly agreed that this is a really cool session but we know the edges that it has, or at least that we added to it.</p>
+<ol>
+<li>Stricter instructions &#8211; Already when all the teams had started we realized that our instructions could have been better. Something like &#8220;you have 15 minutes to create GoL, get at least all the rules done in 15 minutes.&#8221; Would have been better. Since we didn&#8217;t explicitly mention that there will be an interruption at any time I think people didn&#8217;t feel the pressure soon enough. We kept the coming interruption a secret. I think this makes no sense.</li>
+<li>Just have one coder &#8211; Another option that maybe makes this even harder could be to tell the teams that only one person shall be writing the code. And when we interrupt the teams we take this person out of the team. This will add the additional effort which might cause &#8220;all the knowledge to be removed&#8221; from the team. In the best case the team has really paired well and both understood the code well, then the coming cleaning part will be easier. But in case that the passive pair also has problems understanding some of the code the discussion and maybe even confusion would be much more fun.</li>
+<li>Only let the clean-coder code &#8211; When the clean coder joins the team she should take over the keyboard. This will ensure that the old code gets touched and the &#8220;legacy owner&#8221; will have to explain and reason about the current code. This might trigger more discussion and hopefully also engages both parties even deeper. And it prevents the situation that the legacy owner doesn&#8217;t give up control.</li>
+</ol>
+<p>Lot&#8217;s of room to improve. Anyway this was one of my favorite sessions this day and I will make sure that it improves.</p>
+<h2>GoL in Google Spreadsheets</h2>
+<p>Why Google Spreadsheets? All got started by the <a href="http://www.uxebu.com/blog/2014/03/how-to-use-google-spreadsheets-for-tdd/">past experience</a> with it. And spreadsheets offer a couple of nice features. One is the input can be created in a very simple way. Just two numbers, each number in a cell. Or even just one number. If you want to make it more complicated you can. A second feature that I was really looking forward to seeing was that a google spreadsheet is nothing less but a grid, which is also part of the GoL. Maybe someone will come up with a solution really rendering it in the cells. And there have been solutions like that. The other feature of a spreadsheet is that you don&#8217;t need no test framework that is in your way sometimes. The specification can be easily readable and maybe even manager-compatible. But we didn&#8217;t get that far.</p>
+<p>I had made some good experiences using Google Spreadsheets for introducing TDD to students. The simple red-green visualization was also one of the features people brought up during the retrospective at this retreat.</p>
+<p>Others realized that input can and maybe should be simplified in order to make it useable in such a minimal environment that spreadsheets just are. This approach also made it very tempting to not focus on one test at a time, since it was able to just create many tests at once. </p>
+<p>The simplicity of test creation was another learning that came out of this session. Which means in spreadsheet duplicating and adding more rows is pretty simple, once everything is set up. Using this you get more time to focus on the coding part and the building of tests actually boils down to an initial discussion and agreement among pairs and in an ideal case it is no topic later on, which means you get a maximum of time to make your code better. Which also bears the danger of not discussing tests too.</p>
+<blockquote class="twitter-tweet" width="550"><p>Google spreadsheet TDD at the <a href="https://twitter.com/jsCodeRetreat">@jsCodeRetreat</a> &#8211; amazing! <a href="http://t.co/jxIEfNLztZ">pic.twitter.com/jxIEfNLztZ</a></p>
+<p>&mdash; Ruben Straube (@derstrauber) <a href="https://twitter.com/derstrauber/status/508249704837447680">September 6, 2014</a></p></blockquote>
+<p><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
+<blockquote class="twitter-tweet" width="550"><p><a href="https://twitter.com/hashtag/TDD?src=hash">#TDD</a> with <a href="https://twitter.com/hashtag/javascript?src=hash">#javascript</a> and <a href="https://twitter.com/hashtag/GoogleSpreadsheets?src=hash">#GoogleSpreadsheets</a> <a href="https://twitter.com/hashtag/jscr?src=hash">#jscr</a> jscoderetreat <a href="http://t.co/vgiMZOwz9z">pic.twitter.com/vgiMZOwz9z</a></p>
+<p>&mdash; Hernan Maguina (@hernanvicente) <a href="https://twitter.com/hernanvicente/status/508328343926620160">September 6, 2014</a></p></blockquote>
+<p><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
+<blockquote class="twitter-tweet" width="550"><p>Game of Life google docs style! <a href="https://twitter.com/hashtag/jscr?src=hash">#jscr</a> <a href="http://t.co/4DvfCznbc8">pic.twitter.com/4DvfCznbc8</a></p>
+<p>&mdash; Jonathan Prince (@greatsage) <a href="https://twitter.com/greatsage/status/508250181452984320">September 6, 2014</a></p></blockquote>
+<p><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
+<blockquote class="twitter-tweet" width="550"><p>Nice spreadsheet js hacking at <a href="https://twitter.com/hashtag/jscr?src=hash">#jscr</a> <a href="http://t.co/CMrEnxHqaS">pic.twitter.com/CMrEnxHqaS</a></p>
+<p>&mdash; Emanuel Steger (@em4nue1) <a href="https://twitter.com/em4nue1/status/508267825417715712">September 6, 2014</a></p></blockquote>
+<p><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
+<h2>The community</h2>
+<p>Again I have to say it was really great to see the people engaging a lot during the event. And all that on a Saturday. When you hear the people talk about small tests, units, restrictions and GoL internals during lunch you know they are hooked.</p>
+<p>Let&#8217;s do it again! And we will, just watch out for #jscr #4 in December. </p>
+<p>Happy hacking&#8230;</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/09/coderetreat-3-highlights/">JS CodeRetreat #3 Highlights</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2014/09/coderetreat-3-highlights/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>SoCraTes 2014</title>
+		<link>http://www.uxebu.com/blog/2014/08/socrates-2014/</link>
+		<comments>http://www.uxebu.com/blog/2014/08/socrates-2014/#comments</comments>
+		<pubDate>Tue, 12 Aug 2014 12:00:31 +0000</pubDate>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+				<category><![CDATA[Events]]></category>
+		<category><![CDATA[frontend engineering]]></category>
+		<category><![CDATA[Open Source]]></category>
+		<category><![CDATA[redis]]></category>
+		<category><![CDATA[tdd]]></category>
+		<category><![CDATA[TDDbin]]></category>
+
+		<guid isPermaLink="false">http://www.uxebu.com/?p=5292</guid>
+		<description><![CDATA[<p>It&#8217;s already two days ago, that SoCraTes is over and there is still this cosy feeling that it left. It was one of those memorable conferences that you know you wanna return to. Oh, an un-conference it was! And that&#8217;s the point, it was not the &#8220;one (wo)man standing and telling you the truth&#8221; conference. It [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/08/socrates-2014/">SoCraTes 2014</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>It&#8217;s already two days ago, that SoCraTes is over and there is still this cosy feeling that it left. It was one of those memorable conferences that you know you wanna return to. Oh, an un-conference it was! And that&#8217;s the point, it was not the &#8220;one (wo)man standing and telling you the truth&#8221; conference. It was a &#8220;kick off a topic and let&#8217;s all see where it goes&#8221; conference. No speakers announced before, no fixed topics &#8211; just software craftsmanship as a rough framing.</p>
+<h2>Open Space/Mind</h2>
+<p>A BarCamp is just the same concept. Every morning you have an empty grid with rooms and time slots which want to be filled. And they get filled, by all the attendees. And after 1h or less you have a schedule that offers something for everyone. See the <a title="Schedule for Day 1" href="https://twitter.com/socrates_2014/status/497663363250663424">schedule for day1</a>. It was hard to select which session to go to. Not only because of all the interesting topics but also because you knew that every session would engage you. If not, the law of two feet said that you just carry yourself somewhere else.<br />
+Of course the hot topics were around people and crafting software. But also swimming, biking, running, watching stars, music and various kinds of gaming were done. And all just because someone kicked it of and people joined. I think every conference should be this style, it&#8217;s way more engaging and also encouraging people to take part, which makes it so valuable.</p>
+<h2>I did only learn</h2>
+<p>The very first day I learned about offline git, how you pass around commits on a USB stick. Then I joined a redis session, touched it and got a feeling for what it feels like to use redis and following that of course the obligatory discussion (accompanying NoSQL) about the right use case for the right tool. &#8220;TDD is dead&#8221; was a topic at every table at some point. And the awesome feeling of not rejecting all thoughts but accepting them as stimulation to think further is just what very well stands for the mindset of the people at this conference. But of course the answer to dead or not dead was not even worth discussing :). EventSourcing and CQRS had been one of the hot topics too, as I have seen this going around a lot lately, actually at all conferences I had been to this year. I tried to contribute a little bit with experience from the JavaScript world, especially on Sunday by taking part in the <a title="Agora" href="https://github.com/softwerkskammer">Agora</a> (which is the system behind <a title="softwerkskammer.org" href="http://softwerkskammer.org">softwerkskammer.org</a>) hackathon.</p>
+<h2>Hacking with JS test frameworks</h2>
+<p>In the hackathon on Sunday, which ran parallel to a Legacy CodeRetreat, we wanted to do some JavaScript. Of course there was no discussion that after we had prototyped and knew how to use the technology (reactjs in this case) we fire up the test framework. But first we fought the obligatory packaging fight, shall we use AMD, CommonJS, requirejs, browserify or plain old script tags. I think this very well allowed everyone to learn something, but it also made obvious that JavaScript just requires some boilerplate.<br />
+Funny enough I had been working on integrating mocha and jasmine into <a title="TDDbin Frontend" href="https://github.com/uxebu/tddbin-frontend">TDDbin</a> over the last days and therefore felt I can contribute. Since the Agora project already uses mocha that was the way to go. And it felt right. Cool, so let&#8217;s use it. And I guess the rest I have to put into a separate blog post, I can see this getting out of hand :).</p>
+<h2>Conclusion</h2>
+<p>If you care about your craft and want to get better at it, go to SoCraTes 2015!<br />
+Thanks to all the team behind this conference and all attendees who made it so outstanding. Find out more on <a href="https://twitter.com/socrates_2014">twitter.com/socrates_2014</a>.</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/08/socrates-2014/">SoCraTes 2014</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2014/08/socrates-2014/feed/</wfw:commentRss>
+		<slash:comments>1</slash:comments>
+		</item>
+	</channel>
+</rss>

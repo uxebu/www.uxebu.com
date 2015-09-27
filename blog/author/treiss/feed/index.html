@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>uxebu &#187; Tobias Reiss</title>
+	<atom:link href="http://www.uxebu.com/blog/author/treiss/feed/" rel="self" type="application/rss+xml" />
+	<link>http://www.uxebu.com</link>
+	<description>The first JavaScript-only development and consulting company</description>
+	<lastBuildDate>Thu, 30 Jul 2015 09:10:24 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=4.1.8</generator>
+	<item>
+		<title>Test public API, not implementation details</title>
+		<link>http://www.uxebu.com/blog/2014/07/test-public-api-implementation-details/</link>
+		<comments>http://www.uxebu.com/blog/2014/07/test-public-api-implementation-details/#comments</comments>
+		<pubDate>Mon, 14 Jul 2014 10:15:30 +0000</pubDate>
+		<dc:creator><![CDATA[Tobias Reiss]]></dc:creator>
+				<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[TDD]]></category>
+		<category><![CDATA[testing]]></category>
+
+		<guid isPermaLink="false">http://www.uxebu.com/?p=5165</guid>
+		<description><![CDATA[<p>There are good reasons why programmers perform tests themselves in contrast to letting an external testing department (QA) perform the tests. The programmer is able to discover errors in code and in general design decisions much faster and can react immediately, as one might say, the feedback loop is very short. On the other hand, [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/07/test-public-api-implementation-details/">Test public API, not implementation details</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><img style="float: right; margin: 0 0 20px 20px;" src="/wp-content/uploads/2014/07/tldr-box-red.svg" alt="" /><br />
+There are good reasons why programmers perform tests themselves in contrast to letting an external testing department (QA) perform the tests. The programmer is able to discover errors in code and in general design decisions much faster and can react immediately, as one might say, the feedback loop is very short. On the other hand, when programmers have both, the test and the implementation in mind, they&#8217;re tempted to test code that an external wouldn&#8217;t test, simply because the external only know about the spec but not the implementation. That way I once wrote way more tests than needed and at the time of writing the tests felt confident with that approach because more tests are better than less tests and JavaScripts lacking of private members literally encouraged me to do this anyway. Well, I paid the price some weeks later, when a minor change took me way to long to implement because of some dozens of failing tests that shouldn&#8217;t be affected by my change. But what exactly is bad about testing other things than public API?</p>
+<p>Consider the following little code snippet:</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #003366; font-weight: bold;">function</span> Auth<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><span style="color: #009900;">&#125;</span><br />
+<br />
+Auth.<span style="color: #660066;">prototype</span>._isEmpty <span style="color: #339933;">=</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span>str<span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; <span style="color: #000066; font-weight: bold;">return</span> <span style="color: #CC0000;">0</span> <span style="color: #339933;">===</span> str.<span style="color: #660066;">length</span><span style="color: #339933;">;</span><br />
+<span style="color: #009900;">&#125;</span><br />
+<br />
+Auth.<span style="color: #660066;">prototype</span>.<span style="color: #660066;">login</span> <span style="color: #339933;">=</span> <span style="color: #003366; font-weight: bold;">function</span> <span style="color: #009900;">&#40;</span>username <span style="color: #339933;">,</span> password<span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; <span style="color: #000066; font-weight: bold;">if</span> <span style="color: #009900;">&#40;</span><span style="color: #000066; font-weight: bold;">this</span>._isEmpty<span style="color: #009900;">&#40;</span>username<span style="color: #009900;">&#41;</span> <span style="color: #339933;">||</span> <span style="color: #000066; font-weight: bold;">this</span>._isEmpty<span style="color: #009900;">&#40;</span>password<span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; <span style="color: #000066; font-weight: bold;">return</span> <span style="color: #003366; font-weight: bold;">false</span><span style="color: #339933;">;</span><br />
+&nbsp; <span style="color: #009900;">&#125;</span> <span style="color: #000066; font-weight: bold;">else</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; <span style="color: #000066; font-weight: bold;">return</span> <span style="color: #003366; font-weight: bold;">true</span><span style="color: #339933;">;</span><br />
+&nbsp; <span style="color: #009900;">&#125;</span><br />
+<span style="color: #009900;">&#125;</span></div></div>
+<h2>What is public API?</h2>
+<p>First of all, make yourself aware of what methods of your Auth class are meant to be accessible and visible to the user of the class. That&#8217;s the public API. In this case the only method that is supposed to be visible is:</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">boolean <span style="color: #003366; font-weight: bold;">function</span> login<span style="color: #009900;">&#40;</span>username<span style="color: #339933;">:</span>String<span style="color: #339933;">,</span> password<span style="color: #339933;">:</span>String<span style="color: #009900;">&#41;</span></div></div>
+<h2>What are implementation details?</h2>
+<p>Now that you have settled the public API, everything else can be considered as implementation detail, including the _isEmpty method. I use a single underscore prefix to make the distinction more visible. But that&#8217;s only a coding convention and not a JavaScript feature and therefore doesn&#8217;t prevent a tester from using it per se. It can help code-reviewers with detecting private members though.</p>
+<p><em><span class="highlight1" style="background-color:#FFFFC7;"><strong>Tip:</strong> A user of your class Auth only cares about public API because that&#8217;s the only API that is well documented and maintained. So let&#8217;s make sure that this API works as expected and only test login. Applying this approach keeps the amount of tests as small as possible but effective as necessary.</span></em></p>
+<h2>A bad test</h2>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">describe<span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'Login'</span><span style="color: #339933;">,</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; describe<span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'Login'</span><span style="color: #339933;">,</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; it<span style="color: #009900;">&#40;</span><span style="color: #3366CC;">&quot;calls _isEmpty&quot;</span><span style="color: #339933;">,</span> <span style="color: #003366; font-weight: bold;">function</span> <span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; &nbsp; <span style="color: #003366; font-weight: bold;">var</span> auth <span style="color: #339933;">=</span> <span style="color: #003366; font-weight: bold;">new</span> Auth<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+&nbsp; &nbsp; &nbsp; spyOn<span style="color: #009900;">&#40;</span>auth<span style="color: #339933;">,</span> <span style="color: #3366CC;">'_isEmpty'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+&nbsp; &nbsp; &nbsp; auth.<span style="color: #660066;">login</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'abc'</span><span style="color: #339933;">,</span> <span style="color: #3366CC;">'abc'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+&nbsp; &nbsp; &nbsp; expect<span style="color: #009900;">&#40;</span>auth._isEmpty<span style="color: #009900;">&#41;</span>.<span style="color: #660066;">toHaveBeenCalledWith</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'abc'</span><span style="color: #339933;">,</span> <span style="color: #3366CC;">'abc'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+&nbsp; &nbsp; <span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+&nbsp; <span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></div>
+<p>So what makes this test bad? The test expects a method, that is private and not visible to the outerworld, to be available and callable. Which means as soon as we gonna refactor _isEmpty for internal, performance or whatever reasons the test fails. This slows down your productivity and makes refactoring hard because you&#8217;re forced to align the test every time when you&#8217;re touching _isEmpty. Does this test give you any confidence that your public API is working as expected? No. Calling _isEmpty doesn&#8217;t give any infos about whether login returns true or false. Does it improve your public API? No, not at all. The user of this class doesn&#8217;t even care about whether _isEmpty exists or not as long as login works. As a result changing internal code will let this test fail unexpectedly.</p>
+<p><em><span class="highlight1" style="background-color:#FFFFC7;"><strong>Testing Terminology:</strong> A test that fails, although the code changes shouldn&#8217;t have affected the test are often called: Fragile Test</span></em></p>
+<h2>Good tests</h2>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">describe<span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'Login'</span><span style="color: #339933;">,</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; it<span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'returns `true` when username and password are not empty'</span><span style="color: #339933;">,</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; expect<span style="color: #009900;">&#40;</span><span style="color: #003366; font-weight: bold;">new</span> Auth<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span>.<span style="color: #660066;">login</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'non-empty'</span><span style="color: #339933;">,</span> <span style="color: #3366CC;">'non-empty'</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span>.<span style="color: #660066;">toBe</span><span style="color: #009900;">&#40;</span><span style="color: #003366; font-weight: bold;">true</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+&nbsp; <span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<br />
+&nbsp; it<span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'returns `false` when username is empty'</span><span style="color: #339933;">,</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; expect<span style="color: #009900;">&#40;</span><span style="color: #003366; font-weight: bold;">new</span> Auth<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span>.<span style="color: #660066;">login</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">''</span><span style="color: #339933;">,</span> <span style="color: #3366CC;">'non-empty'</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span>.<span style="color: #660066;">toBe</span><span style="color: #009900;">&#40;</span><span style="color: #003366; font-weight: bold;">false</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+&nbsp; <span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<br />
+&nbsp; it<span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'returns `false` when password is empty'</span><span style="color: #339933;">,</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; expect<span style="color: #009900;">&#40;</span><span style="color: #003366; font-weight: bold;">new</span> Auth<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span>.<span style="color: #660066;">login</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'non-empty'</span><span style="color: #339933;">,</span> <span style="color: #3366CC;">''</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span>.<span style="color: #660066;">toBe</span><span style="color: #009900;">&#40;</span><span style="color: #003366; font-weight: bold;">false</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+&nbsp; <span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></div>
+<p>Focus on simplicity, correctness and shortness of tests. You and your co-workers will enjoy the readability. Internal documentation meant for developers can be replaced by your tests. From now on your tests are the spec. What about refactoring? Super easy. Let&#8217;s say you replace _isEmpty for internal reasons by underscrore.isEmpty() and some days later by lodash.isEmpty(). No problem, you don&#8217;t even need to touch the tests. Just execute them and give yourself the confidence that login still works as expected. This process doesn&#8217;t only make refactoring easy, it encourages you to make your code continually better and let you react fast on internal design decisions. Code-reviews of refactoring steps can happen faster because one thing is sure, whatever your code does, it doesn&#8217;t break the public API because you didn&#8217;t touch the tests.</p>
+<h2>Summary</h2>
+<p>KISS! Testing less but the right things improves your development process and makes you and your co-workers happy. Implementation details are never mentioned within the spec, so they never appear within your tests.</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/07/test-public-api-implementation-details/">Test public API, not implementation details</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2014/07/test-public-api-implementation-details/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Ping, Pong, BonsaiJS plays sound!</title>
+		<link>http://www.uxebu.com/blog/2012/10/ping-pong-bonsaijs-plays-sound/</link>
+		<comments>http://www.uxebu.com/blog/2012/10/ping-pong-bonsaijs-plays-sound/#comments</comments>
+		<pubDate>Thu, 04 Oct 2012 11:08:54 +0000</pubDate>
+		<dc:creator><![CDATA[Tobias Reiss]]></dc:creator>
+				<category><![CDATA[BonsaiJS]]></category>
+
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=2506</guid>
+		<description><![CDATA[<p>Bonsai grows with the demand of its users and our flagship project pixelplant.com. The next big thing on our ever growing list of upcoming features was for Audio support. It’s taken us a little over a week to implement the first version and we&#8217;re pleased with the results. This version includes an API, a new [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2012/10/ping-pong-bonsaijs-plays-sound/">Ping, Pong, BonsaiJS plays sound!</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>Bonsai grows with the demand of its users and our flagship project <a href="https://www.pixelplant.com/">pixelplant.com</a>. The next big thing on our ever growing list of upcoming features was for Audio support. It’s taken us a little over a week to implement the first version and we&#8217;re pleased with the results. This version includes an <a href="https://github.com/uxebu/bonsai/blob/master/src/runner/audio.js">API</a>, a new <a href="https://github.com/uxebu/bonsai/blob/master/src/asset/audio_handler.js">AssetHandler</a>, tests and a lot of example movies of course. It&#8217;s been great fun to replace the normal use of `console.log` with a sound-snippet. Suddenly we&#8217;re able to *hear* ticks, events, collisions and even bugs. Of course at some point we hit the boundaries of what is possible in the current web, especially on mobile devices but all in all we&#8217;re happy with what we’ve developed. The new Audio API enables a whole new media format and is a great way to express your creativity.</p>
+<p>This is how the new API looks:</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="text codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">new Audio('myfile.mp3').addTo(stage).play();</div></div>
+<p>So what happens here. We pass a URL to the Audio constructor and thereby create a new instance which also triggers the partial loading of the file. We add the instance to the stage and finally call `play()` what plays the audio as soon as enough data is available.</p>
+<p>Press the play button and start the music.</p>
+<p><iframe style="width: 100%; height: 255px;" src="http://jsfiddle.net/ahhMe/11/embedded/result" width="300" height="150" frameborder="0" allowfullscreen="allowfullscreen"></iframe></p>
+<p>Audio is our fifth supported asset type. We&#8217;re already able to handle Bitmaps, Fonts, Submovies and Videos. As with the other asset types, you’ll need to ensure that the file is loaded before it can be used. To do this you should listen for the &#8220;load&#8221; event and only then start to play.</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="text codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">new Audio('myfile.mp3').on('load', function() {<br />
+this.addTo(stage).play();<br />
+});</div></div>
+<p>We know you&#8217;re a good web citizen and want to use more file-formats than just `audio/mp3` but also `audio/ogg` and probably more. The way to do that is to pass an Array of Objects (we call them AssetResourceObjects) to the Audio Constructor.</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="text codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">var assetRequest = [<br />
+{ src: 'myfile.mp3' },<br />
+{ src: 'myfile.ogg' },<br />
+{ src: 'myfile.eff', type: 'audio/exoticFileFormat' }<br />
+];<br />
+new Audio(assetRequest).on('load', function() {<br />
+this.addTo(stage).play();<br />
+});</div></div>
+<p>To see the new Audio API in action we extended the <a href="http://demos.bonsaijs.org/demos/pong/">existing Pong Game</a> and equiped some collisions with sound. We hope you&#8217;ll experience the same difference as we did. Have fun!</p>
+<p>We are looking forward to your feedback and seeing some amazing new Bonsai Movies from you.</p>
+<p>Your Bonsai-Team</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2012/10/ping-pong-bonsaijs-plays-sound/">Ping, Pong, BonsaiJS plays sound!</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2012/10/ping-pong-bonsaijs-plays-sound/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Bikeshed – Episode 8</title>
+		<link>http://www.uxebu.com/blog/2011/12/bikeshed-episode-8/</link>
+		<comments>http://www.uxebu.com/blog/2011/12/bikeshed-episode-8/#comments</comments>
+		<pubDate>Thu, 08 Dec 2011 19:08:35 +0000</pubDate>
+		<dc:creator><![CDATA[Tobias Reiss]]></dc:creator>
+				<category><![CDATA[Uncategorized]]></category>
+
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=2070</guid>
+		<description><![CDATA[<p>Follow @bikeshedjs for more mysterious information or visit bikeshed on the world wide web.</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2011/12/bikeshed-episode-8/">Bikeshed – Episode 8</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><iframe width="640" height="360" src="//www.youtube.com/embed/X1fCRCl8qr0?feature=player_detailpage" frameborder="0" allowfullscreen></iframe></p>
+<p><span id="more-2070"></span></p>
+<p><iframe style="border: none;" src="http://bikeshed.uxebu.com/201112/8/" scrolling="no" width="100%" height="411"></iframe></p>
+<p>Follow <a href="http://twitter.com/bikeshedjs">@bikeshedjs</a> for more <em>mysterious</em> information or visit <a href="http://bonsaijs.org">bikeshed on the world wide web</a>.</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2011/12/bikeshed-episode-8/">Bikeshed – Episode 8</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2011/12/bikeshed-episode-8/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+	</channel>
+</rss>

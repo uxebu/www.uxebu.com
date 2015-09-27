@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	
+	>
+<channel>
+	<title>Comments on: Some for-loop considerations</title>
+	<atom:link href="http://www.uxebu.com/blog/2009/03/some-for-loop-considerations/feed/" rel="self" type="application/rss+xml" />
+	<link>http://www.uxebu.com/blog/2009/03/some-for-loop-considerations/</link>
+	<description>The first JavaScript-only development and consulting company</description>
+	<lastBuildDate>Sun, 27 Sep 2015 14:23:54 +0000</lastBuildDate>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=4.1.8</generator>
+	<item>
+		<title>By: Wolfram Kriesing</title>
+		<link>http://www.uxebu.com/blog/2009/03/some-for-loop-considerations/#comment-644</link>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+		<pubDate>Thu, 04 Jun 2009 22:27:33 +0000</pubDate>
+		<guid isPermaLink="false">http://blog.uxebu.com/?p=142#comment-644</guid>
+		<description><![CDATA[@Alex the only reason is code size. It&#039;s just 4 bytes, but that might add up over multiple occurences in the code, and actually it&#039;s just a matter of getting used to. I can tell from experience :-)]]></description>
+		<content:encoded><![CDATA[<p>@Alex the only reason is code size. It&#8217;s just 4 bytes, but that might add up over multiple occurences in the code, and actually it&#8217;s just a matter of getting used to. I can tell from experience <img src="http://www.uxebu.com/wp-includes/images/smilies/icon_smile.gif" alt=":-)" class="wp-smiley" /></p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Alex</title>
+		<link>http://www.uxebu.com/blog/2009/03/some-for-loop-considerations/#comment-643</link>
+		<dc:creator><![CDATA[Alex]]></dc:creator>
+		<pubDate>Thu, 04 Jun 2009 17:46:48 +0000</pubDate>
+		<guid isPermaLink="false">http://blog.uxebu.com/?p=142#comment-643</guid>
+		<description><![CDATA[Why not put the &#039;var node&#039; declaration inside the loop? 
+for (var i=0, len=nodes.length; i&lt;len; i++){ 
+    var node = nodes[i]; 
+    // whatever 
+} 
+ 
+Is this not clearer than your final version? I think it reduces clutter, since to me the vars inside the for-loop declaration should only be related to the for-loop control flow ]]></description>
+		<content:encoded><![CDATA[<p>Why not put the &#039;var node&#039; declaration inside the loop?<br />
+for (var i=0, len=nodes.length; i&lt;len; i++){<br />
+    var node = nodes[i];<br />
+    // whatever<br />
+} </p>
+<p>Is this not clearer than your final version? I think it reduces clutter, since to me the vars inside the for-loop declaration should only be related to the for-loop control flow </p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Wolfram Kriesing</title>
+		<link>http://www.uxebu.com/blog/2009/03/some-for-loop-considerations/#comment-642</link>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+		<pubDate>Sat, 04 Apr 2009 18:45:58 +0000</pubDate>
+		<guid isPermaLink="false">http://blog.uxebu.com/?p=142#comment-642</guid>
+		<description><![CDATA[Thanks fearphage, this is good input. Thank you! You are right, this would have been worth appearing in the article. But as you are mentioning, the last solution really requires a bit more brain-work to be understood and might not be &quot;compatible&quot; with all the team. 
+The solution we finally came up with and use at uxebu seems the most explicit to me. It doesn&#039;t hide things and is still quite compact. ]]></description>
+		<content:encoded><![CDATA[<p>Thanks fearphage, this is good input. Thank you! You are right, this would have been worth appearing in the article. But as you are mentioning, the last solution really requires a bit more brain-work to be understood and might not be &quot;compatible&quot; with all the team.<br />
+The solution we finally came up with and use at uxebu seems the most explicit to me. It doesn&#039;t hide things and is still quite compact. </p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: fearphage</title>
+		<link>http://www.uxebu.com/blog/2009/03/some-for-loop-considerations/#comment-641</link>
+		<dc:creator><![CDATA[fearphage]]></dc:creator>
+		<pubDate>Sat, 04 Apr 2009 09:31:54 +0000</pubDate>
+		<guid isPermaLink="false">http://blog.uxebu.com/?p=142#comment-641</guid>
+		<description><![CDATA[You forgot a few optimizations. If you are trying to reduce the number of bytes/chars in the script, you can combine the incrementing step with one other reference.
+
+Example:
+
+for (var i=0, len=nodes.length, node; i&lt;len; ){
+  node = nodes[i++];
+  // whatever
+}
+
+In the case of cycling through nodes, you can use this form (#2):
+
+for (var i=0, node; node = nodes[i]; i++){
+  // whatever
+}
+
+Bring both of these together:
+
+for (var i=0, node; node = nodes[i++]; ){
+  // whatever
+}
+
+I&#039;m aware the last two using &#039;node = nodes[i]&#039; will only work in certain situations like dom nodes or looping through other enumerable structures where you are guaranteed all values are non-false.
+
+For the most part, I use what you arrived at as the final solution, but I also use my second example where appropriate. As a rule, I generally never move the incrementer parameter from its default position.]]></description>
+		<content:encoded><![CDATA[<p>You forgot a few optimizations. If you are trying to reduce the number of bytes/chars in the script, you can combine the incrementing step with one other reference.</p>
+<p>Example:</p>
+<p>for (var i=0, len=nodes.length, node; i&lt;len; ){<br />
+  node = nodes[i++];<br />
+  // whatever<br />
+}</p>
+<p>In the case of cycling through nodes, you can use this form (#2):</p>
+<p>for (var i=0, node; node = nodes[i]; i++){<br />
+  // whatever<br />
+}</p>
+<p>Bring both of these together:</p>
+<p>for (var i=0, node; node = nodes[i++]; ){<br />
+  // whatever<br />
+}</p>
+<p>I&#8217;m aware the last two using &#8216;node = nodes[i]&#8217; will only work in certain situations like dom nodes or looping through other enumerable structures where you are guaranteed all values are non-false.</p>
+<p>For the most part, I use what you arrived at as the final solution, but I also use my second example where appropriate. As a rule, I generally never move the incrementer parameter from its default position.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Wolfram Kriesing</title>
+		<link>http://www.uxebu.com/blog/2009/03/some-for-loop-considerations/#comment-640</link>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+		<pubDate>Tue, 31 Mar 2009 18:34:29 +0000</pubDate>
+		<guid isPermaLink="false">http://blog.uxebu.com/?p=142#comment-640</guid>
+		<description><![CDATA[I think in the direction of a coding style verifier for a first tiny step. It would be really interesting if we could join forces on this topic. The area of continuous integration, code verifying and all the development process with JavaScript is still very underdeveloped. ]]></description>
+		<content:encoded><![CDATA[<p>I think in the direction of a coding style verifier for a first tiny step. It would be really interesting if we could join forces on this topic. The area of continuous integration, code verifying and all the development process with JavaScript is still very underdeveloped. </p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Fabian Jakobs</title>
+		<link>http://www.uxebu.com/blog/2009/03/some-for-loop-considerations/#comment-639</link>
+		<dc:creator><![CDATA[Fabian Jakobs]]></dc:creator>
+		<pubDate>Sun, 29 Mar 2009 12:07:13 +0000</pubDate>
+		<guid isPermaLink="false">http://blog.uxebu.com/?p=142#comment-639</guid>
+		<description><![CDATA[Nice writeup. In qooxdoo we use the default way most of the time but tend to use the final version in performance critical code. I don&#039;t use this kind of code everywhere because I feel its slightly less readable.  
+ 
+Regarding a code verifier: We already have a static code analysis tool in qooxdoo. Maybe we can join forces on this topic. ]]></description>
+		<content:encoded><![CDATA[<p>Nice writeup. In qooxdoo we use the default way most of the time but tend to use the final version in performance critical code. I don&#039;t use this kind of code everywhere because I feel its slightly less readable.  </p>
+<p>Regarding a code verifier: We already have a static code analysis tool in qooxdoo. Maybe we can join forces on this topic. </p>
+]]></content:encoded>
+	</item>
+</channel>
+</rss>

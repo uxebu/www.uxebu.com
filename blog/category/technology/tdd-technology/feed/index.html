@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>uxebu &#187; TDD</title>
+	<atom:link href="http://www.uxebu.com/blog/category/technology/tdd-technology/feed/" rel="self" type="application/rss+xml" />
+	<link>http://www.uxebu.com</link>
+	<description>The first JavaScript-only development and consulting company</description>
+	<lastBuildDate>Thu, 30 Jul 2015 09:10:24 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=4.1.8</generator>
+	<item>
+		<title>TDDBin is open source, supports ES6 and moves on</title>
+		<link>http://www.uxebu.com/blog/2015/03/tddbin-open-source-supports-es6-moves/</link>
+		<comments>http://www.uxebu.com/blog/2015/03/tddbin-open-source-supports-es6-moves/#comments</comments>
+		<pubDate>Mon, 02 Mar 2015 09:41:53 +0000</pubDate>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+				<category><![CDATA[JS Code Retreat]]></category>
+		<category><![CDATA[TDD]]></category>
+		<category><![CDATA[TDDbin]]></category>
+
+		<guid isPermaLink="false">http://www.uxebu.com/?p=6697</guid>
+		<description><![CDATA[<p>Finally it has become reality. TDDBin.com is open source. And it does support ES6 by using babel &#8211; which is probably more ES6 than your browser can do. What is TDDBin? TDDBin had been started to provide a no-setup environment for the first JSCodeRetreat. Not everybody has jasmine, mocha or some other (unit) testing tool [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2015/03/tddbin-open-source-supports-es6-moves/">TDDBin is open source, supports ES6 and moves on</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><img src="http://www.uxebu.com/wp-content/uploads/2015/03/tddbin-logo-v2-150x150.png" alt="tddbin-logo-v2" width="150" height="150" class="alignright size-thumbnail wp-image-6782" />Finally it has become reality. <a href="http://tddbin.com" title="tddbin.com">TDDBin.com</a> is <a href="https://github.com/tddbin/tddbin-frontend" title="TDDBin on github">open source</a>. And it does support <a href="https://babeljs.io/docs/learn-es6/" title="Learn ES6">ES6</a> by using <a href="https://babeljs.io/" title="Babeljs">babel</a> &#8211; which is probably more ES6 than your browser can do.<br />
+<span id="more-6697"></span></p>
+<h2>What is TDDBin?</h2>
+<p>TDDBin had been started to provide a no-setup environment for the first <a href="http://JSCodeRetreat.com/1">JSCodeRetreat</a>. Not everybody has jasmine, mocha or some other (unit) testing tool running locally and for a code retreat this is something that makes it much easier to get started. That&#8217;s where TDDBin came into play, I wanted one URL where you can edit and run unit tests.<br />
+That&#8217;s how TDDBin came about and now it has been relaunched, rewritten and open-sourced.</p>
+<h2>What is new?</h2>
+<p>The <strong>repo has moved</strong>. The frontend code, which has been open source for a while but never had been deployed has moved from uxebu&#8217;s github to <a href="https://github.com/tddbin/tddbin-frontend" title="TDDBin on github">github.com/tddbin/tddbin-frontend</a>. Why the move? Some online tools want to have access to all your github user&#8217;s repos and since tddbin also serves as a playground I didn&#8217;t feel comfortable always giving access to all uxebu repos. That&#8217;s why I created the <a href="https://github.com/tddbin" title="Github user tddbin">github user tddbin</a>.</p>
+<p><strong>ES6/JavaScript2015 support</strong> using babel. On the tech side there is ES6 support in there now, which was actually <a href="https://github.com/tddbin/tddbin-frontend/commit/0700611e82f874288d7bd871b989a57f69867bec" title="the ES6 commit">much simpler to implement</a> than expected <img src="http://www.uxebu.com/wp-includes/images/smilies/icon_smile.gif" alt=":)" class="wp-smiley" /> fortunately. Which means all the <a href="https://babeljs.io/docs/learn-es6/" title="Learn ES6">ES6 features that babel provides</a> are useable in any browser that works with tddbin!</p>
+<p>We <strong>use <a href="https://trello.com/b/FW1gUVxe/tddbin-com" title="Trello">trello</a></strong> for ideas, feature voting, commenting, brain storming and everything before code gets written. If you have an idea for tddbin or miss a feature, please <a href="https://trello.com/c/hlmD1RIr" title="feature idea">add a comment here</a>. If want to vote for a feature please do so by <a href="https://trello.com/b/FW1gUVxe/tddbin-com" title="vote">clicking on the card <img src="http://www.uxebu.com/wp-content/uploads/2015/02/trello-voting.png" alt="trello-voting" width="67" class="alignnone size-full wp-image-6701" /></a> (you need a trello account for that). Or if you want a feature really bad encourage others to vote for it (use the &#8220;Share and more&#8230;&#8221; link on a trello card to link to it) or create a pull request.</p>
+<h2>Fixes</h2>
+<p><strong>Keyboard shortcuts</strong> also <a href="https://github.com/tddbin/tddbin-frontend/blob/12dfaf8134777750efee798750ea66d4bcc0bf4d/html/_util.js#L23" title="shortcut for non macs">work on non-Mac computers</a>. The old version only used to work with the Mac&#8217;s Command ⌘ key, now also Control as used on other systems works. (I have seen it on Linux.)</p>
+<p><strong>No login required</strong> anymore. In the former version we stored the source code on the server, so you could come back and use it. This feature is gone but therefore also a github account is not needed anymore to use tddbin, so you can really start right away. The link <a href="http://tddbin.com" title="tddbin.com">tddbin.com</a> takes you right to the editor and test runner, I hope this reduces the hurdle to use it and try it out even more.</p>
+<p>The nasty <strong>trailing empty line bug is gone</strong> too :). I remember running around at our code retreats telling people to not forget a trailing empty line at the end of the file because there was a bug that will screw your code. This one is gone now. Back in the old version the loading process was very difficult and it was a monkey-patched requirejs in order to be able to load the code from localstorage. Fortunately this is gone and with it also the above described bug.</p>
+<p><strong>Firefox works too</strong>. Actually this is painful to admit but before Firefox didn&#8217;t work and I never got around to fix it. Now it does and I am glad I don&#8217;t have to carry that shame any longer :).</p>
+<h2>Tech details</h2>
+<p>Currently tddbin is <strong>pure client side</strong>, once the site is loaded there is no more server interaction. Is this a feature or not &#8211; decide for yourself. That&#8217;s just how it is right now. Why? Basically in order to get out this version as fast as possible. And it still took sooo long. True.</p>
+<p><strong>Travis does the build</strong>. <a href="https://travis-ci.org/tddbin/tddbin-frontend" title="travis">Travis</a> does not only run the test suite, it also does the building and deployment. Currently this is done in the <a href="https://github.com/tddbin/tddbin-frontend/blob/12dfaf8134777750efee798750ea66d4bcc0bf4d/.travis.yml#L5">&#8220;after_success&#8221; clause of the .travis.yml</a>. I want to deploy only after success, that is right. But if kicking off the build separately is right I am not sure, I remember reading travis docs which say it is part of what travis does. Feel free to improve it.</p>
+<p>From travis it gets <strong>automatically deployed to github-pages</strong>. This one is really cool, imho. I had been tired of projects that are pure client side and hosted on github pages but I had to build locally and push to the gh-pages branch. This just felt so un-automated and a waste of my time (or: not lean as <a href="https://twitter.com/borillo" title="Ricardo Borillo">@borillo</a> would say). Finally I scraped <a href="https://twitter.com/boennemann/status/568061867052163073">all</a> <a href="https://medium.com/@nthgergo/publishing-gh-pages-with-travis-ci-53a8270e87db">the</a> <a href="https://github.com/jbdeboer/travis_after_all" title="push2gh-pages">pieces</a> together and made it work the way I think it is right. A project named <a href="https://github.com/uxebu/push2gh-pages">push2gh-pages</a> that provides this separately and reuseable as a npm module is under way.</p>
+<p>Hooked up code <a href="https://www.bithound.io/tddbin/tddbin-frontend" title="bithound">analysis</a> <a href="https://www.codacy.com/public/wk_2448/tddbin-frontend/dashboard" title="codacy">tools</a> which make some of the obligatory badges <a href="https://www.codacy.com/public/wk_2448/tddbin-frontend"><img src="https://www.codacy.com/project/badge/52205d40abd9463b9f5dca236b12b997"/></a> <a href="https://www.bithound.io/tddbin/tddbin-frontend"><img src="https://www.bithound.io/tddbin/tddbin-frontend/badges/score.svg" alt="bitHound Score" /></a> every good github project has to have nowadays (the more the better!).</p>
+<h2>Changes, Removals</h2>
+<p>The more the pain grew of having the source code just laying on github and not running in production, the less important the features became. Sure, no production, no real improvements are made and felt. So some features just didn&#8217;t survive.</p>
+<p>Currently there is <strong>no jasmine support</strong> (this must change soon). It <a href="http://www.uxebu.com/blog/2014/08/integrating-jasmine-mocha-tddbin-com-two-tragedies/">was just painful to hook up jasmine</a> to report the test result using it&#8217;s API. Since that reporting feature actually is not even needed now, since there is no state to be stored in any backend it should be very simple to enable jasmine again. Which would require tddbin to get a switch for which test runner to use. Mmmmh, any good ideas?</p>
+<p>Due to mocha being nasty to browserify which made <a href="https://github.com/tddbin/tddbin-frontend/blob/23eaa1eb4049da64ee3b941270e92f8fd13b10c0/html/example-tests.js#L10-L16">referee fail</a> there is also no &#8220;expect&#8221; syntax in there yet :(. Get more details on why <a href="http://wolfram.kriesing.de/tech/links/#problem-including-mocha-into-a-browserify-build-2014-02-19-">browserify and mocha don&#8217;t match up</a>.</p>
+<p>The test and the source code you write is <strong>not stored on a server</strong> anymore. The sessions are not stored, as you probably already read above. Depending on how fast tddbin moves along this might change again.</p>
+<h2>Finally</h2>
+<p>Have fun TDDing away and if you care, feel free to help out by <a href="https://trello.com/b/FW1gUVxe/tddbin-com" title="trello">voting, commenting</a>, <a href="https://github.com/tddbin/tddbin-frontend/issues" title="tddbin issues">opening issues</a>, <a href="http://twitter.com/tddbin" title="twitter">tweeting</a>, blogging, etc. If you want to meet people and practice more often, check if there is a <a href="http://jscoderetreat.com/">JSCodeRetreat</a> somewhere near you, or <a href="http://jscoderetreat.com/howitworks.html">make it happen</a>.</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2015/03/tddbin-open-source-supports-es6-moves/">TDDBin is open source, supports ES6 and moves on</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2015/03/tddbin-open-source-supports-es6-moves/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>ES6 and TDD at work, with traceur, mocha and sinon</title>
+		<link>http://www.uxebu.com/blog/2014/11/es6-tdd-work-traceur-mocha-sinon/</link>
+		<comments>http://www.uxebu.com/blog/2014/11/es6-tdd-work-traceur-mocha-sinon/#comments</comments>
+		<pubDate>Wed, 19 Nov 2014 17:33:38 +0000</pubDate>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+				<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[tdd]]></category>
+		<category><![CDATA[TDD]]></category>
+
+		<guid isPermaLink="false">http://www.uxebu.com/?p=6602</guid>
+		<description><![CDATA[<p>It was this little itch, that I had for quite a while, but you know how it is, you never get around to scratch it. Now was the time to do so. I had ES6 working already a couple of times using webpack but did always switch back, due to not having taken the time [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/11/es6-tdd-work-traceur-mocha-sinon/">ES6 and TDD at work, with traceur, mocha and sinon</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>It was this little itch, that I had for quite a while, but you know how it is, you never get around to scratch it.<br />
+Now was the time to do so. I had ES6 working already a couple of times using webpack but did always switch back, due to not having taken the time to get all the test setup run with it too. Which was mainly the fault of jasmine(-node) not really supporting it.<br />
+So I just have to replace it. I did with mocha. And here is how it went. Keep on reading or <a href="https://github.com/uxebu/mocha-sinon-traceur-example" title="read it up in the project's README">read it up in the project&#8217;s README</a>.</p>
+<h2>TDD with ES6</h2>
+<p>The initial pain I had was to get up to speed with ES6 (using traceur) to be compatible with all browsers. So I tried out jasmine-node with it, but failed misserably. Of course I saw mocha-traceur which seemed to make it all a breeze. But who believes documentation, right? So I had to try it. And it worked out of the box, just the way I wanted it.</p>
+<p>I used a bit of ES6 in the initial test, just the following:</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #003366; font-weight: bold;">import</span> <span style="color: #009900;">&#123;</span>Some<span style="color: #009900;">&#125;</span> from <span style="color: #3366CC;">'./test'</span> <span style="color: #006600; font-style: italic;">// importing a module</span><br />
+<br />
+describe<span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'something'</span><span style="color: #339933;">,</span> <span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #339933;">=&gt;</span> <span style="color: #009900;">&#123;</span> <span style="color: #006600; font-style: italic;">// using the arrow function</span><br />
+&nbsp; it<span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'that should work'</span><span style="color: #339933;">,</span> <span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #339933;">=&gt;</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; <span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></div>
+<p><a href="https://github.com/google/traceur-compiler/wiki/LanguageFeatures">traceur</a> does support all that. Of course a traceur transpiler (setup) was needed, so I used the above mentioned mocha-traceur which just required me to run `mocha &#8211;compilers js:mocha-traceur src/*.js` as you find it in the <a href="https://github.com/uxebu/mocha-sinon-traceur-example/blob/fb354685b590390f8695f5ecee890c4f9072f944/package.json#L7">package.json</a>. This takes away the pain to manually transpile it, it always does that when the tests are run.</p>
+<p>Of course I also made the `npm test` run, using just this snippet. Done.</p>
+<h2>Spying, mocking and stubbing</h2>
+<p>Next up, I wanted a solution that makes spying etc. easy. Easy for me means that it cleans up after itself. When I create a spy in a test I want it to be gone after the test, except of course I declare it in a `beforeEach()` (which isn&#8217;t covered by this project yet).</p>
+<p>I found <a href="https://github.com/elliotf/mocha-sinon">mocha-sinon</a> that claims to do it. And it does. Looking through the code and reading some docs the author <a href="https://github.com/elliotf/mocha-sinon#if-you-dont-like-this-module">states that it is also very easy to do by yourself</a>, like so:</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #003366; font-weight: bold;">var</span> sinon <span style="color: #339933;">=</span> require<span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'sinon'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<br />
+beforeEach<span style="color: #009900;">&#40;</span><span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; <span style="color: #000066; font-weight: bold;">this</span>.<span style="color: #660066;">sinon</span> <span style="color: #339933;">=</span> sinon.<span style="color: #660066;">sandbox</span>.<span style="color: #660066;">create</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<br />
+afterEach<span style="color: #009900;">&#40;</span><span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span><br />
+&nbsp; <span style="color: #000066; font-weight: bold;">this</span>.<span style="color: #660066;">sinon</span>.<span style="color: #660066;">restore</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></div>
+<p>Awesome, so I can reduce the overhead of another project in the setup. I put this snippet in <a href="https://github.com/uxebu/mocha-sinon-traceur-example/blob/fb354685b590390f8695f5ecee890c4f9072f944/src/sinon-cleanup.js">sinon-cleanup.js</a> and require this instead of the project itself. Thanks <a href="https://github.com/elliotf">Elliot Foster</a>.</p>
+<h2>Webpack and ES6</h2>
+<p>What is missing yet, is to show how to make this work in the browser. That is actually fairly easy using <a href="http://webpack.github.io/">webpack</a> and the <a href="https://github.com/shama/es6-loader">es6-loader module</a> for it.</p>
+<h2>Nice to haves</h2>
+<p>Now one could add things like:</p>
+<ul>
+<li>running it in karma and multiple browsers</li>
+<li>running it on some browser farm, like saucelabs</li>
+<li>creating a site that actually says &#8220;Hello world&#8221; to prove this setup does really work</li>
+<li>integrating with travis, code quality tools, etc.</li>
+</ul>
+<p>Have fun testing away with ES6. I am curious now how problematic the transpilation will make my life, let&#8217;s see.<br />
+You find the <a href="https://github.com/uxebu/mocha-sinon-traceur-example">working project on github</a>.</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/11/es6-tdd-work-traceur-mocha-sinon/">ES6 and TDD at work, with traceur, mocha and sinon</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2014/11/es6-tdd-work-traceur-mocha-sinon/feed/</wfw:commentRss>
+		<slash:comments>2</slash:comments>
+		</item>
+		<item>
+		<title>Why this Test-Driven Development Workshop?</title>
+		<link>http://www.uxebu.com/blog/2014/11/why-test-drivendevelopment-workshop-1/</link>
+		<comments>http://www.uxebu.com/blog/2014/11/why-test-drivendevelopment-workshop-1/#comments</comments>
+		<pubDate>Tue, 11 Nov 2014 00:53:16 +0000</pubDate>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+				<category><![CDATA[development tools]]></category>
+		<category><![CDATA[TDD]]></category>
+		<category><![CDATA[uxebu]]></category>
+
+		<guid isPermaLink="false">http://www.uxebu.com/?p=6436</guid>
+		<description><![CDATA[<p>The JSCodeRetreat is always a lot of fun, a day free of stress, just practicing and honing our craft. But sometimes people come up to us and ask if we could do an introduction to TDD before, so it is easier to understand what the red-green-refactor cycle means or how baby-steps shall be understood. Well, [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/11/why-test-drivendevelopment-workshop-1/">Why this Test-Driven Development Workshop?</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><img src="http://www.uxebu.com/wp-content/uploads/2014/11/global_420806432-150x150.jpeg" alt="global_420806432" class="alignright size-thumbnail wp-image-6578" />The <a href="http://jscoderetreat.com" title="JS CodeRetreat" target="_blank">JSCodeRetreat</a> is always a lot of fun, a day free of stress, just practicing and honing our craft. But sometimes people come up to us and ask if we could do an introduction to TDD before, so it is easier to understand what the red-green-refactor cycle means or how baby-steps shall be understood. Well, we listened. And we set up this <strong><a href="http://www.meetup.com/uxebu-events/events/211708152/" title="TDD Workshop" target="_blank">workshop: TDD for beginners</a></strong>. The first one is going to take place on the 4th of December, two days before the <a href="http://jscoderetreat.com/events.html" target="_blank" title="JSCR #4">JSCR #4</a>.</p>
+<h2>This little itch</h2>
+<p>It was many years ago, that I was working in a company that was certified ISO nine-thousand-something. And it felt like quality was written everywhere, but rather on the walls and on paper. And quality meant to do paper work and that does ensure quality. I guess I had a wrong impression of quality. It felt way less fun to produce quality than to buy a quality product (you know, when it&#8217;s expensive it must be of high-quality, so it&#8217;s a pleasure spending that money). Something was wrong with my perception of quality.<br />
+During that time I was working with Daniel, a very skilled programmer, and we enjoyed working together so much. When he wrote code I would have written it exactly the way he did. That was fun, pure fun! That is what work should feel like and programming even more so, since in my opinion programming is not work, it&#8217;s a part of me. And that part I want to do as good as possible, I want to get better at it and I get excited the better I get, because it shapes so much more of what I actually want to achieve I just can&#8217;t describe how it feels. But there was always this little itch which was there, that when I change a thing in my code I might break something or just have to (manually) test if all is as it was before, plus the new feature or fix. And that feedback always was the not-so-fun part.</p>
+<h2>Scratching it</h2>
+<p>Many times I got told that TDD is when you write a test first and then you write the production code that makes this test pass. Lot&#8217;s of times, I just overheard them. Then I maybe tried it a couple of times but it wasn&#8217;t for me. Until we in uxebu worked on a product which was just so big, that (manually) testing and ensuring all the features still work the same way as before the last change was just too complex. It was clear that we needed automated tests here. So we set up a test environment and pushed testing forward and so on. But it still felt like a heavy process which we didn&#8217;t know how to do. I remember from my ISO-times, that there must be something like a test plan. Feels, good. And sucked fast. A colleague of mine Stephan suggested that we invite J.B. Rainsberger for a workshop, which we did. After the initial skepticism was gone and we got some things done with TDD it felt like a good path. The valley that came was deep for me. Man did I screw up. But afterwards it was going uphill, steep!<br />
+TDD is nothing else but doing in code what I had been doing before in my head. I sketch the problem, I solve it and verify that it works. Only that now I do less guessing about the assumptions, but I really do, as a programmer just needs to do it, write down the requirement in a test. That is, if I tell `I` to convert to `1` then I write that down in a test and next time I run the test again I am still sure that it still is that way.<br />
+TDD is no more than a brain dump into structured code and the relief of having to scan the code&#8217;s results manually. Just let the stupid computer do that work, not me anymore. Thank you!<br />
+I could pull out reports, statistics, research papers and Gardner reports to convince you. I don&#8217;t need to. Try it. You will be convinced or not. Just like programming, either you are a programmer or not, there is nothing in-between. And give it time to estimate the value of TDD well, it&#8217;s not learned in a week.</p>
+<h2>Step by Step</h2>
+<p>I recall my first programming steps. It took quite a while for me to understand the parts of `10 PRINT &#8220;Hello world&#8221;`. Why the hell does it have to have a `10` in front. And just like my daughter asked me a couple days ago: What are those quote-signs for?<br />
+Learning was so slow in the beginning. As it is with many things, I guess. But with programming, I quickly gained the knowledge of how to do things. I stored it and recalled it every time I needed that knowledge. I modified the patterns a little bit and I applied them again. I became really secure in using them. Back when I wrote C code all day long, I remember that I was proud to compile only twice a day and have been &#8220;working&#8221; the rest of the time. There was one time, when I used to have a small PSION mobile computer with just a text editor and I hacked out a program of about 200 lines of code on it, without syntax checking, no compile run and no test run of the program. For about six hours I was coding. And when I got back to real computer to run the program it had only one syntax error and it ran. Boy, was I proud. All that just assured me more and more that I am becoming a skilled programmer. How wrong was I!<br />
+I lost sight of the big thing, I had one way of doing things hammered in my brain, it was not in my comfort zone to change that. And if the program needed additional features that didn&#8217;t match the initial plan the code started to rot. Architectural changes applied to the code had been close to impossible. I hardly refactored back then. When I did refactor, I checked the result manually. As usual.</p>
+<h2>Thinking and Working Step by Step</h2>
+<p>In the last years I unlearned going in big steps. I practiced really hard and am a happy baby-step user now. I feel uncomfortable when I have to make big steps, when I have to write out more than just the last thought. My good feeling fades quickly when I fall back into the old let-me-fix-this-and-that-quickly habit. In those moments I just praise `Undo`, it has become one of my biggest friends. And a good reminder of how often I still move forward way too fast.<br />
+Especially when refactoring a quick test run and a tiny change are so valuable. I just can&#8217;t thing of how to properly do defactoring without baby-steps. I got trapped so often by just another step that I had skipped, just because of the `I know that` feeling. The false sense of security really robs my time.<br />
+In a CodeRetreat one participant said after the paper-only session: &#8220;It is amazing to write code on paper and realizing how often we do already change things while writing the code.&#8221;. The times are those where we don&#8217;t even remember that we hit backspace or changed a piece of code again before we are actually happy or ready to run the tests. It&#8217;s just like this &#8220;Where did I put the car keys again?&#8221; thingy. It becomes a habit which eliminates consciousness and I just hack it out like a trained stupid robot, even though I might know much better. I am getting better at doing things more consciously.<br />
+It takes some practice to go in smaller steps but it really is worth the time and consciousness you gain. TDD taught me that again.</p>
+<h2>Re-think Requirements and Dependecies</h2>
+<p>Another thing that TDD taught me is the re-evaluation of requirements and dependencies before implementing them. First it&#8217;s the test that I have to write, where I have to formulate an explicit expectation. If I do already have a problem doing that, how can I assume to have understood the problem?<br />
+Once I got through to the real requirement I have to dump it into code. When this gets difficult or when lot&#8217;s of setting up of environment is going on, I smell another problem. The dependency problem. Nowadays I start writing out a complex test in order to find out how deep I have to dive. It is like prototyping the problem, I try out things until I have learned enough about the problem to really write a better test. Explore, Stabilize, Commoditize (Dan North). Once I stabilized my knowledge about the problem I start refactoring my tests.</p>
+<h2>Finally &#8211; How to workshop?</h2>
+<p>TDD is not hard, it just takes a bit of practice. The first kick-off and the inspiration to do it more often I will try to give you during that day. We are going to switch between me showing some stuff for ten to twenty minutes and to practicing it. I will be there to actively support you, answer all your questions and give you guidance around applying TDD.<br />
+You will pair with different people which adds most value to the learning, since you can discuss the things with your pair and push each other forward. From time to time I will sneak in, listen to you and ask questions that make you think harder.</p>
+<p>I am looking forward to <strong><a href="http://www.meetup.com/uxebu-events/events/211708152/" title="Workshop">seeing you at the workshop</a></strong> and also love to discuss things in more detail.<br />
+So why this workshop? Because TDD brings back and increases the fun in programming!</p>
+<p>All the best </p>
+<p>Wolfram</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/11/why-test-drivendevelopment-workshop-1/">Why this Test-Driven Development Workshop?</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2014/11/why-test-drivendevelopment-workshop-1/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>JS CodeRetreat before JSConf EU, Berlin</title>
+		<link>http://www.uxebu.com/blog/2014/08/js-coderetreat-jsconf-eu-berlin/</link>
+		<comments>http://www.uxebu.com/blog/2014/08/js-coderetreat-jsconf-eu-berlin/#comments</comments>
+		<pubDate>Thu, 14 Aug 2014 07:10:16 +0000</pubDate>
+		<dc:creator><![CDATA[Irene De Nicolo]]></dc:creator>
+				<category><![CDATA[Events]]></category>
+		<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[JS Code Retreat]]></category>
+		<category><![CDATA[TDD]]></category>
+		<category><![CDATA[uxebu]]></category>
+
+		<guid isPermaLink="false">http://www.uxebu.com/?p=5305</guid>
+		<description><![CDATA[<p>I know the JS CodeRetreat from its birth, and I’m really happy and proud to see how fast it is evolving. This time there are several news, too many not to list them in a blogpost. The Global JS CodeRetreat, that regularly takes place every 3 months, is planned for the 6th of September, in [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/08/js-coderetreat-jsconf-eu-berlin/">JS CodeRetreat before JSConf EU, Berlin</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>I know the JS CodeRetreat from its birth, and I’m really happy and proud to see how fast it is evolving. This time there are several news, too many not to list them in a blogpost. <a title="JSCR" href="http://www.meetup.com/JavaScript-CodeRetreat/events/193697002/" target="_blank">The Global JS CodeRetreat</a>, that regularly takes place every 3 months, is planned for the 6th of September, in Munich (as usual you can add your own city too, check the <a title="JSCR website" href="http://jscoderetreat.com/" target="_blank">official jscr website</a>). Besides that, uxebu is proud to organise a one-time <a title="JSCR Berlin" href="http://www.meetup.com/JavaScript-CodeRetreat/events/188846942/" target="_blank">special event</a>, that will take place in Berlin, just before the <a title="JSConf EU" href="http://2014.jsconf.eu/" target="_blank">JSConf EU</a>. Which is so awesome!<br />
+But, ok, this isn’t actually completely new to the most of you.<br />
+Here comes the big news.</p>
+<h2>Facilitators</h2>
+<p>We’re happy to announce that <a title="Martin Klose on Twitter" href="https://twitter.com/martinklose" target="_blank">Martin Klose</a>, <a title="Peter Aitken on Twitter" href="https://twitter.com/jiggy_pete" target="_blank">Peter Aitken</a> and <a title="Wolfram Kriesing on Twitter" href="https://twitter.com/wolframkriesing" target="_blank">Wolfram Kriesing</a> will be facilitating the JS CodeRetreat! Not bad, uh? <img src="http://www.uxebu.com/wp-includes/images/smilies/icon_wink.gif" alt=";)" class="wp-smiley" /> Better coding requires the best facilitators!<br />
+And….ready for the next news?</p>
+<h2>Location</h2>
+<p>We have an outstanding location! Thanks to <a title="ThoughtWorks on Twitter" href="https://twitter.com/thoughtworks" target="_blank">ThoughtWorks</a> the event will take place at <a title="ThoughtWorks Werkstatt Berlin" href="http://www.thoughtworks.com/locations/berlin" target="_blank">ThoughtWorks Werkstatt Berlin</a>. Check the location <img src="http://www.uxebu.com/wp-includes/images/smilies/icon_smile.gif" alt=":)" class="wp-smiley" /></p>
+<p><iframe style="border: 0;" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2427.0344982120805!2d13.419639999999998!3d52.53281!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47a84e037a344cfb%3A0xa3eaeb5395414e69!2sM%C3%BClhauser+Stra%C3%9Fe+6%2C+10405+Berlin%2C+Germania!5e0!3m2!1sit!2sit!4v1407936473904" width="427" height="356" frameborder="0"></iframe><br />
+More news? Here you are. And this is actually very important, so FOCUS</p>
+<h2>Limited RSVPs</h2>
+<p>This time we locked the RSVPs up to 44 people. Please, we all need to collaborate, if you know you can’t make it update your RSVP to “no”. It takes about 3 seconds <img src="http://www.uxebu.com/wp-includes/images/smilies/icon_smile.gif" alt=":)" class="wp-smiley" /> If you’d like to <a title="JSCR Berlin" href="http://www.meetup.com/JavaScript-CodeRetreat/events/188846942/" target="_blank">join</a> hurry up, only few spots left!<br />
+We’re not done with the news yet <img src="http://www.uxebu.com/wp-includes/images/smilies/icon_wink.gif" alt=";)" class="wp-smiley" /> ready steady and let’s go with another one</p>
+<h2>Website restyling</h2>
+<p>We are re-designing the <a title="JSCR Website" href="http://jscoderetreat.com" target="_blank">official JS CodeRetreat website</a>! Work in progress, but a big part of it is online already <img src="http://www.uxebu.com/wp-includes/images/smilies/icon_smile.gif" alt=":)" class="wp-smiley" /> check it out!<br />
+Even more? This is a good one:</p>
+<h2>JSCR sponsoring</h2>
+<p>We’re still looking for sponsors (food/drinks). Below you’ll find the JSCR sponsorship plan, feel free to go through it, and if you’d like to join us on board <a title="email uxebu" href="mailto:contact@uxebu.com" target="_blank">get in touch</a>!</p>
+<p><iframe style="border: 1px solid #CCC; border-width: 1px; margin-bottom: 5px; max-width: 100%;" src="//www.slideshare.net/slideshow/embed_code/37867952" width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" allowfullscreen="allowfullscreen"> </iframe></p>
+<div style="margin-bottom: 5px;"><strong> <a title="Sponsorships JavaScript CodeRetreat" href="https://www.slideshare.net/irenella89/sponsorships-javascript-coderetreat" target="_blank">Sponsorships JavaScript CodeRetreat</a> </strong> from <strong><a href="http://www.slideshare.net/irenella89" target="_blank">irenella89</a></strong></div>
+<p>And&#8230;</p>
+<h2>JSConf sponsoring</h2>
+<p>Last but not least, uxebu is really proud to be a JSConf sponsor! We’ll provide all the lanyards for the event, which is so much exciting. Really looking forward!</p>
+<div id="attachment_5317" style="width: 437px" class="wp-caption alignnone"><img class="size-medium wp-image-5317" src="http://www.uxebu.com/wp-content/uploads/2014/08/Lanyards-450x230.png" alt="I'll spoil this... but just a tiny image, not to reveal too much ;)" width="427" height="230" /><p class="wp-caption-text">I&#8217;ll spoil this&#8230; but just a tiny image, not to reveal too much ;)</p></div>
+<h2>Get involved!!</h2>
+<p><b>Want to join? Something not clear? Need more info? Willing to sponsor? Get in touch, don&#8217;t hesitate! <a title="uxebu email" href="mailto:contact@uxebu.com" target="_blank">contact@uxebu.com</a></b></p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/08/js-coderetreat-jsconf-eu-berlin/">JS CodeRetreat before JSConf EU, Berlin</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2014/08/js-coderetreat-jsconf-eu-berlin/feed/</wfw:commentRss>
+		<slash:comments>1</slash:comments>
+		</item>
+		<item>
+		<title>Test public API, not implementation details</title>
+		<link>http://www.uxebu.com/blog/2014/07/test-public-api-implementation-details/</link>
+		<comments>http://www.uxebu.com/blog/2014/07/test-public-api-implementation-details/#comments</comments>
+		<pubDate>Mon, 14 Jul 2014 10:15:30 +0000</pubDate>
+		<dc:creator><![CDATA[Tobias Reiss]]></dc:creator>
+				<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[TDD]]></category>
+		<category><![CDATA[testing]]></category>
+
+		<guid isPermaLink="false">http://www.uxebu.com/?p=5165</guid>
+		<description><![CDATA[<p>There are good reasons why programmers perform tests themselves in contrast to letting an external testing department (QA) perform the tests. The programmer is able to discover errors in code and in general design decisions much faster and can react immediately, as one might say, the feedback loop is very short. On the other hand, [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/07/test-public-api-implementation-details/">Test public API, not implementation details</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><img style="float: right; margin: 0 0 20px 20px;" src="/wp-content/uploads/2014/07/tldr-box-red.svg" alt="" /><br />
+There are good reasons why programmers perform tests themselves in contrast to letting an external testing department (QA) perform the tests. The programmer is able to discover errors in code and in general design decisions much faster and can react immediately, as one might say, the feedback loop is very short. On the other hand, when programmers have both, the test and the implementation in mind, they&#8217;re tempted to test code that an external wouldn&#8217;t test, simply because the external only know about the spec but not the implementation. That way I once wrote way more tests than needed and at the time of writing the tests felt confident with that approach because more tests are better than less tests and JavaScripts lacking of private members literally encouraged me to do this anyway. Well, I paid the price some weeks later, when a minor change took me way to long to implement because of some dozens of failing tests that shouldn&#8217;t be affected by my change. But what exactly is bad about testing other things than public API?</p>
+<p>Consider the following little code snippet:</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #003366; font-weight: bold;">function</span> Auth<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><span style="color: #009900;">&#125;</span><br />
+<br />
+Auth.<span style="color: #660066;">prototype</span>._isEmpty <span style="color: #339933;">=</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span>str<span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; <span style="color: #000066; font-weight: bold;">return</span> <span style="color: #CC0000;">0</span> <span style="color: #339933;">===</span> str.<span style="color: #660066;">length</span><span style="color: #339933;">;</span><br />
+<span style="color: #009900;">&#125;</span><br />
+<br />
+Auth.<span style="color: #660066;">prototype</span>.<span style="color: #660066;">login</span> <span style="color: #339933;">=</span> <span style="color: #003366; font-weight: bold;">function</span> <span style="color: #009900;">&#40;</span>username <span style="color: #339933;">,</span> password<span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; <span style="color: #000066; font-weight: bold;">if</span> <span style="color: #009900;">&#40;</span><span style="color: #000066; font-weight: bold;">this</span>._isEmpty<span style="color: #009900;">&#40;</span>username<span style="color: #009900;">&#41;</span> <span style="color: #339933;">||</span> <span style="color: #000066; font-weight: bold;">this</span>._isEmpty<span style="color: #009900;">&#40;</span>password<span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; <span style="color: #000066; font-weight: bold;">return</span> <span style="color: #003366; font-weight: bold;">false</span><span style="color: #339933;">;</span><br />
+&nbsp; <span style="color: #009900;">&#125;</span> <span style="color: #000066; font-weight: bold;">else</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; <span style="color: #000066; font-weight: bold;">return</span> <span style="color: #003366; font-weight: bold;">true</span><span style="color: #339933;">;</span><br />
+&nbsp; <span style="color: #009900;">&#125;</span><br />
+<span style="color: #009900;">&#125;</span></div></div>
+<h2>What is public API?</h2>
+<p>First of all, make yourself aware of what methods of your Auth class are meant to be accessible and visible to the user of the class. That&#8217;s the public API. In this case the only method that is supposed to be visible is:</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">boolean <span style="color: #003366; font-weight: bold;">function</span> login<span style="color: #009900;">&#40;</span>username<span style="color: #339933;">:</span>String<span style="color: #339933;">,</span> password<span style="color: #339933;">:</span>String<span style="color: #009900;">&#41;</span></div></div>
+<h2>What are implementation details?</h2>
+<p>Now that you have settled the public API, everything else can be considered as implementation detail, including the _isEmpty method. I use a single underscore prefix to make the distinction more visible. But that&#8217;s only a coding convention and not a JavaScript feature and therefore doesn&#8217;t prevent a tester from using it per se. It can help code-reviewers with detecting private members though.</p>
+<p><em><span class="highlight1" style="background-color:#FFFFC7;"><strong>Tip:</strong> A user of your class Auth only cares about public API because that&#8217;s the only API that is well documented and maintained. So let&#8217;s make sure that this API works as expected and only test login. Applying this approach keeps the amount of tests as small as possible but effective as necessary.</span></em></p>
+<h2>A bad test</h2>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">describe<span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'Login'</span><span style="color: #339933;">,</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; describe<span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'Login'</span><span style="color: #339933;">,</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; it<span style="color: #009900;">&#40;</span><span style="color: #3366CC;">&quot;calls _isEmpty&quot;</span><span style="color: #339933;">,</span> <span style="color: #003366; font-weight: bold;">function</span> <span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; &nbsp; <span style="color: #003366; font-weight: bold;">var</span> auth <span style="color: #339933;">=</span> <span style="color: #003366; font-weight: bold;">new</span> Auth<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+&nbsp; &nbsp; &nbsp; spyOn<span style="color: #009900;">&#40;</span>auth<span style="color: #339933;">,</span> <span style="color: #3366CC;">'_isEmpty'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+&nbsp; &nbsp; &nbsp; auth.<span style="color: #660066;">login</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'abc'</span><span style="color: #339933;">,</span> <span style="color: #3366CC;">'abc'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+&nbsp; &nbsp; &nbsp; expect<span style="color: #009900;">&#40;</span>auth._isEmpty<span style="color: #009900;">&#41;</span>.<span style="color: #660066;">toHaveBeenCalledWith</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'abc'</span><span style="color: #339933;">,</span> <span style="color: #3366CC;">'abc'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+&nbsp; &nbsp; <span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+&nbsp; <span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></div>
+<p>So what makes this test bad? The test expects a method, that is private and not visible to the outerworld, to be available and callable. Which means as soon as we gonna refactor _isEmpty for internal, performance or whatever reasons the test fails. This slows down your productivity and makes refactoring hard because you&#8217;re forced to align the test every time when you&#8217;re touching _isEmpty. Does this test give you any confidence that your public API is working as expected? No. Calling _isEmpty doesn&#8217;t give any infos about whether login returns true or false. Does it improve your public API? No, not at all. The user of this class doesn&#8217;t even care about whether _isEmpty exists or not as long as login works. As a result changing internal code will let this test fail unexpectedly.</p>
+<p><em><span class="highlight1" style="background-color:#FFFFC7;"><strong>Testing Terminology:</strong> A test that fails, although the code changes shouldn&#8217;t have affected the test are often called: Fragile Test</span></em></p>
+<h2>Good tests</h2>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">describe<span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'Login'</span><span style="color: #339933;">,</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; it<span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'returns `true` when username and password are not empty'</span><span style="color: #339933;">,</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; expect<span style="color: #009900;">&#40;</span><span style="color: #003366; font-weight: bold;">new</span> Auth<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span>.<span style="color: #660066;">login</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'non-empty'</span><span style="color: #339933;">,</span> <span style="color: #3366CC;">'non-empty'</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span>.<span style="color: #660066;">toBe</span><span style="color: #009900;">&#40;</span><span style="color: #003366; font-weight: bold;">true</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+&nbsp; <span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<br />
+&nbsp; it<span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'returns `false` when username is empty'</span><span style="color: #339933;">,</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; expect<span style="color: #009900;">&#40;</span><span style="color: #003366; font-weight: bold;">new</span> Auth<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span>.<span style="color: #660066;">login</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">''</span><span style="color: #339933;">,</span> <span style="color: #3366CC;">'non-empty'</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span>.<span style="color: #660066;">toBe</span><span style="color: #009900;">&#40;</span><span style="color: #003366; font-weight: bold;">false</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+&nbsp; <span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<br />
+&nbsp; it<span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'returns `false` when password is empty'</span><span style="color: #339933;">,</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; expect<span style="color: #009900;">&#40;</span><span style="color: #003366; font-weight: bold;">new</span> Auth<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span>.<span style="color: #660066;">login</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'non-empty'</span><span style="color: #339933;">,</span> <span style="color: #3366CC;">''</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span>.<span style="color: #660066;">toBe</span><span style="color: #009900;">&#40;</span><span style="color: #003366; font-weight: bold;">false</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+&nbsp; <span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></div>
+<p>Focus on simplicity, correctness and shortness of tests. You and your co-workers will enjoy the readability. Internal documentation meant for developers can be replaced by your tests. From now on your tests are the spec. What about refactoring? Super easy. Let&#8217;s say you replace _isEmpty for internal reasons by underscrore.isEmpty() and some days later by lodash.isEmpty(). No problem, you don&#8217;t even need to touch the tests. Just execute them and give yourself the confidence that login still works as expected. This process doesn&#8217;t only make refactoring easy, it encourages you to make your code continually better and let you react fast on internal design decisions. Code-reviews of refactoring steps can happen faster because one thing is sure, whatever your code does, it doesn&#8217;t break the public API because you didn&#8217;t touch the tests.</p>
+<h2>Summary</h2>
+<p>KISS! Testing less but the right things improves your development process and makes you and your co-workers happy. Implementation details are never mentioned within the spec, so they never appear within your tests.</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/07/test-public-api-implementation-details/">Test public API, not implementation details</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2014/07/test-public-api-implementation-details/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+	</channel>
+</rss>

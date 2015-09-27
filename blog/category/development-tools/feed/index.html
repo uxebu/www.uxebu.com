@@ -1,0 +1,632 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>uxebu &#187; development tools</title>
+	<atom:link href="http://www.uxebu.com/blog/category/development-tools/feed/" rel="self" type="application/rss+xml" />
+	<link>http://www.uxebu.com</link>
+	<description>The first JavaScript-only development and consulting company</description>
+	<lastBuildDate>Thu, 30 Jul 2015 09:10:24 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=4.1.8</generator>
+	<item>
+		<title>The value of manual testing</title>
+		<link>http://www.uxebu.com/blog/2015/01/value-manual-testing/</link>
+		<comments>http://www.uxebu.com/blog/2015/01/value-manual-testing/#comments</comments>
+		<pubDate>Mon, 12 Jan 2015 13:29:51 +0000</pubDate>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+				<category><![CDATA[development tools]]></category>
+		<category><![CDATA[frontend engineering]]></category>
+		<category><![CDATA[testing]]></category>
+
+		<guid isPermaLink="false">http://www.uxebu.com/?p=6669</guid>
+		<description><![CDATA[<p>I refactored the reactjs implementation of todoMVC. And when I was done I realized that going through the process made me learn a lot especially about testing. Let me lay out where integration tests and manual tests played their roles in this process. The purpose When preparing for a munichjs talk I gave last week [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2015/01/value-manual-testing/">The value of manual testing</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><img src="http://www.uxebu.com/wp-content/uploads/2015/01/beautiful-150x150.jpg" alt="beautiful" width="150" height="150" class="alignright size-thumbnail wp-image-6683" />I <a href="https://github.com/wolframkriesing/todomvc/tree/react-componentize/examples/react/js">refactored the reactjs implementation of todoMVC</a>. And when I was done I realized that going through the process made me learn a lot especially about testing. Let me lay out where integration tests and manual tests played their roles in this process.<br />
+<span id="more-6669"></span></p>
+<h2>The purpose</h2>
+<p>When preparing for a <a href="http://slides.com/wolframkriesing/react-js-dom-as-it-was-meant#/">munichjs talk</a> I gave last week about reactjs (and testing) I tried to find a common task that hopefully everyone had at least heard about before. <a href="http://todomvc.com/">TodoMVC</a> seemed perfect, which is basically one specification and many implementations in all kinds of different web frameworks, made to compare them.<br />
+My plan was to use the commonly known todoMVC project to transfer all the learnings from a bigger reactjs project that we worked on the first half of 2014. Choosing todoMVC I thought would make it easier to do so. But it needed some refactoring to apply the learnings we had made in that big project. In the end I think it worked out quite well.</p>
+<p>I am the testing-guy. Maybe a bit extreme at times, but it gives me a good feeling. And since I know I don’t know much yet, I like the excessive path at times to learn what the middle way might be.<br />
+Approaching the todoMVC app, I looked for the tests first. I didn’t find any. Alright, that means I will have to make the effort to ensure that my refactorings will keep the app working as expected. My refactorings are serving a very special purpose. I want to show that react doesn’t require to deal with state for implementing business logic. It pushes you to a clean separation of concerns especially between data and UI. And almost for free comes a good testability.<br />
+Bottom line is to prove the claim „reactjs &#8211; DOM as it was intended“, as I like to phrase it.</p>
+<h2>Refactoring, 3, 2, 1, go</h2>
+<p>I know where I want the code to head. The refactoring was a mix of <a href="http://martinfowler.com/articles/workflowsOfRefactoring/#comprehension">comprehension refactoring</a> and application of the <a href="http://programmer.97things.oreilly.com/wiki/index.php/The_Boy_Scout_Rule">boy scout rule</a>.<br />
+As you can see in <a href="https://github.com/wolframkriesing/todomvc/commits/react-componentize">my commit history</a>, I like to take tiny steps (baby steps) and almost every time I make a too big step I undo later anyways.<br />
+Refactoring is one thing, but knowing that I didn’t break anything is another, and that is where we normally apply testing. In a well-tested application we can use some kind of coverage tool to tell us how well the app is covered and then we know to which degree we can rely on the existing tests or if we have to write some more.<br />
+In an completely untested app, as it was the case here, we have to decide how to approach a verifiable app. My first thought was, I write some integration tests which click through the UI and I verify some results. I would use selenium or an alike tool for it and I might be fine. Thinking that through it seemed too much effort, since I didn’t plan to invest more than a day in this, so I didn&#8217;t. Though two days later I thought of using a golden master comparison of the complete web site content after every interaction, that may would have been a much faster approach, but I didn’t think of it at this point.<br />
+There was another thing that actually made me hesitate to write some automated integration tests at that point. It was my lack of knowledge of what the todoMVC app really does. Yeah, ok it does some todo list handling, but which features exactly I didn’t know. So I decided to go for a manual testing approach. I can hear some people scream: „What, no automated tests?“ and I say „No“. And I tell you why. </p>
+<h2>Manual testing</h2>
+<p>Actually I am a big fan and strong believer in automated tests, it’s the only way you will get reliable and reproducible results. And I know that from experience. It was painful when we did only manual testing. Actually this painful experience led us  at uxebu to become strong believers and learners in the testing culture.</p>
+<p>It is very tempting to do the first couple of refactorings only supported by manual tests. There is no test setup time, you feel to become productive very quickly. And sticking to small refactorings gives a sense of security.<br />
+And even though I didn’t feel comfortable with this in the beginning, I learned about the value throughout the process. So I started out just doing manual tests. In the beginning there was this voice in my head „automate the tests!“ which I didn’t listen to. In the first place I didn’t listen to it because I thought my refactoring might just be small things, and won’t take more than one or two hours (which turned out to be wrong). Pretty quickly I realized that my manual tests do not only serve the purpose of verifying that the app works. I learned a lot about the app and the features it provides. As I said in the beginning, I didn’t read the todoMVC spec, and tbh I also didn’t plan to do so. I love exploring apps by refactoring them (I successfully did that the first time I refactored the <a href="https://github.com/emilybache/Tennis-Refactoring-Kata">Tennis Kata</a> and am hooked since).<br />
+I started to create kind of a rhythm of what to test after every refactoring step. In combination with the deeper learnings about the source code I adapted this test list. I found out that I can also manipulate the todo-items even when a filter is applied, so I added that to my (manual) test list.<br />
+After a couple of hours in and quite a number of refactoring steps, I realized that my test list is stabilizing and I felt it was the right time to create automated tests. And than I cheated. At this time I stopped refactoring, since I got pretty close to where I needed the code to be for my talk. Until here I actually just moved around UI logic code. I only touched a small business logic part. Remember my main purpose here was to show a certain aspect of reactjs, I got there.</p>
+<h2>Explore, stabilize, commoditize</h2>
+<p>I thought I would feel pretty bad about the result of my pure manual testing approach, but to be honest I don’t. After <a href="http://dannorth.net/">Dan North</a> implanted <a href="http://www.slideshare.net/slideshow/embed_code/14731053?startSlide=16">„explore, stabilize, commoditize“</a> into my brain last year I feel like this applies in more places than expected. So it does here too. I optimized for discovery first. I tried to discover all the features of this app, I „explored“. By repeating this process often I got to a stabilized set of tests that now need to be commoditized, which means automated in this case.<br />
+Starting the automation of the tests just now, does also give me a way better feeling of what tests I should write. What groups of test sets I create, what features are important and where do I might need to put less focus. I basically learned about the app by using (and refactoring) it. From time to time I also opened the original todoMVC app (without the refactorings) to compare that I didn’t break a certain thing.<br />
+This was the perfect app to do this kind of explorative testing. I believe that we should take the time to manual test before most of our refactoring work, especially when the apps have UIs. And this manual tests should serve as the base for what integration tests to write for legacy code, it shall not be the excuse to not automate the tests. I gained much more confidence in the feature set of the todoMVC app, I even learned about edge cases that I hadn’t thought would exist. I can perfectly write tests for the app now. I feel I can give estimated guesses about when an integration test can be deleted because it’s feature set has been validated by the according unit test. Having only the necessary set of integration tests left is our final goal anyways! Right?</p>
+<h2>Integration tests and false believe</h2>
+<p>One issue still stands out for me. I experience a lot when working with legacy apps. It is how and when to question the existing set of tests. For one you don’t want to miss a test that might lead to breaking part of the app and two you also don’t want to spend endless amount of time writing new tests that might not add real value. (I guess I should finally read <a href="http://www.informit.com/store/working-effectively-with-legacy-code-9780131177055">Michael Feathers’ book</a>).<br />
+In the web environment I believe it is even more complicated to confidently build the safety net around web apps. The number of technologies (HTML, CSS, JavaScript, various OSes, browsers, …) involved just makes it even harder. On the one hand there needs to be sufficient tooling, which partly doesn’t exist yet or is too hard to setup and maintain and on the other hand applying the right strategies is not always easy. </p>
+<p>So, even when a good set of (integration) tests exists don’t let the false sense of security pull you onto the dark side. Do always question your set of tests, verify the requirements, environments the app runs in and expectations of the customers as soon as you can. You will not only learn more about the app but your safety net and the strategies how to expand it will improve. Testing is one of those endless learnings that a software craftsman should be doing. </p>
+<p>Keep it up and stay flexible!</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2015/01/value-manual-testing/">The value of manual testing</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2015/01/value-manual-testing/feed/</wfw:commentRss>
+		<slash:comments>2</slash:comments>
+		</item>
+		<item>
+		<title>Get real with ES6 (and webpack)</title>
+		<link>http://www.uxebu.com/blog/2014/11/get-real-es6-webpack/</link>
+		<comments>http://www.uxebu.com/blog/2014/11/get-real-es6-webpack/#comments</comments>
+		<pubDate>Mon, 24 Nov 2014 07:51:57 +0000</pubDate>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+				<category><![CDATA[development tools]]></category>
+		<category><![CDATA[frontend engineering]]></category>
+		<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[tdd]]></category>
+
+		<guid isPermaLink="false">http://www.uxebu.com/?p=6615</guid>
+		<description><![CDATA[<p>After the last post, where I briefly described how to setup mocha with ES6 (using traceur, a transpiler to working JavaScript) I couldn&#8217;t stop and had to prove, that getting it to run with on a real site was doable. It had it&#8217;s hurdles but voila it does work. See the github repo if you [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/11/get-real-es6-webpack/">Get real with ES6 (and webpack)</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>After the <a href="http://www.uxebu.com/blog/2014/11/es6-tdd-work-traceur-mocha-sinon/">last post</a>, where I briefly described how to setup <a href="http://mochajs.org">mocha</a> with <a href="http://wiki.ecmascript.org/doku.php?id=harmony:specification_drafts">ES6</a> (using <a href="https://github.com/google/traceur-compiler">traceur</a>, a transpiler to working JavaScript) I couldn&#8217;t stop and had to prove, that getting it to run with on a real site was doable. It had it&#8217;s hurdles but voila it does work. See <a href="https://github.com/uxebu/mocha-sinon-traceur-example">the github repo</a> if you want to dive right into code.<br />
+<span id="more-6615"></span></p>
+<h2>Using Webpack needs an ES6 compiler</h2>
+<p>The latest I happily used to build CommonJS (node.js) style code and run it on the web is <a href="http://webpack.github.io">webpack</a>. Since it comes with all possible loaders that one needs (<a href="https://facebook.github.io/react/docs/jsx-in-depth.html">JSX</a>, ES6, etc.) there was not much thought I spent in what to use.</p>
+<p>To get ES6 running in all (modern) browsers a transpilation step is required, which translates <a href="https://github.com/google/traceur-compiler/wiki/LanguageFeatures">ES6 syntax</a> into ES5 syntax that runs in all the browsers. For that I use traceur, which by features seems to be the most interesting one, more about this in a bit. Besides the translation of the code it does also need a runtime which brings all the boilerplate like class creation. I would like to have this all handled on the fly, I prefer not to have much to do with it. Please do just work.</p>
+<p>As described in my last post I thought of using <a href="https://github.com/shama/es6-loader">es6-loader</a> for it. Quickly I realized I needed to hunt for something else. Why? Because I already started to use ES6 module syntax and wanted to keep going with it, just getting closer to the future sooner :). Have a look at it:<br />
+<script src="https://gist.github.com/wolframkriesing/b7de988d9f16aae25831.js"></script><br />
+es6-loader uses <a href="https://github.com/termi/es6-transpiler#not-supported">the es6-transpiler, which states module syntax is not supported</a> yet. Alright. That actually made the case for me to not use this project since I don&#8217;t want to run the tests with mocha but the production code with es6-transpiler, this does feel like pain coming up. So I went looking for a webpack-module that can do traceur. Even though I think it&#8217;s worth keeping an eye on es6-transpiler since <a href="https://github.com/termi/es6-transpiler#goal">the goals</a> are just a bit different than those of traceur.</p>
+<p>The hunt quickly revealed that there are two projects, after some stumbling I saw that actually one was just a pull request that got merged already. And in the end I saw that <a href="https://github.com/ndhoule/webpack-traceur-loader">webpack-traceur-loader</a> is what I need. One thing that worried me a little was that the current version of traceur it uses was 0.5x and traceur is already at 0.7x. But later I realized that all features work, so let&#8217;s go ahead. Here it is worth mentioning that the approach of mocha-traceur is quite cool, where <a href="https://github.com/domenic/mocha-traceur#mocha-traceur">it&#8217;s README says</a> </p>
+<blockquote><p>Traceur is intentionally not included in this package so you can install your preferred version alongside Mocha Traceur.</p></blockquote>
+<p>which makes lots of sense as long as the API is compatible. If that&#8217;s not the case the user will have the failure and might be pissed.<br />
+And by this you can see that I already do run two different traceur versions. For the tests I am using the one I `npm install`ed and for production I am using the one wepback-traceur-loader brings along. I have to align the two to prevent bugs of the &#8220;works with the tests but not in production&#8221; kind &#8211; writing this on my virtual to do list.</p>
+<h2>Make an index.html and use ES6 for real</h2>
+<p>All the config is set up. Now I gotta try it in real life. So I added an &#8216;empty&#8217; index.html to the <a href="https://github.com/uxebu/mocha-sinon-traceur-example/tree/add-webpack/src">example project</a>. I just want to throw &#8220;works&#8221; into the body&#8217;s innerText. That serves as a good enough integration test for now.</p>
+<p>Now I `npm install`ed the above discussed webpack-traceur-loader and enabled it. My `webpack.config.js` looks like this now (copied <a href="https://github.com/uxebu/mocha-sinon-traceur-example/blob/299581015364142e569e321bce168294d933ed9a/webpack.config.js">from the repo</a>):<br />
+<script src="https://gist.github.com/wolframkriesing/e1ee1196661659df221f.js"></script><br />
+Now also the ES6 loader stuff works fine. And believe it or not, after `npm start` (which starts the webpack-dev-server) the site shows &#8220;works&#8221;. Find the revision <a href="https://github.com/uxebu/mocha-sinon-traceur-example/commit/96eb526d022e0c825e82fd2b23e9634ef1ac2f68">online in the example project repo</a>.</p>
+<h2>Include an external library, jQuery</h2>
+<p>Actually I am doing this because I want to convert the <a href="https://github.com/uxebu/compass-to-map-app">compass-map-app-kata</a> to ES6 since I am tired of `var self = this;` and binding scopes, which imho is just blurring code and code&#8217;s intention with something that is missing in the language. But the app does also use jQuery to connect to all the simple DOM stuff. So next step here is to get jQuery into the game.</p>
+<p>I want to see that the ES6 setup does not only work for my local files, but does also work when I integrate with external libraries. Of course I could go the easy way and include jQuery in the index.html, no-brainer. But I want to require jQuery on the server side too, so it gets bundled with the app.<br />
+I did `npm install jquery` and now inside my code I can use the nice `import jQuery from &#8216;jquery';`. Beautiful. Webpack doesn&#8217;t complain and it builds, it also shows me that it includes jQuery, as you can see below in line 22.<br />
+<script src="https://gist.github.com/wolframkriesing/10e761faf174c5556c97.js"></script></p>
+<p>That was easy. Now let&#8217;s use jQuery in the code. So I add `jQuery(document.body).text(&#8230;)` so it prints &#8216;works&#8217; on my site. But there is no &#8216;works&#8217; showing up in the browser. Opening the console I see a &#8216;Uncaught TypeError: object is not a function&#8217;. What??? After a bit of debugging I find out that jQuery is an empty object. Ok, this must be the building part. What else can it be? So I start trying all possible things, going back to `var jQuery = require(&#8216;jquery&#8217;)`. I also renamed all ES6 files to use `.es6.js` and configure webpack accordingly. I don&#8217;t like that, even though it very well shows what is ES6 and what not, but it is also there only because I just don&#8217;t know any better.<br />
+No solution really works.</p>
+<p>Long story short. I saw that the `jquery.js` got modified after run through traceur and it then only exports `{}`. Well, that&#8217;s not what I want. So I have to exclude jQuery from traceur running over it. After fiddeling around, debugging into the webpack loader, learning lot&#8217;s from it and demistifying another piece of magic, I found the `exclude` parameter I have to pass to traceur in the `webpack.config.js`, as you can see below in line 9:<br />
+<script src="https://gist.github.com/wolframkriesing/c16ce2f47dec1de7c782.js"></script><br />
+See in the last line that I also turned on `debug`, this outputs all the files that traceur handles, as you can see a bit further up in the webpack console output. Make sure NOT to see libs like jquery in there prefixed with `[traceur-loader]`, only the code you really want to be compiled.</p>
+<h2>Use it in real, compass-map-app-kata</h2>
+<p>The <a href="https://github.com/uxebu/mocha-sinon-traceur-example">example project</a> was born out of &#8220;I want to get it to work without any noise around it&#8221;. But of course the actual reason I investigated all that was another &#8220;bigger&#8221; app. The <a href="https://github.com/uxebu/compass-to-map-app">compass-map-app-kata</a>, which is still called a kata, since it is that for me. And I am thinking of how to make this into a nice <a href="http://www.uxebu.com/workshops/">workshop <img src="http://www.uxebu.com/wp-includes/images/smilies/icon_smile.gif" alt=":)" class="wp-smiley" /></a> since I see lots of potential in showing a real app using the DOM, doing it test-driven and sharpening the skills around TDD in a real ES6 web app environment.<br />
+The conversion from ES5 to ES6 of the compass app is a complete post on it&#8217;s own, which I might follow up on later. If you are interested, you can dive in by investigating the commits on <a href="https://github.com/uxebu/compass-to-map-app/tree/switch-to-es6">the switch-to-es6 branch</a>.<br />
+The short summary is: It does work. I am happy I did the baby steps in the example repo to focus on the small problems and really just worry about the actual problems, so I kinda applied the <a href="http://mikadomethod.wordpress.com">mikado method</a> here, trying to find out the next missing piece in the chain, fixing it and switching back to the bigger scope.</p>
+<h2>Other/External services</h2>
+<p>The next step of getting this into production is to hook up with several external services for monitoring the health of the app. You can see that I added all kinds of badges in the <a href="https://github.com/uxebu/compass-to-map-app/blob/master/README.md">README</a> in order to test out those health-services. Let me quickly list what worked well with ES6 and where there are still bumps. </p>
+<h3>Travis CI</h3>
+<p>Integrating it <a href="https://travis-ci.org/uxebu/compass-to-map-app">with travis</a> was no different than you do it with every project, of course it just does an `npm test` which requires a <a href="https://github.com/uxebu/compass-to-map-app/blob/master/.travis.yml">`.travis.yml`</a>, so make sure they are there.<br />
+I also added <a href="https://codeship.com">codeship</a> though I didn&#8217;t see how to make the project overview public. But it&#8217;s all green too (at least as of this writing) as you can see in the README badge. </p>
+<h3>Code coverage</h3>
+<p>I didn&#8217;t get a local <a href="https://github.com/gotwarlost/istanbul">istanbul</a> for the coverage to work yet, there seems to be <a href="https://github.com/meoguru/istanbul-traceur">istanbul-traceur</a> which seems to require gulp, I didn&#8217;t try that yet. I hooked up <a href="https://coveralls.io/r/uxebu/compass-to-map-app">coveralls.io</a> but seem to get no result from it yet. Not sure what I missed there. Hints welcome. It says that as soon as it passes in travis it will give me results, but didn&#8217;t yet.</p>
+<h3>Code quality services</h3>
+<p>I <a href="https://www.codacy.com/public/wk_2448/compass-to-map-app/files?bid=1981561">integrated codacy</a> which is currently not doing much more than some simple code analysis, in this project it seems not to give any value, since it does not seem to understand ES6 syntax yet. You can see that by `LoC` and some other fields being empty.<br />
+<a href="http://bithound.io">bithound.io</a> seems to do a real good job in detecting the ES6 files and understanding them, see <a href="https://app.bithound.io/uxebu/compass-to-map-app/files">the project files here</a>. And it reports the files are in good health. I am glad for them :). Though the real value I get from it is still quite low. Actually I want to know more about my code, maybe this project is just way too small to really do too much wrong that can be found with static code analysis.</p>
+<h2>Conclusion!</h2>
+<p>Overall I have to say the ES6 tool chain is already quite useable. And it is fun to move on with the language. Though I am still a little struggling with myself what will be the metrics for me for what to use when. After all I could write up the same for converting a project to <a href="http://livescript.net">LiveScript</a>, <a href="http://coffeescript.org">CoffeeScript</a> or <a href="http://www.typescriptlang.org">TypeScript</a>. They all get compiled to JavaScript, the big hurdle will be to see how well or bad either of those supports your workflow. There are multiple considerations that impact at least my workflow. It&#8217;s the following that come to my mind, and those I will have to keep an eye on when working with a language that is not &#8220;native&#8221;:</p>
+<ul>
+<li>Does this new language really give me benefits or just satisfies my need to be up to date with the latest tech?</li>
+<li>IDE support. First I need to have my IDE understand and highlight the syntax properly but very soon also refactorings and other tooling around it I need.</li>
+<li>Setup work. Adding `&#8211;coffee` or `mocha-traceur` for running the tests bare a certain overhead to be considered.</li>
+<li>Flow overhead when developing. Is there any disturbing compile time, longer test run time and/or more to setup with various options and addons needed?</li>
+<li>Test report noise. How unreadable will my stack traces become, how much will this slow me down in my daily work? (Even though stack traces are always a thing one has to learn to read.)</li>
+<li>External library/tool integrations. Is there any danger in integrating external tools and libraries, as talked about above with jQuery and the health-services.</li>
+</ul>
+<p>Compiler, transpiler, whatever &#8230; you can replace each of the terms with whatever fits your preference.</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/11/get-real-es6-webpack/">Get real with ES6 (and webpack)</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2014/11/get-real-es6-webpack/feed/</wfw:commentRss>
+		<slash:comments>1</slash:comments>
+		</item>
+		<item>
+		<title>Why this Test-Driven Development Workshop?</title>
+		<link>http://www.uxebu.com/blog/2014/11/why-test-drivendevelopment-workshop-1/</link>
+		<comments>http://www.uxebu.com/blog/2014/11/why-test-drivendevelopment-workshop-1/#comments</comments>
+		<pubDate>Tue, 11 Nov 2014 00:53:16 +0000</pubDate>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+				<category><![CDATA[development tools]]></category>
+		<category><![CDATA[TDD]]></category>
+		<category><![CDATA[uxebu]]></category>
+
+		<guid isPermaLink="false">http://www.uxebu.com/?p=6436</guid>
+		<description><![CDATA[<p>The JSCodeRetreat is always a lot of fun, a day free of stress, just practicing and honing our craft. But sometimes people come up to us and ask if we could do an introduction to TDD before, so it is easier to understand what the red-green-refactor cycle means or how baby-steps shall be understood. Well, [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/11/why-test-drivendevelopment-workshop-1/">Why this Test-Driven Development Workshop?</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><img src="http://www.uxebu.com/wp-content/uploads/2014/11/global_420806432-150x150.jpeg" alt="global_420806432" class="alignright size-thumbnail wp-image-6578" />The <a href="http://jscoderetreat.com" title="JS CodeRetreat" target="_blank">JSCodeRetreat</a> is always a lot of fun, a day free of stress, just practicing and honing our craft. But sometimes people come up to us and ask if we could do an introduction to TDD before, so it is easier to understand what the red-green-refactor cycle means or how baby-steps shall be understood. Well, we listened. And we set up this <strong><a href="http://www.meetup.com/uxebu-events/events/211708152/" title="TDD Workshop" target="_blank">workshop: TDD for beginners</a></strong>. The first one is going to take place on the 4th of December, two days before the <a href="http://jscoderetreat.com/events.html" target="_blank" title="JSCR #4">JSCR #4</a>.</p>
+<h2>This little itch</h2>
+<p>It was many years ago, that I was working in a company that was certified ISO nine-thousand-something. And it felt like quality was written everywhere, but rather on the walls and on paper. And quality meant to do paper work and that does ensure quality. I guess I had a wrong impression of quality. It felt way less fun to produce quality than to buy a quality product (you know, when it&#8217;s expensive it must be of high-quality, so it&#8217;s a pleasure spending that money). Something was wrong with my perception of quality.<br />
+During that time I was working with Daniel, a very skilled programmer, and we enjoyed working together so much. When he wrote code I would have written it exactly the way he did. That was fun, pure fun! That is what work should feel like and programming even more so, since in my opinion programming is not work, it&#8217;s a part of me. And that part I want to do as good as possible, I want to get better at it and I get excited the better I get, because it shapes so much more of what I actually want to achieve I just can&#8217;t describe how it feels. But there was always this little itch which was there, that when I change a thing in my code I might break something or just have to (manually) test if all is as it was before, plus the new feature or fix. And that feedback always was the not-so-fun part.</p>
+<h2>Scratching it</h2>
+<p>Many times I got told that TDD is when you write a test first and then you write the production code that makes this test pass. Lot&#8217;s of times, I just overheard them. Then I maybe tried it a couple of times but it wasn&#8217;t for me. Until we in uxebu worked on a product which was just so big, that (manually) testing and ensuring all the features still work the same way as before the last change was just too complex. It was clear that we needed automated tests here. So we set up a test environment and pushed testing forward and so on. But it still felt like a heavy process which we didn&#8217;t know how to do. I remember from my ISO-times, that there must be something like a test plan. Feels, good. And sucked fast. A colleague of mine Stephan suggested that we invite J.B. Rainsberger for a workshop, which we did. After the initial skepticism was gone and we got some things done with TDD it felt like a good path. The valley that came was deep for me. Man did I screw up. But afterwards it was going uphill, steep!<br />
+TDD is nothing else but doing in code what I had been doing before in my head. I sketch the problem, I solve it and verify that it works. Only that now I do less guessing about the assumptions, but I really do, as a programmer just needs to do it, write down the requirement in a test. That is, if I tell `I` to convert to `1` then I write that down in a test and next time I run the test again I am still sure that it still is that way.<br />
+TDD is no more than a brain dump into structured code and the relief of having to scan the code&#8217;s results manually. Just let the stupid computer do that work, not me anymore. Thank you!<br />
+I could pull out reports, statistics, research papers and Gardner reports to convince you. I don&#8217;t need to. Try it. You will be convinced or not. Just like programming, either you are a programmer or not, there is nothing in-between. And give it time to estimate the value of TDD well, it&#8217;s not learned in a week.</p>
+<h2>Step by Step</h2>
+<p>I recall my first programming steps. It took quite a while for me to understand the parts of `10 PRINT &#8220;Hello world&#8221;`. Why the hell does it have to have a `10` in front. And just like my daughter asked me a couple days ago: What are those quote-signs for?<br />
+Learning was so slow in the beginning. As it is with many things, I guess. But with programming, I quickly gained the knowledge of how to do things. I stored it and recalled it every time I needed that knowledge. I modified the patterns a little bit and I applied them again. I became really secure in using them. Back when I wrote C code all day long, I remember that I was proud to compile only twice a day and have been &#8220;working&#8221; the rest of the time. There was one time, when I used to have a small PSION mobile computer with just a text editor and I hacked out a program of about 200 lines of code on it, without syntax checking, no compile run and no test run of the program. For about six hours I was coding. And when I got back to real computer to run the program it had only one syntax error and it ran. Boy, was I proud. All that just assured me more and more that I am becoming a skilled programmer. How wrong was I!<br />
+I lost sight of the big thing, I had one way of doing things hammered in my brain, it was not in my comfort zone to change that. And if the program needed additional features that didn&#8217;t match the initial plan the code started to rot. Architectural changes applied to the code had been close to impossible. I hardly refactored back then. When I did refactor, I checked the result manually. As usual.</p>
+<h2>Thinking and Working Step by Step</h2>
+<p>In the last years I unlearned going in big steps. I practiced really hard and am a happy baby-step user now. I feel uncomfortable when I have to make big steps, when I have to write out more than just the last thought. My good feeling fades quickly when I fall back into the old let-me-fix-this-and-that-quickly habit. In those moments I just praise `Undo`, it has become one of my biggest friends. And a good reminder of how often I still move forward way too fast.<br />
+Especially when refactoring a quick test run and a tiny change are so valuable. I just can&#8217;t thing of how to properly do defactoring without baby-steps. I got trapped so often by just another step that I had skipped, just because of the `I know that` feeling. The false sense of security really robs my time.<br />
+In a CodeRetreat one participant said after the paper-only session: &#8220;It is amazing to write code on paper and realizing how often we do already change things while writing the code.&#8221;. The times are those where we don&#8217;t even remember that we hit backspace or changed a piece of code again before we are actually happy or ready to run the tests. It&#8217;s just like this &#8220;Where did I put the car keys again?&#8221; thingy. It becomes a habit which eliminates consciousness and I just hack it out like a trained stupid robot, even though I might know much better. I am getting better at doing things more consciously.<br />
+It takes some practice to go in smaller steps but it really is worth the time and consciousness you gain. TDD taught me that again.</p>
+<h2>Re-think Requirements and Dependecies</h2>
+<p>Another thing that TDD taught me is the re-evaluation of requirements and dependencies before implementing them. First it&#8217;s the test that I have to write, where I have to formulate an explicit expectation. If I do already have a problem doing that, how can I assume to have understood the problem?<br />
+Once I got through to the real requirement I have to dump it into code. When this gets difficult or when lot&#8217;s of setting up of environment is going on, I smell another problem. The dependency problem. Nowadays I start writing out a complex test in order to find out how deep I have to dive. It is like prototyping the problem, I try out things until I have learned enough about the problem to really write a better test. Explore, Stabilize, Commoditize (Dan North). Once I stabilized my knowledge about the problem I start refactoring my tests.</p>
+<h2>Finally &#8211; How to workshop?</h2>
+<p>TDD is not hard, it just takes a bit of practice. The first kick-off and the inspiration to do it more often I will try to give you during that day. We are going to switch between me showing some stuff for ten to twenty minutes and to practicing it. I will be there to actively support you, answer all your questions and give you guidance around applying TDD.<br />
+You will pair with different people which adds most value to the learning, since you can discuss the things with your pair and push each other forward. From time to time I will sneak in, listen to you and ask questions that make you think harder.</p>
+<p>I am looking forward to <strong><a href="http://www.meetup.com/uxebu-events/events/211708152/" title="Workshop">seeing you at the workshop</a></strong> and also love to discuss things in more detail.<br />
+So why this workshop? Because TDD brings back and increases the fun in programming!</p>
+<p>All the best </p>
+<p>Wolfram</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/11/why-test-drivendevelopment-workshop-1/">Why this Test-Driven Development Workshop?</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2014/11/why-test-drivendevelopment-workshop-1/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Getting started with webpack</title>
+		<link>http://www.uxebu.com/blog/2014/09/getting-started-webpack/</link>
+		<comments>http://www.uxebu.com/blog/2014/09/getting-started-webpack/#comments</comments>
+		<pubDate>Mon, 08 Sep 2014 09:07:17 +0000</pubDate>
+		<dc:creator><![CDATA[Georg Lang]]></dc:creator>
+				<category><![CDATA[development tools]]></category>
+
+		<guid isPermaLink="false">http://www.uxebu.com/?p=5361</guid>
+		<description><![CDATA[<p>JavaScript has no standardized module system yet (ES6 will bring one, finally). A module system is used to structure your code into files, refer to dependencies and export values. Due to the lack of a standard multiple system have evolved. If you use some different libraries in your project and each of them is using [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/09/getting-started-webpack/">Getting started with webpack</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>JavaScript has no standardized module system yet (<a href="https://people.mozilla.org/~jorendorff/es6-draft.html">ES6</a> will bring one, finally). A module system is used to structure your code into files, refer to dependencies and export values. Due to the lack of a standard multiple system have evolved. If you use some different libraries in your project and each of them is using different module systems it´s very hard to combine them easily.<br />
+Until now there are several tools e.g. <a href="http://gruntjs.com/" title="grunt task runner" target="_blank">grunt</a>, <a href="http://gulpjs.com/" title="gulpJs - The streaming build system" target="_blank">gulp</a>, <a href="http://browserify.org/" target="_blank">browserify</a> and many more.<br />
+But one of the upcoming tools is <a title="webpack" href="http://webpack.github.io/" target="_blank">webpack</a></p>
+<p>In this post, I will show you how simple it is to combine different module systems with webpack.</p>
+<h2>Module systems webpack understands</h2>
+<p>The most used module systems are the following:</p>
+<h4>1. script-tags (without a module system) </h4>
+<div class="codecolorer-container html4strict default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="html4strict codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #009900;">&lt;<a href="http://december.com/html/4/element/script.html"><span style="color: #000000; font-weight: bold;">script</span></a> <span style="color: #000066;">type</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">&quot;text/javascript&quot;</span> <span style="color: #000066;">src</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">&quot;src/main.js&quot;</span> <span style="color: #000066;">charset</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">&quot;utf-8&quot;</span>&gt;&lt;<span style="color: #66cc66;">/</span><a href="http://december.com/html/4/element/script.html"><span style="color: #000000; font-weight: bold;">script</span></a>&gt;</span></div></div>
+<h4>2. <a href="http://wiki.commonjs.org/wiki/Modules/1.1">CommonJS</a> is used by <a href="http://nodejs.org/">Node.js</a></h4>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #006600; font-style: italic;">//firstScript.js</span><br />
+module.<span style="color: #660066;">exports</span> <span style="color: #339933;">=</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span> <span style="color: #009900;">&#125;</span><span style="color: #339933;">;</span><br />
+<br />
+<span style="color: #006600; font-style: italic;">//main.js</span><br />
+require<span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'./firstScript.js'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></div>
+<h4>3. <a href="http://wiki.commonjs.org/wiki/Modules/AsynchronousDefinition">AMD</a> is used by <a href="http://requirejs.org/">RequireJS</a></h4>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #006600; font-style: italic;">//firstScript.js</span><br />
+define<span style="color: #009900;">&#40;</span><span style="color: #003366; font-weight: bold;">function</span> <span style="color: #009900;">&#40;</span>firstScript<span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span> ... <span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<br />
+<span style="color: #006600; font-style: italic;">//main.js</span><br />
+require<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#91;</span><span style="color: #3366CC;">'./firstScript'</span><span style="color: #009900;">&#93;</span><span style="color: #339933;">,</span> <span style="color: #003366; font-weight: bold;">function</span> <span style="color: #009900;">&#40;</span>firstScript<span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><span style="color: #009900;">&#125;</span></div></div>
+<h4>4. <a href="http://www.2ality.com/2013/07/es6-modules.html">ECMAScript 6 modules</a></h4>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #006600; font-style: italic;">//firstScript.js</span><br />
+<span style="color: #003366; font-weight: bold;">export</span> <span style="color: #003366; font-weight: bold;">function</span> hello<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span> ...<span style="color: #009900;">&#125;</span><br />
+<br />
+<span style="color: #006600; font-style: italic;">//main.js</span><br />
+<span style="color: #003366; font-weight: bold;">import</span> <span style="color: #009900;">&#123;</span> hello <span style="color: #009900;">&#125;</span> from <span style="color: #3366CC;">'firstScript'</span><span style="color: #339933;">;</span></div></div>
+<p>Webpack takes modules with dependencies and generates static assets containing those modules.<br />
+With webpack it´s possible to load and bundle different dependency files like CSS, JavaScript, CoffeeScript, etc. and use different module styles like AMD and together.</p>
+<p>For production you only have to include one bundled file that represents all modules.</p>
+<h2>Getting Started</h2>
+<p>The final file structure will look like this:</p>
+<p><a href="http://www.uxebu.com/wp-content/uploads/2014/09/Bildschirmfoto-2014-09-09-um-10.41.05.png"><img src="http://www.uxebu.com/wp-content/uploads/2014/09/Bildschirmfoto-2014-09-09-um-10.41.05.png" alt="Bildschirmfoto 2014-09-09 um 10.41.05" width="246" height="249" class="alignnone size-full wp-image-5546" /></a></p>
+<p>First of all webpack can be installed through npm:</p>
+<div class="codecolorer-container powershell default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="powershell codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">$ npm install webpack <span style="color: pink;">-</span>g <span style="color: #008000;">#to install it globally</span></div></div>
+<p>Or webpack can also be added as a dependency in your package.json</p>
+<div class="codecolorer-container powershell default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="powershell codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">$ npm install webpack <span style="color: pink;">--</span>save</div></div>
+<p></br></p>
+<h2>Project Setup AMD</h2>
+<p>After the installation i created three JavaScript files (src/main.js, src/firstScript.js and src/secondScript.js), that use the AMD module notation:</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #006600; font-style: italic;">//secondScript.js</span><br />
+define<span style="color: #009900;">&#40;</span><span style="color: #003366; font-weight: bold;">function</span> <span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; <span style="color: #000066; font-weight: bold;">return</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; color<span style="color: #339933;">:</span> <span style="color: #3366CC;">'green'</span><br />
+&nbsp; <span style="color: #009900;">&#125;</span><br />
+<span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></div>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #006600; font-style: italic;">//firstScript.js</span><br />
+define<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#91;</span><span style="color: #3366CC;">'./secondScript'</span><span style="color: #009900;">&#93;</span><span style="color: #339933;">,</span><span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span>secondScript<span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span><br />
+&nbsp; console.<span style="color: #660066;">log</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'Color from secondScript'</span><span style="color: #339933;">,</span> secondScript.<span style="color: #660066;">color</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+&nbsp; <span style="color: #000066; font-weight: bold;">return</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; hello<span style="color: #339933;">:</span> <span style="color: #003366; font-weight: bold;">function</span> <span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; &nbsp; console.<span style="color: #660066;">log</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'Hello from firstScript'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+&nbsp; &nbsp; <span style="color: #009900;">&#125;</span><br />
+&nbsp; <span style="color: #009900;">&#125;</span><br />
+<span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></div>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #006600; font-style: italic;">//main.js</span><br />
+define<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#91;</span><span style="color: #3366CC;">'./firstScript'</span><span style="color: #009900;">&#93;</span><span style="color: #339933;">,</span> <span style="color: #003366; font-weight: bold;">function</span> <span style="color: #009900;">&#40;</span>firstScript<span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; firstScript.<span style="color: #660066;">hello</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></div>
+<p>To get the the full code check out the repository on Github:<br />
+<a href="https://github.com/uxebu/webpack-amd-demo" title="webpack-amd-demo" target="_blank">webpack-amd-demo on GitHub</a></p>
+<h2>Project Setup CommonJS</h2>
+<p>This three files use the CommonJS module notation:</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #006600; font-style: italic;">//secondScript.js</span><br />
+module.<span style="color: #660066;">exports</span> <span style="color: #339933;">=</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; color<span style="color: #339933;">:</span> <span style="color: #3366CC;">'green'</span><br />
+<span style="color: #009900;">&#125;</span><span style="color: #339933;">;</span></div></div>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #006600; font-style: italic;">//firstScript.js</span><br />
+<span style="color: #003366; font-weight: bold;">var</span> secondScript <span style="color: #339933;">=</span> require<span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'./secondScript.js'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+console.<span style="color: #660066;">log</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'Color from secondScript'</span><span style="color: #339933;">,</span> secondScript.<span style="color: #660066;">color</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<br />
+module.<span style="color: #660066;">exports</span> <span style="color: #339933;">=</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; hello<span style="color: #339933;">:</span> <span style="color: #003366; font-weight: bold;">function</span> <span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; console.<span style="color: #660066;">log</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'Hello from firstScript'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+&nbsp; <span style="color: #009900;">&#125;</span><br />
+<span style="color: #009900;">&#125;</span><span style="color: #339933;">;</span></div></div>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #006600; font-style: italic;">//main.js</span><br />
+<span style="color: #003366; font-weight: bold;">var</span> firstScript <span style="color: #339933;">=</span> require<span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'./firstScript.js'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+firstScript.<span style="color: #660066;">hello</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></div>
+<p>To get the the full code check out the repository on Github:<br />
+<a href="https://github.com/uxebu/webpack-commonJs-demo" title="webpack-commonJs-demo" target="_blank">webpack-commonJs-demo on GitHub</a></p>
+<h2>Project Setup AMD + CommonJS</h2>
+<p>This three files use the AMD and CommonJS module notations together:</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #006600; font-style: italic;">//secondScript.js</span><br />
+module.<span style="color: #660066;">exports</span> <span style="color: #339933;">=</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; color<span style="color: #339933;">:</span> <span style="color: #3366CC;">'green'</span><br />
+<span style="color: #009900;">&#125;</span><span style="color: #339933;">;</span></div></div>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #006600; font-style: italic;">//firstScript.js</span><br />
+define<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#91;</span><span style="color: #3366CC;">'./secondScript'</span><span style="color: #009900;">&#93;</span><span style="color: #339933;">,</span><span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span>secondScript<span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span><br />
+&nbsp; console.<span style="color: #660066;">log</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'Color from secondScript'</span><span style="color: #339933;">,</span> secondScript.<span style="color: #660066;">color</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<br />
+&nbsp; <span style="color: #000066; font-weight: bold;">return</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; hello<span style="color: #339933;">:</span> <span style="color: #003366; font-weight: bold;">function</span> <span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; &nbsp; console.<span style="color: #660066;">log</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'Hello from firstScript'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+&nbsp; &nbsp; <span style="color: #009900;">&#125;</span><br />
+&nbsp; <span style="color: #009900;">&#125;</span><br />
+<span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></div>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #006600; font-style: italic;">//main.js</span><br />
+<span style="color: #003366; font-weight: bold;">var</span> firstScript <span style="color: #339933;">=</span> require<span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'./firstScript.js'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+firstScript.<span style="color: #660066;">hello</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></div>
+<p>To get the the full code check out the repository on Github:<br />
+<a href="https://github.com/uxebu/webpack-amd-commonJs-demo" title="webpack-amd-commonJs-demo" target="_blank">webpack-amd-commonJs demo on GitHub</a></p>
+<h2>Create bundled files</h2>
+<p>To create a bundled file of all modules with webpack, you have to create a webpack.config.js or use the CLI. To create bundle.js from the files src/main.js, src/firstScript.js and src/secondScript.js you have to switch to the webpack-amd-demo directory and execute the CLI command:</p>
+<div class="codecolorer-container powershell default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="powershell codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">$ webpack src<span style="color: pink;">/</span>main.js dist<span style="color: pink;">/</span>bundle.js</div></div>
+<p>I recommend to use a webpack.config.js instead of the CLI because you have a good overview of the declarations as the entry, output, etc. and you don´t need to remember all the commands for the CLI.</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #006600; font-style: italic;">//webpack.config.js</span><br />
+module.<span style="color: #660066;">exports</span> <span style="color: #339933;">=</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; entry<span style="color: #339933;">:</span> <span style="color: #3366CC;">'./src/main.js'</span><span style="color: #339933;">,</span><br />
+&nbsp; output<span style="color: #339933;">:</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; filename<span style="color: #339933;">:</span> <span style="color: #3366CC;">'./dist/bundle.js'</span><br />
+&nbsp; <span style="color: #009900;">&#125;</span><br />
+<span style="color: #009900;">&#125;</span><span style="color: #339933;">;</span></div></div>
+<p>This simple webpack.config.js defines the entry point as main.js in the src directory. The bundled file will be created in the dist directory and is named bundle.js.<br />
+<strong>This webpack.config.js can be used for all three examples.</strong></p>
+<p>To uses webpack.config.js go to the webpack-amd-demo directory and execute:</p>
+<div class="codecolorer-container powershell default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="powershell codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">$ webpack</div></div>
+<p>Now the bundle.js file is created and includes all the files: src/main.js, src/firstScript.js and src/secondScript.js combined in on file.</p>
+<p><strong>Attention:</strong> If a webpack.config.js is defined and you also run the CLI command, an error will occur. </p>
+<h2>Include the bundled file</h2>
+<p>For production you only have to include the bundle.js file in your index.html.</p>
+<div class="codecolorer-container html4strict default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="html4strict codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #00bbdd;">&lt;!DOCTYPE html&gt;</span><br />
+<span style="color: #009900;">&lt;<a href="http://december.com/html/4/element/html.html"><span style="color: #000000; font-weight: bold;">html</span></a>&gt;</span><br />
+<span style="color: #009900;">&lt;<a href="http://december.com/html/4/element/head.html"><span style="color: #000000; font-weight: bold;">head</span></a> <span style="color: #000066;">lang</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">&quot;en&quot;</span>&gt;</span><br />
+&nbsp; &nbsp; <span style="color: #009900;">&lt;<a href="http://december.com/html/4/element/meta.html"><span style="color: #000000; font-weight: bold;">meta</span></a> <span style="color: #000066;">charset</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">&quot;UTF-8&quot;</span>&gt;</span><br />
+&nbsp; &nbsp; <span style="color: #009900;">&lt;<a href="http://december.com/html/4/element/title.html"><span style="color: #000000; font-weight: bold;">title</span></a>&gt;</span>webpack-amd-demo<span style="color: #009900;">&lt;<span style="color: #66cc66;">/</span><a href="http://december.com/html/4/element/title.html"><span style="color: #000000; font-weight: bold;">title</span></a>&gt;</span><br />
+&nbsp; &nbsp; <span style="color: #009900;">&lt;<a href="http://december.com/html/4/element/script.html"><span style="color: #000000; font-weight: bold;">script</span></a> <span style="color: #000066;">type</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">&quot;text/javascript&quot;</span> <span style="color: #000066;">src</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">&quot;src/bundle.js&quot;</span> <span style="color: #000066;">charset</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">&quot;utf-8&quot;</span>&gt;&lt;<span style="color: #66cc66;">/</span><a href="http://december.com/html/4/element/script.html"><span style="color: #000000; font-weight: bold;">script</span></a>&gt;</span><br />
+<span style="color: #009900;">&lt;<span style="color: #66cc66;">/</span><a href="http://december.com/html/4/element/head.html"><span style="color: #000000; font-weight: bold;">head</span></a>&gt;</span><br />
+<span style="color: #009900;">&lt;<a href="http://december.com/html/4/element/body.html"><span style="color: #000000; font-weight: bold;">body</span></a>&gt;</span><br />
+<span style="color: #009900;">&lt;<a href="http://december.com/html/4/element/h1.html"><span style="color: #000000; font-weight: bold;">h1</span></a>&gt;</span>webpack-amd-demo<span style="color: #009900;">&lt;<span style="color: #66cc66;">/</span><a href="http://december.com/html/4/element/h1.html"><span style="color: #000000; font-weight: bold;">h1</span></a>&gt;</span><br />
+<span style="color: #009900;">&lt;<span style="color: #66cc66;">/</span><a href="http://december.com/html/4/element/body.html"><span style="color: #000000; font-weight: bold;">body</span></a>&gt;</span><br />
+<span style="color: #009900;">&lt;<span style="color: #66cc66;">/</span><a href="http://december.com/html/4/element/html.html"><span style="color: #000000; font-weight: bold;">html</span></a>&gt;</span></div></div>
+<p></br></p>
+<h2>Summary</h2>
+<p>Using webpack makes bundling really easy.<br />
+The advantages are:</p>
+<ul>
+<li>Using one module system in your app</li>
+<li>Include any kind of modules, no matter what their module system styles are</li>
+<li>Automating the development cycle by using watchers or the build-in <a href="http://webpack.github.io/docs/webpack-dev-server.html">webpack-dev-server</a></li>
+<li>Share source code between Node.js and frontend JavaScript</li>
+<li>Less HTTP requests, because all modules are in one bundled file</li>
+</ul>
+<h2>More webpack features</h2>
+<p>Webpack offers many more options than just bundling JavaScript files:</p>
+<ul>
+<li>Splitting code in custom chunks <a href="http://webpack.github.io/docs/code-splitting.html"> &#8211; Code-splitting</a></li>
+<li>Loaders for different assets (CSS, Images, CoffeeScript, LESS, &#8230;) <a href="http://webpack.github.io/docs/using-loaders.html"> &#8211; Loaders</a></li>
+<li>Optimizations to reduce the output size (caching requests by using hashes) <a href="http://webpack.github.io/docs/optimization.html"> &#8211; Optimization</a></li>
+</ul>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/09/getting-started-webpack/">Getting started with webpack</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2014/09/getting-started-webpack/feed/</wfw:commentRss>
+		<slash:comments>1</slash:comments>
+		</item>
+		<item>
+		<title>We Lean</title>
+		<link>http://www.uxebu.com/blog/2014/03/we-lean/</link>
+		<comments>http://www.uxebu.com/blog/2014/03/we-lean/#comments</comments>
+		<pubDate>Fri, 21 Mar 2014 10:47:05 +0000</pubDate>
+		<dc:creator><![CDATA[Irene De Nicolo]]></dc:creator>
+				<category><![CDATA[business]]></category>
+		<category><![CDATA[development tools]]></category>
+		<category><![CDATA[Lean Startup]]></category>
+		<category><![CDATA[uxebu]]></category>
+
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=3280</guid>
+		<description><![CDATA[<p>&#160; “We have a really good idea about developing a new web product.” Usually, this is what we actually think, but in the sentence there is a huge mistake: “a really good idea”. No. It’s not necessarily a good idea! I read countless forums, articles, stories about failure in startups. Too many! But the most [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/03/we-lean/">We Lean</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>&nbsp;</p>
+<p style="text-align: center;"><strong>“<em>We have a really good idea about developing a new web product.</em>”</strong></p>
+<p>Usually, this is what we actually think, but in the sentence there is a huge mistake: “a really good idea”. No. It’s not necessarily a good idea! I read countless forums, articles, stories about failure in startups. Too many! But the most of them have a similar basic structure: a brilliant idea, a great product, a cutting-edge technology, an experienced team. And yet they fail. How is it possible?</p>
+<p>I assume for sure that those startups actually have a forefront technology and a skilled team. The hardest part is connecting the “brilliant idea” with the “great product” in a logical way.<br />
+Normally in startups we get excited quite quickly: “new product? Yess! Let’s do it! Let’s invest all our money, time and effort…we believe it will be a success!”<br />
+…<strong>WRONG</strong>!<br />
+Due to their trust in a technology’s, product’s or service’s superiority, many startups fail to spend enough time exploring alternative business models.<br />
+The aim is to find the best and more scalable technology and product, therefore also startup’s ideas should have a referring business model! Seems to be something theoretical and difficult, boring and useless.<br />
+Normally it could be but, believe me, for startups it’s not! (PS: actually, we’re not a startup anymore, but still our small and dynamic business well relates to many startup business models :))</p>
+<p>An innovative idea usually leads to a product, very far from being a “great” product. This could probably end with being new, innovative, and potentially a success. The key word here is “potentially”. How to be sure that we can get rid of that adverb?</p>
+<p>Well, we’ll obviously never be sure, but we can still try to do things in a more conscious way <strong>JUST ASKING</strong>! It’s so simple…<br />
+Ask your consumers what they think about that new product: would they use it? Would they pay for it? What’s wrong with it? Could it be improved? Etc… But be careful: questions have to be well structured! Never ask “would you use it?”. That’s an hypothetical question, it makes no statistic sense. (I’ll explain better how to create a good questionnaire in the next blog post :))<br />
+Seems simple, but it’s not. Very often startups don’t even know who exactly their users are. Identifying the customer should be the “step 1”, before everything else. And, we know, sometimes it’s not simple at all. How is it possible not to know at least which is your consumer?<br />
+Well, take Uxebu as an example: in our company, we (actually, they) are great web development consultants. We were thinking about launching a new product/service on the market, a very technical product, intended for expert programmers. Basically, a niche product. At the beginning, the “expert programmers” were our target clients. But it is perhaps too generic? Of course it is! Which exactely are our customers? What jobs are they really trying to get done? Are there enough potential customers to let our business grow? Do they have buying power? How can we reach them?<br />
+Defining all this is the first step to define the specific market in which you are going to operate. The most obvious advice is: <strong>sit down and brainstorm</strong>. Who could take advantage of our products? Computer Science students? Yes. Of every country in the world? Yes. And Professors? Yes. CTOs? Of course. And so forth, until you have a complete list of ALL of those that could be potential clients. The more specific the better!</p>
+<p>…And now what?</p>
+<p>And now start with your business model! Before even thinking of preparing a questionnaire for our customers, we structured our own <strong>Validation Board</strong>, one of the core tools for startups who want to innovate. It’s quick, simple and effective, and it also opens up your mind, helping to think constructively. Interested? In the next blog post we’ll explain you how we are using it: in our case it is turning out to be absolutely crucial! In the meanwhile, have a look at <a title="Test driven: why not?" href="http://www.slideshare.net/irenella89/test-driven-why-not" target="_blank">these slides</a>, relating to a short talk I gave during the <a title="Lean Startup meetup Munich" href="http://www.meetup.com/Lean-Startup-Munich/" target="_blank">Lean Startup meetup in Munich</a><br />
+<iframe style="border: 1px solid #CCC; border-width: 1px 1px 0; margin-bottom: 5px; max-width: 100%;" src="//www.slideshare.net/slideshow/embed_code/35686335" width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" allowfullscreen="allowfullscreen"> </iframe></p>
+<div style="margin-bottom: 5px;"><strong> <a title="Test driven, why not?" href="https://www.slideshare.net/irenella89/test-driven-why-not" target="_blank">Test driven, why not?</a> </strong> from <strong><a href="http://www.slideshare.net/irenella89" target="_blank">irenella89</a></strong></div>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/03/we-lean/">We Lean</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2014/03/we-lean/feed/</wfw:commentRss>
+		<slash:comments>2</slash:comments>
+		</item>
+		<item>
+		<title>Working at Uxebu</title>
+		<link>http://www.uxebu.com/blog/2014/01/working-in-uxebu/</link>
+		<comments>http://www.uxebu.com/blog/2014/01/working-in-uxebu/#comments</comments>
+		<pubDate>Fri, 31 Jan 2014 09:05:02 +0000</pubDate>
+		<dc:creator><![CDATA[Gaganjot]]></dc:creator>
+				<category><![CDATA[development tools]]></category>
+		<category><![CDATA[dojo]]></category>
+		<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[tdd]]></category>
+		<category><![CDATA[uxebu]]></category>
+
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=2839</guid>
+		<description><![CDATA[<p>Hello!! Myself Gaganjot, am a student of Informatics in TU Munich. I joined Uxebu as a software developer (working student), having motivation and enthusiasm to work in Web Development. While in Uxebu When I started I was a novice to NodeJS, which was at the core of Uxebu. But having the confidence to learn it [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/01/working-in-uxebu/">Working at Uxebu</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>Hello!! Myself Gaganjot, am a student of Informatics in TU Munich. I joined Uxebu as a software developer (working student), having motivation and enthusiasm to work in Web Development.</p>
+<h2>While in Uxebu</h2>
+<p>When I started I was a novice to <a href="http://nodejs.org/" target="_blank">NodeJS</a>, which was at the core of Uxebu. But having the confidence to learn it and later realising that Uxebu has bunch of great developers with whom I will be working along, I was quickly into somewhat &#8216;professional&#8217; web-development (compared to only having done small University projects).</p>
+<p>During my first task only, I learnt many tools and techniques which are used in today&#8217;s software industry. The most important thing, which is very important in success of every startup is its work culture. And talking about Uxebu, I must say that how it should be; because having regular contact and communication with other members of the company is as important as having good product/service.<br />
+I also came to know about the difference between ONLY WRITING the code and WRITING the code. And I could sense the analogy between Uxebu&#8217;s coding practises and the following quotation:<br />
+&#8220;Any fool can write code that a computer can understand. Good programmers write code that humans can understand. -Martin Fowler&#8221;<br />
+<span id="more-2839"></span></p>
+<p>I came to know that how your work could be beneficial to others if written abiding certain pre-decided rules (like committing code often, better renaming, modularising, refactoring, writing simple-small-dedicated functions to be reused, etc) and that is what I think high quality development is, writing code which is more understandable, manageable and easily-maintainable, which doesn&#8217;t need any documentation (at-least for developers).<br />
+Being a working student I didn&#8217;t spend my major time in company, but then also the time which I spend here is worth value for a student having software-development (after sometime I would say writing quality software) as a long-term goal. For putting this into habit, we regularly have coding-dojo sessions at the start of the day. Having Coding Dojo was a completely new experience for me, where I learnt about the <a href="http://www.cs.pomona.edu/classes/cs121/supp/williams_prpgm.pdf" target="_blank">pair-programming</a>, <a href="http://www.cs.helsinki.fi/u/luontola/tdd-2009/ext/ObjectCalisthenics.pdf" target="_blank">code calisthenics</a>, <a href="http://www.codinghorror.com/blog/2006/05/code-smells.html" target="_blank">avoiding code-smells</a> and <a href="http://en.wikipedia.org/wiki/Code_refactoring" target="_blank">refactoring</a>.<br />
+This is not all which I have to tell, as the main organ of Uxebu quality-development is something else. This was <a href="http://www.agiledata.org/essays/tdd.html" target="_blank">TDD (Test Driven Development)</a>, which initially sounds to me really crazy until I knew the essence of it. After having seen TDD used in some of the projects and then putting TDD into practise I realised what is meant by maintainable software, how TDD can be used to validate the code and then, not the last, but TDD deriving the design of the software too.</p>
+<p>Putting it altogether, it was a great experience being in Uxebu and working in Germany.</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/01/working-in-uxebu/">Working at Uxebu</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2014/01/working-in-uxebu/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Say hi to &#8220;Orbit&#8221; / creating Bonsai content in the browser</title>
+		<link>http://www.uxebu.com/blog/2012/10/say-hi-to-orbit-creating-bonsai-content-in-the-browser/</link>
+		<comments>http://www.uxebu.com/blog/2012/10/say-hi-to-orbit-creating-bonsai-content-in-the-browser/#comments</comments>
+		<pubDate>Wed, 10 Oct 2012 13:48:51 +0000</pubDate>
+		<dc:creator><![CDATA[Nikolai Onken]]></dc:creator>
+				<category><![CDATA[BonsaiJS]]></category>
+		<category><![CDATA[development tools]]></category>
+
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=2574</guid>
+		<description><![CDATA[<p>We&#8217;re really excited to announce the first public release of our editor &#8220;Orbit&#8221; which allows you to play with Bonsai and create content without having to do any setup. Before I dive a little more into the details, go ahead and take it for a testdrive at http://orbit.bonsaijs.org Why? We strongly believe that we need [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2012/10/say-hi-to-orbit-creating-bonsai-content-in-the-browser/">Say hi to &#8220;Orbit&#8221; / creating Bonsai content in the browser</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>We&#8217;re really excited to announce the first public release of our editor &#8220;Orbit&#8221; which allows you<br />
+to play with Bonsai and create content without having to do any setup.</p>
+<p>Before I dive a little more into the details, go ahead and take it for<br />
+a testdrive at <a href="http://orbit.bonsaijs.org">http://orbit.bonsaijs.org</a></p>
+<p><a href="http://orbit.bonsaijs.org"><img class="alignleft size-full wp-image-2575" title="orbit" src="/wp-content/uploads/2012/10/orbit.png" alt="" width="906" height="570" /></a></p>
+<p><span id="more-2574"></span></p>
+<p><strong>Why?</strong></p>
+<p>We strongly believe that we need better tools for creating visual content for the web. In a mobile and touch based world the current tooling paradigms just don&#8217;t cut it anymore. With <a href="http://pixelplant.com">http://pixelplant.com</a>, the online Flash to HTML5 conversion, we help the Flash community to move to HTML5 without loosing all their assets and work. With Orbit, we now are taking the first step towards providing the tools needed to create beautiful content straight in the browser.</p>
+<p><strong>Orbit tour</strong></p>
+<p>Orbit provides you with a coding and preview panel so that you can see what you create without having to go through<br />
+the hustle of reloading your browser.</p>
+<p><a href="http://orbit.bonsaijs.org"><img class="alignleft size-full wp-image-2586" title="orbit3" src="/wp-content/uploads/2012/10/orbit3.png" alt="" width="1012" height="534" /></a></p>
+<p>Once you start writing code you will see how the url bar gets updated so that<br />
+you can easily share your ideas with other people.</p>
+<p><a href="http://orbit.bonsaijs.org"><img class="alignleft size-full wp-image-2580" title="orbit1" src="/wp-content/uploads/2012/10/orbit1.png" alt="" width="382" height="333" /></a></p>
+<p>To help you getting started we have integrated the Bonsai Cheatsheet as well and added context sensitive search.<br />
+So when you start typing the word Circle, the help will jump to the part explaining how to create circles.</p>
+<p><a href="http://orbit.bonsaijs.org"><img class="alignleft size-full wp-image-2581" title="orbit2" src="/wp-content/uploads/2012/10/orbit2.png" alt="" width="1418" height="613" /></a></p>
+<p>We hope that this will make it easier for you to get started with Bonsai and give you a jumpstart into creating beautiful content for the web. We are looking forward to the upcoming features and as always, feel free to contact us if we can help converting your Flash content to HTML5.</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2012/10/say-hi-to-orbit-creating-bonsai-content-in-the-browser/">Say hi to &#8220;Orbit&#8221; / creating Bonsai content in the browser</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2012/10/say-hi-to-orbit-creating-bonsai-content-in-the-browser/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Improve your product: Make better tutorials</title>
+		<link>http://www.uxebu.com/blog/2012/01/tutorials/</link>
+		<comments>http://www.uxebu.com/blog/2012/01/tutorials/#comments</comments>
+		<pubDate>Wed, 11 Jan 2012 19:00:55 +0000</pubDate>
+		<dc:creator><![CDATA[David Pfahler &#38; Stephan Bönnemann]]></dc:creator>
+				<category><![CDATA[development tools]]></category>
+
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=2238</guid>
+		<description><![CDATA[<p>This is a guest post by David Pfahler and Stephan Bönnemann of keeplook.in. Total reading time: 3:57min (based on Alex) When you try to learn a new programming language or work with a new framework for the first time you&#8217;re likely to google something along the lines of &#8220;How to &#8230;&#8221; or &#8220;framework X tutorial&#8221;. [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2012/01/tutorials/">Improve your product: Make better tutorials</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><em>This is a guest post by David Pfahler and Stephan Bönnemann of <a title="keeplook.in" href="http://keeplook.in">keeplook.in</a>.</em></p>
+<p><strong>Total reading time: 3:57min (based on <a href="http://uxebu.com/blog/wp-content/uploads/2012/01/Improve-your-product_-Make-better-tutorials.mp3">Alex</a>)</strong></p>
+<p>When you try to learn a new programming language or work with a new framework for the first time you&#8217;re likely to google something along the lines of &#8220;How to &#8230;&#8221; or &#8220;framework X tutorial&#8221;. As a developer you might also be the one writing how-to articles for your own creations. If you&#8217;re interested in turning your 569-page long, textbook-style manual in to a golden asset of yours, please read on.</p>
+<p><span id="more-2238"></span></p>
+<p>Your 20th century, worn out screencast series isn&#8217;t that fancy either&#8230;</p>
+<p>Some users just get started with programming or using a framework (or whatever your product might be). Not everybody is a pro. For the rest of us tutorials are a low-barrier entry to your creation.<br />
+Furthermore, thinking about tutorials early on will force you to avoid complexity. For example, if you can&#8217;t explain a concept in simple terms, you should probably think about it again. By putting yourself in the shoes of your prospective customer you help yourself to create a better product in the end.</p>
+<h2>So how should an amazing tutorial look?</h2>
+<p>The idea behind most tutorials is to show the reader a step by step protocol of how you, the developer, would do it. However, what the user really wants is to learn, not to watch the presenter using his evil vim skills to confuse the overwhelmed newbie who is busy trying to get off the ground. One would learn way faster if she was live coding and seeing the results as she writes the code herself.<br />
+I&#8217;d love to see more editors in the browser used for this purpose. For example, the <a href="http://www.codecademy.com/">codecademy</a> uses an in browser editor and console to teach programming to beginners.</p>
+<p><a href="http://uxebu.com/blog/wp-content/uploads/2012/01/codecademy.png"><img class="aligncenter size-medium wp-image-2255" title="Codecademy" src="http://uxebu.com/blog/wp-content/uploads/2012/01/codecademy-300x190.png" alt="Codecademy Screenshot" width="300" height="190" /></a></p>
+<h2>How to use multi media the right way</h2>
+<p>Screencasts are a popular tool when it comes to tutorials. However, they are not interactive, so the user can only watch but not try for herself unless she pauses the video and switches to a text editor, checks the results and repeats. Also, you can&#8217;t copy and paste from a screencast. We can do better.<br />
+Video can transport emotions. So I think it should be used for just that. How about a short introduction to the topic one is about to tackle? Just ten seconds of someone talking to you &#8220;face-to-face&#8221; make the whole experience more personal. Audio can do a great job at communicating a lot of content without requiring a lot of screen estate. Carrying on with the last example, the person who gives the introduction should also be the speaker of the tutorial. Additionally, text can help with copy &amp; paste issues, hyperlinking to other resources such as the documentation, etc.</p>
+<h2>Positive feedback loops vs. frustration</h2>
+<p>Most tutorials that I encountered where quite frustrating. The reason being that there was no positive feedback loop supporting my will to learn more. For example, I never knew how long it will take to complete a certain tutorial. This sometimes leads to me not even starting because it gives me a psychological excuse.</p>
+<blockquote><p><em>&#8220;I probably won&#8217;t be able to complete it before lunch, anyways.&#8221;</em></p>
+<p>vs.</p>
+<p><em>&#8220;Ah nice! This is going to be done before lunch.&#8221;</em></p></blockquote>
+<p>So, in your tutorials please tell the user how much time she has to invest. As this forces you to think about the structure and length of your lessons, your whole tutorial will benefit.</p>
+<p>The <a href="http://www.khanacademy.org/">khan academy</a> does a great job at keeping its students motivated with occasional achievement badges. People want to be rewarded when they take the effort to learn something new. Tutorials are a tool for just that. So please treat it like learning. Progress can be rewarded constantly for example with points or a virtual currency that one earns. I think we can learn a lot from games in regard to how they keep people engaged.</p>
+<p><a href="http://uxebu.com/blog/wp-content/uploads/2012/01/khan.png"><img class="aligncenter size-medium wp-image-2256" title="Khan Academy" src="http://uxebu.com/blog/wp-content/uploads/2012/01/khan-300x99.png" alt="Khan Academy Screenshot" width="300" height="99" /></a></p>
+<p>If you have some good examples, please let me know in the comments.</p>
+<h2>Summary</h2>
+<p>In the end the user is the reason for your creation, product or project. Thinking about your tutorials early on is a good way to ensure you&#8217;re producing something of value. Because your users are the ones who will ask you questions about your project, will buy your products (if they are for sale), submit pull-requests and talk about your creation in public, a great set of tutorials will benefit you the most.</p>
+<p><strong>tl;dr</strong><br />
+Don&#8217;t spend your budget on a social media campaign run by an evil marketing firm. Spend it on your tutorials. It&#8217;s the best marketing there is.</p>
+<p><strong>Resources:</strong><br />
+<a href="http://www.codecademy.com"><strong>codecademy</strong></a>: Nice editor in the browser. Positive feedback loop.<br />
+<a href="http://www.khanacademy.org"><strong>khan academy</strong></a>: Eleborate achievement system. Also, nice for improving your general knowledge.<br />
+<a href="http://learn.knockoutjs.com"><strong>knockoutJS</strong></a>: Editor in the browser, progress saved in localStorage and it can fix your code.<br />
+<a href="http://tryhaskell.org/"><strong>Try Haskell</strong></a>: Interactive console for learning/trying Haskell.<br />
+<a href="http://layerstyles.org/"><strong>Layer Styles</strong></a>: Play around with the parameters and get an intuitive feeling for the css behind it. That&#8217;s the power of live editing.</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2012/01/tutorials/">Improve your product: Make better tutorials</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2012/01/tutorials/feed/</wfw:commentRss>
+		<slash:comments>1</slash:comments>
+<enclosure url="http://uxebu.com/blog/wp-content/uploads/2012/01/Improve-your-product_-Make-better-tutorials.mp3" length="1900391" type="audio/mpeg" />
+		</item>
+		<item>
+		<title>EmbedJS 0.2 and AMD</title>
+		<link>http://www.uxebu.com/blog/2011/10/embedjs-0-2-and-amd/</link>
+		<comments>http://www.uxebu.com/blog/2011/10/embedjs-0-2-and-amd/#comments</comments>
+		<pubDate>Mon, 17 Oct 2011 15:43:16 +0000</pubDate>
+		<dc:creator><![CDATA[Jens Arps]]></dc:creator>
+				<category><![CDATA[development tools]]></category>
+		<category><![CDATA[HTML5]]></category>
+		<category><![CDATA[html5apps]]></category>
+		<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[mobile]]></category>
+		<category><![CDATA[development]]></category>
+		<category><![CDATA[dojo]]></category>
+		<category><![CDATA[embedjs]]></category>
+
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=1843</guid>
+		<description><![CDATA[<p>During JSConf.eu, we released EmbedJS 0.2. That release was mainly about a fundamental architectural change: the move to the AMD pattern for our features. Let me explain why we decided to do this, why we think this is a big step forward and what this means for the user. Modules AMD stands for &#8220;Asynchronous Module [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2011/10/embedjs-0-2-and-amd/">EmbedJS 0.2 and AMD</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>During JSConf.eu, we released EmbedJS 0.2. That release was mainly about a fundamental architectural change: the move to the AMD pattern for our features. Let me explain why we decided to do this, why we think this is a big step forward and what this means for the user.<br />
+<span id="more-1843"></span></p>
+<h2>Modules</h2>
+<p>AMD stands for &#8220;Asynchronous Module Definition&#8221;. So, what are modules? I&#8217;ll quote the definition from the <a href="http://wiki.commonjs.org/wiki/Modules/1.1" target="_blank">CommonJS Module specification</a>, as it describes it very well:</p>
+<blockquote><p>This specification addresses how modules should be written in order to be interoperable among a class of module systems that can be both client and server side, secure or insecure, implemented today or supported by future systems with syntax extensions. These modules are offered privacy of their top scope, facility for importing singleton objects from other modules, and exporting their own API.</p></blockquote>
+<p>So, modules are isolated parts of code that live in their own scope and are kind of self-contained. Well, that is pretty much how we see the individual Features in EmbedJS – we made our feature implementations as small as possible and reduced dependencies as much as possible. Many of EmbedJS&#8217; features are also browser-independent, so why not make it possible to use some of the tools in a non-browser environment?</p>
+<p>(If you want to learn more on modules and why we need them, I recommend <a href="http://twitter.com/briancavalier" target="_blank">@briancavalier</a>&#8216;s <a href="http://briancavalier.com/presentations/pgh-js-amd-10-2011/" target="_blank">presentation on modules</a>.)</p>
+<h2>Features in EmbedJS</h2>
+<p>So far, I didn&#8217;t really explain what I mean with &#8220;Features&#8221;, so let me do another quote, this time from the <a href="http://uxebu.github.com/embedjs/" target="_blank">Project Page</a>:</p>
+<blockquote><p>EmbedJS uses the concept of features: Functionalities are split up into features, as fine-grained as possible, and each feature might have multiple implementations.</p></blockquote>
+<p>Our Features are kinda small and contain only few methods, sometimes even just one. The asyc-promise feature, for example, will get you Promises, and the transport-jsonp feature will get you a method for pull in data via jsonp – and that&#8217;s it.  If multiple methods are contained within one feature, this is because they are too closely related to each other to split them up, like the html-class feature, which contains the <code class="codecolorer text default"><span class="text">addClass</span></code>, <code class="codecolorer text default"><span class="text">removeClass</span></code>, <code class="codecolorer text default"><span class="text">toggleClass</span></code> and <code class="codecolorer text default"><span class="text">hasClass</span></code> methods.</p>
+<h2>AMD vs CommonJS Modules 1.1</h2>
+<p>Now that we knew modules were the way to go, there was another, quite important question to solve: There are two common patterns for modules, so which one do we want to apply? One pattern is described in the above mentioned CommonJS Wiki, the other pattern is described in the <a href="https://github.com/amdjs/amdjs-api/wiki/AMD" target="_blank">AMD wiki</a>.</p>
+<p>Well, there have been <a href="http://tagneto.blogspot.com/2011/04/on-inventing-js-module-formats-and.html" target="_blank">some</a> <a href="http://unscriptable.com/index.php/2011/09/30/amd-versus-cjs-whats-the-best-format/" target="_blank">blog</a> <a href="http://blog.millermedeiros.com/2011/09/amd-is-better-for-the-web-than-commonjs-modules/" target="_blank">posts</a> lately that compare the pros and cons of each of them, so I don&#8217;t want to repeat all of this – but I&#8217;m hiving a similar tendency towards AMD. Besides this, there was another big reason to go with AMD: Remember, EmbedJS is based on the <a href="http://dojotoolkit.org/" target="_blank">Dojo Toolkit</a>, and it&#8217;s a <a href="http://dojofoundation.org/" target="_blank">Dojo Foundation Project</a> – and we hope that the efforts that went into making EmbedJS might flow back into the Dojo Toolkit one day. And as the Dojo Toolkit uses the AMD approach, the decision was quickly made to do so as well.</p>
+<h2>Implications for EmbedJS</h2>
+<p>There are several huge benefits for EmbedJS in using the AMD approach. The most noteworthy surely is the ease-of-use for developers. In your code, when you find you want an EmbedJS method, you <a href="http://uxebu.github.com/embedjs/docs/" target="_blank">look up the feature name</a> that provides this method, add it to the require statement and there you go. Man, easy.</p>
+<p>A second important thing is that EmbedJS now plays really nice with AMD based projects. In fact, you could see EmbedJS now as a collection of small useful modules, that can be easily integrated – and also easily extended.</p>
+<p>The third major benefit is that we can now get rid of all the custom tools we built around EmbedJS – you can load features with any AMD loader (though we use and recommend RequireJS) and build it with any AMD optimizer/builder (we recommend r.js).</p>
+<p>Let&#8217;s have an extra word on</p>
+<p><strong>Building</strong></p>
+<p>It was always possible with EmbedJS to create a custom build that would contain only the features you wanted/needed in your project. But, you had to use our build tool that we created. And learning &amp; using Yet-Another-Build-Tool™ is always… well, let&#8217;s just say it would be cool to avoid it (and, not to forget, so is maintaining it). We did a lot to improve that, we created a GUI that allowed you to just &#8220;click together&#8221; the features you wanted, and we worked on a dynamic loader that would ease development. But still, the situation was far from ideal, and people just ended up going for our ready-made &#8220;kitchensink&#8221; builds that contained <em>all</em> of the features.</p>
+<p>Now, we still provide those ready-made builds that contain only the implementations for a given platform (and are stripped of require/define calls), but I really hope that using the AMD approach and using an AMD optimizer to deploy will become the more adopted style.</p>
+<h2>Q: Cross-target? A: The Feature Plugin</h2>
+<p>One goal of EmbedJS is to allow for easy cross-device development. We got rid of run-time branching but instead went for an approach that held the different implementations for a given feature in separate files, so that one only has to deploy the actually needed code to a given device – and not all the alternate implementations, that sit useless in the device&#8217;s memory and never get used. We needed to achieve that with &#8220;in-house&#8221; means provided by the AMD approach. Lucky us, there&#8217;s the concept of <a href="https://github.com/amdjs/amdjs-api/wiki/Loader-Plugins" target="_blank">loader-plugins</a>, and so I created a <a href="https://github.com/jensarps/AMD-feature" target="_blank">feature-plugin for AMD loaders</a>. The idea is simple yet effective: You create an implementation map that maps a feature name to an implementation, and if there are multiple implementations, you supply tests that tells the plugin which feature to use.</p>
+<p>When you&#8217;re ready to deploy, you have two choices: I f you really don&#8217;t know on what target your code is going to end up, you can use the dynamic implementation map containing the tests for the optimizer, and you&#8217;ll get a build that contains all of the available implementations. Then, during runtime, the feature plugin will run the tests and load the specific implementation. But, if you <em>do</em> know what target your code will run on, you provide a specific implementation map that doesn&#8217;t contain tests but directly maps to the according implementations, and you will only have those in your built file.</p>
+<h2>Synopsis</h2>
+<p>AMD is exactly what we needed to make EmbedJS more what we want it to be – an easy to use JavaScript toolbox that is especially handy for cross-target scenarios such as cross-platform mobile development. So, please don&#8217;t hesitate and check it out on Github, read the project page and check out the examples!</p>
+<p>&nbsp;</p>
+<p><strong>Resources / Further Reading</strong></p>
+<ul>
+<li><a href="https://github.com/uxebu/embedjs" target="_blank">EmbedJS on GitHub</a></li>
+<li><a href="http://uxebu.github.com/embedjs/" target="_blank">EmbedJS Project Page</a></li>
+<li><a href="http://uxebu.github.com/embedjs/docs/" target="_blank">EmbedJS API Docs</a></li>
+<li><a href="https://github.com/jensarps/AMD-feature" target="_blank">AMD-Feature plugin</a></li>
+<li><a href="https://github.com/amdjs/amdjs-api/wiki" target="_blank">AMD Wiki</a></li>
+<li><a href="http://wiki.commonjs.org/wiki/CommonJS" target="_blank">CommonJS Wiki</a></li>
+</ul>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2011/10/embedjs-0-2-and-amd/">EmbedJS 0.2 and AMD</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2011/10/embedjs-0-2-and-amd/feed/</wfw:commentRss>
+		<slash:comments>4</slash:comments>
+		</item>
+		<item>
+		<title>My console.log() strategy</title>
+		<link>http://www.uxebu.com/blog/2011/09/my-console-log-strategy/</link>
+		<comments>http://www.uxebu.com/blog/2011/09/my-console-log-strategy/#comments</comments>
+		<pubDate>Fri, 02 Sep 2011 10:00:36 +0000</pubDate>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+				<category><![CDATA[development tools]]></category>
+		<category><![CDATA[frontend engineering]]></category>
+		<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[console.log]]></category>
+
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=1723</guid>
+		<description><![CDATA[<p>This time I feel like sharing my (maybe) strange looking console.log() strategy, but I find it very effective, read on to learn why. If I can&#8217;t debug, for whatever reason and have to fall back to console.log()s you normally see my code looking like this: console.log&#40;&#34;i = &#34;, i&#41;; &#160; &#160; if &#40;i==0&#41;&#123; console.log&#40;1&#41;; &#160; [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2011/09/my-console-log-strategy/">My console.log() strategy</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>This time I feel like sharing my (maybe) strange looking <code class="codecolorer text default"><span class="text">console.log()</span></code> strategy, but I find it very effective, read on to learn why.<br />
+<span id="more-1723"></span></p>
+<p>If I can&#8217;t debug, for whatever reason and have to fall back to <code class="codecolorer text default"><span class="text">console.log()</span></code>s you normally see my code looking like this:</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">console.<span style="color: #660066;">log</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">&quot;i = &quot;</span><span style="color: #339933;">,</span> i<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+&nbsp; &nbsp; <span style="color: #000066; font-weight: bold;">if</span> <span style="color: #009900;">&#40;</span>i<span style="color: #339933;">==</span><span style="color: #CC0000;">0</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span><br />
+console.<span style="color: #660066;">log</span><span style="color: #009900;">&#40;</span><span style="color: #CC0000;">1</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #006600; font-style: italic;">// Do something here</span><br />
+&nbsp; &nbsp; <span style="color: #009900;">&#125;</span> <span style="color: #000066; font-weight: bold;">else</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #006600; font-style: italic;">// Do else </span><br />
+console.<span style="color: #660066;">log</span><span style="color: #009900;">&#40;</span><span style="color: #CC0000;">2</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+&nbsp; &nbsp; <span style="color: #009900;">&#125;</span><br />
+console.<span style="color: #660066;">log</span><span style="color: #009900;">&#40;</span><span style="color: #CC0000;">3</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></div>
+<p>You can see two things here:</p>
+<ul>
+<li>the first line prints out a variable&#8217;s value, simple I guess</li>
+<li>all <code class="codecolorer text default"><span class="text">console.log()</span></code>s are not indented at all</li>
+</ul>
+<p>Let me touch on the &#8220;not indenting&#8221; first.<br />
+I don&#8217;t like to indent <code class="codecolorer text default"><span class="text">console.log()</span></code>s because this just makes the code look ugly, and that is intentional, because <code class="codecolorer text default"><span class="text">console.log()</span></code> normally just doesn&#8217;t belong in the code. By making the code look ugly I am quickly forced to remove them again, the latest I will stumble on it before committing, because I never commit without looking at the diff.<br />
+If I ever forget to remove the <code class="codecolorer text default"><span class="text">console.log()</span></code> I can be sure that a coworker will be annoyed by it and hopefully either ping me or remove it. But I am trying my best not to forget it :).</p>
+<h2>Komodo macro</h2>
+<p>Back to the first <code class="codecolorer text default"><span class="text">console.log()</span></code> you see in the code example up there, that one is actually one keystroke away for me, I have hacked a simple macro in my editor (<a href="http://www.activestate.com/komodo-edit">Komodo Edit</a>) that takes the text I selected and creates a <code class="codecolorer text default"><span class="text">console.log()</span></code> in the line below throwing out this variable and it&#8217;s value.<br />
+This little script looks like this:</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #003366; font-weight: bold;">var</span> s <span style="color: #339933;">=</span> ko.<span style="color: #660066;">views</span>.<span style="color: #660066;">manager</span>.<span style="color: #660066;">currentView</span>.<span style="color: #660066;">scimoz</span><span style="color: #339933;">;</span><br />
+<span style="color: #003366; font-weight: bold;">var</span> t <span style="color: #339933;">=</span> s.<span style="color: #660066;">selText</span><span style="color: #339933;">;</span><br />
+komodo.<span style="color: #660066;">doCommand</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'cmd_end'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+komodo.<span style="color: #660066;">doCommand</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'cmd_newlineBare'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<br />
+<span style="color: #006600; font-style: italic;">// Only if something was selected put it there.</span><br />
+t <span style="color: #339933;">=</span> t <span style="color: #339933;">?</span> <span style="color: #3366CC;">&quot;'&quot;</span><span style="color: #339933;">+</span>t<span style="color: #339933;">+</span><span style="color: #3366CC;">&quot; = ', &quot;</span><span style="color: #339933;">+</span>t<span style="color: #339933;">+</span><span style="color: #3366CC;">&quot;&quot;</span> <span style="color: #339933;">:</span> <span style="color: #3366CC;">&quot;arguments&quot;</span><span style="color: #339933;">;</span><br />
+s.<span style="color: #660066;">insertText</span><span style="color: #009900;">&#40;</span>s.<span style="color: #660066;">currentPos</span><span style="color: #339933;">,</span> <span style="color: #3366CC;">&quot;console.log(&quot;</span><span style="color: #339933;">+</span>t<span style="color: #339933;">+</span><span style="color: #3366CC;">&quot;);&quot;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<br />
+<span style="color: #006600; font-style: italic;">// Set the cursor inside the &quot;()&quot; at the end, so we can add</span><br />
+<span style="color: #006600; font-style: italic;">// parameters</span><br />
+komodo.<span style="color: #660066;">doCommand</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'cmd_end'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+komodo.<span style="color: #660066;">doCommand</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'cmd_left'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+komodo.<span style="color: #660066;">doCommand</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'cmd_left'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></div>
+<p>Just create a new macro with it and attach a key-combination to it and logging a variable is just one key stroke away.</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2011/09/my-console-log-strategy/">My console.log() strategy</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2011/09/my-console-log-strategy/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+	</channel>
+</rss>

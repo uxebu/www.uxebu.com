@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>uxebu &#187; testing</title>
+	<atom:link href="http://www.uxebu.com/blog/category/testing/feed/" rel="self" type="application/rss+xml" />
+	<link>http://www.uxebu.com</link>
+	<description>The first JavaScript-only development and consulting company</description>
+	<lastBuildDate>Thu, 30 Jul 2015 09:10:24 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=4.1.8</generator>
+	<item>
+		<title>The value of manual testing</title>
+		<link>http://www.uxebu.com/blog/2015/01/value-manual-testing/</link>
+		<comments>http://www.uxebu.com/blog/2015/01/value-manual-testing/#comments</comments>
+		<pubDate>Mon, 12 Jan 2015 13:29:51 +0000</pubDate>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+				<category><![CDATA[development tools]]></category>
+		<category><![CDATA[frontend engineering]]></category>
+		<category><![CDATA[testing]]></category>
+
+		<guid isPermaLink="false">http://www.uxebu.com/?p=6669</guid>
+		<description><![CDATA[<p>I refactored the reactjs implementation of todoMVC. And when I was done I realized that going through the process made me learn a lot especially about testing. Let me lay out where integration tests and manual tests played their roles in this process. The purpose When preparing for a munichjs talk I gave last week [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2015/01/value-manual-testing/">The value of manual testing</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><img src="http://www.uxebu.com/wp-content/uploads/2015/01/beautiful-150x150.jpg" alt="beautiful" width="150" height="150" class="alignright size-thumbnail wp-image-6683" />I <a href="https://github.com/wolframkriesing/todomvc/tree/react-componentize/examples/react/js">refactored the reactjs implementation of todoMVC</a>. And when I was done I realized that going through the process made me learn a lot especially about testing. Let me lay out where integration tests and manual tests played their roles in this process.<br />
+<span id="more-6669"></span></p>
+<h2>The purpose</h2>
+<p>When preparing for a <a href="http://slides.com/wolframkriesing/react-js-dom-as-it-was-meant#/">munichjs talk</a> I gave last week about reactjs (and testing) I tried to find a common task that hopefully everyone had at least heard about before. <a href="http://todomvc.com/">TodoMVC</a> seemed perfect, which is basically one specification and many implementations in all kinds of different web frameworks, made to compare them.<br />
+My plan was to use the commonly known todoMVC project to transfer all the learnings from a bigger reactjs project that we worked on the first half of 2014. Choosing todoMVC I thought would make it easier to do so. But it needed some refactoring to apply the learnings we had made in that big project. In the end I think it worked out quite well.</p>
+<p>I am the testing-guy. Maybe a bit extreme at times, but it gives me a good feeling. And since I know I don’t know much yet, I like the excessive path at times to learn what the middle way might be.<br />
+Approaching the todoMVC app, I looked for the tests first. I didn’t find any. Alright, that means I will have to make the effort to ensure that my refactorings will keep the app working as expected. My refactorings are serving a very special purpose. I want to show that react doesn’t require to deal with state for implementing business logic. It pushes you to a clean separation of concerns especially between data and UI. And almost for free comes a good testability.<br />
+Bottom line is to prove the claim „reactjs &#8211; DOM as it was intended“, as I like to phrase it.</p>
+<h2>Refactoring, 3, 2, 1, go</h2>
+<p>I know where I want the code to head. The refactoring was a mix of <a href="http://martinfowler.com/articles/workflowsOfRefactoring/#comprehension">comprehension refactoring</a> and application of the <a href="http://programmer.97things.oreilly.com/wiki/index.php/The_Boy_Scout_Rule">boy scout rule</a>.<br />
+As you can see in <a href="https://github.com/wolframkriesing/todomvc/commits/react-componentize">my commit history</a>, I like to take tiny steps (baby steps) and almost every time I make a too big step I undo later anyways.<br />
+Refactoring is one thing, but knowing that I didn’t break anything is another, and that is where we normally apply testing. In a well-tested application we can use some kind of coverage tool to tell us how well the app is covered and then we know to which degree we can rely on the existing tests or if we have to write some more.<br />
+In an completely untested app, as it was the case here, we have to decide how to approach a verifiable app. My first thought was, I write some integration tests which click through the UI and I verify some results. I would use selenium or an alike tool for it and I might be fine. Thinking that through it seemed too much effort, since I didn’t plan to invest more than a day in this, so I didn&#8217;t. Though two days later I thought of using a golden master comparison of the complete web site content after every interaction, that may would have been a much faster approach, but I didn’t think of it at this point.<br />
+There was another thing that actually made me hesitate to write some automated integration tests at that point. It was my lack of knowledge of what the todoMVC app really does. Yeah, ok it does some todo list handling, but which features exactly I didn’t know. So I decided to go for a manual testing approach. I can hear some people scream: „What, no automated tests?“ and I say „No“. And I tell you why. </p>
+<h2>Manual testing</h2>
+<p>Actually I am a big fan and strong believer in automated tests, it’s the only way you will get reliable and reproducible results. And I know that from experience. It was painful when we did only manual testing. Actually this painful experience led us  at uxebu to become strong believers and learners in the testing culture.</p>
+<p>It is very tempting to do the first couple of refactorings only supported by manual tests. There is no test setup time, you feel to become productive very quickly. And sticking to small refactorings gives a sense of security.<br />
+And even though I didn’t feel comfortable with this in the beginning, I learned about the value throughout the process. So I started out just doing manual tests. In the beginning there was this voice in my head „automate the tests!“ which I didn’t listen to. In the first place I didn’t listen to it because I thought my refactoring might just be small things, and won’t take more than one or two hours (which turned out to be wrong). Pretty quickly I realized that my manual tests do not only serve the purpose of verifying that the app works. I learned a lot about the app and the features it provides. As I said in the beginning, I didn’t read the todoMVC spec, and tbh I also didn’t plan to do so. I love exploring apps by refactoring them (I successfully did that the first time I refactored the <a href="https://github.com/emilybache/Tennis-Refactoring-Kata">Tennis Kata</a> and am hooked since).<br />
+I started to create kind of a rhythm of what to test after every refactoring step. In combination with the deeper learnings about the source code I adapted this test list. I found out that I can also manipulate the todo-items even when a filter is applied, so I added that to my (manual) test list.<br />
+After a couple of hours in and quite a number of refactoring steps, I realized that my test list is stabilizing and I felt it was the right time to create automated tests. And than I cheated. At this time I stopped refactoring, since I got pretty close to where I needed the code to be for my talk. Until here I actually just moved around UI logic code. I only touched a small business logic part. Remember my main purpose here was to show a certain aspect of reactjs, I got there.</p>
+<h2>Explore, stabilize, commoditize</h2>
+<p>I thought I would feel pretty bad about the result of my pure manual testing approach, but to be honest I don’t. After <a href="http://dannorth.net/">Dan North</a> implanted <a href="http://www.slideshare.net/slideshow/embed_code/14731053?startSlide=16">„explore, stabilize, commoditize“</a> into my brain last year I feel like this applies in more places than expected. So it does here too. I optimized for discovery first. I tried to discover all the features of this app, I „explored“. By repeating this process often I got to a stabilized set of tests that now need to be commoditized, which means automated in this case.<br />
+Starting the automation of the tests just now, does also give me a way better feeling of what tests I should write. What groups of test sets I create, what features are important and where do I might need to put less focus. I basically learned about the app by using (and refactoring) it. From time to time I also opened the original todoMVC app (without the refactorings) to compare that I didn’t break a certain thing.<br />
+This was the perfect app to do this kind of explorative testing. I believe that we should take the time to manual test before most of our refactoring work, especially when the apps have UIs. And this manual tests should serve as the base for what integration tests to write for legacy code, it shall not be the excuse to not automate the tests. I gained much more confidence in the feature set of the todoMVC app, I even learned about edge cases that I hadn’t thought would exist. I can perfectly write tests for the app now. I feel I can give estimated guesses about when an integration test can be deleted because it’s feature set has been validated by the according unit test. Having only the necessary set of integration tests left is our final goal anyways! Right?</p>
+<h2>Integration tests and false believe</h2>
+<p>One issue still stands out for me. I experience a lot when working with legacy apps. It is how and when to question the existing set of tests. For one you don’t want to miss a test that might lead to breaking part of the app and two you also don’t want to spend endless amount of time writing new tests that might not add real value. (I guess I should finally read <a href="http://www.informit.com/store/working-effectively-with-legacy-code-9780131177055">Michael Feathers’ book</a>).<br />
+In the web environment I believe it is even more complicated to confidently build the safety net around web apps. The number of technologies (HTML, CSS, JavaScript, various OSes, browsers, …) involved just makes it even harder. On the one hand there needs to be sufficient tooling, which partly doesn’t exist yet or is too hard to setup and maintain and on the other hand applying the right strategies is not always easy. </p>
+<p>So, even when a good set of (integration) tests exists don’t let the false sense of security pull you onto the dark side. Do always question your set of tests, verify the requirements, environments the app runs in and expectations of the customers as soon as you can. You will not only learn more about the app but your safety net and the strategies how to expand it will improve. Testing is one of those endless learnings that a software craftsman should be doing. </p>
+<p>Keep it up and stay flexible!</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2015/01/value-manual-testing/">The value of manual testing</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2015/01/value-manual-testing/feed/</wfw:commentRss>
+		<slash:comments>2</slash:comments>
+		</item>
+	</channel>
+</rss>

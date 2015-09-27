@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>uxebu &#187; Georg Lang</title>
+	<atom:link href="http://www.uxebu.com/blog/author/george/feed/" rel="self" type="application/rss+xml" />
+	<link>http://www.uxebu.com</link>
+	<description>The first JavaScript-only development and consulting company</description>
+	<lastBuildDate>Thu, 30 Jul 2015 09:10:24 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=4.1.8</generator>
+	<item>
+		<title>Getting started with webpack</title>
+		<link>http://www.uxebu.com/blog/2014/09/getting-started-webpack/</link>
+		<comments>http://www.uxebu.com/blog/2014/09/getting-started-webpack/#comments</comments>
+		<pubDate>Mon, 08 Sep 2014 09:07:17 +0000</pubDate>
+		<dc:creator><![CDATA[Georg Lang]]></dc:creator>
+				<category><![CDATA[development tools]]></category>
+
+		<guid isPermaLink="false">http://www.uxebu.com/?p=5361</guid>
+		<description><![CDATA[<p>JavaScript has no standardized module system yet (ES6 will bring one, finally). A module system is used to structure your code into files, refer to dependencies and export values. Due to the lack of a standard multiple system have evolved. If you use some different libraries in your project and each of them is using [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/09/getting-started-webpack/">Getting started with webpack</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>JavaScript has no standardized module system yet (<a href="https://people.mozilla.org/~jorendorff/es6-draft.html">ES6</a> will bring one, finally). A module system is used to structure your code into files, refer to dependencies and export values. Due to the lack of a standard multiple system have evolved. If you use some different libraries in your project and each of them is using different module systems it´s very hard to combine them easily.<br />
+Until now there are several tools e.g. <a href="http://gruntjs.com/" title="grunt task runner" target="_blank">grunt</a>, <a href="http://gulpjs.com/" title="gulpJs - The streaming build system" target="_blank">gulp</a>, <a href="http://browserify.org/" target="_blank">browserify</a> and many more.<br />
+But one of the upcoming tools is <a title="webpack" href="http://webpack.github.io/" target="_blank">webpack</a></p>
+<p>In this post, I will show you how simple it is to combine different module systems with webpack.</p>
+<h2>Module systems webpack understands</h2>
+<p>The most used module systems are the following:</p>
+<h4>1. script-tags (without a module system) </h4>
+<div class="codecolorer-container html4strict default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="html4strict codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #009900;">&lt;<a href="http://december.com/html/4/element/script.html"><span style="color: #000000; font-weight: bold;">script</span></a> <span style="color: #000066;">type</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">&quot;text/javascript&quot;</span> <span style="color: #000066;">src</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">&quot;src/main.js&quot;</span> <span style="color: #000066;">charset</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">&quot;utf-8&quot;</span>&gt;&lt;<span style="color: #66cc66;">/</span><a href="http://december.com/html/4/element/script.html"><span style="color: #000000; font-weight: bold;">script</span></a>&gt;</span></div></div>
+<h4>2. <a href="http://wiki.commonjs.org/wiki/Modules/1.1">CommonJS</a> is used by <a href="http://nodejs.org/">Node.js</a></h4>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #006600; font-style: italic;">//firstScript.js</span><br />
+module.<span style="color: #660066;">exports</span> <span style="color: #339933;">=</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span> <span style="color: #009900;">&#125;</span><span style="color: #339933;">;</span><br />
+<br />
+<span style="color: #006600; font-style: italic;">//main.js</span><br />
+require<span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'./firstScript.js'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></div>
+<h4>3. <a href="http://wiki.commonjs.org/wiki/Modules/AsynchronousDefinition">AMD</a> is used by <a href="http://requirejs.org/">RequireJS</a></h4>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #006600; font-style: italic;">//firstScript.js</span><br />
+define<span style="color: #009900;">&#40;</span><span style="color: #003366; font-weight: bold;">function</span> <span style="color: #009900;">&#40;</span>firstScript<span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span> ... <span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<br />
+<span style="color: #006600; font-style: italic;">//main.js</span><br />
+require<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#91;</span><span style="color: #3366CC;">'./firstScript'</span><span style="color: #009900;">&#93;</span><span style="color: #339933;">,</span> <span style="color: #003366; font-weight: bold;">function</span> <span style="color: #009900;">&#40;</span>firstScript<span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><span style="color: #009900;">&#125;</span></div></div>
+<h4>4. <a href="http://www.2ality.com/2013/07/es6-modules.html">ECMAScript 6 modules</a></h4>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #006600; font-style: italic;">//firstScript.js</span><br />
+<span style="color: #003366; font-weight: bold;">export</span> <span style="color: #003366; font-weight: bold;">function</span> hello<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span> ...<span style="color: #009900;">&#125;</span><br />
+<br />
+<span style="color: #006600; font-style: italic;">//main.js</span><br />
+<span style="color: #003366; font-weight: bold;">import</span> <span style="color: #009900;">&#123;</span> hello <span style="color: #009900;">&#125;</span> from <span style="color: #3366CC;">'firstScript'</span><span style="color: #339933;">;</span></div></div>
+<p>Webpack takes modules with dependencies and generates static assets containing those modules.<br />
+With webpack it´s possible to load and bundle different dependency files like CSS, JavaScript, CoffeeScript, etc. and use different module styles like AMD and together.</p>
+<p>For production you only have to include one bundled file that represents all modules.</p>
+<h2>Getting Started</h2>
+<p>The final file structure will look like this:</p>
+<p><a href="http://www.uxebu.com/wp-content/uploads/2014/09/Bildschirmfoto-2014-09-09-um-10.41.05.png"><img src="http://www.uxebu.com/wp-content/uploads/2014/09/Bildschirmfoto-2014-09-09-um-10.41.05.png" alt="Bildschirmfoto 2014-09-09 um 10.41.05" width="246" height="249" class="alignnone size-full wp-image-5546" /></a></p>
+<p>First of all webpack can be installed through npm:</p>
+<div class="codecolorer-container powershell default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="powershell codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">$ npm install webpack <span style="color: pink;">-</span>g <span style="color: #008000;">#to install it globally</span></div></div>
+<p>Or webpack can also be added as a dependency in your package.json</p>
+<div class="codecolorer-container powershell default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="powershell codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">$ npm install webpack <span style="color: pink;">--</span>save</div></div>
+<p></br></p>
+<h2>Project Setup AMD</h2>
+<p>After the installation i created three JavaScript files (src/main.js, src/firstScript.js and src/secondScript.js), that use the AMD module notation:</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #006600; font-style: italic;">//secondScript.js</span><br />
+define<span style="color: #009900;">&#40;</span><span style="color: #003366; font-weight: bold;">function</span> <span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; <span style="color: #000066; font-weight: bold;">return</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; color<span style="color: #339933;">:</span> <span style="color: #3366CC;">'green'</span><br />
+&nbsp; <span style="color: #009900;">&#125;</span><br />
+<span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></div>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #006600; font-style: italic;">//firstScript.js</span><br />
+define<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#91;</span><span style="color: #3366CC;">'./secondScript'</span><span style="color: #009900;">&#93;</span><span style="color: #339933;">,</span><span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span>secondScript<span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span><br />
+&nbsp; console.<span style="color: #660066;">log</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'Color from secondScript'</span><span style="color: #339933;">,</span> secondScript.<span style="color: #660066;">color</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+&nbsp; <span style="color: #000066; font-weight: bold;">return</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; hello<span style="color: #339933;">:</span> <span style="color: #003366; font-weight: bold;">function</span> <span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; &nbsp; console.<span style="color: #660066;">log</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'Hello from firstScript'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+&nbsp; &nbsp; <span style="color: #009900;">&#125;</span><br />
+&nbsp; <span style="color: #009900;">&#125;</span><br />
+<span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></div>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #006600; font-style: italic;">//main.js</span><br />
+define<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#91;</span><span style="color: #3366CC;">'./firstScript'</span><span style="color: #009900;">&#93;</span><span style="color: #339933;">,</span> <span style="color: #003366; font-weight: bold;">function</span> <span style="color: #009900;">&#40;</span>firstScript<span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; firstScript.<span style="color: #660066;">hello</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></div>
+<p>To get the the full code check out the repository on Github:<br />
+<a href="https://github.com/uxebu/webpack-amd-demo" title="webpack-amd-demo" target="_blank">webpack-amd-demo on GitHub</a></p>
+<h2>Project Setup CommonJS</h2>
+<p>This three files use the CommonJS module notation:</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #006600; font-style: italic;">//secondScript.js</span><br />
+module.<span style="color: #660066;">exports</span> <span style="color: #339933;">=</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; color<span style="color: #339933;">:</span> <span style="color: #3366CC;">'green'</span><br />
+<span style="color: #009900;">&#125;</span><span style="color: #339933;">;</span></div></div>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #006600; font-style: italic;">//firstScript.js</span><br />
+<span style="color: #003366; font-weight: bold;">var</span> secondScript <span style="color: #339933;">=</span> require<span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'./secondScript.js'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+console.<span style="color: #660066;">log</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'Color from secondScript'</span><span style="color: #339933;">,</span> secondScript.<span style="color: #660066;">color</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<br />
+module.<span style="color: #660066;">exports</span> <span style="color: #339933;">=</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; hello<span style="color: #339933;">:</span> <span style="color: #003366; font-weight: bold;">function</span> <span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; console.<span style="color: #660066;">log</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'Hello from firstScript'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+&nbsp; <span style="color: #009900;">&#125;</span><br />
+<span style="color: #009900;">&#125;</span><span style="color: #339933;">;</span></div></div>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #006600; font-style: italic;">//main.js</span><br />
+<span style="color: #003366; font-weight: bold;">var</span> firstScript <span style="color: #339933;">=</span> require<span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'./firstScript.js'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+firstScript.<span style="color: #660066;">hello</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></div>
+<p>To get the the full code check out the repository on Github:<br />
+<a href="https://github.com/uxebu/webpack-commonJs-demo" title="webpack-commonJs-demo" target="_blank">webpack-commonJs-demo on GitHub</a></p>
+<h2>Project Setup AMD + CommonJS</h2>
+<p>This three files use the AMD and CommonJS module notations together:</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #006600; font-style: italic;">//secondScript.js</span><br />
+module.<span style="color: #660066;">exports</span> <span style="color: #339933;">=</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; color<span style="color: #339933;">:</span> <span style="color: #3366CC;">'green'</span><br />
+<span style="color: #009900;">&#125;</span><span style="color: #339933;">;</span></div></div>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #006600; font-style: italic;">//firstScript.js</span><br />
+define<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#91;</span><span style="color: #3366CC;">'./secondScript'</span><span style="color: #009900;">&#93;</span><span style="color: #339933;">,</span><span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span>secondScript<span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span><br />
+&nbsp; console.<span style="color: #660066;">log</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'Color from secondScript'</span><span style="color: #339933;">,</span> secondScript.<span style="color: #660066;">color</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<br />
+&nbsp; <span style="color: #000066; font-weight: bold;">return</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; hello<span style="color: #339933;">:</span> <span style="color: #003366; font-weight: bold;">function</span> <span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; &nbsp; console.<span style="color: #660066;">log</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'Hello from firstScript'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+&nbsp; &nbsp; <span style="color: #009900;">&#125;</span><br />
+&nbsp; <span style="color: #009900;">&#125;</span><br />
+<span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></div>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #006600; font-style: italic;">//main.js</span><br />
+<span style="color: #003366; font-weight: bold;">var</span> firstScript <span style="color: #339933;">=</span> require<span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'./firstScript.js'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+firstScript.<span style="color: #660066;">hello</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></div>
+<p>To get the the full code check out the repository on Github:<br />
+<a href="https://github.com/uxebu/webpack-amd-commonJs-demo" title="webpack-amd-commonJs-demo" target="_blank">webpack-amd-commonJs demo on GitHub</a></p>
+<h2>Create bundled files</h2>
+<p>To create a bundled file of all modules with webpack, you have to create a webpack.config.js or use the CLI. To create bundle.js from the files src/main.js, src/firstScript.js and src/secondScript.js you have to switch to the webpack-amd-demo directory and execute the CLI command:</p>
+<div class="codecolorer-container powershell default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="powershell codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">$ webpack src<span style="color: pink;">/</span>main.js dist<span style="color: pink;">/</span>bundle.js</div></div>
+<p>I recommend to use a webpack.config.js instead of the CLI because you have a good overview of the declarations as the entry, output, etc. and you don´t need to remember all the commands for the CLI.</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #006600; font-style: italic;">//webpack.config.js</span><br />
+module.<span style="color: #660066;">exports</span> <span style="color: #339933;">=</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; entry<span style="color: #339933;">:</span> <span style="color: #3366CC;">'./src/main.js'</span><span style="color: #339933;">,</span><br />
+&nbsp; output<span style="color: #339933;">:</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; filename<span style="color: #339933;">:</span> <span style="color: #3366CC;">'./dist/bundle.js'</span><br />
+&nbsp; <span style="color: #009900;">&#125;</span><br />
+<span style="color: #009900;">&#125;</span><span style="color: #339933;">;</span></div></div>
+<p>This simple webpack.config.js defines the entry point as main.js in the src directory. The bundled file will be created in the dist directory and is named bundle.js.<br />
+<strong>This webpack.config.js can be used for all three examples.</strong></p>
+<p>To uses webpack.config.js go to the webpack-amd-demo directory and execute:</p>
+<div class="codecolorer-container powershell default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="powershell codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">$ webpack</div></div>
+<p>Now the bundle.js file is created and includes all the files: src/main.js, src/firstScript.js and src/secondScript.js combined in on file.</p>
+<p><strong>Attention:</strong> If a webpack.config.js is defined and you also run the CLI command, an error will occur. </p>
+<h2>Include the bundled file</h2>
+<p>For production you only have to include the bundle.js file in your index.html.</p>
+<div class="codecolorer-container html4strict default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="html4strict codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #00bbdd;">&lt;!DOCTYPE html&gt;</span><br />
+<span style="color: #009900;">&lt;<a href="http://december.com/html/4/element/html.html"><span style="color: #000000; font-weight: bold;">html</span></a>&gt;</span><br />
+<span style="color: #009900;">&lt;<a href="http://december.com/html/4/element/head.html"><span style="color: #000000; font-weight: bold;">head</span></a> <span style="color: #000066;">lang</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">&quot;en&quot;</span>&gt;</span><br />
+&nbsp; &nbsp; <span style="color: #009900;">&lt;<a href="http://december.com/html/4/element/meta.html"><span style="color: #000000; font-weight: bold;">meta</span></a> <span style="color: #000066;">charset</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">&quot;UTF-8&quot;</span>&gt;</span><br />
+&nbsp; &nbsp; <span style="color: #009900;">&lt;<a href="http://december.com/html/4/element/title.html"><span style="color: #000000; font-weight: bold;">title</span></a>&gt;</span>webpack-amd-demo<span style="color: #009900;">&lt;<span style="color: #66cc66;">/</span><a href="http://december.com/html/4/element/title.html"><span style="color: #000000; font-weight: bold;">title</span></a>&gt;</span><br />
+&nbsp; &nbsp; <span style="color: #009900;">&lt;<a href="http://december.com/html/4/element/script.html"><span style="color: #000000; font-weight: bold;">script</span></a> <span style="color: #000066;">type</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">&quot;text/javascript&quot;</span> <span style="color: #000066;">src</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">&quot;src/bundle.js&quot;</span> <span style="color: #000066;">charset</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">&quot;utf-8&quot;</span>&gt;&lt;<span style="color: #66cc66;">/</span><a href="http://december.com/html/4/element/script.html"><span style="color: #000000; font-weight: bold;">script</span></a>&gt;</span><br />
+<span style="color: #009900;">&lt;<span style="color: #66cc66;">/</span><a href="http://december.com/html/4/element/head.html"><span style="color: #000000; font-weight: bold;">head</span></a>&gt;</span><br />
+<span style="color: #009900;">&lt;<a href="http://december.com/html/4/element/body.html"><span style="color: #000000; font-weight: bold;">body</span></a>&gt;</span><br />
+<span style="color: #009900;">&lt;<a href="http://december.com/html/4/element/h1.html"><span style="color: #000000; font-weight: bold;">h1</span></a>&gt;</span>webpack-amd-demo<span style="color: #009900;">&lt;<span style="color: #66cc66;">/</span><a href="http://december.com/html/4/element/h1.html"><span style="color: #000000; font-weight: bold;">h1</span></a>&gt;</span><br />
+<span style="color: #009900;">&lt;<span style="color: #66cc66;">/</span><a href="http://december.com/html/4/element/body.html"><span style="color: #000000; font-weight: bold;">body</span></a>&gt;</span><br />
+<span style="color: #009900;">&lt;<span style="color: #66cc66;">/</span><a href="http://december.com/html/4/element/html.html"><span style="color: #000000; font-weight: bold;">html</span></a>&gt;</span></div></div>
+<p></br></p>
+<h2>Summary</h2>
+<p>Using webpack makes bundling really easy.<br />
+The advantages are:</p>
+<ul>
+<li>Using one module system in your app</li>
+<li>Include any kind of modules, no matter what their module system styles are</li>
+<li>Automating the development cycle by using watchers or the build-in <a href="http://webpack.github.io/docs/webpack-dev-server.html">webpack-dev-server</a></li>
+<li>Share source code between Node.js and frontend JavaScript</li>
+<li>Less HTTP requests, because all modules are in one bundled file</li>
+</ul>
+<h2>More webpack features</h2>
+<p>Webpack offers many more options than just bundling JavaScript files:</p>
+<ul>
+<li>Splitting code in custom chunks <a href="http://webpack.github.io/docs/code-splitting.html"> &#8211; Code-splitting</a></li>
+<li>Loaders for different assets (CSS, Images, CoffeeScript, LESS, &#8230;) <a href="http://webpack.github.io/docs/using-loaders.html"> &#8211; Loaders</a></li>
+<li>Optimizations to reduce the output size (caching requests by using hashes) <a href="http://webpack.github.io/docs/optimization.html"> &#8211; Optimization</a></li>
+</ul>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/09/getting-started-webpack/">Getting started with webpack</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2014/09/getting-started-webpack/feed/</wfw:commentRss>
+		<slash:comments>1</slash:comments>
+		</item>
+	</channel>
+</rss>

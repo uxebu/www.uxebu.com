@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>uxebu &#187; HTML5</title>
+	<atom:link href="http://www.uxebu.com/blog/category/technology/html5/feed/" rel="self" type="application/rss+xml" />
+	<link>http://www.uxebu.com</link>
+	<description>The first JavaScript-only development and consulting company</description>
+	<lastBuildDate>Thu, 30 Jul 2015 09:10:24 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=4.1.8</generator>
+	<item>
+		<title>State of  in iOS5</title>
+		<link>http://www.uxebu.com/blog/2011/11/state-of-html5-audio-in-ios-5/</link>
+		<comments>http://www.uxebu.com/blog/2011/11/state-of-html5-audio-in-ios-5/#comments</comments>
+		<pubDate>Tue, 29 Nov 2011 09:00:26 +0000</pubDate>
+		<dc:creator><![CDATA[David Pfahler &#38; Stephan Bönnemann]]></dc:creator>
+				<category><![CDATA[HTML5]]></category>
+		<category><![CDATA[html5apps]]></category>
+		<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[mobile]]></category>
+		<category><![CDATA[Uncategorized]]></category>
+
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=1977</guid>
+		<description><![CDATA[<p><em>This is a guest post by <a href="http://twitter.com/davidpfahler">David Pfahler</a> and <a href="http://twitter.com/boennemann">Stephan Bönnemann</a>.</em></p>
+<h2>Why you’d like to use HTML5 audio in iOS 5</h2>
+<p>It’s all about apps these days. The question is whether you want to make the commitment and investment (of learning a new language) to program natively for one platform or leverage the web dev skills you already have? HTML5 is the way to go if you sympathize with the latter.</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2011/11/state-of-html5-audio-in-ios-5/">State of <audio> in iOS5</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><em>This is a guest post by David Pfahler Stephan Bönnemann of <a href="http://keeplook.in" title="keeplook.in">keeplook.in</a>.</em></p>
+<h2>Why you’d like to use HTML5 audio in iOS 5</h2>
+<p>It’s all about apps these days. The question is whether you want to make the commitment and investment (of learning a new language) to program natively for one platform or leverage the web dev skills you already have? HTML5 is the way to go if you sympathize with the latter.<br />
+<span id="more-1977"></span></p>
+<p>Let&#8217;s face it: The main problem for web developers that want to make apps is to deliver a great <strong>user experience</strong>. Hence, you&#8217;d like to use as much of today&#8217;s web technologies as possible to enhance the UX. One profound way of doing this is audio feedback. For example, many twitter apps use sounds if new tweets come in and another sound if no new tweets could be found. This kind of response is intuitive to the user. This is what you should go for.</p>
+<p>Also, imagine a game without sounds. Would be kind of boring, wouldn&#8217;t it?</p>
+<h2>Naive Assumptions: What you’d expect</h2>
+<p>Fortunately in iOS we have rich HTML5 support built into mobile Safari. Initially, Steve Jobs wanted all apps to be web apps! So what you&#8217;d assume regarding audio is the presence of the HTML5 audio tag. And guess what, there <em>is</em> an implementation of the audio tag in iOS. Hurray!</p>
+<p>So what do you expect from an audio tag implementation:</p>
+<ul>
+<li>call .load(), .play(), .pause() and other methods via JavaScript</li>
+<li>use remote files, dataURIs, cached files and other sources</li>
+<li>play several audio files / tags at once</li>
+<li>mix audio from several sources with different volumes, etc.</li>
+</ul>
+<h2>Reality checks: What should work but doesn’t</h2>
+<p>It becomes clear pretty fast that it&#8217;s not that simple. With iOS it&#8217;s a disaster. The bad news first:</p>
+<p><strong>It is not possible to load or play audio without user interaction.</strong></p>
+<p>Sad, but true. <a title="Safari Developer Library" href="http://developer.apple.com/library/safari/#documentation/AudioVideo/Conceptual/Using_HTML5_Audio_Video/ControllingMediaWithJavaScript/ControllingMediaWithJavaScript.html#//apple_ref/doc/uid/TP40009523-CH3-SW5">Apple deliberately decided</a> that a touch event is mandatory to load and play audio. There is no workaround for this.</p>
+<p>If we accept the fact that we need a touch event to play the audio, is it possible to use the audio tag as expected? Hmm, no, not really. So what&#8217;s broken as well?</p>
+<p><strong>Latency</strong>: Loading audio files on demand (after the touch event fired) is unusably slow. The desired user experience can not be achieved using this technique.</p>
+<p><strong>One audio tag at a time:</strong> You can never play more than one audio tag at once. This makes it impossible to mix sounds on the fly which would be necessary for games that have a background music and must also play sounds dynamically (e.g. when the character jumps).</p>
+<p><strong>Audio files only:</strong> You can not use anything as the source besides audio files (uncompressed WAV and AIF audio, MP3 audio, and AAC-LC or HE-AAC audio). If you could use dataURIs then it would be possible to preload the audio.</p>
+
+<h2>Workarounds: How to play anyways (at least somehow)</h2>
+<p>We invested a lot of time researching the audio tag on iOS 5. If you want to know how we play audio, read on.</p>
+<p>So what do you do with this crippled audio tag? Well, you trick it a little bit and use it as much as possible. Here are several ideas that work best for different scenarios:</p>
+<p><strong>Bind touchstart event to body:</strong> As you have to play on a touch event, we bind a touchstart handler on the body. So wherever the user touches first, we can use this event to load the audio file. Even better, from now on, we can load and play different sources from this audio tag.</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="text codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">bodyEl.addEventListener(&quot;touchstart&quot;, function() {<br />
+audioNode.load(); audioNode.play();<br />
+}, false);</div></div>
+<p><strong>Hot swapping sources:</strong> We can now change the &#8220;activated&#8221; audio tag&#8217;s source on the fly. So it is now possible &#8211; without user interaction (!) &#8211; to load and play different sources. But you can only play one source at a time, of course.</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="text codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">audioNode.addEventListener(&quot;ended&quot;, function() {<br />
+audioNode.src = &quot;newSource.mp3&quot;;<br />
+audioNode.load(); audioNode.play();<br />
+}, false);</div></div>
+<p><strong>Use audio sprites:</strong> The guys over at Zynga use audio sprites in their <a title="Zynga Jukebox on github" href="https://github.com/zynga/jukebox">Jukebox</a>. This means that you have a huge audio file containing one sound that you want to play, then one second of silence, then another sound and so on.</p>
+<p>Example for a sound sprite structure:<br />
+1 second silence<br />
+First sound<br />
+1 second silence<br />
+Second sound<br />
+1 second silence<br />
+Third sound</p>
+<p>In this file you include all the audio that you possibly want to play in your app. You only load the source once (as described above) and then jump to the relevant parts in the file. So the file is always playing but most of the time it just plays silence. When you need the sound, you can quickly jump to the part in the file that you need to play. This solution is quick (much faster than hot swapping!) but requires a long preloading phase before you can play the most sounds, because the file is bigger.</p>
+<h2>tl;dr</h2>
+<p>So audio in iOS is pretty much broken. If you are using a native wrapper like PhoneGap you could use native APIs via plugins like <a href="https://github.com/purplecabbage/phonegap-plugins/tree/master/iPhone/SoundPlug" title="SoundPlug on github">SoundPlug</a>. We&#8217;ll try what is possible in the upcoming versions of iOS. Please let us know your ideas and feedback in the comments.</p>
+<h2>Update:</h2>
+<p>Regarding Philip&#8217;s comment, this is how we think it could be.</p>
+<p><img src="http://img577.imageshack.us/img577/516/audiopref.png" width="200" class="size-medium" alt="Settings" style="border: 2px solid #CFCFCF;float: left" /><img src="http://img259.imageshack.us/img259/2771/audioalert.png" width="200" class="size-medium" alt="Alert" style="border: 2px solid #CFCFCF;float: left" /></p>
+<p></p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2011/11/state-of-html5-audio-in-ios-5/">State of <audio> in iOS5</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2011/11/state-of-html5-audio-in-ios-5/feed/</wfw:commentRss>
+		<slash:comments>5</slash:comments>
+		</item>
+		<item>
+		<title>EmbedJS 0.2 and AMD</title>
+		<link>http://www.uxebu.com/blog/2011/10/embedjs-0-2-and-amd/</link>
+		<comments>http://www.uxebu.com/blog/2011/10/embedjs-0-2-and-amd/#comments</comments>
+		<pubDate>Mon, 17 Oct 2011 15:43:16 +0000</pubDate>
+		<dc:creator><![CDATA[Jens Arps]]></dc:creator>
+				<category><![CDATA[development tools]]></category>
+		<category><![CDATA[HTML5]]></category>
+		<category><![CDATA[html5apps]]></category>
+		<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[mobile]]></category>
+		<category><![CDATA[development]]></category>
+		<category><![CDATA[dojo]]></category>
+		<category><![CDATA[embedjs]]></category>
+
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=1843</guid>
+		<description><![CDATA[<p>During JSConf.eu, we released EmbedJS 0.2. That release was mainly about a fundamental architectural change: the move to the AMD pattern for our features. Let me explain why we decided to do this, why we think this is a big step forward and what this means for the user. Modules AMD stands for &#8220;Asynchronous Module [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2011/10/embedjs-0-2-and-amd/">EmbedJS 0.2 and AMD</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>During JSConf.eu, we released EmbedJS 0.2. That release was mainly about a fundamental architectural change: the move to the AMD pattern for our features. Let me explain why we decided to do this, why we think this is a big step forward and what this means for the user.<br />
+<span id="more-1843"></span></p>
+<h2>Modules</h2>
+<p>AMD stands for &#8220;Asynchronous Module Definition&#8221;. So, what are modules? I&#8217;ll quote the definition from the <a href="http://wiki.commonjs.org/wiki/Modules/1.1" target="_blank">CommonJS Module specification</a>, as it describes it very well:</p>
+<blockquote><p>This specification addresses how modules should be written in order to be interoperable among a class of module systems that can be both client and server side, secure or insecure, implemented today or supported by future systems with syntax extensions. These modules are offered privacy of their top scope, facility for importing singleton objects from other modules, and exporting their own API.</p></blockquote>
+<p>So, modules are isolated parts of code that live in their own scope and are kind of self-contained. Well, that is pretty much how we see the individual Features in EmbedJS – we made our feature implementations as small as possible and reduced dependencies as much as possible. Many of EmbedJS&#8217; features are also browser-independent, so why not make it possible to use some of the tools in a non-browser environment?</p>
+<p>(If you want to learn more on modules and why we need them, I recommend <a href="http://twitter.com/briancavalier" target="_blank">@briancavalier</a>&#8216;s <a href="http://briancavalier.com/presentations/pgh-js-amd-10-2011/" target="_blank">presentation on modules</a>.)</p>
+<h2>Features in EmbedJS</h2>
+<p>So far, I didn&#8217;t really explain what I mean with &#8220;Features&#8221;, so let me do another quote, this time from the <a href="http://uxebu.github.com/embedjs/" target="_blank">Project Page</a>:</p>
+<blockquote><p>EmbedJS uses the concept of features: Functionalities are split up into features, as fine-grained as possible, and each feature might have multiple implementations.</p></blockquote>
+<p>Our Features are kinda small and contain only few methods, sometimes even just one. The asyc-promise feature, for example, will get you Promises, and the transport-jsonp feature will get you a method for pull in data via jsonp – and that&#8217;s it.  If multiple methods are contained within one feature, this is because they are too closely related to each other to split them up, like the html-class feature, which contains the <code class="codecolorer text default"><span class="text">addClass</span></code>, <code class="codecolorer text default"><span class="text">removeClass</span></code>, <code class="codecolorer text default"><span class="text">toggleClass</span></code> and <code class="codecolorer text default"><span class="text">hasClass</span></code> methods.</p>
+<h2>AMD vs CommonJS Modules 1.1</h2>
+<p>Now that we knew modules were the way to go, there was another, quite important question to solve: There are two common patterns for modules, so which one do we want to apply? One pattern is described in the above mentioned CommonJS Wiki, the other pattern is described in the <a href="https://github.com/amdjs/amdjs-api/wiki/AMD" target="_blank">AMD wiki</a>.</p>
+<p>Well, there have been <a href="http://tagneto.blogspot.com/2011/04/on-inventing-js-module-formats-and.html" target="_blank">some</a> <a href="http://unscriptable.com/index.php/2011/09/30/amd-versus-cjs-whats-the-best-format/" target="_blank">blog</a> <a href="http://blog.millermedeiros.com/2011/09/amd-is-better-for-the-web-than-commonjs-modules/" target="_blank">posts</a> lately that compare the pros and cons of each of them, so I don&#8217;t want to repeat all of this – but I&#8217;m hiving a similar tendency towards AMD. Besides this, there was another big reason to go with AMD: Remember, EmbedJS is based on the <a href="http://dojotoolkit.org/" target="_blank">Dojo Toolkit</a>, and it&#8217;s a <a href="http://dojofoundation.org/" target="_blank">Dojo Foundation Project</a> – and we hope that the efforts that went into making EmbedJS might flow back into the Dojo Toolkit one day. And as the Dojo Toolkit uses the AMD approach, the decision was quickly made to do so as well.</p>
+<h2>Implications for EmbedJS</h2>
+<p>There are several huge benefits for EmbedJS in using the AMD approach. The most noteworthy surely is the ease-of-use for developers. In your code, when you find you want an EmbedJS method, you <a href="http://uxebu.github.com/embedjs/docs/" target="_blank">look up the feature name</a> that provides this method, add it to the require statement and there you go. Man, easy.</p>
+<p>A second important thing is that EmbedJS now plays really nice with AMD based projects. In fact, you could see EmbedJS now as a collection of small useful modules, that can be easily integrated – and also easily extended.</p>
+<p>The third major benefit is that we can now get rid of all the custom tools we built around EmbedJS – you can load features with any AMD loader (though we use and recommend RequireJS) and build it with any AMD optimizer/builder (we recommend r.js).</p>
+<p>Let&#8217;s have an extra word on</p>
+<p><strong>Building</strong></p>
+<p>It was always possible with EmbedJS to create a custom build that would contain only the features you wanted/needed in your project. But, you had to use our build tool that we created. And learning &amp; using Yet-Another-Build-Tool™ is always… well, let&#8217;s just say it would be cool to avoid it (and, not to forget, so is maintaining it). We did a lot to improve that, we created a GUI that allowed you to just &#8220;click together&#8221; the features you wanted, and we worked on a dynamic loader that would ease development. But still, the situation was far from ideal, and people just ended up going for our ready-made &#8220;kitchensink&#8221; builds that contained <em>all</em> of the features.</p>
+<p>Now, we still provide those ready-made builds that contain only the implementations for a given platform (and are stripped of require/define calls), but I really hope that using the AMD approach and using an AMD optimizer to deploy will become the more adopted style.</p>
+<h2>Q: Cross-target? A: The Feature Plugin</h2>
+<p>One goal of EmbedJS is to allow for easy cross-device development. We got rid of run-time branching but instead went for an approach that held the different implementations for a given feature in separate files, so that one only has to deploy the actually needed code to a given device – and not all the alternate implementations, that sit useless in the device&#8217;s memory and never get used. We needed to achieve that with &#8220;in-house&#8221; means provided by the AMD approach. Lucky us, there&#8217;s the concept of <a href="https://github.com/amdjs/amdjs-api/wiki/Loader-Plugins" target="_blank">loader-plugins</a>, and so I created a <a href="https://github.com/jensarps/AMD-feature" target="_blank">feature-plugin for AMD loaders</a>. The idea is simple yet effective: You create an implementation map that maps a feature name to an implementation, and if there are multiple implementations, you supply tests that tells the plugin which feature to use.</p>
+<p>When you&#8217;re ready to deploy, you have two choices: I f you really don&#8217;t know on what target your code is going to end up, you can use the dynamic implementation map containing the tests for the optimizer, and you&#8217;ll get a build that contains all of the available implementations. Then, during runtime, the feature plugin will run the tests and load the specific implementation. But, if you <em>do</em> know what target your code will run on, you provide a specific implementation map that doesn&#8217;t contain tests but directly maps to the according implementations, and you will only have those in your built file.</p>
+<h2>Synopsis</h2>
+<p>AMD is exactly what we needed to make EmbedJS more what we want it to be – an easy to use JavaScript toolbox that is especially handy for cross-target scenarios such as cross-platform mobile development. So, please don&#8217;t hesitate and check it out on Github, read the project page and check out the examples!</p>
+<p>&nbsp;</p>
+<p><strong>Resources / Further Reading</strong></p>
+<ul>
+<li><a href="https://github.com/uxebu/embedjs" target="_blank">EmbedJS on GitHub</a></li>
+<li><a href="http://uxebu.github.com/embedjs/" target="_blank">EmbedJS Project Page</a></li>
+<li><a href="http://uxebu.github.com/embedjs/docs/" target="_blank">EmbedJS API Docs</a></li>
+<li><a href="https://github.com/jensarps/AMD-feature" target="_blank">AMD-Feature plugin</a></li>
+<li><a href="https://github.com/amdjs/amdjs-api/wiki" target="_blank">AMD Wiki</a></li>
+<li><a href="http://wiki.commonjs.org/wiki/CommonJS" target="_blank">CommonJS Wiki</a></li>
+</ul>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2011/10/embedjs-0-2-and-amd/">EmbedJS 0.2 and AMD</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2011/10/embedjs-0-2-and-amd/feed/</wfw:commentRss>
+		<slash:comments>4</slash:comments>
+		</item>
+		<item>
+		<title>JavaScript, HTML5, CSS3 workshop</title>
+		<link>http://www.uxebu.com/blog/2011/06/javascript-html5-css3-workshop/</link>
+		<comments>http://www.uxebu.com/blog/2011/06/javascript-html5-css3-workshop/#comments</comments>
+		<pubDate>Fri, 10 Jun 2011 13:58:56 +0000</pubDate>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+				<category><![CDATA[business]]></category>
+		<category><![CDATA[frontend engineering]]></category>
+		<category><![CDATA[HTML5]]></category>
+		<category><![CDATA[html5apps]]></category>
+		<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[mobile]]></category>
+		<category><![CDATA[uxebu]]></category>
+		<category><![CDATA[workshop]]></category>
+
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=1554</guid>
+		<description><![CDATA[<p>Uxebu is spreading its knowledge, get some of it &#8211; for 699€ if you are an early bird (999€ later)! Uxebu is now operating it&#8217;s business purely in the JavaScript space for about three years (oh that reminds me we should have a party!). We are convinced that JavaScript is ramping up now and we [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2011/06/javascript-html5-css3-workshop/">JavaScript, HTML5, CSS3 workshop</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<h2>Uxebu is spreading its knowledge, get some of it &#8211; for 699€ if you are an early bird (999€ later)!</h2>
+<p><span id="more-1554"></span></p>
+<p>Uxebu is now operating it&#8217;s business purely in the JavaScript space for about three years (oh that reminds me we should have a party!). We are convinced that JavaScript is ramping up now and we see that there are more and more things done and possible with the language. The browser landscape is developing rapidly and changing every day. The mobile industry is pushing the limits and we are helping to do our part in it. We learned a lot and are still learning. As it is in the nature of our company to spread our knowledge to allow everyone to use the technology at it&#8217;s best and push the limits with us, we think now it&#8217;s the time that we share our knowledge and pass it on to those hungering for diving into JavaScript!</p>
+<p>We really have <a href="http://twitter.com/void_0">gathered</a> <a href="http://twitter.com/jensarps">a lot</a> of <a href="http://twitter.com/tobeytailor">bright</a>, <a href="http://twitter.com/evilhackerdude">bleeding-edge</a> <a href="http://twitter.com/kuvos">people</a> and each of us is learning from another everyday. If you want to get some of the know how (at least as much as we can pass on in a two day workshop) you are invited to <a href="http://uxebu.com/html5-workshop/">join our workshops</a>. There will be one held in <a href="http://de.amiando.com/jsmunich.html"><strong>Munich 29th and 30th of June</strong></a> and another one in <a href="http://de.amiando.com/jsamsterdam.html"><strong>Amsterdam 11th and 12th of July</strong></a>. We will always have at least two uxebus teaching you the latest and hottest. We might even have some of the latest <a href="http://twitter.com/twtomcat/statuses/79157866954637313">bleeding-edge mobile devices</a> for you to run the app you will develop in the workshop.</p>
+<hr style="margin: 4em 0;" />
+<h2>Workshop Details</h2>
+<p>In this course we will cover a broad spectrum from JavaScript essentials to the bleeding edge of cross platform HTML5 development. We start from the ground up and go step by step, depending on the level of the participants we accelerate to show you the deep and dark sides of JavaScript.</p>
+<p>Each day of the course is split into an intensive “knowledge transfer” session in the morning and a hands on hacking workshop in the afternoon in which you will apply the contents learned during the morning. At the end you will have touched all contents not only through theory but also through intensive real life application and coding.</p>
+<p><em>Note that this course will not explain you how to work with jQuery and also not how to work without jQuery. The course mainly focuses on JavaScript, mobile and HTML5.</em></p>
+<h2>Day 1 (part 1) &#8211; JavaScript</h2>
+<p>We start with a small overview of the history. We tackle the basic structure of the language and move on with <strong>statements</strong>, <strong>expressions</strong>, <strong>functions</strong> and <strong>objects</strong>. We touch the different <strong>operators</strong> and when semi colons are introduced.</p>
+<p>We continue our way through the JavaScript landscape by taking a look at <strong>objects</strong>, <strong>properties</strong> and <strong>built-in functionality</strong>. At that point we’ll encounter our first major obstacles; <strong>scopes</strong> and <strong>closures</strong>. Once we conquer these we touch on the <strong>difference between functions and constructors</strong>. This is followed by our second major obstacle; <strong>prototype</strong> and the various values of the <strong>this keyword</strong>.</p>
+<h2>Day 1 (part 2) &#8211; Hackday: HTML5, CSS3</h2>
+<p>During the second part of day one, we will take what we have learned in the morning and mix it with a little shot of HTML5 fanciness. We will look at all those new APIs we can now access on our (mobile) devices to bring JavaScript to a new level. We will include cool APIs such as the <strong>Audio API, Video API, history, Canvas, SVG, File API, WebGL, DeviceMotion, WebWorkers, WebSocket, GPS</strong> &#8211; and if all ingredients fit well you might just end up with your first app written in JavaScript.</p>
+<h2>Day 2 (part 1) &#8211; The App Day</h2>
+<p>During the second day we willl continue with <strong>timers</strong>, <strong>callbacks</strong>, <strong>web workers</strong>, <strong>eval</strong> and the <strong>future of JavaScript</strong>. The speed of the course is matched with it’s participants. The important parts of the languages will be handled in the workshop. During the first part of day two we will also specifically look into topics which you want to cover after determining those during day one. This will give you the chance to get all your open questions answered so that you have your pockets full of knowledge after the workshop is over.</p>
+<h2>Day 2 &#8211; part two (Mobile)</h2>
+<p>JavaScript has grown strongly into the mobile space, so we will show you how to get the app you have started building during day one onto <strong>mobile devices</strong>. You will learn about <strong>media queries</strong>, some <strong>device sensors</strong>, <strong>performance</strong> and HTML5/CSS3/JavaScript tricks and how to optimize some parts for mobile and how to make a <strong>native app</strong> out of it, so you finally could even make get it into the <strong>app store</strong> and make money with it.</p>
+<h2>Now you want to join our workshop?</h2>
+<p>Join us either</p>
+<ul>
+<li>in <a href="http://de.amiando.com/jsmunich.html"><strong>Munich 29th and 30th of June</strong></a>or</li>
+<li>in <a href="http://de.amiando.com/jsamsterdam.html"><strong>Amsterdam 11th and 12th of July</strong> </a></li>
+</ul>
+<p><a href="http://uxebu.com/html5-workshop/"><img style="position: fixed; left: 0; top: 0;" src="http://uxebu.com/html5-workshop/workshop-badge.png" alt="Workshop: " /></a></p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2011/06/javascript-html5-css3-workshop/">JavaScript, HTML5, CSS3 workshop</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2011/06/javascript-html5-css3-workshop/feed/</wfw:commentRss>
+		<slash:comments>2</slash:comments>
+		</item>
+		<item>
+		<title>Using IndexedDB on Firefox</title>
+		<link>http://www.uxebu.com/blog/2011/03/using-indexeddb-on-firefox/</link>
+		<comments>http://www.uxebu.com/blog/2011/03/using-indexeddb-on-firefox/#comments</comments>
+		<pubDate>Wed, 30 Mar 2011 14:55:00 +0000</pubDate>
+		<dc:creator><![CDATA[Jens Arps]]></dc:creator>
+				<category><![CDATA[frontend engineering]]></category>
+		<category><![CDATA[HTML5]]></category>
+		<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[firefox]]></category>
+		<category><![CDATA[IDB]]></category>
+		<category><![CDATA[indexedDB]]></category>
+		<category><![CDATA[offline]]></category>
+		<category><![CDATA[storage]]></category>
+
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=1494</guid>
+		<description><![CDATA[<p>As Firefox 4 is now stable, chances are that the async IDB (IndexedDB) API is not going to change anymore. But IDB is not localStorage – it can be a major pain to work with. So, here is a guide on how to use IDB in Firefox as a key-value store. TL;DR There is example code [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2011/03/using-indexeddb-on-firefox/">Using IndexedDB on Firefox</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>As Firefox 4 is now stable, chances are that the async IDB (IndexedDB) API is not going to change anymore. But IDB is not localStorage – it can be a major pain to work with. So, here is a guide on how to use IDB in Firefox as a key-value store.</p>
+<p><em><strong>TL;DR</strong></em><br />
+There is example code available at the end of the post. If you don‘t want to read this lengthy post and/or prefer to jump right in the middle of the action, grab the example implementation and play around with it.<br />
+<span id="more-1494"></span></p>
+<h1>Key-Value Store? But, IDB is a full-blown database!</h1>
+<p>Yes, it is. But I still argue that in WebApp context a key-value store will cover about 90% of use cases. So I won‘t cover in this post how to create fancy key ranges or how to create multiple indices. But I will cover the five basic methods that you will need to work with any store: get, set, remove, getAll and clear – this will enable you to work with IDB and give you an understanding of how it works. You‘re then of course heartly encouraged to explore it and it‘s features further!</p>
+<h1>A word on requests, transactions and events</h1>
+<p>As long as the sync API is not there, all operations are async. That means that you will make requests. All the time. These requests will have an onerror and an onsuccess property, where you can put your callbacks/handlers in. If your request was successful, you will get an event in your callback. That event contains a lot of useful and useless information, but what you will want to look at in most cases is event.target.result – this is where your result lives in. In most cases, you will have to start a transaction before; inside of the transaction, you can access the objectStore and make your request. However, there are different types of transactions, but you will get the details below.</p>
+<h1>Getting the Object Store ready to use</h1>
+<p>Yep, it‘s not that you can just start away and store your data, there‘s some work to do ahead…</p>
+<h2>Open the Database</h2>
+<p>Easy one:</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #003366; font-weight: bold;">var</span> openRequest <span style="color: #339933;">=</span> mozIndexedDB.<span style="color: #000066;">open</span><span style="color: #009900;">&#40;</span>dbName<span style="color: #339933;">,</span> dbDescription<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+openRequest.<span style="color: #660066;">onsuccess</span> <span style="color: #339933;">=</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span>event<span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; <span style="color: #006600; font-style: italic;">//event.target.result contains a reference to the db</span><br />
+<span style="color: #009900;">&#125;</span></div></div>
+<p><code class="codecolorer text default"><span class="text">event.target.result</span></code> then contains a reference to the database. Store it, you will need it.</p>
+<h2>Creating/Opening the ObjectStore</h2>
+<p>That‘s a little tougher. Some operations, such as creating and deleting object stores, require the database to be in a „mutation transaction state“. Wow. Well, there‘s only one way to put the db into this state, and that‘s via a <code class="codecolorer text default"><span class="text">setVersion</span></code> request. If you are opening the db for the first time ever, you will need to do this anyway. You can, of course, change the version of the database anytime, which might be a useful thing if you, e.g., change the structure of how your objectStore saves the data. To check what version the database in the user‘s browser has, you can check the <code class="codecolorer text default"><span class="text">version</span></code> property in the reference to the database anytime.</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #003366; font-weight: bold;">var</span> versionRequest <span style="color: #339933;">=</span> db.<span style="color: #660066;">setVersion</span><span style="color: #009900;">&#40;</span>dbVersion<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+versionRequest.<span style="color: #660066;">onsuccess</span> <span style="color: #339933;">=</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; <span style="color: #006600; font-style: italic;">// Woohoo, the database is in a mutation transaction!!</span><br />
+<span style="color: #009900;">&#125;</span><span style="color: #339933;">;</span></div></div>
+<p>Inside of the callback function, you can now check if your store already exists, or if you need to create it. The reference to your db contains an object called <code class="codecolorer text default"><span class="text">objectStoreNames</span></code>, which is a list of existing objectStores. As this is a DOMStringList, it features the handy <code class="codecolorer text default"><span class="text">contains()</span></code> method:</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #003366; font-weight: bold;">var</span> hasMyStore <span style="color: #339933;">=</span> db.<span style="color: #660066;">objectStoreNames</span>.<span style="color: #660066;">contains</span><span style="color: #009900;">&#40;</span>storeName<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></div>
+<p>If the store is not there, you need to create it via the <code class="codecolorer text default"><span class="text">createObjectStore()</span></code> method. It takes two arguments: the name of the store, and an object with two properties: <code class="codecolorer text default"><span class="text">keyPath</span></code> and <code class="codecolorer text default"><span class="text">autoIncrement</span></code>. keyPath is… well… the path to the key. Think of it as the one column that is the primary key in your data table (you all did some MySQL at some time, I bet). You can do really fancy things with the keyPath in objectStores, but it‘s perfectly fine to just use something like „id“ as the keyPath. If you want to store an object and want to provide the keyPath, all you need to do is let the object you want to store have a property with the name of the keyPath, and a unique value. Uh, it‘s not that complicated, examples will follow. AutoIncrement is, well, autoIncrement. You have the option to let the objectStore take care for the uniqueness of it‘s data‘s keyPath properties, or do it yourself.</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #003366; font-weight: bold;">var</span> store <span style="color: #339933;">=</span> db.<span style="color: #660066;">createObjectStore</span><span style="color: #009900;">&#40;</span>storeName<span style="color: #339933;">,</span> <span style="color: #009900;">&#123;</span>keyPath<span style="color: #339933;">:</span> <span style="color: #3366CC;">'id'</span><span style="color: #339933;">,</span> autoIncrement<span style="color: #339933;">:</span> <span style="color: #003366; font-weight: bold;">false</span><span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></div>
+<p>You immediately get a reference to the newly created objectStore, so save it.</p>
+<p>If the store is already there, you need to open it. Um, well, you don‘t really have to open it, but you might want to obtain a reference to it, just to make sure that it really exists. To do this, you need to start a transaction via the <code class="codecolorer text default"><span class="text">transaction()</span></code> method. It accepts three arguments: an array of store names (the ones which you want to work with), an integer denoting whether you want to read and/or write during that transaction, and a timeout. There are constants for read/write you can use for better readability in your code, you can find them at <code class="codecolorer text default"><span class="text">IDBTransaction.READ_ONLY</span></code> and <code class="codecolorer text default"><span class="text">IDBTransaction.READ_WRITE</span></code>. The timeout parameter is optional. That method returns a transaction object that contains a method called <code class="codecolorer text default"><span class="text">objectStore</span></code>, which you can use to access your store. This is the „default“ way transactions work; the mutation transaction above is an eception to this, where you need to be in the callback of the transaction to modify the database.</p>
+<p>In our case, we can start an „empty“ transaction:</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #003366; font-weight: bold;">var</span> emptyTransaction <span style="color: #339933;">=</span> db.<span style="color: #660066;">transaction</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#91;</span><span style="color: #009900;">&#93;</span><span style="color: #339933;">,</span> IDBTransaction.<span style="color: #660066;">READ_ONLY</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<span style="color: #003366; font-weight: bold;">var</span> store <span style="color: #339933;">=</span> emptyTransaction.<span style="color: #660066;">objectStore</span><span style="color: #009900;">&#40;</span>storeName<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></div>
+<p>There you have your reference to the store.</p>
+<h1>Data Manipulation</h1>
+<p>Now that the store is ready to use, it‘s time to store some data in it. To do so, you need to start a transaction, access the object store, and call the store‘s <code class="codecolorer text default"><span class="text">put</span></code> method:</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #003366; font-weight: bold;">var</span> putTransaction <span style="color: #339933;">=</span> db.<span style="color: #660066;">transaction</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#91;</span>storeName<span style="color: #009900;">&#93;</span><span style="color: #339933;">,</span> IDBTransaction.<span style="color: #660066;">READ_WRITE</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<span style="color: #003366; font-weight: bold;">var</span> putRequest <span style="color: #339933;">=</span> putTransaction.<span style="color: #660066;">objectStore</span><span style="color: #009900;">&#40;</span>storeName<span style="color: #009900;">&#41;</span>.<span style="color: #660066;">put</span><span style="color: #009900;">&#40;</span>dataObj<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+putRequest.<span style="color: #660066;">onsuccess</span> <span style="color: #339933;">=</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span>event<span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; <span style="color: #006600; font-style: italic;">//event.target.result contains the value of the keyPath of the data written (the „key“)</span><br />
+<span style="color: #009900;">&#125;</span><span style="color: #339933;">;</span></div></div>
+<p>That‘s all. This type of transaction is what you also use for other data manipulation tasks, for example to retrieve data:</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #003366; font-weight: bold;">var</span> getTransaction <span style="color: #339933;">=</span> db.<span style="color: #660066;">transaction</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#91;</span>storeName<span style="color: #009900;">&#93;</span><span style="color: #339933;">,</span> IDBTransaction.<span style="color: #660066;">READ_ONLY</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<span style="color: #003366; font-weight: bold;">var</span> getRequest <span style="color: #339933;">=</span> getTransaction.<span style="color: #660066;">objectStore</span><span style="color: #009900;">&#40;</span>storeName<span style="color: #009900;">&#41;</span>.<span style="color: #660066;">get</span><span style="color: #009900;">&#40;</span>key<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+getRequest.<span style="color: #660066;">onsuccess</span> <span style="color: #339933;">=</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span>event<span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; <span style="color: #006600; font-style: italic;">//event.target.result contains the data object</span><br />
+<span style="color: #009900;">&#125;</span><span style="color: #339933;">;</span></div></div>
+<p>You will need to provide the key of the stored entry to get it; as you need to do when you want to remove it:</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #003366; font-weight: bold;">var</span> removeTransaction <span style="color: #339933;">=</span> db.<span style="color: #660066;">transaction</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#91;</span>storeName<span style="color: #009900;">&#93;</span><span style="color: #339933;">,</span> IDBTransaction.<span style="color: #660066;">READ_WRITE</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<span style="color: #003366; font-weight: bold;">var</span> deleteRequest <span style="color: #339933;">=</span> removeTransaction.<span style="color: #660066;">objectStore</span><span style="color: #009900;">&#40;</span>storeName<span style="color: #009900;">&#41;</span>.<span style="color: #000066; font-weight: bold;">delete</span><span style="color: #009900;">&#40;</span>key<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+deleteRequest.<span style="color: #660066;">onsuccess</span> <span style="color: #339933;">=</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span>event<span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; <span style="color: #006600; font-style: italic;">//event.target.result contains the key of the deleted data object</span><br />
+<span style="color: #009900;">&#125;</span><span style="color: #339933;">;</span></div></div>
+<p>If you want to get all data objects from the store:</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #003366; font-weight: bold;">var</span> getAllTransaction <span style="color: #339933;">=</span> db.<span style="color: #660066;">transaction</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#91;</span>storeName<span style="color: #009900;">&#93;</span><span style="color: #339933;">,</span> IDBTransaction.<span style="color: #660066;">READ_ONLY</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<span style="color: #003366; font-weight: bold;">var</span> getAllRequest <span style="color: #339933;">=</span> getAllTransaction.<span style="color: #660066;">objectStore</span><span style="color: #009900;">&#40;</span>storeName<span style="color: #009900;">&#41;</span>.<span style="color: #660066;">getAll</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+getAllRequest.<span style="color: #660066;">onsuccess</span> <span style="color: #339933;">=</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span>event<span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; <span style="color: #006600; font-style: italic;">//event.target.result contains an array of all data objects</span><br />
+<span style="color: #009900;">&#125;</span><span style="color: #339933;">;</span></div></div>
+<p>And, finally, if you want to clear (i.e., delete all data objects) the store:</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #003366; font-weight: bold;">var</span> clearTransaction <span style="color: #339933;">=</span> db.<span style="color: #660066;">transaction</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#91;</span>storeName<span style="color: #009900;">&#93;</span><span style="color: #339933;">,</span> IDBTransaction.<span style="color: #660066;">READ_WRITE</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<span style="color: #003366; font-weight: bold;">var</span> clearRequest <span style="color: #339933;">=</span> clearTransaction.<span style="color: #660066;">objectStore</span><span style="color: #009900;">&#40;</span>storeName<span style="color: #009900;">&#41;</span>.<span style="color: #660066;">clear</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+clearRequest.<span style="color: #660066;">onsuccess</span> <span style="color: #339933;">=</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span>event<span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; <span style="color: #006600; font-style: italic;">//event.target.result contains undefined</span><br />
+<span style="color: #009900;">&#125;</span><span style="color: #339933;">;</span></div></div>
+<h1>But how‘s this better than localStorage?</h1>
+<p>It isn‘t. Yeah, well, it is, as you can store objects and don‘t have to stringify them before. But basically, to get the real advantages of IDB, you will need to dive deeper into it. Features like keyRanges remove the need to do map/reduce action when you search for items in your store. But now you have an idea of how the whole thing works. If you want to go further, browse in the spec or the MDC docs and try things out!</p>
+<p><strong>Example Code</strong></p>
+<p>There is an example page over here: <a href="http://static.uxebu.com/~jens/indexeddb/ff-idb.html" target="_blank">http://static.uxebu.com/~jens/indexeddb/ff-idb.html</a>.</p>
+<p>It uses an ObjectStore wrapper I created using dojo that covers the basic methods mentioned above, the JavaScript is here: <a href="http://static.uxebu.com/~jens/indexeddb/idb-ff.js" target="_blank">http://static.uxebu.com/~jens/indexeddb/idb-ff.js</a>.</p>
+<p>When you open the page, open the console and you will see some messages there. Check out the source to see what‘s going on; it‘s basically a round trip through all the basic methods.</p>
+<p><strong>Further Reading</strong></p>
+<ul>
+<li>The spec: <a href="http://www.w3.org/TR/IndexedDB/" target="_blank">http://www.w3.org/TR/IndexedDB/</a></li>
+<li>The MDC article: <a href="https://developer.mozilla.org/en/IndexedDB" target="_blank">https://developer.mozilla.org/en/IndexedDB</a></li>
+</ul>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2011/03/using-indexeddb-on-firefox/">Using IndexedDB on Firefox</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2011/03/using-indexeddb-on-firefox/feed/</wfw:commentRss>
+		<slash:comments>1</slash:comments>
+		</item>
+	</channel>
+</rss>

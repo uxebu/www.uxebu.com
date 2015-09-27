@@ -1,0 +1,715 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>uxebu &#187; frontend engineering</title>
+	<atom:link href="http://www.uxebu.com/blog/category/frontend-engineering/feed/" rel="self" type="application/rss+xml" />
+	<link>http://www.uxebu.com</link>
+	<description>The first JavaScript-only development and consulting company</description>
+	<lastBuildDate>Thu, 30 Jul 2015 09:10:24 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=4.1.8</generator>
+	<item>
+		<title>The value of manual testing</title>
+		<link>http://www.uxebu.com/blog/2015/01/value-manual-testing/</link>
+		<comments>http://www.uxebu.com/blog/2015/01/value-manual-testing/#comments</comments>
+		<pubDate>Mon, 12 Jan 2015 13:29:51 +0000</pubDate>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+				<category><![CDATA[development tools]]></category>
+		<category><![CDATA[frontend engineering]]></category>
+		<category><![CDATA[testing]]></category>
+
+		<guid isPermaLink="false">http://www.uxebu.com/?p=6669</guid>
+		<description><![CDATA[<p>I refactored the reactjs implementation of todoMVC. And when I was done I realized that going through the process made me learn a lot especially about testing. Let me lay out where integration tests and manual tests played their roles in this process. The purpose When preparing for a munichjs talk I gave last week [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2015/01/value-manual-testing/">The value of manual testing</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><img src="http://www.uxebu.com/wp-content/uploads/2015/01/beautiful-150x150.jpg" alt="beautiful" width="150" height="150" class="alignright size-thumbnail wp-image-6683" />I <a href="https://github.com/wolframkriesing/todomvc/tree/react-componentize/examples/react/js">refactored the reactjs implementation of todoMVC</a>. And when I was done I realized that going through the process made me learn a lot especially about testing. Let me lay out where integration tests and manual tests played their roles in this process.<br />
+<span id="more-6669"></span></p>
+<h2>The purpose</h2>
+<p>When preparing for a <a href="http://slides.com/wolframkriesing/react-js-dom-as-it-was-meant#/">munichjs talk</a> I gave last week about reactjs (and testing) I tried to find a common task that hopefully everyone had at least heard about before. <a href="http://todomvc.com/">TodoMVC</a> seemed perfect, which is basically one specification and many implementations in all kinds of different web frameworks, made to compare them.<br />
+My plan was to use the commonly known todoMVC project to transfer all the learnings from a bigger reactjs project that we worked on the first half of 2014. Choosing todoMVC I thought would make it easier to do so. But it needed some refactoring to apply the learnings we had made in that big project. In the end I think it worked out quite well.</p>
+<p>I am the testing-guy. Maybe a bit extreme at times, but it gives me a good feeling. And since I know I don’t know much yet, I like the excessive path at times to learn what the middle way might be.<br />
+Approaching the todoMVC app, I looked for the tests first. I didn’t find any. Alright, that means I will have to make the effort to ensure that my refactorings will keep the app working as expected. My refactorings are serving a very special purpose. I want to show that react doesn’t require to deal with state for implementing business logic. It pushes you to a clean separation of concerns especially between data and UI. And almost for free comes a good testability.<br />
+Bottom line is to prove the claim „reactjs &#8211; DOM as it was intended“, as I like to phrase it.</p>
+<h2>Refactoring, 3, 2, 1, go</h2>
+<p>I know where I want the code to head. The refactoring was a mix of <a href="http://martinfowler.com/articles/workflowsOfRefactoring/#comprehension">comprehension refactoring</a> and application of the <a href="http://programmer.97things.oreilly.com/wiki/index.php/The_Boy_Scout_Rule">boy scout rule</a>.<br />
+As you can see in <a href="https://github.com/wolframkriesing/todomvc/commits/react-componentize">my commit history</a>, I like to take tiny steps (baby steps) and almost every time I make a too big step I undo later anyways.<br />
+Refactoring is one thing, but knowing that I didn’t break anything is another, and that is where we normally apply testing. In a well-tested application we can use some kind of coverage tool to tell us how well the app is covered and then we know to which degree we can rely on the existing tests or if we have to write some more.<br />
+In an completely untested app, as it was the case here, we have to decide how to approach a verifiable app. My first thought was, I write some integration tests which click through the UI and I verify some results. I would use selenium or an alike tool for it and I might be fine. Thinking that through it seemed too much effort, since I didn’t plan to invest more than a day in this, so I didn&#8217;t. Though two days later I thought of using a golden master comparison of the complete web site content after every interaction, that may would have been a much faster approach, but I didn’t think of it at this point.<br />
+There was another thing that actually made me hesitate to write some automated integration tests at that point. It was my lack of knowledge of what the todoMVC app really does. Yeah, ok it does some todo list handling, but which features exactly I didn’t know. So I decided to go for a manual testing approach. I can hear some people scream: „What, no automated tests?“ and I say „No“. And I tell you why. </p>
+<h2>Manual testing</h2>
+<p>Actually I am a big fan and strong believer in automated tests, it’s the only way you will get reliable and reproducible results. And I know that from experience. It was painful when we did only manual testing. Actually this painful experience led us  at uxebu to become strong believers and learners in the testing culture.</p>
+<p>It is very tempting to do the first couple of refactorings only supported by manual tests. There is no test setup time, you feel to become productive very quickly. And sticking to small refactorings gives a sense of security.<br />
+And even though I didn’t feel comfortable with this in the beginning, I learned about the value throughout the process. So I started out just doing manual tests. In the beginning there was this voice in my head „automate the tests!“ which I didn’t listen to. In the first place I didn’t listen to it because I thought my refactoring might just be small things, and won’t take more than one or two hours (which turned out to be wrong). Pretty quickly I realized that my manual tests do not only serve the purpose of verifying that the app works. I learned a lot about the app and the features it provides. As I said in the beginning, I didn’t read the todoMVC spec, and tbh I also didn’t plan to do so. I love exploring apps by refactoring them (I successfully did that the first time I refactored the <a href="https://github.com/emilybache/Tennis-Refactoring-Kata">Tennis Kata</a> and am hooked since).<br />
+I started to create kind of a rhythm of what to test after every refactoring step. In combination with the deeper learnings about the source code I adapted this test list. I found out that I can also manipulate the todo-items even when a filter is applied, so I added that to my (manual) test list.<br />
+After a couple of hours in and quite a number of refactoring steps, I realized that my test list is stabilizing and I felt it was the right time to create automated tests. And than I cheated. At this time I stopped refactoring, since I got pretty close to where I needed the code to be for my talk. Until here I actually just moved around UI logic code. I only touched a small business logic part. Remember my main purpose here was to show a certain aspect of reactjs, I got there.</p>
+<h2>Explore, stabilize, commoditize</h2>
+<p>I thought I would feel pretty bad about the result of my pure manual testing approach, but to be honest I don’t. After <a href="http://dannorth.net/">Dan North</a> implanted <a href="http://www.slideshare.net/slideshow/embed_code/14731053?startSlide=16">„explore, stabilize, commoditize“</a> into my brain last year I feel like this applies in more places than expected. So it does here too. I optimized for discovery first. I tried to discover all the features of this app, I „explored“. By repeating this process often I got to a stabilized set of tests that now need to be commoditized, which means automated in this case.<br />
+Starting the automation of the tests just now, does also give me a way better feeling of what tests I should write. What groups of test sets I create, what features are important and where do I might need to put less focus. I basically learned about the app by using (and refactoring) it. From time to time I also opened the original todoMVC app (without the refactorings) to compare that I didn’t break a certain thing.<br />
+This was the perfect app to do this kind of explorative testing. I believe that we should take the time to manual test before most of our refactoring work, especially when the apps have UIs. And this manual tests should serve as the base for what integration tests to write for legacy code, it shall not be the excuse to not automate the tests. I gained much more confidence in the feature set of the todoMVC app, I even learned about edge cases that I hadn’t thought would exist. I can perfectly write tests for the app now. I feel I can give estimated guesses about when an integration test can be deleted because it’s feature set has been validated by the according unit test. Having only the necessary set of integration tests left is our final goal anyways! Right?</p>
+<h2>Integration tests and false believe</h2>
+<p>One issue still stands out for me. I experience a lot when working with legacy apps. It is how and when to question the existing set of tests. For one you don’t want to miss a test that might lead to breaking part of the app and two you also don’t want to spend endless amount of time writing new tests that might not add real value. (I guess I should finally read <a href="http://www.informit.com/store/working-effectively-with-legacy-code-9780131177055">Michael Feathers’ book</a>).<br />
+In the web environment I believe it is even more complicated to confidently build the safety net around web apps. The number of technologies (HTML, CSS, JavaScript, various OSes, browsers, …) involved just makes it even harder. On the one hand there needs to be sufficient tooling, which partly doesn’t exist yet or is too hard to setup and maintain and on the other hand applying the right strategies is not always easy. </p>
+<p>So, even when a good set of (integration) tests exists don’t let the false sense of security pull you onto the dark side. Do always question your set of tests, verify the requirements, environments the app runs in and expectations of the customers as soon as you can. You will not only learn more about the app but your safety net and the strategies how to expand it will improve. Testing is one of those endless learnings that a software craftsman should be doing. </p>
+<p>Keep it up and stay flexible!</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2015/01/value-manual-testing/">The value of manual testing</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2015/01/value-manual-testing/feed/</wfw:commentRss>
+		<slash:comments>2</slash:comments>
+		</item>
+		<item>
+		<title>Get real with ES6 (and webpack)</title>
+		<link>http://www.uxebu.com/blog/2014/11/get-real-es6-webpack/</link>
+		<comments>http://www.uxebu.com/blog/2014/11/get-real-es6-webpack/#comments</comments>
+		<pubDate>Mon, 24 Nov 2014 07:51:57 +0000</pubDate>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+				<category><![CDATA[development tools]]></category>
+		<category><![CDATA[frontend engineering]]></category>
+		<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[tdd]]></category>
+
+		<guid isPermaLink="false">http://www.uxebu.com/?p=6615</guid>
+		<description><![CDATA[<p>After the last post, where I briefly described how to setup mocha with ES6 (using traceur, a transpiler to working JavaScript) I couldn&#8217;t stop and had to prove, that getting it to run with on a real site was doable. It had it&#8217;s hurdles but voila it does work. See the github repo if you [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/11/get-real-es6-webpack/">Get real with ES6 (and webpack)</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>After the <a href="http://www.uxebu.com/blog/2014/11/es6-tdd-work-traceur-mocha-sinon/">last post</a>, where I briefly described how to setup <a href="http://mochajs.org">mocha</a> with <a href="http://wiki.ecmascript.org/doku.php?id=harmony:specification_drafts">ES6</a> (using <a href="https://github.com/google/traceur-compiler">traceur</a>, a transpiler to working JavaScript) I couldn&#8217;t stop and had to prove, that getting it to run with on a real site was doable. It had it&#8217;s hurdles but voila it does work. See <a href="https://github.com/uxebu/mocha-sinon-traceur-example">the github repo</a> if you want to dive right into code.<br />
+<span id="more-6615"></span></p>
+<h2>Using Webpack needs an ES6 compiler</h2>
+<p>The latest I happily used to build CommonJS (node.js) style code and run it on the web is <a href="http://webpack.github.io">webpack</a>. Since it comes with all possible loaders that one needs (<a href="https://facebook.github.io/react/docs/jsx-in-depth.html">JSX</a>, ES6, etc.) there was not much thought I spent in what to use.</p>
+<p>To get ES6 running in all (modern) browsers a transpilation step is required, which translates <a href="https://github.com/google/traceur-compiler/wiki/LanguageFeatures">ES6 syntax</a> into ES5 syntax that runs in all the browsers. For that I use traceur, which by features seems to be the most interesting one, more about this in a bit. Besides the translation of the code it does also need a runtime which brings all the boilerplate like class creation. I would like to have this all handled on the fly, I prefer not to have much to do with it. Please do just work.</p>
+<p>As described in my last post I thought of using <a href="https://github.com/shama/es6-loader">es6-loader</a> for it. Quickly I realized I needed to hunt for something else. Why? Because I already started to use ES6 module syntax and wanted to keep going with it, just getting closer to the future sooner :). Have a look at it:<br />
+<script src="https://gist.github.com/wolframkriesing/b7de988d9f16aae25831.js"></script><br />
+es6-loader uses <a href="https://github.com/termi/es6-transpiler#not-supported">the es6-transpiler, which states module syntax is not supported</a> yet. Alright. That actually made the case for me to not use this project since I don&#8217;t want to run the tests with mocha but the production code with es6-transpiler, this does feel like pain coming up. So I went looking for a webpack-module that can do traceur. Even though I think it&#8217;s worth keeping an eye on es6-transpiler since <a href="https://github.com/termi/es6-transpiler#goal">the goals</a> are just a bit different than those of traceur.</p>
+<p>The hunt quickly revealed that there are two projects, after some stumbling I saw that actually one was just a pull request that got merged already. And in the end I saw that <a href="https://github.com/ndhoule/webpack-traceur-loader">webpack-traceur-loader</a> is what I need. One thing that worried me a little was that the current version of traceur it uses was 0.5x and traceur is already at 0.7x. But later I realized that all features work, so let&#8217;s go ahead. Here it is worth mentioning that the approach of mocha-traceur is quite cool, where <a href="https://github.com/domenic/mocha-traceur#mocha-traceur">it&#8217;s README says</a> </p>
+<blockquote><p>Traceur is intentionally not included in this package so you can install your preferred version alongside Mocha Traceur.</p></blockquote>
+<p>which makes lots of sense as long as the API is compatible. If that&#8217;s not the case the user will have the failure and might be pissed.<br />
+And by this you can see that I already do run two different traceur versions. For the tests I am using the one I `npm install`ed and for production I am using the one wepback-traceur-loader brings along. I have to align the two to prevent bugs of the &#8220;works with the tests but not in production&#8221; kind &#8211; writing this on my virtual to do list.</p>
+<h2>Make an index.html and use ES6 for real</h2>
+<p>All the config is set up. Now I gotta try it in real life. So I added an &#8216;empty&#8217; index.html to the <a href="https://github.com/uxebu/mocha-sinon-traceur-example/tree/add-webpack/src">example project</a>. I just want to throw &#8220;works&#8221; into the body&#8217;s innerText. That serves as a good enough integration test for now.</p>
+<p>Now I `npm install`ed the above discussed webpack-traceur-loader and enabled it. My `webpack.config.js` looks like this now (copied <a href="https://github.com/uxebu/mocha-sinon-traceur-example/blob/299581015364142e569e321bce168294d933ed9a/webpack.config.js">from the repo</a>):<br />
+<script src="https://gist.github.com/wolframkriesing/e1ee1196661659df221f.js"></script><br />
+Now also the ES6 loader stuff works fine. And believe it or not, after `npm start` (which starts the webpack-dev-server) the site shows &#8220;works&#8221;. Find the revision <a href="https://github.com/uxebu/mocha-sinon-traceur-example/commit/96eb526d022e0c825e82fd2b23e9634ef1ac2f68">online in the example project repo</a>.</p>
+<h2>Include an external library, jQuery</h2>
+<p>Actually I am doing this because I want to convert the <a href="https://github.com/uxebu/compass-to-map-app">compass-map-app-kata</a> to ES6 since I am tired of `var self = this;` and binding scopes, which imho is just blurring code and code&#8217;s intention with something that is missing in the language. But the app does also use jQuery to connect to all the simple DOM stuff. So next step here is to get jQuery into the game.</p>
+<p>I want to see that the ES6 setup does not only work for my local files, but does also work when I integrate with external libraries. Of course I could go the easy way and include jQuery in the index.html, no-brainer. But I want to require jQuery on the server side too, so it gets bundled with the app.<br />
+I did `npm install jquery` and now inside my code I can use the nice `import jQuery from &#8216;jquery';`. Beautiful. Webpack doesn&#8217;t complain and it builds, it also shows me that it includes jQuery, as you can see below in line 22.<br />
+<script src="https://gist.github.com/wolframkriesing/10e761faf174c5556c97.js"></script></p>
+<p>That was easy. Now let&#8217;s use jQuery in the code. So I add `jQuery(document.body).text(&#8230;)` so it prints &#8216;works&#8217; on my site. But there is no &#8216;works&#8217; showing up in the browser. Opening the console I see a &#8216;Uncaught TypeError: object is not a function&#8217;. What??? After a bit of debugging I find out that jQuery is an empty object. Ok, this must be the building part. What else can it be? So I start trying all possible things, going back to `var jQuery = require(&#8216;jquery&#8217;)`. I also renamed all ES6 files to use `.es6.js` and configure webpack accordingly. I don&#8217;t like that, even though it very well shows what is ES6 and what not, but it is also there only because I just don&#8217;t know any better.<br />
+No solution really works.</p>
+<p>Long story short. I saw that the `jquery.js` got modified after run through traceur and it then only exports `{}`. Well, that&#8217;s not what I want. So I have to exclude jQuery from traceur running over it. After fiddeling around, debugging into the webpack loader, learning lot&#8217;s from it and demistifying another piece of magic, I found the `exclude` parameter I have to pass to traceur in the `webpack.config.js`, as you can see below in line 9:<br />
+<script src="https://gist.github.com/wolframkriesing/c16ce2f47dec1de7c782.js"></script><br />
+See in the last line that I also turned on `debug`, this outputs all the files that traceur handles, as you can see a bit further up in the webpack console output. Make sure NOT to see libs like jquery in there prefixed with `[traceur-loader]`, only the code you really want to be compiled.</p>
+<h2>Use it in real, compass-map-app-kata</h2>
+<p>The <a href="https://github.com/uxebu/mocha-sinon-traceur-example">example project</a> was born out of &#8220;I want to get it to work without any noise around it&#8221;. But of course the actual reason I investigated all that was another &#8220;bigger&#8221; app. The <a href="https://github.com/uxebu/compass-to-map-app">compass-map-app-kata</a>, which is still called a kata, since it is that for me. And I am thinking of how to make this into a nice <a href="http://www.uxebu.com/workshops/">workshop <img src="http://www.uxebu.com/wp-includes/images/smilies/icon_smile.gif" alt=":)" class="wp-smiley" /></a> since I see lots of potential in showing a real app using the DOM, doing it test-driven and sharpening the skills around TDD in a real ES6 web app environment.<br />
+The conversion from ES5 to ES6 of the compass app is a complete post on it&#8217;s own, which I might follow up on later. If you are interested, you can dive in by investigating the commits on <a href="https://github.com/uxebu/compass-to-map-app/tree/switch-to-es6">the switch-to-es6 branch</a>.<br />
+The short summary is: It does work. I am happy I did the baby steps in the example repo to focus on the small problems and really just worry about the actual problems, so I kinda applied the <a href="http://mikadomethod.wordpress.com">mikado method</a> here, trying to find out the next missing piece in the chain, fixing it and switching back to the bigger scope.</p>
+<h2>Other/External services</h2>
+<p>The next step of getting this into production is to hook up with several external services for monitoring the health of the app. You can see that I added all kinds of badges in the <a href="https://github.com/uxebu/compass-to-map-app/blob/master/README.md">README</a> in order to test out those health-services. Let me quickly list what worked well with ES6 and where there are still bumps. </p>
+<h3>Travis CI</h3>
+<p>Integrating it <a href="https://travis-ci.org/uxebu/compass-to-map-app">with travis</a> was no different than you do it with every project, of course it just does an `npm test` which requires a <a href="https://github.com/uxebu/compass-to-map-app/blob/master/.travis.yml">`.travis.yml`</a>, so make sure they are there.<br />
+I also added <a href="https://codeship.com">codeship</a> though I didn&#8217;t see how to make the project overview public. But it&#8217;s all green too (at least as of this writing) as you can see in the README badge. </p>
+<h3>Code coverage</h3>
+<p>I didn&#8217;t get a local <a href="https://github.com/gotwarlost/istanbul">istanbul</a> for the coverage to work yet, there seems to be <a href="https://github.com/meoguru/istanbul-traceur">istanbul-traceur</a> which seems to require gulp, I didn&#8217;t try that yet. I hooked up <a href="https://coveralls.io/r/uxebu/compass-to-map-app">coveralls.io</a> but seem to get no result from it yet. Not sure what I missed there. Hints welcome. It says that as soon as it passes in travis it will give me results, but didn&#8217;t yet.</p>
+<h3>Code quality services</h3>
+<p>I <a href="https://www.codacy.com/public/wk_2448/compass-to-map-app/files?bid=1981561">integrated codacy</a> which is currently not doing much more than some simple code analysis, in this project it seems not to give any value, since it does not seem to understand ES6 syntax yet. You can see that by `LoC` and some other fields being empty.<br />
+<a href="http://bithound.io">bithound.io</a> seems to do a real good job in detecting the ES6 files and understanding them, see <a href="https://app.bithound.io/uxebu/compass-to-map-app/files">the project files here</a>. And it reports the files are in good health. I am glad for them :). Though the real value I get from it is still quite low. Actually I want to know more about my code, maybe this project is just way too small to really do too much wrong that can be found with static code analysis.</p>
+<h2>Conclusion!</h2>
+<p>Overall I have to say the ES6 tool chain is already quite useable. And it is fun to move on with the language. Though I am still a little struggling with myself what will be the metrics for me for what to use when. After all I could write up the same for converting a project to <a href="http://livescript.net">LiveScript</a>, <a href="http://coffeescript.org">CoffeeScript</a> or <a href="http://www.typescriptlang.org">TypeScript</a>. They all get compiled to JavaScript, the big hurdle will be to see how well or bad either of those supports your workflow. There are multiple considerations that impact at least my workflow. It&#8217;s the following that come to my mind, and those I will have to keep an eye on when working with a language that is not &#8220;native&#8221;:</p>
+<ul>
+<li>Does this new language really give me benefits or just satisfies my need to be up to date with the latest tech?</li>
+<li>IDE support. First I need to have my IDE understand and highlight the syntax properly but very soon also refactorings and other tooling around it I need.</li>
+<li>Setup work. Adding `&#8211;coffee` or `mocha-traceur` for running the tests bare a certain overhead to be considered.</li>
+<li>Flow overhead when developing. Is there any disturbing compile time, longer test run time and/or more to setup with various options and addons needed?</li>
+<li>Test report noise. How unreadable will my stack traces become, how much will this slow me down in my daily work? (Even though stack traces are always a thing one has to learn to read.)</li>
+<li>External library/tool integrations. Is there any danger in integrating external tools and libraries, as talked about above with jQuery and the health-services.</li>
+</ul>
+<p>Compiler, transpiler, whatever &#8230; you can replace each of the terms with whatever fits your preference.</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/11/get-real-es6-webpack/">Get real with ES6 (and webpack)</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2014/11/get-real-es6-webpack/feed/</wfw:commentRss>
+		<slash:comments>1</slash:comments>
+		</item>
+		<item>
+		<title>SoCraTes 2014</title>
+		<link>http://www.uxebu.com/blog/2014/08/socrates-2014/</link>
+		<comments>http://www.uxebu.com/blog/2014/08/socrates-2014/#comments</comments>
+		<pubDate>Tue, 12 Aug 2014 12:00:31 +0000</pubDate>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+				<category><![CDATA[Events]]></category>
+		<category><![CDATA[frontend engineering]]></category>
+		<category><![CDATA[Open Source]]></category>
+		<category><![CDATA[redis]]></category>
+		<category><![CDATA[tdd]]></category>
+		<category><![CDATA[TDDbin]]></category>
+
+		<guid isPermaLink="false">http://www.uxebu.com/?p=5292</guid>
+		<description><![CDATA[<p>It&#8217;s already two days ago, that SoCraTes is over and there is still this cosy feeling that it left. It was one of those memorable conferences that you know you wanna return to. Oh, an un-conference it was! And that&#8217;s the point, it was not the &#8220;one (wo)man standing and telling you the truth&#8221; conference. It [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/08/socrates-2014/">SoCraTes 2014</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>It&#8217;s already two days ago, that SoCraTes is over and there is still this cosy feeling that it left. It was one of those memorable conferences that you know you wanna return to. Oh, an un-conference it was! And that&#8217;s the point, it was not the &#8220;one (wo)man standing and telling you the truth&#8221; conference. It was a &#8220;kick off a topic and let&#8217;s all see where it goes&#8221; conference. No speakers announced before, no fixed topics &#8211; just software craftsmanship as a rough framing.</p>
+<h2>Open Space/Mind</h2>
+<p>A BarCamp is just the same concept. Every morning you have an empty grid with rooms and time slots which want to be filled. And they get filled, by all the attendees. And after 1h or less you have a schedule that offers something for everyone. See the <a title="Schedule for Day 1" href="https://twitter.com/socrates_2014/status/497663363250663424">schedule for day1</a>. It was hard to select which session to go to. Not only because of all the interesting topics but also because you knew that every session would engage you. If not, the law of two feet said that you just carry yourself somewhere else.<br />
+Of course the hot topics were around people and crafting software. But also swimming, biking, running, watching stars, music and various kinds of gaming were done. And all just because someone kicked it of and people joined. I think every conference should be this style, it&#8217;s way more engaging and also encouraging people to take part, which makes it so valuable.</p>
+<h2>I did only learn</h2>
+<p>The very first day I learned about offline git, how you pass around commits on a USB stick. Then I joined a redis session, touched it and got a feeling for what it feels like to use redis and following that of course the obligatory discussion (accompanying NoSQL) about the right use case for the right tool. &#8220;TDD is dead&#8221; was a topic at every table at some point. And the awesome feeling of not rejecting all thoughts but accepting them as stimulation to think further is just what very well stands for the mindset of the people at this conference. But of course the answer to dead or not dead was not even worth discussing :). EventSourcing and CQRS had been one of the hot topics too, as I have seen this going around a lot lately, actually at all conferences I had been to this year. I tried to contribute a little bit with experience from the JavaScript world, especially on Sunday by taking part in the <a title="Agora" href="https://github.com/softwerkskammer">Agora</a> (which is the system behind <a title="softwerkskammer.org" href="http://softwerkskammer.org">softwerkskammer.org</a>) hackathon.</p>
+<h2>Hacking with JS test frameworks</h2>
+<p>In the hackathon on Sunday, which ran parallel to a Legacy CodeRetreat, we wanted to do some JavaScript. Of course there was no discussion that after we had prototyped and knew how to use the technology (reactjs in this case) we fire up the test framework. But first we fought the obligatory packaging fight, shall we use AMD, CommonJS, requirejs, browserify or plain old script tags. I think this very well allowed everyone to learn something, but it also made obvious that JavaScript just requires some boilerplate.<br />
+Funny enough I had been working on integrating mocha and jasmine into <a title="TDDbin Frontend" href="https://github.com/uxebu/tddbin-frontend">TDDbin</a> over the last days and therefore felt I can contribute. Since the Agora project already uses mocha that was the way to go. And it felt right. Cool, so let&#8217;s use it. And I guess the rest I have to put into a separate blog post, I can see this getting out of hand :).</p>
+<h2>Conclusion</h2>
+<p>If you care about your craft and want to get better at it, go to SoCraTes 2015!<br />
+Thanks to all the team behind this conference and all attendees who made it so outstanding. Find out more on <a href="https://twitter.com/socrates_2014">twitter.com/socrates_2014</a>.</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2014/08/socrates-2014/">SoCraTes 2014</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2014/08/socrates-2014/feed/</wfw:commentRss>
+		<slash:comments>1</slash:comments>
+		</item>
+		<item>
+		<title>Make tests read like a book</title>
+		<link>http://www.uxebu.com/blog/2013/01/make-tests-read-like-a-book/</link>
+		<comments>http://www.uxebu.com/blog/2013/01/make-tests-read-like-a-book/#comments</comments>
+		<pubDate>Tue, 08 Jan 2013 08:58:00 +0000</pubDate>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+				<category><![CDATA[frontend engineering]]></category>
+		<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[tdd]]></category>
+
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=2728</guid>
+		<description><![CDATA[<p>When all tests pass, life is great. And that should be the default case. We are working towards all tests passing, we are not trying to make mistakes. But when we make mistakes we want to get rid of them asap. That means we need to understand the cause in order to fix it. If [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2013/01/make-tests-read-like-a-book/">Make tests read like a book</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>When all tests pass, life is great. And that should be the default case. We are working towards all tests passing, we are not trying to make mistakes.<br />
+But when we make mistakes we want to get rid of them asap. That means we need to understand the cause in order to fix it. If the test talks to me like that</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="text codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">&quot;Expected false to be truthy.&quot;</div></div>
+<p>I get angry. But if the test says</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="text codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">&quot;Expected [object DisplayObject] to have properties 'blendMode'.&quot;</div></div>
+<p>I get the feeling I know what&#8217;s going on and even better, it sounds like I know what I have to fix. That is where <a title="Jasmine Matchers" href="https://github.com/uxebu/jasmine-matchers">custom jasmine matchers</a> come into play.<br />
+<span id="more-2728"></span></p>
+<h2>Be nice to yourself</h2>
+<p>It was really the above error message, that made me get frustrated and lead to matchers that just say what they expect. When I stumbled over tests like this</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #006600; font-style: italic;">// BAD</span><br />
+expect<span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'one million'</span>.<span style="color: #660066;">indexOf</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'two'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">===</span><span style="color: #CC0000;">0</span><span style="color: #009900;">&#41;</span><br />
+.<span style="color: #660066;">toBeTruthy</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></div>
+<p>I first needed at least a second look to find out what the test is supposed to do, checking that a certain string starts with &#8216;one&#8217;.</p>
+<pre style="margin: 30px;">Expected
+    false
+to be truthy.
+</pre>
+<p>But what is even worse, it makes a test result harder to put into context. Since the message does never come straight from the IDE, but mostly from the browser or (in the case of nodejs) on the console or even worse from jenkins (our CI tool). And if those tools tell me that false should be truthy I feel pretty much left in the dark. I have no clue where to look for the error and actually I get angry at the test (author &#8211; me? oops) for being lazy and not telling me what I wanted to know through testing. Of course, it worked for me at the time I wrote the test and I had the context and no problem to understand the test result, because I was in the flow. But I am not in that flow anymore and it&#8217;s my time that I steal by having been sloppy. And even if I am a one man show, a month later I won&#8217;t be in the flow anymore either.</p>
+<p>Writing a test like</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #006600; font-style: italic;">// GOOD</span><br />
+expect<span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'one million'</span><span style="color: #009900;">&#41;</span><br />
+.<span style="color: #660066;">toStartWith</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'two'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></div>
+<p>and get a resulting error message</p>
+<pre style="margin: 30px;">Expected
+    "one million"
+to start with
+    "two"
+</pre>
+<p>makes writing and especially reading (and fixing) tests a pleasure. The test case is not only a dumb unreadable verification of your code, but it is what tests are supposed to be and what BDD means:</p>
+<ol>
+<li>the description of the behavior</li>
+<li>a readable specification</li>
+<li>almost a documentation and last but not least</li>
+<li>a fun to use tool that helps you maintain your code with less pain.</li>
+</ol>
+<h2>Jasmine Matchers</h2>
+<p>In the following, I am going to show some example usages of some of the jasmine matchers, that we provide with jasmine-matchers, which you find on github, of course (it must be great being github and having people write &#8220;using github of course&#8221;, congrats!).</p>
+<h3>toBeArray, toBeNan, toBeNumber, toBeOfType</h3>
+<p>Some simple checks in a loosely typed language for a proper initialization or a return value is sometimes needed.</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">expect<span style="color: #009900;">&#40;</span><span style="color: #003366; font-weight: bold;">new</span> Sprite<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span>.<span style="color: #660066;">filters</span><span style="color: #009900;">&#41;</span><br />
+.<span style="color: #660066;">toBeArray</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+expect<span style="color: #009900;">&#40;</span>value<span style="color: #009900;">&#41;</span><br />
+.<span style="color: #660066;">toBeNan</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+expect<span style="color: #009900;">&#40;</span>otherValue<span style="color: #009900;">&#41;</span><br />
+.<span style="color: #660066;">toBeNumber</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></div>
+<p>Which result in the nice error message like this</p>
+<pre style="margin: 30px;">Expected
+    value
+to be array
+</pre>
+<p>If there is no explicit matcher, sometimes the following is used:</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">expect<span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'a'</span><span style="color: #009900;">&#41;</span><br />
+.<span style="color: #660066;">toBeOfType</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'number'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></div>
+<p>which properly reports</p>
+<pre style="margin: 30px;">Expected
+    "a"
+to be of type
+    "number"
+</pre>
+<p>Instead of the way you would do it, if you only had the standard jasmine matchers</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #006600; font-style: italic;">// BAD</span><br />
+expect<span style="color: #009900;">&#40;</span><span style="color: #000066; font-weight: bold;">typeof</span> <span style="color: #3366CC;">'a'</span> <span style="color: #339933;">==</span> <span style="color: #3366CC;">'number'</span><span style="color: #009900;">&#41;</span><br />
+.<span style="color: #660066;">toBe</span><span style="color: #009900;">&#40;</span><span style="color: #003366; font-weight: bold;">true</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></div>
+<p>which would only tell you</p>
+<pre style="margin: 30px;">Expected
+    false
+to be 
+    true
+</pre>
+<p>which helps little.</p>
+<h3>toBeCloseToOneOf</h3>
+<p>For our conversion from Flash to HTML5, we have some edge cases, where we want to make sure that certain values are alike, they don&#8217;t necessarily need to match. The concrete example here, was the textHeight/textWidth of fonts use by flash.text.TextField. As I learned the hard way too, font metrics are not set in stone. So I learned that the textWidth of &#8220;Y&#8221; is even different in the AIR runtime and in Flash&#8217;s web runtime. Just by one pixel, but still different. And not testable with a</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="text codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">expect(x.textWidth).toBe(9)</div></div>
+<p>, not even with</p>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="text codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">expect(x.textWidth).toBeOneOf([9, 10])</div></div>
+<p>. The latter one might work for one letter tests, but as soon, as get to a longer string we can&#8217;t use that approach anymore. But we still want to make sure that the value is somewhere near.<br />
+So the following made it work, and gives pretty much security that we are doing it right.</p>
+<pre style="margin: 0; padding: 0; background-color: inherit;">
+
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #003366; font-weight: bold;">function</span> tenPercentOff<span style="color: #009900;">&#40;</span>actual<span style="color: #339933;">,</span> expected<span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; <span style="color: #000066; font-weight: bold;">return</span> expected <span style="color: #339933;">*</span> <span style="color: #CC0000;">0.9</span> <span style="color: #339933;">&amp;</span>lt<span style="color: #339933;">;=</span> actual <span style="color: #339933;">&amp;</span>amp<span style="color: #339933;">;&amp;</span>amp<span style="color: #339933;">;</span> expected <span style="color: #339933;">*</span> <span style="color: #CC0000;">1.1</span> <span style="color: #339933;">&amp;</span>gt<span style="color: #339933;">;=</span> actual<span style="color: #339933;">;</span><br />
+<span style="color: #009900;">&#125;</span><br />
+it<span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'should report correct textWidth'</span><span style="color: #339933;">,</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; expect<span style="color: #009900;">&#40;</span>someText.<span style="color: #660066;">textWidth</span><span style="color: #009900;">&#41;</span><br />
+&nbsp; &nbsp; .<span style="color: #660066;">toBeCloseToOneOf</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#91;</span><span style="color: #CC0000;">23</span><span style="color: #339933;">,</span> <span style="color: #CC0000;">26</span><span style="color: #009900;">&#93;</span><span style="color: #339933;">,</span> tenPercentOff<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></div>
+
+</pre>
+<p>In this case, the matcher can even include some intelligence for reporting, which in case of an error reports the following:</p>
+<pre style="margin: 30px;">Expected 19 to be 'ten percent off' of one of [23, 26].
+</pre>
+<h3>toContainOnce</h3>
+<p>Sometimes very specific matchers make sense, and since they are simple to write you grow a good library over time, one of them that might not be used that often, but states very well the intention of test is the following.<br />
+If checks if the given value is contained only once in a given array or string.</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">it<span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'should return every package only once'</span><span style="color: #339933;">,</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><br />
+<span style="color: #003366; font-weight: bold;">var</span> actual <span style="color: #339933;">=</span> classGenerator.<span style="color: #660066;">getAllPackageNames</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+expect<span style="color: #009900;">&#40;</span>actual<span style="color: #009900;">&#41;</span><br />
+.<span style="color: #660066;">toContainOnce</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'flash.net'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></div>
+<h3>toHaveProperties, toHaveOwnProperties</h3>
+<p>When working with objects, especially while we were implementing the AS3 library, we have come to need checks for certain object conditions. Not only to know if an object has a certain property, but also explicitly if it has been defined on this object and not any of it&#8217;s parents.</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #003366; font-weight: bold;">var</span> obj <span style="color: #339933;">=</span> <span style="color: #009900;">&#123;</span>x<span style="color: #339933;">:</span><span style="color: #CC0000;">0</span><span style="color: #339933;">,</span> y<span style="color: #339933;">:</span>undefined<span style="color: #009900;">&#125;</span><span style="color: #339933;">;</span><br />
+expect<span style="color: #009900;">&#40;</span>obj<span style="color: #009900;">&#41;</span><br />
+.<span style="color: #660066;">toHaveProperties</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'x'</span><span style="color: #339933;">,</span> <span style="color: #3366CC;">'y'</span><span style="color: #339933;">,</span> <span style="color: #3366CC;">'z'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></div>
+<pre style="margin: 30px;">Expected 
+    { x : 0, y : undefined } 
+to have properties 
+    'x', 'y', 'z'.
+</pre>
+<h3>String matchers</h3>
+<p>When working with strings it becomes very handy to have specific string matchers available.</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">expect<span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'abc'</span><span style="color: #009900;">&#41;</span><br />
+.<span style="color: #660066;">toEndWith</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'c'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+expect<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#91;</span><span style="color: #3366CC;">'one'</span><span style="color: #339933;">,</span> <span style="color: #3366CC;">'zwee'</span><span style="color: #339933;">,</span> <span style="color: #3366CC;">'three'</span><span style="color: #009900;">&#93;</span><span style="color: #009900;">&#41;</span><br />
+.<span style="color: #660066;">toEachEndWith</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'e'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<span style="color: #006600; font-style: italic;">// Explicit non-matcher check</span><br />
+expect<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#91;</span><span style="color: #3366CC;">'one'</span><span style="color: #339933;">,</span> <span style="color: #3366CC;">'zwei'</span><span style="color: #339933;">,</span> <span style="color: #3366CC;">'three'</span><span style="color: #009900;">&#93;</span><span style="color: #009900;">&#41;</span><br />
+.<span style="color: #660066;">not</span>.<span style="color: #660066;">toEachEndWith</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'e'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+expect<span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'abc'</span><span style="color: #009900;">&#41;</span><br />
+.<span style="color: #660066;">toStartWith</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'a'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+expect<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#91;</span><span style="color: #3366CC;">'one'</span><span style="color: #339933;">,</span> <span style="color: #3366CC;">'onetwo'</span><span style="color: #339933;">,</span> <span style="color: #3366CC;">'onethree'</span><span style="color: #009900;">&#93;</span><span style="color: #009900;">&#41;</span><br />
+.<span style="color: #660066;">toEachStartWith</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'o'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+expect<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#91;</span><span style="color: #3366CC;">'one'</span><span style="color: #339933;">,</span> <span style="color: #3366CC;">'onetwo'</span><span style="color: #339933;">,</span> <span style="color: #3366CC;">'three'</span><span style="color: #009900;">&#93;</span><span style="color: #009900;">&#41;</span><br />
+.<span style="color: #660066;">toSomeStartWith</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'one'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+expect<span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'uxebu rox'</span><span style="color: #009900;">&#41;</span><br />
+.<span style="color: #660066;">toContainOnce</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'uxebu'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span> <span style="color: #006600; font-style: italic;">// used as a string matcher</span></div></div>
+<p>I guess by now, it&#8217;s clear that the reporting makes understanding failures easy, as you can see nicely in the following too:</p>
+<pre style="margin: 30px;">Expected 
+    [ 'two', 'three' ] 
+to some start with 
+    'one'.
+</pre>
+<h2>Going beyond</h2>
+<p>By clever use of jasmine&#8217;s describe blocks when writing tests, I bet you can create a readable prosa documentation of the code you wrote. Even special cases, can be covered very well, things like</p>
+<ul>
+<li>optimizations</li>
+<li>bug fixes</li>
+<li>enhancements</li>
+<li>speed ups</li>
+<li>even quirky behaviors</li>
+</ul>
+<p>can be documented that way. And if you take TDD serious &#8220;documented&#8221; means, as usual: I write the test to ask for this behavior, see it fail and fix the test.<br />
+In the following code a test block describes additional optimizations, that have been done to speed up the code. I left out the actual tests, to show that the power of correct describe and it blocks can result in some pretty reasonable, readable test code.</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">describe<span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'Optimizations'</span><span style="color: #339933;">,</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><br />
+describe<span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'should not connect stage.on(pointerdown)'</span><span style="color: #339933;">,</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><br />
+it<span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'in normal state'</span><span style="color: #339933;">,</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+it<span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'after second click'</span><span style="color: #339933;">,</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></div>
+<p>The good thing, even the expectation what the optimization is is well written down. What the implementation looks like is hidden behind &#8211; as it should be.</p>
+<h2>Conclusion</h2>
+<p>And being nice to yourself and making code maintainable for your future is definitely something that feels good. Additionally you are helping your team to benefit from the same, and hopefully you inspire them all to do the same.</p>
+<p>Enjoy for the happiness and satisfaction that &#8216;this puzzle piece&#8217; to better code brings!</p>
+<h2>References</h2>
+<p>The github hosted <a title="Home" href="https://github.com/uxebu/jasmine-matchers">project home</a>.<br />
+The best documentation of all the matchers, <a href="https://github.com/uxebu/jasmine-matchers/blob/master/test/matchers-spec.js">are the tests themselves</a>.</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2013/01/make-tests-read-like-a-book/">Make tests read like a book</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2013/01/make-tests-read-like-a-book/feed/</wfw:commentRss>
+		<slash:comments>7</slash:comments>
+		</item>
+		<item>
+		<title>My console.log() strategy</title>
+		<link>http://www.uxebu.com/blog/2011/09/my-console-log-strategy/</link>
+		<comments>http://www.uxebu.com/blog/2011/09/my-console-log-strategy/#comments</comments>
+		<pubDate>Fri, 02 Sep 2011 10:00:36 +0000</pubDate>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+				<category><![CDATA[development tools]]></category>
+		<category><![CDATA[frontend engineering]]></category>
+		<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[console.log]]></category>
+
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=1723</guid>
+		<description><![CDATA[<p>This time I feel like sharing my (maybe) strange looking console.log() strategy, but I find it very effective, read on to learn why. If I can&#8217;t debug, for whatever reason and have to fall back to console.log()s you normally see my code looking like this: console.log&#40;&#34;i = &#34;, i&#41;; &#160; &#160; if &#40;i==0&#41;&#123; console.log&#40;1&#41;; &#160; [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2011/09/my-console-log-strategy/">My console.log() strategy</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>This time I feel like sharing my (maybe) strange looking <code class="codecolorer text default"><span class="text">console.log()</span></code> strategy, but I find it very effective, read on to learn why.<br />
+<span id="more-1723"></span></p>
+<p>If I can&#8217;t debug, for whatever reason and have to fall back to <code class="codecolorer text default"><span class="text">console.log()</span></code>s you normally see my code looking like this:</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap">console.<span style="color: #660066;">log</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">&quot;i = &quot;</span><span style="color: #339933;">,</span> i<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+&nbsp; &nbsp; <span style="color: #000066; font-weight: bold;">if</span> <span style="color: #009900;">&#40;</span>i<span style="color: #339933;">==</span><span style="color: #CC0000;">0</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span><br />
+console.<span style="color: #660066;">log</span><span style="color: #009900;">&#40;</span><span style="color: #CC0000;">1</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #006600; font-style: italic;">// Do something here</span><br />
+&nbsp; &nbsp; <span style="color: #009900;">&#125;</span> <span style="color: #000066; font-weight: bold;">else</span> <span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #006600; font-style: italic;">// Do else </span><br />
+console.<span style="color: #660066;">log</span><span style="color: #009900;">&#40;</span><span style="color: #CC0000;">2</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+&nbsp; &nbsp; <span style="color: #009900;">&#125;</span><br />
+console.<span style="color: #660066;">log</span><span style="color: #009900;">&#40;</span><span style="color: #CC0000;">3</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></div>
+<p>You can see two things here:</p>
+<ul>
+<li>the first line prints out a variable&#8217;s value, simple I guess</li>
+<li>all <code class="codecolorer text default"><span class="text">console.log()</span></code>s are not indented at all</li>
+</ul>
+<p>Let me touch on the &#8220;not indenting&#8221; first.<br />
+I don&#8217;t like to indent <code class="codecolorer text default"><span class="text">console.log()</span></code>s because this just makes the code look ugly, and that is intentional, because <code class="codecolorer text default"><span class="text">console.log()</span></code> normally just doesn&#8217;t belong in the code. By making the code look ugly I am quickly forced to remove them again, the latest I will stumble on it before committing, because I never commit without looking at the diff.<br />
+If I ever forget to remove the <code class="codecolorer text default"><span class="text">console.log()</span></code> I can be sure that a coworker will be annoyed by it and hopefully either ping me or remove it. But I am trying my best not to forget it :).</p>
+<h2>Komodo macro</h2>
+<p>Back to the first <code class="codecolorer text default"><span class="text">console.log()</span></code> you see in the code example up there, that one is actually one keystroke away for me, I have hacked a simple macro in my editor (<a href="http://www.activestate.com/komodo-edit">Komodo Edit</a>) that takes the text I selected and creates a <code class="codecolorer text default"><span class="text">console.log()</span></code> in the line below throwing out this variable and it&#8217;s value.<br />
+This little script looks like this:</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #003366; font-weight: bold;">var</span> s <span style="color: #339933;">=</span> ko.<span style="color: #660066;">views</span>.<span style="color: #660066;">manager</span>.<span style="color: #660066;">currentView</span>.<span style="color: #660066;">scimoz</span><span style="color: #339933;">;</span><br />
+<span style="color: #003366; font-weight: bold;">var</span> t <span style="color: #339933;">=</span> s.<span style="color: #660066;">selText</span><span style="color: #339933;">;</span><br />
+komodo.<span style="color: #660066;">doCommand</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'cmd_end'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+komodo.<span style="color: #660066;">doCommand</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'cmd_newlineBare'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<br />
+<span style="color: #006600; font-style: italic;">// Only if something was selected put it there.</span><br />
+t <span style="color: #339933;">=</span> t <span style="color: #339933;">?</span> <span style="color: #3366CC;">&quot;'&quot;</span><span style="color: #339933;">+</span>t<span style="color: #339933;">+</span><span style="color: #3366CC;">&quot; = ', &quot;</span><span style="color: #339933;">+</span>t<span style="color: #339933;">+</span><span style="color: #3366CC;">&quot;&quot;</span> <span style="color: #339933;">:</span> <span style="color: #3366CC;">&quot;arguments&quot;</span><span style="color: #339933;">;</span><br />
+s.<span style="color: #660066;">insertText</span><span style="color: #009900;">&#40;</span>s.<span style="color: #660066;">currentPos</span><span style="color: #339933;">,</span> <span style="color: #3366CC;">&quot;console.log(&quot;</span><span style="color: #339933;">+</span>t<span style="color: #339933;">+</span><span style="color: #3366CC;">&quot;);&quot;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<br />
+<span style="color: #006600; font-style: italic;">// Set the cursor inside the &quot;()&quot; at the end, so we can add</span><br />
+<span style="color: #006600; font-style: italic;">// parameters</span><br />
+komodo.<span style="color: #660066;">doCommand</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'cmd_end'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+komodo.<span style="color: #660066;">doCommand</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'cmd_left'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+komodo.<span style="color: #660066;">doCommand</span><span style="color: #009900;">&#40;</span><span style="color: #3366CC;">'cmd_left'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></div>
+<p>Just create a new macro with it and attach a key-combination to it and logging a variable is just one key stroke away.</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2011/09/my-console-log-strategy/">My console.log() strategy</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2011/09/my-console-log-strategy/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>JavaScript, HTML5, CSS3 workshop</title>
+		<link>http://www.uxebu.com/blog/2011/06/javascript-html5-css3-workshop/</link>
+		<comments>http://www.uxebu.com/blog/2011/06/javascript-html5-css3-workshop/#comments</comments>
+		<pubDate>Fri, 10 Jun 2011 13:58:56 +0000</pubDate>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+				<category><![CDATA[business]]></category>
+		<category><![CDATA[frontend engineering]]></category>
+		<category><![CDATA[HTML5]]></category>
+		<category><![CDATA[html5apps]]></category>
+		<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[mobile]]></category>
+		<category><![CDATA[uxebu]]></category>
+		<category><![CDATA[workshop]]></category>
+
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=1554</guid>
+		<description><![CDATA[<p>Uxebu is spreading its knowledge, get some of it &#8211; for 699€ if you are an early bird (999€ later)! Uxebu is now operating it&#8217;s business purely in the JavaScript space for about three years (oh that reminds me we should have a party!). We are convinced that JavaScript is ramping up now and we [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2011/06/javascript-html5-css3-workshop/">JavaScript, HTML5, CSS3 workshop</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<h2>Uxebu is spreading its knowledge, get some of it &#8211; for 699€ if you are an early bird (999€ later)!</h2>
+<p><span id="more-1554"></span></p>
+<p>Uxebu is now operating it&#8217;s business purely in the JavaScript space for about three years (oh that reminds me we should have a party!). We are convinced that JavaScript is ramping up now and we see that there are more and more things done and possible with the language. The browser landscape is developing rapidly and changing every day. The mobile industry is pushing the limits and we are helping to do our part in it. We learned a lot and are still learning. As it is in the nature of our company to spread our knowledge to allow everyone to use the technology at it&#8217;s best and push the limits with us, we think now it&#8217;s the time that we share our knowledge and pass it on to those hungering for diving into JavaScript!</p>
+<p>We really have <a href="http://twitter.com/void_0">gathered</a> <a href="http://twitter.com/jensarps">a lot</a> of <a href="http://twitter.com/tobeytailor">bright</a>, <a href="http://twitter.com/evilhackerdude">bleeding-edge</a> <a href="http://twitter.com/kuvos">people</a> and each of us is learning from another everyday. If you want to get some of the know how (at least as much as we can pass on in a two day workshop) you are invited to <a href="http://uxebu.com/html5-workshop/">join our workshops</a>. There will be one held in <a href="http://de.amiando.com/jsmunich.html"><strong>Munich 29th and 30th of June</strong></a> and another one in <a href="http://de.amiando.com/jsamsterdam.html"><strong>Amsterdam 11th and 12th of July</strong></a>. We will always have at least two uxebus teaching you the latest and hottest. We might even have some of the latest <a href="http://twitter.com/twtomcat/statuses/79157866954637313">bleeding-edge mobile devices</a> for you to run the app you will develop in the workshop.</p>
+<hr style="margin: 4em 0;" />
+<h2>Workshop Details</h2>
+<p>In this course we will cover a broad spectrum from JavaScript essentials to the bleeding edge of cross platform HTML5 development. We start from the ground up and go step by step, depending on the level of the participants we accelerate to show you the deep and dark sides of JavaScript.</p>
+<p>Each day of the course is split into an intensive “knowledge transfer” session in the morning and a hands on hacking workshop in the afternoon in which you will apply the contents learned during the morning. At the end you will have touched all contents not only through theory but also through intensive real life application and coding.</p>
+<p><em>Note that this course will not explain you how to work with jQuery and also not how to work without jQuery. The course mainly focuses on JavaScript, mobile and HTML5.</em></p>
+<h2>Day 1 (part 1) &#8211; JavaScript</h2>
+<p>We start with a small overview of the history. We tackle the basic structure of the language and move on with <strong>statements</strong>, <strong>expressions</strong>, <strong>functions</strong> and <strong>objects</strong>. We touch the different <strong>operators</strong> and when semi colons are introduced.</p>
+<p>We continue our way through the JavaScript landscape by taking a look at <strong>objects</strong>, <strong>properties</strong> and <strong>built-in functionality</strong>. At that point we’ll encounter our first major obstacles; <strong>scopes</strong> and <strong>closures</strong>. Once we conquer these we touch on the <strong>difference between functions and constructors</strong>. This is followed by our second major obstacle; <strong>prototype</strong> and the various values of the <strong>this keyword</strong>.</p>
+<h2>Day 1 (part 2) &#8211; Hackday: HTML5, CSS3</h2>
+<p>During the second part of day one, we will take what we have learned in the morning and mix it with a little shot of HTML5 fanciness. We will look at all those new APIs we can now access on our (mobile) devices to bring JavaScript to a new level. We will include cool APIs such as the <strong>Audio API, Video API, history, Canvas, SVG, File API, WebGL, DeviceMotion, WebWorkers, WebSocket, GPS</strong> &#8211; and if all ingredients fit well you might just end up with your first app written in JavaScript.</p>
+<h2>Day 2 (part 1) &#8211; The App Day</h2>
+<p>During the second day we willl continue with <strong>timers</strong>, <strong>callbacks</strong>, <strong>web workers</strong>, <strong>eval</strong> and the <strong>future of JavaScript</strong>. The speed of the course is matched with it’s participants. The important parts of the languages will be handled in the workshop. During the first part of day two we will also specifically look into topics which you want to cover after determining those during day one. This will give you the chance to get all your open questions answered so that you have your pockets full of knowledge after the workshop is over.</p>
+<h2>Day 2 &#8211; part two (Mobile)</h2>
+<p>JavaScript has grown strongly into the mobile space, so we will show you how to get the app you have started building during day one onto <strong>mobile devices</strong>. You will learn about <strong>media queries</strong>, some <strong>device sensors</strong>, <strong>performance</strong> and HTML5/CSS3/JavaScript tricks and how to optimize some parts for mobile and how to make a <strong>native app</strong> out of it, so you finally could even make get it into the <strong>app store</strong> and make money with it.</p>
+<h2>Now you want to join our workshop?</h2>
+<p>Join us either</p>
+<ul>
+<li>in <a href="http://de.amiando.com/jsmunich.html"><strong>Munich 29th and 30th of June</strong></a>or</li>
+<li>in <a href="http://de.amiando.com/jsamsterdam.html"><strong>Amsterdam 11th and 12th of July</strong> </a></li>
+</ul>
+<p><a href="http://uxebu.com/html5-workshop/"><img style="position: fixed; left: 0; top: 0;" src="http://uxebu.com/html5-workshop/workshop-badge.png" alt="Workshop: " /></a></p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2011/06/javascript-html5-css3-workshop/">JavaScript, HTML5, CSS3 workshop</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2011/06/javascript-html5-css3-workshop/feed/</wfw:commentRss>
+		<slash:comments>2</slash:comments>
+		</item>
+		<item>
+		<title>Using IndexedDB on Firefox</title>
+		<link>http://www.uxebu.com/blog/2011/03/using-indexeddb-on-firefox/</link>
+		<comments>http://www.uxebu.com/blog/2011/03/using-indexeddb-on-firefox/#comments</comments>
+		<pubDate>Wed, 30 Mar 2011 14:55:00 +0000</pubDate>
+		<dc:creator><![CDATA[Jens Arps]]></dc:creator>
+				<category><![CDATA[frontend engineering]]></category>
+		<category><![CDATA[HTML5]]></category>
+		<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[firefox]]></category>
+		<category><![CDATA[IDB]]></category>
+		<category><![CDATA[indexedDB]]></category>
+		<category><![CDATA[offline]]></category>
+		<category><![CDATA[storage]]></category>
+
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=1494</guid>
+		<description><![CDATA[<p>As Firefox 4 is now stable, chances are that the async IDB (IndexedDB) API is not going to change anymore. But IDB is not localStorage – it can be a major pain to work with. So, here is a guide on how to use IDB in Firefox as a key-value store. TL;DR There is example code [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2011/03/using-indexeddb-on-firefox/">Using IndexedDB on Firefox</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>As Firefox 4 is now stable, chances are that the async IDB (IndexedDB) API is not going to change anymore. But IDB is not localStorage – it can be a major pain to work with. So, here is a guide on how to use IDB in Firefox as a key-value store.</p>
+<p><em><strong>TL;DR</strong></em><br />
+There is example code available at the end of the post. If you don‘t want to read this lengthy post and/or prefer to jump right in the middle of the action, grab the example implementation and play around with it.<br />
+<span id="more-1494"></span></p>
+<h1>Key-Value Store? But, IDB is a full-blown database!</h1>
+<p>Yes, it is. But I still argue that in WebApp context a key-value store will cover about 90% of use cases. So I won‘t cover in this post how to create fancy key ranges or how to create multiple indices. But I will cover the five basic methods that you will need to work with any store: get, set, remove, getAll and clear – this will enable you to work with IDB and give you an understanding of how it works. You‘re then of course heartly encouraged to explore it and it‘s features further!</p>
+<h1>A word on requests, transactions and events</h1>
+<p>As long as the sync API is not there, all operations are async. That means that you will make requests. All the time. These requests will have an onerror and an onsuccess property, where you can put your callbacks/handlers in. If your request was successful, you will get an event in your callback. That event contains a lot of useful and useless information, but what you will want to look at in most cases is event.target.result – this is where your result lives in. In most cases, you will have to start a transaction before; inside of the transaction, you can access the objectStore and make your request. However, there are different types of transactions, but you will get the details below.</p>
+<h1>Getting the Object Store ready to use</h1>
+<p>Yep, it‘s not that you can just start away and store your data, there‘s some work to do ahead…</p>
+<h2>Open the Database</h2>
+<p>Easy one:</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #003366; font-weight: bold;">var</span> openRequest <span style="color: #339933;">=</span> mozIndexedDB.<span style="color: #000066;">open</span><span style="color: #009900;">&#40;</span>dbName<span style="color: #339933;">,</span> dbDescription<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+openRequest.<span style="color: #660066;">onsuccess</span> <span style="color: #339933;">=</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span>event<span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; <span style="color: #006600; font-style: italic;">//event.target.result contains a reference to the db</span><br />
+<span style="color: #009900;">&#125;</span></div></div>
+<p><code class="codecolorer text default"><span class="text">event.target.result</span></code> then contains a reference to the database. Store it, you will need it.</p>
+<h2>Creating/Opening the ObjectStore</h2>
+<p>That‘s a little tougher. Some operations, such as creating and deleting object stores, require the database to be in a „mutation transaction state“. Wow. Well, there‘s only one way to put the db into this state, and that‘s via a <code class="codecolorer text default"><span class="text">setVersion</span></code> request. If you are opening the db for the first time ever, you will need to do this anyway. You can, of course, change the version of the database anytime, which might be a useful thing if you, e.g., change the structure of how your objectStore saves the data. To check what version the database in the user‘s browser has, you can check the <code class="codecolorer text default"><span class="text">version</span></code> property in the reference to the database anytime.</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #003366; font-weight: bold;">var</span> versionRequest <span style="color: #339933;">=</span> db.<span style="color: #660066;">setVersion</span><span style="color: #009900;">&#40;</span>dbVersion<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+versionRequest.<span style="color: #660066;">onsuccess</span> <span style="color: #339933;">=</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; <span style="color: #006600; font-style: italic;">// Woohoo, the database is in a mutation transaction!!</span><br />
+<span style="color: #009900;">&#125;</span><span style="color: #339933;">;</span></div></div>
+<p>Inside of the callback function, you can now check if your store already exists, or if you need to create it. The reference to your db contains an object called <code class="codecolorer text default"><span class="text">objectStoreNames</span></code>, which is a list of existing objectStores. As this is a DOMStringList, it features the handy <code class="codecolorer text default"><span class="text">contains()</span></code> method:</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #003366; font-weight: bold;">var</span> hasMyStore <span style="color: #339933;">=</span> db.<span style="color: #660066;">objectStoreNames</span>.<span style="color: #660066;">contains</span><span style="color: #009900;">&#40;</span>storeName<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></div>
+<p>If the store is not there, you need to create it via the <code class="codecolorer text default"><span class="text">createObjectStore()</span></code> method. It takes two arguments: the name of the store, and an object with two properties: <code class="codecolorer text default"><span class="text">keyPath</span></code> and <code class="codecolorer text default"><span class="text">autoIncrement</span></code>. keyPath is… well… the path to the key. Think of it as the one column that is the primary key in your data table (you all did some MySQL at some time, I bet). You can do really fancy things with the keyPath in objectStores, but it‘s perfectly fine to just use something like „id“ as the keyPath. If you want to store an object and want to provide the keyPath, all you need to do is let the object you want to store have a property with the name of the keyPath, and a unique value. Uh, it‘s not that complicated, examples will follow. AutoIncrement is, well, autoIncrement. You have the option to let the objectStore take care for the uniqueness of it‘s data‘s keyPath properties, or do it yourself.</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #003366; font-weight: bold;">var</span> store <span style="color: #339933;">=</span> db.<span style="color: #660066;">createObjectStore</span><span style="color: #009900;">&#40;</span>storeName<span style="color: #339933;">,</span> <span style="color: #009900;">&#123;</span>keyPath<span style="color: #339933;">:</span> <span style="color: #3366CC;">'id'</span><span style="color: #339933;">,</span> autoIncrement<span style="color: #339933;">:</span> <span style="color: #003366; font-weight: bold;">false</span><span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></div>
+<p>You immediately get a reference to the newly created objectStore, so save it.</p>
+<p>If the store is already there, you need to open it. Um, well, you don‘t really have to open it, but you might want to obtain a reference to it, just to make sure that it really exists. To do this, you need to start a transaction via the <code class="codecolorer text default"><span class="text">transaction()</span></code> method. It accepts three arguments: an array of store names (the ones which you want to work with), an integer denoting whether you want to read and/or write during that transaction, and a timeout. There are constants for read/write you can use for better readability in your code, you can find them at <code class="codecolorer text default"><span class="text">IDBTransaction.READ_ONLY</span></code> and <code class="codecolorer text default"><span class="text">IDBTransaction.READ_WRITE</span></code>. The timeout parameter is optional. That method returns a transaction object that contains a method called <code class="codecolorer text default"><span class="text">objectStore</span></code>, which you can use to access your store. This is the „default“ way transactions work; the mutation transaction above is an eception to this, where you need to be in the callback of the transaction to modify the database.</p>
+<p>In our case, we can start an „empty“ transaction:</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #003366; font-weight: bold;">var</span> emptyTransaction <span style="color: #339933;">=</span> db.<span style="color: #660066;">transaction</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#91;</span><span style="color: #009900;">&#93;</span><span style="color: #339933;">,</span> IDBTransaction.<span style="color: #660066;">READ_ONLY</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<span style="color: #003366; font-weight: bold;">var</span> store <span style="color: #339933;">=</span> emptyTransaction.<span style="color: #660066;">objectStore</span><span style="color: #009900;">&#40;</span>storeName<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></div>
+<p>There you have your reference to the store.</p>
+<h1>Data Manipulation</h1>
+<p>Now that the store is ready to use, it‘s time to store some data in it. To do so, you need to start a transaction, access the object store, and call the store‘s <code class="codecolorer text default"><span class="text">put</span></code> method:</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #003366; font-weight: bold;">var</span> putTransaction <span style="color: #339933;">=</span> db.<span style="color: #660066;">transaction</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#91;</span>storeName<span style="color: #009900;">&#93;</span><span style="color: #339933;">,</span> IDBTransaction.<span style="color: #660066;">READ_WRITE</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<span style="color: #003366; font-weight: bold;">var</span> putRequest <span style="color: #339933;">=</span> putTransaction.<span style="color: #660066;">objectStore</span><span style="color: #009900;">&#40;</span>storeName<span style="color: #009900;">&#41;</span>.<span style="color: #660066;">put</span><span style="color: #009900;">&#40;</span>dataObj<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+putRequest.<span style="color: #660066;">onsuccess</span> <span style="color: #339933;">=</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span>event<span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; <span style="color: #006600; font-style: italic;">//event.target.result contains the value of the keyPath of the data written (the „key“)</span><br />
+<span style="color: #009900;">&#125;</span><span style="color: #339933;">;</span></div></div>
+<p>That‘s all. This type of transaction is what you also use for other data manipulation tasks, for example to retrieve data:</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #003366; font-weight: bold;">var</span> getTransaction <span style="color: #339933;">=</span> db.<span style="color: #660066;">transaction</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#91;</span>storeName<span style="color: #009900;">&#93;</span><span style="color: #339933;">,</span> IDBTransaction.<span style="color: #660066;">READ_ONLY</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<span style="color: #003366; font-weight: bold;">var</span> getRequest <span style="color: #339933;">=</span> getTransaction.<span style="color: #660066;">objectStore</span><span style="color: #009900;">&#40;</span>storeName<span style="color: #009900;">&#41;</span>.<span style="color: #660066;">get</span><span style="color: #009900;">&#40;</span>key<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+getRequest.<span style="color: #660066;">onsuccess</span> <span style="color: #339933;">=</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span>event<span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; <span style="color: #006600; font-style: italic;">//event.target.result contains the data object</span><br />
+<span style="color: #009900;">&#125;</span><span style="color: #339933;">;</span></div></div>
+<p>You will need to provide the key of the stored entry to get it; as you need to do when you want to remove it:</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #003366; font-weight: bold;">var</span> removeTransaction <span style="color: #339933;">=</span> db.<span style="color: #660066;">transaction</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#91;</span>storeName<span style="color: #009900;">&#93;</span><span style="color: #339933;">,</span> IDBTransaction.<span style="color: #660066;">READ_WRITE</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<span style="color: #003366; font-weight: bold;">var</span> deleteRequest <span style="color: #339933;">=</span> removeTransaction.<span style="color: #660066;">objectStore</span><span style="color: #009900;">&#40;</span>storeName<span style="color: #009900;">&#41;</span>.<span style="color: #000066; font-weight: bold;">delete</span><span style="color: #009900;">&#40;</span>key<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+deleteRequest.<span style="color: #660066;">onsuccess</span> <span style="color: #339933;">=</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span>event<span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; <span style="color: #006600; font-style: italic;">//event.target.result contains the key of the deleted data object</span><br />
+<span style="color: #009900;">&#125;</span><span style="color: #339933;">;</span></div></div>
+<p>If you want to get all data objects from the store:</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #003366; font-weight: bold;">var</span> getAllTransaction <span style="color: #339933;">=</span> db.<span style="color: #660066;">transaction</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#91;</span>storeName<span style="color: #009900;">&#93;</span><span style="color: #339933;">,</span> IDBTransaction.<span style="color: #660066;">READ_ONLY</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<span style="color: #003366; font-weight: bold;">var</span> getAllRequest <span style="color: #339933;">=</span> getAllTransaction.<span style="color: #660066;">objectStore</span><span style="color: #009900;">&#40;</span>storeName<span style="color: #009900;">&#41;</span>.<span style="color: #660066;">getAll</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+getAllRequest.<span style="color: #660066;">onsuccess</span> <span style="color: #339933;">=</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span>event<span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; <span style="color: #006600; font-style: italic;">//event.target.result contains an array of all data objects</span><br />
+<span style="color: #009900;">&#125;</span><span style="color: #339933;">;</span></div></div>
+<p>And, finally, if you want to clear (i.e., delete all data objects) the store:</p>
+<div class="codecolorer-container javascript default" style="overflow:auto;white-space:nowrap;border:1px solid #9F9F9F;width:435px;"><div class="javascript codecolorer" style="padding:5px;font:normal 12px/1.4em Monaco, Lucida Console, monospace;white-space:nowrap"><span style="color: #003366; font-weight: bold;">var</span> clearTransaction <span style="color: #339933;">=</span> db.<span style="color: #660066;">transaction</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#91;</span>storeName<span style="color: #009900;">&#93;</span><span style="color: #339933;">,</span> IDBTransaction.<span style="color: #660066;">READ_WRITE</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+<span style="color: #003366; font-weight: bold;">var</span> clearRequest <span style="color: #339933;">=</span> clearTransaction.<span style="color: #660066;">objectStore</span><span style="color: #009900;">&#40;</span>storeName<span style="color: #009900;">&#41;</span>.<span style="color: #660066;">clear</span><span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span><br />
+clearRequest.<span style="color: #660066;">onsuccess</span> <span style="color: #339933;">=</span> <span style="color: #003366; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span>event<span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span><br />
+&nbsp; &nbsp; <span style="color: #006600; font-style: italic;">//event.target.result contains undefined</span><br />
+<span style="color: #009900;">&#125;</span><span style="color: #339933;">;</span></div></div>
+<h1>But how‘s this better than localStorage?</h1>
+<p>It isn‘t. Yeah, well, it is, as you can store objects and don‘t have to stringify them before. But basically, to get the real advantages of IDB, you will need to dive deeper into it. Features like keyRanges remove the need to do map/reduce action when you search for items in your store. But now you have an idea of how the whole thing works. If you want to go further, browse in the spec or the MDC docs and try things out!</p>
+<p><strong>Example Code</strong></p>
+<p>There is an example page over here: <a href="http://static.uxebu.com/~jens/indexeddb/ff-idb.html" target="_blank">http://static.uxebu.com/~jens/indexeddb/ff-idb.html</a>.</p>
+<p>It uses an ObjectStore wrapper I created using dojo that covers the basic methods mentioned above, the JavaScript is here: <a href="http://static.uxebu.com/~jens/indexeddb/idb-ff.js" target="_blank">http://static.uxebu.com/~jens/indexeddb/idb-ff.js</a>.</p>
+<p>When you open the page, open the console and you will see some messages there. Check out the source to see what‘s going on; it‘s basically a round trip through all the basic methods.</p>
+<p><strong>Further Reading</strong></p>
+<ul>
+<li>The spec: <a href="http://www.w3.org/TR/IndexedDB/" target="_blank">http://www.w3.org/TR/IndexedDB/</a></li>
+<li>The MDC article: <a href="https://developer.mozilla.org/en/IndexedDB" target="_blank">https://developer.mozilla.org/en/IndexedDB</a></li>
+</ul>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2011/03/using-indexeddb-on-firefox/">Using IndexedDB on Firefox</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2011/03/using-indexeddb-on-firefox/feed/</wfw:commentRss>
+		<slash:comments>1</slash:comments>
+		</item>
+		<item>
+		<title>What is WAC and how it could help us</title>
+		<link>http://www.uxebu.com/blog/2011/02/what-is-wac-and-how-it-could-help-us/</link>
+		<comments>http://www.uxebu.com/blog/2011/02/what-is-wac-and-how-it-could-help-us/#comments</comments>
+		<pubDate>Thu, 24 Feb 2011 16:53:08 +0000</pubDate>
+		<dc:creator><![CDATA[Stephan]]></dc:creator>
+				<category><![CDATA[business]]></category>
+		<category><![CDATA[development tools]]></category>
+		<category><![CDATA[Events]]></category>
+		<category><![CDATA[frontend engineering]]></category>
+		<category><![CDATA[html5apps]]></category>
+		<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[mobile]]></category>
+		<category><![CDATA[w3c widgets]]></category>
+		<category><![CDATA[HTML5]]></category>
+		<category><![CDATA[w3c]]></category>
+		<category><![CDATA[wac]]></category>
+
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=1402</guid>
+		<description><![CDATA[<p>At Mobile World Congress 2011 in Barcelona, @uxebu attended the WAC event to catch up with the future of WAC. WAC, short for Wholesale Applications Community, is a group of global mobile operators. They provide, among other things, a spec for their correspondent web application runtime &#8220;WAC&#8221;. Recently the new WAC 2.0 Spec got out [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2011/02/what-is-wac-and-how-it-could-help-us/">What is WAC and how it could help us</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>
+At Mobile World Congress 2011 in Barcelona, @uxebu attended the WAC event to catch up with the future of WAC.<br />
+WAC, short for Wholesale Applications Community, is a group of global mobile operators.<br />
+They provide, among other things, a spec for their correspondent web application runtime &#8220;WAC&#8221;.
+</p>
+<p>
+Recently the new WAC 2.0 Spec got out and it&#8217;s looking good.<br />
+Compared to WAC 1.0, the WAC 2.0 Spec is a shift into the right direction:<br />
+Instead of inventing new APIs, WAC 2.0 adheres to web standards like HTML5 and W3C Widget Packaging.
+</p>
+<p><span id="more-1402"></span></p>
+<p>
+Let&#8217;s compare the two major spec revisions in that repsect:
+</p>
+<p>
+As said before, the WAC 1.0 Spec described distinct APIs, e.g., for audio, messaging (SMS &#038; email), camera and geo-location.
+</p>
+<p>
+Taking photos, for example, involved assigning a callback to a global value inside the Camera object and invoking Camera&#8217;s captureImage method.
+</p>
+<p>
+There&#8217;s a problem with that: What if two pieces of code both assign their own callback to that shared value?<br />
+The one which assigned its callback last will be executed. The first callback is &#8220;dead code&#8221;.<br />
+Of course this can be remedied by the app developer, but I believe it&#8217;s the library&#8217;s job to get something as essential as deferred execution right.<br />
+All WAC 1.0 APIs use this global callback model and inherit the problem.<br />
+There are better, more elegant ways to defer execution (e.g. dojo&#8217;s Deferred or node&#8217;s callback passing &#038; EventEmitter).<br />
+And fortunately, WAC 2.0 replaced the old model with a callback passing approach.
+</p>
+<p>
+If everything goes well, what could WAC provide developers with?
+</p>
+<ol>
+<li>An easy way to package web apps &#8220;for home screens &#038; app stores&#8221; by wrapping web apps in native container apps.</li>
+<li>An extension of browsers&#8217; capabilities to enable richer web apps. This includes APIs for camera and file access.</li>
+<li>In contrast to alternatives WAC has a strong focus on carrier network APIs. This could enable purchase through carrier billing.</li>
+<li>A security model to effectively protect user&#8217;s privacy and security.</li>
+</ol>
+<p>
+So go ahead and look at what the new WAC 2.0 has to offer.<br />
+I&#8217;m excited to build apps with it once it&#8217;s running on some major platforms!
+</p>
+<p>
+To conclude I&#8217;d like to end this post with my personal opinion on what I believe WAC needs to focus on to succeed:
+</p>
+<ol>
+<li>WAC runtimes have to run at least on iOS, Android and a few other major-marketshare platforms. There&#8217;s no point in developing cross-platform web apps if you ignore major platforms.</li>
+<li>WAC&#8217;s marketing &#038; identity need to be more developer-centric. Different top-notch WAC runtimes need to be advertised by WAC. Ideally there would be an official runtime for each platform.</li>
+<li>Apps built on top of WAC runtimes have to be compatible to major app stores. For example, imagine a developer is targeting Android and iOS. What if Apple rejected WAC-based apps because of, e.g., a bundled custom WebKit build? I&#8217;m pretty sure no sane developer would consider WAC if that effectively banned their app from ever going into the most profitable app store. And while there will be carrier-operated stores I am not overly confident in that. Human beings simply prefer one familiar store/market on their phone.</li>
+<li>Web app developers want their code base functioning consistently across multiple platforms with little or no effort. This implies that different WAC runtimes should strictly respect the specification. If there are implementation differences it&#8217;ll result in multiple code branches in the app code to repair broken implementations. Well, if WAC wants to succeed this must not become an issue for the app developer! Most apps are going to need custom code to support physical device differences. So hey, it will be incredibly helpful if the basic APIs were consistently implemented! Please don&#8217;t screw this up, because I somehow doubt someone would develop a cross-WAC-platform JavaScript framework.</li>
+<li>WAC 2.0 runtimes with the above properties should appear very soon. They also need to be advertised in an easy to understand manner.</li>
+<li>WAC should stick to W3C specs &#038; drafts for APIs. If an API becomes part of a given platform it should be removed from that platform&#8217;s WAC runtime. Think back to when Google removed Gears support from their own browser to make way for standardized APIs.</li>
+</ol>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2011/02/what-is-wac-and-how-it-could-help-us/">What is WAC and how it could help us</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2011/02/what-is-wac-and-how-it-could-help-us/feed/</wfw:commentRss>
+		<slash:comments>1</slash:comments>
+		</item>
+		<item>
+		<title>Travel with uxebu &#8211; We are hiring!</title>
+		<link>http://www.uxebu.com/blog/2011/02/travel-with-uxebu-we-are-hiring/</link>
+		<comments>http://www.uxebu.com/blog/2011/02/travel-with-uxebu-we-are-hiring/#comments</comments>
+		<pubDate>Thu, 10 Feb 2011 16:56:04 +0000</pubDate>
+		<dc:creator><![CDATA[Wolfram Kriesing]]></dc:creator>
+				<category><![CDATA[business]]></category>
+		<category><![CDATA[frontend engineering]]></category>
+		<category><![CDATA[html5apps]]></category>
+		<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[mobile]]></category>
+		<category><![CDATA[uxebu]]></category>
+
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=1377</guid>
+		<description><![CDATA[<p>Yesterday HP announced the new WebOS devices in San Francisco. Nikolai and Stephan had been there (and they are still there). MWC starts on Monday. Six out of seven of the uxebus will be there in Barcelona, all week, one apartment, sea view and fun. After JSConf in Portland (at least) three of us are [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2011/02/travel-with-uxebu-we-are-hiring/">Travel with uxebu &#8211; We are hiring!</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>Yesterday HP announced the new WebOS devices in <strong>San Francisco</strong>. Nikolai and Stephan had been there (and they are still there). MWC starts on Monday. Six out of seven of the uxebus will be there in <strong>Barcelona</strong>, all week, one apartment, sea view and fun. After JSConf in <strong>Portland</strong> (at least) three of us are going to <a href="http://nodeconf.com/">NodeConf</a> and <a href="http://www.google.com/events/io/2011/">Google IO</a> again in <strong>San Francisco</strong>. Right after it all of uxebu will be in <strong>Amsterdam</strong> for <a href="http://mobilism.nl/2011">mobilism</a>. We have also been in <strong><a href="http://skillsmatter.com/podcast/ajax-ria/the-mobile-web-the-future-today">London</a></strong>, <strong><a href="http://swdc-central.com/">Malmö</a></strong>, <strong><a href="http://www.developermarch.com/mods/2010/report/index.html">Bangalore</a></strong> and more &#8230; Yeah we are a travel company!<br />
+<span id="more-1377"></span></p>
+<p>You do not only get to travel in uxebu. First and foremost we want to give you the opportunity and platform to accelerate the things you can do, show it to the community and enable you to reach more than you could on your own.<br />
+It doesn&#8217;t matter where you live! We are currently flirting with San Francisco too :).</p>
+<p>But we are also a family company! We encourage you to have fun and put the priorities right. And family and health are top priorities at uxebu. As you can also see, as long as you like traveling and hanging out with the top geeks in our community you get to do that at uxebu, a lot. Because this is the bread and butter of high quality that we offer to our customers. And in order to become a top geek (which is one goal that we have for you at uxebu, if you aren&#8217;t one yet :)) you should be around those where you can suck know how and hopefully also give back and share yours as well.<br />
+You get the hardware that you need to work as efficient as possible. You prefer working at home or in a co-working space? No problem, feel free! Once in a time we meet some place and hack together for a couple of days, talk about our roadmap, find out where each of us wants to head and we figure out the way how to achieve reaching the goal we determine together. We normally meet some nice place, like at a lake or in the mountains. The last times we had both :). And we take the families with us.</p>
+<p><a href="http://twitter.com/jensarps">Jens Arps</a> joined uxebu in May 2010, he is the guy behind <a href="https://github.com/jensarps/StorageJS">StorageJS</a>, he is project lead for the just new dojo foundation member <a href="http://embedjs.org">embedJS</a> and is working on a really exciting HTML5 customer project that I can not link here :(. <a href="http://twitter.com/evilhackerdude">Stephan Seidt</a> has hacked the newest (still unreleased) <a href="http://apparat.io">apparatio</a> API, he is the one who does the <a href="http://nodejs.org/">node.js</a> stuff in our team and WebGL is what <a href="http://2011.jsconf.us/#/proposal/6f23fd600302403a9f53e11390179c4e">he is passionate</a> about, really passionate! I don&#8217;t have to say much about <a href="http://twitter.com/tobeytailor">Tobias Schneider</a> the guy behind <a href="https://github.com/tobeytailor/gordon">Gordon</a>, he has become famous over night, spoke at the last two JSConf&#8217;s and is our hard-core optimizer.  <a href="http://twitter.com/davidaurelio">David Aurelio</a> has created <a href="https://github.com/davidaurelio/TouchScroll">TouchScroll</a> and if you team him up with Tobias Schneider we have ALL JavaScript knowhow in da house, and they are currently hacking together on a really awesome project. <a href="http://twitter.com/nonken">Nikolai Onken</a> a co-founder of uxebu is our social community front man and the party goer number one and besides that he has created HumanAPI and knows all the JavaScript guys around! <a href="http://twitter.com/tklipstein">Tobias von Klipstein</a> is also guilty of founding uxebu and he is our Jack of all trades, he had created the first version of apparatio almost all alone.<br />
+<a href="http://twitter.com/wolframkriesing">Me</a>, I write blog articles, sometimes. But I get to go to all parties anyway :).</p>
+<p>If you are a JavaScript geek, love to walk along the edge of what is possible with web technologies and think that <a href="http://techcrunch.com/2011/02/09/html5-versus-native-apps/">HTML5 is the rocket ship</a> you should send us an <a href="mailto:job@uxebu.com?subject=Let%20me%20in!">email</a> with some links to some of your projects and a short, convincing reasoning why you would like to work with us. And if you think that you can&#8217;t work with us because you are not ready yet, shoot us an email anyways and let us talk first and decide later. We are made of talented individuals each. But working together as a team is what makes us really strong. Be ready for it!</p>
+<p>And btw get ready to learn something new every day. And do also pass on your know how!</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2011/02/travel-with-uxebu-we-are-hiring/">Travel with uxebu &#8211; We are hiring!</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2011/02/travel-with-uxebu-we-are-hiring/feed/</wfw:commentRss>
+		<slash:comments>3</slash:comments>
+		</item>
+		<item>
+		<title>Explaining EmbedJS</title>
+		<link>http://www.uxebu.com/blog/2011/01/explaining-embedjs/</link>
+		<comments>http://www.uxebu.com/blog/2011/01/explaining-embedjs/#comments</comments>
+		<pubDate>Mon, 31 Jan 2011 14:02:28 +0000</pubDate>
+		<dc:creator><![CDATA[Jens Arps]]></dc:creator>
+				<category><![CDATA[development tools]]></category>
+		<category><![CDATA[dojo]]></category>
+		<category><![CDATA[frontend engineering]]></category>
+		<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[mobile]]></category>
+		<category><![CDATA[Uncategorized]]></category>
+		<category><![CDATA[uxebu]]></category>
+		<category><![CDATA[development]]></category>
+		<category><![CDATA[embedjs]]></category>
+		<category><![CDATA[memory usage]]></category>
+		<category><![CDATA[optimize]]></category>
+		<category><![CDATA[performance]]></category>
+
+		<guid isPermaLink="false">http://uxebu.com/blog/?p=1366</guid>
+		<description><![CDATA[<p>Last week, we tagged the current state of EmbedJS 0.1. This is a large step for us, and something we have been waiting for and wanting to do for a long time. And with doing so, the need arises to answer a lot of questions – and we better start sooner than later. So, here [&#8230;]</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2011/01/explaining-embedjs/">Explaining EmbedJS</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>Last week, we tagged the current state of EmbedJS 0.1. This is a large step for us, and something we have been waiting for and wanting to do for a long time. And with doing so, the need arises to answer a lot of questions – and we better start sooner than later. So, here it is, the first part of „Explaining EmbedJS“.</p>
+<h2>What is it?</h2>
+<p>It‘s a JavaScript Toolkit, especially aimed at embedded devices. Embedded devices, that is phones, tablet devices, TVs, car dashboards and the like. Devices that are capable of running JavaScript. We are sure that this list is going to grow over time – and will hopefully one day also include devices like your fridge. EmbedJS is based on the Dojo Toolkit.<br />
+<span id="more-1366"></span></p>
+<h2>Why?</h2>
+<p>Because the toolkits and frameworks that exist focus on desktop browsers and therefore have a different approach – an approach we didn‘t find that suitable for embedded/mobile development. And the JS frameworks that target mobile devices are flawed, too: either they target only a specific device or platform, or they provide far more than we do need and want.</p>
+<p>What we wanted was a toolkit that offered a unified API across different platforms, but with the best implementation that was available for each platform. And we didn‘t want to ship code that implemented a certain feature for, say, an old Blackberry device to an iPhone. Plus, we wanted that API to be small – enough to assist us in our daily work, but not that bloated that we would ship code to a phone that we wouldn‘t need in most of our projects.</p>
+<h2>The Dojo Toolkit</h2>
+<p>We at uxebu have a strong affinity to the <a href="http://dojotoolkit.org/" target="_blank">Dojo Toolkit</a> – most of us are committers – for a good reason: we believe that it has done many things right, and that it has an excellent code quality. Thus, finding a starting point for our venture to what was later to be EmbedJS was pretty easy: It was the very core of the Dojo Toolkit, dojo._base.</p>
+<p>We examined the code and split it into its smallest parts (features, how we call them in EmbedJS). After having the features all nicely separated, we could look for the best implementation for each of the platforms we wanted to support, and put it into a separate file. Then we optimized our code, tweaking here and there, but also using the code from dojo._base as it was, because it already was the best implementation.</p>
+<p>And we needed to find means to put all these tiny parts together again, respecting any given dependecies, to create a file that then contained all the feature‘s implementations for a given platform – so the EmbedJS Tools were born, including our highly flexible build system.</p>
+<h2>API</h2>
+<p>EmbedJS‘ API is a small subset on Dojo‘s API. It provides around 70 methods, from the fields language enhancement (like Array manipulation or JSON), OO (like classes and inheritance), transport (like JSONP or XHR), event system (like connecting to DOM events or methods), DOM manipulation (like style or node creation) and misc things like Promises or pub/sub.</p>
+<p>We kept the method signatures intact so that you can import your existing knowledge from working with the Dojo Toolkit to EmbedJS. There are only a few minor changes where we<br />
+a) found a new name highly useful, e.g <code class="codecolorer text default"><span class="text">dojo.io.script.get()</span></code> is <code class="codecolorer text default"><span class="text">embed.jsonp()</span></code><br />
+b) we needed to strip given functionality for the sake of code size.</p>
+<p>All methods in EmbedJS are available under the embed namespace as well as under the dojo namespace. I.e. to call the connect method you can use <code class="codecolorer text default"><span class="text">dojo.connect()</span></code> and <code class="codecolorer text default"><span class="text">embed.connect()</span></code>.</p>
+<p>The full API documentations is <a href="http://embedjs.org/apidocs/dools/app/apidoc/embedjs/" target="_blank">here</a>, though it‘s undergoing some updates right now.</p>
+<h2>Summary</h2>
+<p>I didn‘t want to dig too deep in the first article on EmbedJS, but I guess you got the point: EmbedJS is a highly optimized Dojo core, and offers you a specialized, optimal build for a given platform. To explain how the build system works, how we manage dependencies, how we separate our features and our implementations and how one can create a project-oriented custom build will need another blog post – but if you are too curious, you are invited to take a look at <a href="https://github.com/uxebu/embedjs" target="_blank">the source code at github</a>; a lot is self-explenatory there. A further source of information is the <a href="http://uxebu.github.com/embedjs/" target="_blank">EmbedJS project page</a>, as well as the <a href="https://github.com/uxebu/embedjs-tools" target="_blank">EmbedJS Tools source</a>.</p>
+<p>The post <a rel="nofollow" href="http://www.uxebu.com/blog/2011/01/explaining-embedjs/">Explaining EmbedJS</a> appeared first on <a rel="nofollow" href="http://www.uxebu.com">uxebu</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.uxebu.com/blog/2011/01/explaining-embedjs/feed/</wfw:commentRss>
+		<slash:comments>6</slash:comments>
+		</item>
+	</channel>
+</rss>
